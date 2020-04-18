@@ -1,3 +1,5 @@
+///<reference path="../../render-areas/RenderArea.ts"/>
+
 class CandiesThrownSmiley{
     // Constructor
     constructor(){

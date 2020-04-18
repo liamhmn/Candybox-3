@@ -1,4 +1,8 @@
 ///<reference path="CandiesThrownSmiley.ts"/>
+///<reference path="CandiesThrownSmileyCaveObject.ts"/>
+///<reference path="./../Pos.ts"/>
+///<reference path="./../../enums/CandiesThrownSmileyCaveStep.ts"/>
+///<reference path="./../../modules/Database.ts"/>
 
 class CandiesThrownSmileyCave extends CandiesThrownSmiley{
     // The line

@@ -1,7 +1,8 @@
 ///<reference path="./Place.ts"/>
 ///<reference path="./RenderLocation.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
-///<reference path="../resources/Resource.ts"/>
+///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../modules/Saving.ts"/>
 
 // Config
 Saving.registerBool("gameDebug", false);
@@ -71,13 +72,13 @@ class Game{
     // Status bar
     private statusBar: StatusBar;
     
-    // Base resources
+    // Base game_resources
     private candies: Candies;
     private lollipops: Lollipops;
     private chocolateBars: ChocolateBars;
     private painsAuChocolat: PainsAuChocolat;
     
-    // Special resources
+    // Special game_resources
     private candiesEaten: CandiesEaten;
     private candiesThrown: CandiesThrown;
     private candiesUsedToRequestFeatures: Resource = new Resource("gameCandiesUsedToRequestFeatures");
@@ -152,7 +153,7 @@ class Game{
         // We create the player
         this.player = new Player(this);
         
-        // We create the resources
+        // We create the game_resources
         this.candies = new Candies(this, "gameCandies");
         this.lollipops = new Lollipops(this, "gameLollipops");
         this.chocolateBars = new ChocolateBars(this, "gameChocolateBars");
@@ -809,11 +810,11 @@ class Game{
     }
     
     private resetResourcesCallbacks(): void{
-        // Reset status bar resources callbacks
+        // Reset status bar game_resources callbacks
         this.candies.getCallbackCollection().reset();
         this.lollipops.getCallbackCollection().reset();
         
-        // Reset other resources callbacks
+        // Reset other game_resources callbacks
         this.candiesEaten.getCallbackCollection().reset();
         this.candiesThrown.getCallbackCollection().reset();
         

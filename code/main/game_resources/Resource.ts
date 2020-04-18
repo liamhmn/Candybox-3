@@ -58,7 +58,7 @@ class Resource{
         // We lower our current quantity
         this.add(-howMany);
         
-        // We add to the other resources
+        // We add to the other game_resources
         resource.add(howMany * ratio);
         
         // We return true
