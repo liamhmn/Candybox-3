@@ -1,3 +1,5 @@
+///<reference path="../../enums/SuperRPGFloorStep.ts"/>
+
 class SuperRPGMenu{
     // The SuperRPG
     private superRPG: SuperRPG;

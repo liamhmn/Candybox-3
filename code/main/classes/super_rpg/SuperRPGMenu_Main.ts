@@ -1,4 +1,8 @@
 ///<reference path="SuperRPGMenu.ts"/>
+///<reference path="SuperRPG.ts"/>
+///<reference path="SuperRPGMenuEntry.ts"/>
+///<reference path="./../CallbackCollection.ts"/>
+///<reference path="./../../render-areas/RenderArea.ts"/>
 
 class SuperRPGMenu_Main extends SuperRPGMenu{
     // Constructor

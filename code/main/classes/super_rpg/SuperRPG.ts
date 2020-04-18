@@ -1,4 +1,13 @@
 ///<reference path="../ThirdHouseGame.ts"/>
+///<reference path="../../modules/Saving.ts"/>
+///<reference path="../../enums/SuperRPGStep.ts"/>
+///<reference path="SuperRPGMenu.ts"/>
+///<reference path="SuperRPGMenu_Shop.ts"/>
+///<reference path="SuperRPGMenu_Monster.ts"/>
+///<reference path="SuperRPGMenu.ts"/>
+///<reference path="../../enums/SuperRPGFloorStep.ts"/>
+///<reference path="../../modules/Database.ts"/>
+///<reference path="../../modules/Random.ts"/>
 
 Saving.registerBool("SuperRPGReward1", false);
 Saving.registerBool("SuperRPGReward2", false);
