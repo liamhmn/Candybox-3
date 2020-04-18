@@ -1,3 +1,5 @@
+///<reference path="RenderLink.ts"/>
+///<reference path="../classes/Game.ts"/>
 class RenderLinkOnHoverShowTooltip extends RenderLink{
     // Classes
     private classHover: string;

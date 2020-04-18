@@ -1,3 +1,6 @@
+///<reference path="RenderLink.ts"/>
+///<reference path="../classes/EnigmaAnswer.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 class RenderLinkInput extends RenderLink{
     private element: string;
     private enigmaAnswer: EnigmaAnswer;

@@ -1,3 +1,5 @@
+///<reference path="RenderLink.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 class RenderLinkCallbackCollection extends RenderLink{
     private callbackCollection: CallbackCollection;
     

@@ -1,3 +1,5 @@
+///<reference path="RenderLink.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 class RenderLinkCheckbox extends RenderLink{
     private element: string;
     private callbackCollectionWhenChecked: CallbackCollection;
