@@ -1,3 +1,6 @@
+///<reference path="../Game.ts"/>
+///<reference path="../Pos.ts"/>
+
 class CandyMerchantItem{
     // The game
     private game: Game;
