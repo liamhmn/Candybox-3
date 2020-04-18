@@ -1,4 +1,7 @@
 ///<reference path="TheCavePattern.ts"/>
+///<reference path="../../modules/Saving.ts"/>
+///<reference path="../../modules/Database.ts"/>
+///<reference path="../CallbackCollection.ts"/>
 
 Saving.registerBool("TheCavePattern_ChocolateBarNowGotTheBar", false);
 
