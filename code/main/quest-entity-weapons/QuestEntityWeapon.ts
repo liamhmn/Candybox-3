@@ -1,3 +1,11 @@
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityWeaponDelay.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhoType.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhatType.ts"/>
 class QuestEntityWeapon{
     // The quests we are in
     private quest: Quest;

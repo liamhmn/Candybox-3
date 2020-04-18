@@ -1,4 +1,5 @@
 ///<reference path="./QuestEntityWeapon.ts"/>
+///<reference path="../modules/Random.ts"/>
 
 class PlayerBludgeon extends QuestEntityWeapon{
     // Public methods
