@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -12,7 +12,8 @@
 class DesertBird extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos, goingRight: boolean){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A desert bird", "a desert bird"),
               new RenderArea(9, 4),

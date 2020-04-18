@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../enums/GiantNougatMonsterStep.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -16,7 +16,8 @@ class GiantNougatMonster extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("The giant nougat monster", "the giant nougat monster"),
               new RenderArea(15, 4),

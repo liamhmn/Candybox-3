@@ -11,7 +11,7 @@
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../modules/Database.ts"/>
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 
 class BigShark extends QuestEntity {
     // Do we have a special fin?
@@ -19,7 +19,8 @@ class BigShark extends QuestEntity {
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A shark", "a shark"),
               new RenderArea(47, 10),

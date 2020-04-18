@@ -1,4 +1,4 @@
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -21,7 +21,8 @@ class Seahorse extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos, intendedXPosition: number){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A magical seahorse", "a magical seahorse"),
               new RenderArea(4, 4),

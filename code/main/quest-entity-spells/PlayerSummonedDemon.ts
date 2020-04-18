@@ -25,7 +25,8 @@ class PlayerSummonedDemon extends QuestEntitySpell{
     
     // Constructor
     constructor(quest: Quest, globalPosition: Pos, damage: number){
-        super(quest,
+        super();
+        super.constructQuestEntitySpell(quest,
               globalPosition,
               new Naming("A demon", "a demon")
         );

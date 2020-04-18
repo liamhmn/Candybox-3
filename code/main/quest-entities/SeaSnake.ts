@@ -1,4 +1,4 @@
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -14,7 +14,8 @@
 class SeaSnake extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A sea snake", "a sea snake"),
               new RenderArea(78, 11),

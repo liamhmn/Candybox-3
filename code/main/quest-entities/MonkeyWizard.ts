@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -8,7 +8,7 @@
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
-///<reference path="../quest-entity-spells/MonkeyWizardMagicalPurpleBall.ts"/>
+///<reference path="../quest-entity-spells/fireballs/MonkeyWizardMagicalPurpleBall.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../classes/Color.ts"/>
 
@@ -24,7 +24,8 @@ class MonkeyWizard extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A monkey wizard", "a monkey wizard"),
               new RenderArea(4, 4),

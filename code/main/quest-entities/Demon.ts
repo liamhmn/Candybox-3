@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../enums/DemonType.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -13,7 +13,8 @@ class Demon extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A demon", "a demon"),
               new RenderArea(0, 0),

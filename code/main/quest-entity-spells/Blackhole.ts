@@ -25,7 +25,8 @@ class Blackhole extends QuestEntitySpell{
     // Constructor
     constructor(quest: Quest, pos: Pos, damage: number, questEntityDamageReason: QuestEntityDamageReason){
         // Call the mother class constructor
-        super(quest, pos, new Naming("A blackhole", "a blackhole"));
+        super();
+        super.constructQuestEntitySpell(quest, pos, new Naming("A blackhole", "a blackhole"));
         
         // Set from parameters
         this.damage = damage;

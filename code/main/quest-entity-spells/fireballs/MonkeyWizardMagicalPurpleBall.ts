@@ -1,9 +1,9 @@
-///<reference path="Fireball.ts"/>
-///<reference path="../quests/Quest.ts"/>
-///<reference path="../classes/Pos.ts"/>
-///<reference path="../classes/Naming.ts"/>
-///<reference path="../classes/Color.ts"/>
-///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../Fireball.ts"/>
+///<reference path="../../quests/Quest.ts"/>
+///<reference path="../../classes/Pos.ts"/>
+///<reference path="../../classes/Naming.ts"/>
+///<reference path="../../classes/Color.ts"/>
+///<reference path="../../classes/QuestEntityDamageReason.ts"/>
 
 class MonkeyWizardMagicalPurpleBall extends Fireball{
     // Timer before going down (if null, we should not go down)

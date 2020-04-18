@@ -1,4 +1,4 @@
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -27,7 +27,8 @@ class TreeSpirit extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos, groundYPosition: number){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A tree spirit", "a tree spirit"),
               new RenderArea(5, 5),

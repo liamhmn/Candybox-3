@@ -1,4 +1,4 @@
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -12,7 +12,8 @@ class Spikes extends QuestEntity{
     // Constructor
     constructor(quest: Quest, globalPosition: Pos, width: number, damage: number = 200, inverted: boolean = false){
         // Call the mother constructor
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               globalPosition,
               new Naming("Some spikes", "some spikes"),
               new RenderArea(),

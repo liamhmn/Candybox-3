@@ -3,7 +3,7 @@
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../modules/Random.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../quest-entities/Mosquito.ts"/>

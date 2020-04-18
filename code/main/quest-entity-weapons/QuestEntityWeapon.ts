@@ -1,5 +1,5 @@
 ///<reference path="../quests/Quest.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/QuestEntityWeaponDelay.ts"/>
 ///<reference path="../classes/Naming.ts"/>

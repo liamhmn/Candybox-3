@@ -1,7 +1,7 @@
 ///<reference path="GridItem.ts"/>
 ///<reference path="../quest-entities/Player.ts"/>
 ///<reference path="../quests/Quest.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/QuestEntityDamageReason.ts"/>
 
 class XinopherydonClaw extends GridItem{

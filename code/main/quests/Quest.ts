@@ -1,5 +1,5 @@
 ///<reference path="../classes/Place.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../game_resources/Resource.ts"/>

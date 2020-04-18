@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../quests/Quest.ts"/>
@@ -23,7 +23,8 @@ class Chest extends QuestEntity{
     // Constructor
     constructor(quest: Quest, globalPosition: Pos, isFacingRight: boolean = true, callbackCollection: CallbackCollection = new CallbackCollection(), isOpened: boolean = false){
         // Call the mother constructor
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               globalPosition,
               new Naming("A chest", "a chest"),
               new RenderArea(),

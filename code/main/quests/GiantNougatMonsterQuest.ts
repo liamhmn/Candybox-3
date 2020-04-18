@@ -3,7 +3,7 @@
 ///<reference path="../classes/Game.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>

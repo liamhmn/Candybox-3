@@ -5,7 +5,7 @@
 ///<reference path="../quest-entities/Chest.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../quest-entities/Wall.ts"/>

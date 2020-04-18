@@ -9,7 +9,7 @@
 ///<reference path="../classes/QuestLogMessage.ts"/>
 ///<reference path="../classes/Hotkey.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../classes/QuestEntityHealthBar.ts"/>
 ///<reference path="../quest-entities/Wall.ts"/>

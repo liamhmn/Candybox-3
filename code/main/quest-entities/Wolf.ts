@@ -1,4 +1,4 @@
-///<reference path="QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -22,7 +22,8 @@ class Wolf extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A wolf", "a wolf"),
               new RenderArea(7, 3),

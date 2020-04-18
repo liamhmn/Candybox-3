@@ -11,7 +11,8 @@
 class ObsidianBrick extends QuestEntitySpell{
     // Constructor
     constructor(quest: Quest, pos: Pos, hp: number){
-        super(quest,
+        super();
+        super.constructQuestEntitySpell(quest,
               pos,
               new Naming("An obsidian brick", "an obsidian brick"),
               null,

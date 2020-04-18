@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -17,7 +17,8 @@ class Mosquito extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos, groundYPosition: number){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A forest mosquito", "a forest mosquito"),
               new RenderArea(1, 1),

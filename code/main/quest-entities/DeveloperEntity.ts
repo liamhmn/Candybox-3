@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/DeveloperEntityText.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
@@ -12,7 +12,7 @@
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
-///<reference path="../quest-entity-spells/DeveloperMagicBall.ts"/>
+///<reference path="../quest-entity-spells/fireballs/DeveloperMagicBall.ts"/>
 ///<reference path="../quest-entity-spells/Blackhole.ts"/>
 
 class DeveloperEntity extends QuestEntity{
@@ -27,7 +27,8 @@ class DeveloperEntity extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("The developer", "the developer"),
               new RenderArea(43, 34),

@@ -1,5 +1,5 @@
 ///<reference path="TheSeaPattern.ts"/>
-///<reference path="../../quest-entities/QuestEntity.ts"/>
+///<reference path="../QuestEntity.ts"/>
 ///<reference path="../../modules/Random.ts"/>
 ///<reference path="../../quest-entities/SmallestFish.ts"/>
 ///<reference path="../Pos.ts"/>

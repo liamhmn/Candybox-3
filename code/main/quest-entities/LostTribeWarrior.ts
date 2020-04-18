@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -16,7 +16,8 @@ class LostTribeWarrior extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos, watchedAreaPosition: Pos, watchedAreaPosition2: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A lost tribe warrior", "a lost tribe warrior"),
               new RenderArea(4, 4),

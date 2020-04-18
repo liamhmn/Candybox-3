@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -13,7 +13,8 @@
 class JellyFish extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("A jellyfish", "a jellyfish"),
               new RenderArea(6, 5),

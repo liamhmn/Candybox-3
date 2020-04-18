@@ -1,4 +1,4 @@
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="./QuestEntity.ts"/>
 ///<reference path="Pos.ts"/>
 ///<reference path="../enums/QuestEntityHealthBarPositionType.ts"/>
 ///<reference path="../render-areas/Bar.ts"/>

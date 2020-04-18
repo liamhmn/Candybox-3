@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/CauldronFlame.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -21,7 +21,8 @@ class Devil extends QuestEntity{
     
     // Constructor
     constructor(quest: Quest, pos: Pos, minY: number, maxY: number){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("The devil", "the devil"),
               new RenderArea(16, 16),

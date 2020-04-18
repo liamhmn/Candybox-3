@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../classes/Naming.ts"/>
@@ -16,7 +16,8 @@ class Plant extends QuestEntity{
         globalPosition.add(new Pos(0, -Database.getAsciiHeight(asciiArtName)+1));
         
         // Call the mother constructor
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               globalPosition,
               new Naming("A plant", "a plant"),
               new RenderArea()

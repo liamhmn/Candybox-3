@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/Game.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="../enums/PlayerCharacterType.ts"/>
@@ -20,7 +20,8 @@ class Player extends QuestEntity{
     
     // Constructor
     constructor(game: Game){
-        super(null, new Pos(0, 0), new Naming("You", "you"));
+        super();
+        super.constructQuestEntity(null, new Pos(0, 0), new Naming("You", "you"));
         
         // Set the game
         this.game = game;

@@ -1,4 +1,4 @@
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="./QuestEntity.ts"/>
 ///<reference path="Pos.ts"/>
 class CollisionBox{
     // The quests entity

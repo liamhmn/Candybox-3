@@ -1,4 +1,4 @@
-///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/CollisionBox.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../enums/QuestEntityTeam.ts"/>
@@ -8,7 +8,8 @@
 class PlayerSummonedOctopusKing extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos,
               new Naming("An Octopus King", "an Octopus King"),
               new RenderArea(6, 4),

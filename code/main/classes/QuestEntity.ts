@@ -1,15 +1,15 @@
-///<reference path="../classes/QuestEntityAnimation.ts"/>
-///<reference path="../classes/QuestEntityMovement.ts"/>
-///<reference path="../classes/CollisionBoxCollection.ts"/>
-///<reference path="../classes/Pos.ts"/>
+///<reference path="./QuestEntityAnimation.ts"/>
+///<reference path="./QuestEntityMovement.ts"/>
+///<reference path="./CollisionBoxCollection.ts"/>
+///<reference path="./Pos.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
-///<reference path="../classes/Naming.ts"/>
+///<reference path="./Naming.ts"/>
 ///<reference path="../quests/Quest.ts"/>
-///<reference path="../classes/QuestEntityHealthBar.ts"/>
-///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="./QuestEntityHealthBar.ts"/>
+///<reference path="./RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
-///<reference path="../classes/QuestEntitySpellCaster.ts"/>
-///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="./QuestEntitySpellCaster.ts"/>
+///<reference path="./QuestEntityDamageReason.ts"/>
 ///<reference path="../enums/QuestEntityTeam.ts"/>
 ///<reference path="../enums/QuestEntityDamageReasonWhoType.ts"/>
 ///<reference path="../enums/QuestEntityDamageReasonWhatType.ts"/>
@@ -100,15 +100,17 @@ class QuestEntity{
     private berserkDuration: number = null;
     
     // Constructor
-    constructor(quest: Quest,
-                globalPosition: Pos,
-                naming: Naming = new Naming("???", "???"),
-                renderArea: RenderArea = null,
-                renderAreaPosition: Pos = new Pos(0, 0),
-                cbc: CollisionBoxCollection = null,
-                questEntityMovement: QuestEntityMovement = null,
-                questEntityAnimation: QuestEntityAnimation = null
-               ){
+    constructor(){}
+
+    public constructQuestEntity(quest: Quest,
+                                globalPosition: Pos,
+                                naming: Naming = new Naming("???", "???"),
+                                renderArea: RenderArea = null,
+                                renderAreaPosition: Pos = new Pos(0, 0),
+                                cbc: CollisionBoxCollection = null,
+                                questEntityMovement: QuestEntityMovement = null,
+                                questEntityAnimation: QuestEntityAnimation = null
+    ){
         // Apply parameters
         this.quest = quest;
         this.globalPosition = globalPosition;

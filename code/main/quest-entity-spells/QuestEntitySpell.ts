@@ -1,4 +1,4 @@
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/QuestEntitySpellColor.ts"/>
 ///<reference path="../quests/Quest.ts"/>
 ///<reference path="../classes/Pos.ts"/>
@@ -13,21 +13,25 @@ class QuestEntitySpell extends QuestEntity{
     private colors: QuestEntitySpellColor[] = [];
     
     // Constructor
-    constructor(quest: Quest, pos: Pos, naming: Naming, renderArea: RenderArea = null, renderAreaPosition: Pos = new Pos(0, 0), cbc: CollisionBoxCollection = null, questEntityMovement: QuestEntityMovement = null, questEntityAnimation: QuestEntityAnimation = null){
-        super(quest,
-              pos,
-              naming,
-              renderArea,
-              renderAreaPosition,
-              cbc,
-              questEntityMovement,
-              questEntityAnimation
-             );
-        
+    constructor(){
+        super();
+    }
+
+    public constructQuestEntitySpell(quest: Quest, pos: Pos, naming: Naming, renderArea: RenderArea = null, renderAreaPosition: Pos = new Pos(0, 0), cbc: CollisionBoxCollection = null, questEntityMovement: QuestEntityMovement = null, questEntityAnimation: QuestEntityAnimation = null){
+        super.constructQuestEntity(quest,
+            pos,
+            naming,
+            renderArea,
+            renderAreaPosition,
+            cbc,
+            questEntityMovement,
+            questEntityAnimation
+        );
+
         // Set isASpell
         this.setIsASpell(true);
     }
-    
+
     // Public methods
     public addColor(color: QuestEntitySpellColor): void{
         this.colors.push(color);

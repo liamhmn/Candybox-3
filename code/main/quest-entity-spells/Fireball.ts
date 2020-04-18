@@ -1,7 +1,7 @@
 ///<reference path="./QuestEntitySpell.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="../enums/FireballTargetType.ts"/>
-///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/QuestEntityDamageReason.ts"/>
 ///<reference path="../classes/Color.ts"/>
@@ -38,7 +38,8 @@ class Fireball extends QuestEntitySpell{
     // Constructor
     constructor(quest: Quest, pos: Pos, naming: Naming, color: Color, size: Pos, damage: number, questEntityDamageReason: QuestEntityDamageReason){
         // Call the mother class constructor
-        super(quest, pos, naming);
+        super();
+        super.constructQuestEntitySpell(quest, pos, naming);
         
         // Set the size
         this.size = size;
