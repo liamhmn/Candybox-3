@@ -1,6 +1,21 @@
 ///<reference path="../render-link/RenderLink.ts"/>
 ///<reference path="../classes/RenderTag.ts"/>
 ///<reference path="../interfaces/string_prototype.ts"/>
+///<reference path="../modules/Algo.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/EnigmaAnswer.ts"/>
+///<reference path="../render-link/RenderLinkClick.ts"/>
+///<reference path="../render-link/RenderLinkCallbackCollection.ts"/>
+///<reference path="../render-link/RenderLinkChange.ts"/>
+///<reference path="../render-link/RenderLinkCheckbox.ts"/>
+///<reference path="../render-link/RenderLinkInput.ts"/>
+///<reference path="../render-link/RenderLinkOnHoverShowTooltip.ts"/>
+///<reference path="../render-link/RenderLinkOver.ts"/>
+///<reference path="../render-link/RenderLinkSimpleInput.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../modules/Bugs.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
 
 class RenderArea{
     private area: string[] = []; // Array of strings
