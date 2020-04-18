@@ -1,4 +1,9 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../../modules/Random.ts"/>
+///<reference path="../Pos.ts"/>
+///<reference path="../../quest-entities/BigShark.ts"/>
+///<reference path="../../modules/Saving.ts"/>
+///<reference path="../../enums/BigSharkFinType.ts"/>
 
 class TheSeaPattern_SeaSnakesForever extends TheSeaPattern{
     // Variables

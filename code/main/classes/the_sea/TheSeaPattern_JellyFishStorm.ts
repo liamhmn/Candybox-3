@@ -1,4 +1,6 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../../modules/Random.ts"/>
+///<reference path="../Pos.ts"/>
 
 class TheSeaPattern_JellyFishStorm extends TheSeaPattern{
     // Constructor

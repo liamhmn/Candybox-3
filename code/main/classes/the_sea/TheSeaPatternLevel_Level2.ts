@@ -1,4 +1,6 @@
 ///<reference path="TheSeaPatternLevel.ts"/>
+///<reference path="TheSeaPattern_BigSharks.ts"/>
+///<reference path="TheSeaPattern_SeaSnakesForever.ts"/>
 
 class TheSeaPatternLevel_Level2 extends TheSeaPatternLevel{
     // Constructor

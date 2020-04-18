@@ -1,4 +1,6 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../Pos.ts"/>
+///<reference path="../../modules/Random.ts"/>
 
 class TheSeaPattern_BigSharks extends TheSeaPattern{
     // Constructor
@@ -15,7 +17,8 @@ class TheSeaPattern_BigSharks extends TheSeaPattern{
     }
     
     public run(x1: number, x2: number): void{
-        if(this.getTheSea().getDistance() % 60 == 0)
+        if(this.getTheSea().getDistance() % 60 == 0) {
             this.getTheSea().addBigShark(new Pos(x2, Random.fromArray([2, 6])));
+        }
     }
 }

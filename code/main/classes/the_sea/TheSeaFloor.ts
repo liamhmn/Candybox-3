@@ -1,3 +1,6 @@
+///<reference path="../../enums/TheSeaFloorType.ts"/>
+///<reference path="../../modules/Random.ts"/>
+///<reference path="../../render-areas/RenderArea.ts"/>
 class TheSeaFloor{
     // The type
     private type: TheSeaFloorType;

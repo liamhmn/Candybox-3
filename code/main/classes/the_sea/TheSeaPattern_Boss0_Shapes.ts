@@ -1,4 +1,9 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../../quest-entities/QuestEntity.ts"/>
+///<reference path="../../modules/Random.ts"/>
+///<reference path="../../quest-entities/SmallestFish.ts"/>
+///<reference path="../Pos.ts"/>
+///<reference path="../QuestEntityMovement.ts"/>
 
 class TheSeaPattern_Boss0_Shapes extends TheSeaPattern{
     // Fishes of the squares

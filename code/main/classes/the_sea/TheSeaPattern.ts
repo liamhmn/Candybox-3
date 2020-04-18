@@ -1,3 +1,4 @@
+///<reference path="../../quests/TheSea.ts"/>
 class TheSeaPattern{
     // The sea
     private theSea: TheSea;

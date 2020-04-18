@@ -1,4 +1,6 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../Pos.ts"/>
+///<reference path="../../modules/Random.ts"/>
 
 class TheSeaPattern_OneSmallestFish extends TheSeaPattern{
     // Constructor

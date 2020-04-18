@@ -1,4 +1,6 @@
 ///<reference path="TheSeaPattern.ts"/>
+///<reference path="../../quest-entities/Seahorse.ts"/>
+///<reference path="../Pos.ts"/>
 
 class TheSeaPattern_Boss1_Seahorses extends TheSeaPattern{
     // Variables
