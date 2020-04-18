@@ -1,3 +1,4 @@
+///<reference path="Bugs.ts"/>
 module Random{
     export function between(a: number, b: number): number{
         // BUGS

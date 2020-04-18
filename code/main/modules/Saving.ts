@@ -1,3 +1,4 @@
+///<reference path="LocalSaving.ts"/>
 module Saving{
     // Saving maps
     var bools: { [s: string]: boolean; } = {};

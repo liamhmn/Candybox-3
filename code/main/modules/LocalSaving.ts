@@ -1,3 +1,4 @@
+///<reference path="Saving.ts"/>
 module LocalSaving{
     // Public functions
     export function getSlotSummaryAsString(slotId: string): string{

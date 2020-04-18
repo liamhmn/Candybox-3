@@ -1,3 +1,4 @@
+///<reference path="../classes/TheArenaModuleQuest.ts"/>
 module TheArenaModule{
     var quests: { [s: string]: TheArenaModuleQuest; } = {};
 

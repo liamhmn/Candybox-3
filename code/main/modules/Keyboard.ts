@@ -1,3 +1,4 @@
+///<reference path="../classes/Game.ts"/>
 module Keyboard{
     // The game
     var game: Game;

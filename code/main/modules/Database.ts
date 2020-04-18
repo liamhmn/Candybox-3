@@ -1,4 +1,7 @@
 ///<reference path="../../../libs/jquery.d.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="Saving.ts"/>
+///<reference path="./../interfaces/string_prototype.ts"/>
 
 module Database{
     // Variables

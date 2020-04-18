@@ -1,4 +1,7 @@
-module Algo{    
+///<reference path="../classes/Pos.ts"/>
+///<reference path="Random.ts"/>
+///<reference path="./../interfaces/string_prototype.ts"/>
+module Algo{
     // Return 0 is the number given is under 0, else return the number given
     export function correctIfUnderZero(n: number): number{
         if(n < 0)

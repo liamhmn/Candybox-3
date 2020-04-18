@@ -1,3 +1,4 @@
+///<reference path="Random.ts"/>
 module Bugs{
     // Variables
     var graphicalBugLevel: number = 0;
