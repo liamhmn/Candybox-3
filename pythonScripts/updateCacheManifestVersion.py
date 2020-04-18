@@ -14,7 +14,7 @@ outputFile = open(manifestFileName, 'w')
 for line in lines:
     if(line.startswith("# Version ")):
         fullVersionList = re.findall(r'[0-9]+', line)
-        line = "# Version " + fullVersionList[0] + "." + str(int(fullVersionList[1])+1) + "\n"
+        line = "# Version " + fullVersionList[0] + "." + fullVersionList[1] + "." + str(int(fullVersionList[2])+1) + "\n"
     outputFile.write(line)
 
 # We close the output file

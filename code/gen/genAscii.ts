@@ -1,3 +1,4 @@
+///<reference path="../main/modules/Database.ts"/>
 Database.addAscii("arena/hardcorePlatformer/background", 240, 12, 
 [
 "",

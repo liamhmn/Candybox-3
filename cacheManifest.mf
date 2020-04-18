@@ -1,10 +1,10 @@
 CACHE MANIFEST
-# Version 0.4371
+# Version 0.0.1
 
 CACHE:
 index.html
 favicon.png
 css/design.css
 css/invertColors.css
-candybox2.js
+candybox3.min.js
 libs/jquery-1.9.1.min.js

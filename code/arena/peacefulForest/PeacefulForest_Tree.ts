@@ -1,11 +1,12 @@
-///<reference path="../../main/QuestEntity.ts"/>
+///<reference path="../../main/classes/QuestEntity.ts"/>
 
 class PeacefulForest_Tree extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
-              pos, // The global position of the tree in the quest. We use the value given in parameter.
-              new Naming("A tree", "a tree"), // The name of the entity as it will appear in the quest log. Two parameters : the first one ("A tree") is used at the beginning of a sentence, and the second one ("a tree") is used inside a sentence
+        super();
+        super.constructQuestEntity(quest,
+              pos, // The global position of the tree in the quests. We use the value given in parameter.
+              new Naming("A tree", "a tree"), // The name of the entity as it will appear in the quests log. Two parameters : the first one ("A tree") is used at the beginning of a sentence, and the second one ("a tree") is used inside a sentence
               new RenderArea(3, 1), // The tree render area : 3 characters width and 1 character height
               new Pos(0, 0), // The position of where the render area is drawn relatively to the global position (see three lines above)
               new CollisionBoxCollection(new CollisionBox(this, new Pos(0, 0), new Pos(3, 1))), // The collision box collection of the tree, made of one collision box (position 0, 0, size 3, 1)
