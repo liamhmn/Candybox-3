@@ -1,4 +1,4 @@
-///<reference path="./../../main/Quest.ts"/>
+///<reference path="../../main/quests/Quest.ts"/>
 
 // -------------------------------
 // We register on the Arena module
@@ -19,7 +19,7 @@ class HardcorePlatformer_Quest extends Quest{
     constructor(game: Game){
         super(game);
         
-        // Resize the quest
+        // Resize the quests
         this.resizeQuest(240, 13);
         
         // Add collision boxes around
@@ -71,13 +71,13 @@ class HardcorePlatformer_Quest extends Quest{
     
     public update(): void{
         if(this.getQuestEnded() == false){            
-            // Test if the player won the quest, if so, end the quest and return
+            // Test if the player won the quests, if so, end the quests and return
             if(this.thePlayerWon()){
                 this.endQuest(true);
                 return;
             }
             
-            // Test if the player is dead, if so, end the quest and return
+            // Test if the player is dead, if so, end the quests and return
             if(this.getGame().getPlayer().shouldDie()){
                 this.endQuest(false);
                 return;

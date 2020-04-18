@@ -1,4 +1,4 @@
-///<reference path="./../../main/Spikes.ts"/>
+///<reference path="../../main/quest-entities/Spikes.ts"/>
 
 class HardcorePlatformer_Spikes extends Spikes{
     // Public methods

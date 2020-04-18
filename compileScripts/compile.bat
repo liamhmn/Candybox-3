@@ -28,7 +28,7 @@ cd ..
 :: It will generate the candybox2_uncompressed.js.temp script
 
 dir /B /S libs\*.ts > libs.txt
-dir /B /S code\main\*.ts > main.txt
+dir /B /S code\main\*\*.ts > main.txt
 dir /B /S code\gen\*.ts > gen.txt
 dir /B /S code\arena\*\*.ts > arena.txt
 call tsc @libs.txt @main.txt @gen.txt @arena.txt --out candybox2_uncompressed.js.temp
