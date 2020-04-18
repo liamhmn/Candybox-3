@@ -1,4 +1,10 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/PondLine.ts"/>
+///<reference path="../classes/PondLolligator.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 // Buttons unlocked
 Saving.registerBool("lollipopFarmPlant1LollipopButtonUnlocked", false);

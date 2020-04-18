@@ -1,4 +1,14 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="CastleBigRoom.ts"/>
+///<reference path="../quests/GiantNougatMonsterQuest.ts"/>
+///<reference path="../quests/CastleRoom1.ts"/>
+///<reference path="CastleRoom2.ts"/>
+///<reference path="../quests/CastleRoom3.ts"/>
+///<reference path="Dragon.ts"/>
+///<reference path="CastleTower.ts"/>
 
 Saving.registerBool("castleKilledNougatMonster", false);
 

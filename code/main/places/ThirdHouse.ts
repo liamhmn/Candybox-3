@@ -1,4 +1,12 @@
 ///<reference path="House.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/ThirdHouseGame.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/super_rpg/SuperRPG.ts"/>
+///<reference path="../classes/GalacticWars.ts"/>
 
 class ThirdHouse extends House{
     // The render area

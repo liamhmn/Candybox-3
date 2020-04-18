@@ -1,4 +1,8 @@
 ///<reference path="CastleRoom.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Smoke.ts"/>
+///<reference path="../classes/Game.ts"/>
 
 Saving.registerBool("castleRoom2LitFire", false);
 Saving.registerBool("castleRoom2TookObject", false);

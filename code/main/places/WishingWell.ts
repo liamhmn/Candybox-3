@@ -1,4 +1,12 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Enchantment.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/EnchantmentItem.ts"/>
+///<reference path="../enums/EqItemType.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 // Candies stuff
 Saving.registerBool("wishingWellFirstCandyThrown", false);

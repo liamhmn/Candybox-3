@@ -1,4 +1,7 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
 
 class House extends Place{
     // Constructor

@@ -1,4 +1,6 @@
 ///<reference path="./House.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
 
 Saving.registerBool("fourthHouseFoundLollipopOnCupboard", false);
 Saving.registerNumber("fourthHouseCupboardStep", 0); // 0 : closed ; 1 : opened ; 2 : lollipop taken

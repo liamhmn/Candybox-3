@@ -1,4 +1,14 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Smoke.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="SecondHouse.ts"/>
+///<reference path="ThirdHouse.ts"/>
+///<reference path="Forge.ts"/>
+///<reference path="FourthHouse.ts"/>
+///<reference path="FifthHouse.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 class Village extends Place{
     // Render areas

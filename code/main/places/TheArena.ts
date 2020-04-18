@@ -1,4 +1,7 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/TheArenaModule.ts"/>
 
 class TheArena extends Place{
     // The render area

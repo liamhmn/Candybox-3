@@ -1,4 +1,15 @@
 ///<reference path="House.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_Lollipop.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_LeatherBoots.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_ChocolateBar.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_MerchantHat.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_TimeRing.ts"/>
+///<reference path="../classes/candy_merchant_item/CandyMerchantItem_LeatherGloves.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 // Lollipops
 Saving.registerBool("secondHouseLollipop1Bought", false);

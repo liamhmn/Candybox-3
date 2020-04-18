@@ -1,4 +1,7 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/LighthousePuzzle.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 Saving.registerBool("lighthousePuzzleDone", false);
 

@@ -1,4 +1,7 @@
 ///<reference path="./CastleRoom.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 // Is the hoven happy? He is if he cooked something at least once
 Saving.registerBool("castleBigRoomHovenHappy", false);

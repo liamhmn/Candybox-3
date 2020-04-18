@@ -1,4 +1,17 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../enums/TheCaveMoveType.ts"/>
+///<reference path="../classes/TheCaveAdditionalCharacter.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern_ArrowsToHeartPlug.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern_ChocolateBarNow.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern_TreasureMap.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern_MonkeyWizard.ts"/>
+///<reference path="../classes/the_cave_pattern/TheCavePattern_OctopusKing.ts"/>
+///<reference path="TheCaveExit.ts"/>
 
 class TheCave extends Place{
     // The render area

@@ -1,4 +1,9 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../quests/TheHole.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 class OutsideTheHole extends Place{
     // The render area

@@ -1,4 +1,8 @@
 ///<reference path="./House.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../quests/Cellar.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 class FifthHouse extends House{
     private renderArea: RenderArea = new RenderArea();

@@ -1,4 +1,8 @@
 ///<reference path="CastleRoom.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 Saving.registerBool("castleTowerFirstVisitDone", false); // True if we already visited the tower at least once
 

@@ -1,5 +1,13 @@
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../enums/ATreeTicTacToeStep.ts"/>
+///<reference path="../enums/ATreeTicTacToeSign.ts"/>
+///<reference path="../classes/EnigmaAnswer.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/ATreeTicTacToeMinimaxReturnValue.ts"/>
+///<reference path="../classes/EnigmaAnswerStrings.ts"/>
+///<reference path="../classes/EnigmaAnswerCandies.ts"/>
 
 Saving.registerNumber("aTreeStep", 0);
 

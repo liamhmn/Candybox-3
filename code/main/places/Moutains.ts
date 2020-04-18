@@ -1,4 +1,8 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Saving.ts"/>
 
 class Moutains extends Place{
     // The render area

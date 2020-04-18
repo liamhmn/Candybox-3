@@ -1,4 +1,9 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Saving.ts"/>
 
 Saving.registerBool("candyBoxBoxOpened", false);
 

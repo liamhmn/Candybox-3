@@ -1,4 +1,10 @@
 ///<reference path="CastleRoom.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../enums/DragonStep.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../quests/Developer.ts"/>
+///<reference path="../quests/Hell.ts"/>
 
 Saving.registerBool("dragonDone", false); // If true, it means we began talking to the dragon
 Saving.registerBool("dragonUnlockedCyclops", false); // If true, we can ask the cyclops about the dragon

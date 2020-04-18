@@ -1,4 +1,12 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/TheComputerLine.ts"/>
+///<reference path="../enums/TheComputerState.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../enums/TheComputerLineType.ts"/>
 
 class TheComputer extends Place{
     // The render area

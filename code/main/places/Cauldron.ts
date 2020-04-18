@@ -1,4 +1,11 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../enums/CauldronAction.ts"/>
+///<reference path="../classes/CauldronActionLogEntry.ts"/>
+///<reference path="../classes/CauldronFlame.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 Saving.registerNumber("cauldronBookCurrentPage", 0);
 

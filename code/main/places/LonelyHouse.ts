@@ -1,4 +1,8 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 Saving.registerBool("lonelyHouseOpenBoxDone", false);
 Saving.registerBool("lonelyHouseShakeBoxDone", false);

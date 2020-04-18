@@ -1,4 +1,18 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="ATree.ts"/>
+///<reference path="../quests/Bridge.ts"/>
+///<reference path="../quests/Forest.ts"/>
+///<reference path="Moutains.ts"/>
+///<reference path="Pier.ts"/>
+///<reference path="../quests/Desert.ts"/>
+///<reference path="OutsideTheHole.ts"/>
+///<reference path="Treasure.ts"/>
+///<reference path="WishingWell.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
 
 // The default scroll
 Saving.registerNumber("mainMapDefaultScroll", 400);

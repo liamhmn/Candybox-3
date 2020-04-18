@@ -1,4 +1,8 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../classes/InsideYourBoxSweet.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
 
 class InsideYourBox extends Place{
     // The render area

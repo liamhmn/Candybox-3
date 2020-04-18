@@ -1,4 +1,8 @@
 ///<reference path="./House.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 // The lollipop
 Saving.registerBool("forgeFoundLollipop", false);

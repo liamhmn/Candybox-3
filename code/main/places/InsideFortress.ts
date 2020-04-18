@@ -1,4 +1,11 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quests/FortressRoom1.ts"/>
+///<reference path="../quests/FortressRoom2.ts"/>
+///<reference path="../quests/FortressRoom3.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 class InsideFortress extends Place{
     // The render area
