@@ -1,4 +1,28 @@
 ///<reference path="Quest.ts"/>
+///<reference path="../classes/the_sea/TheSeaFloor.ts"/>
+///<reference path="../classes/the_sea/TheSeaPattern.ts"/>
+///<reference path="../classes/the_sea/TheSeaPatternLevel.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../quest-entities/BigShark.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../quest-entities/JellyFish.ts"/>
+///<reference path="../quest-entities/MediumFish.ts"/>
+///<reference path="../quest-entities/MiniShark.ts"/>
+///<reference path="../quest-entities/Seahorse.ts"/>
+///<reference path="../quest-entities/SeaSnake.ts"/>
+///<reference path="../quest-entities/SmallestFish.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../enums/TheSeaFloorType.ts"/>
+///<reference path="../quest-entities/Plant.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../quest-entities/ShellPowder.ts"/>
+///<reference path="../quest-entities/Sponge.ts"/>
+///<reference path="../classes/the_sea/TheSeaPatternLevel_Level0.ts"/>
+///<reference path="../modules/Keyboard.ts"/>
 
 class TheSea extends Quest{
     // Floors

@@ -1,4 +1,14 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../quest-entities/Troll.ts"/>
+///<reference path="../enums/QuestEntityHealthBarPositionType.ts"/>
+///<reference path="../enums/BarType.ts"/>
 
 class Bridge extends Quest{
     // Constructor

@@ -1,4 +1,17 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../quest-entities/Devil.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../quest-entities/Camazotz.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../enums/QuestEntityHealthBarPositionType.ts"/>
+///<reference path="../enums/BarType.ts"/>
+///<reference path="../quest-entities/Lava.ts"/>
+///<reference path="../modules/Database.ts"/>
 
 class Hell extends Quest{
     // The devil

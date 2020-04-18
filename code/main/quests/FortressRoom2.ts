@@ -1,4 +1,16 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../quest-entities/Teapot.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../enums/QuestEntityHealthBarPositionType.ts"/>
+///<reference path="../enums/BarType.ts"/>
 
 class FortressRoom2 extends Quest{
     // Constructor
@@ -39,7 +51,7 @@ class FortressRoom2 extends Quest{
         if(win){
             this.getGame().getQuestLog().addMessage(new QuestLogMessage("You exit the room."));
         }
-        
+
         // We call the endQuest method of our mother class
         super.endQuest(win);
     }

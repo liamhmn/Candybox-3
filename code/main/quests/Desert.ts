@@ -1,4 +1,17 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quest-entities/DesertBird.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../quest-entities/TripodCamel.ts"/>
+///<reference path="../quest-entities/Camel.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
 
 class Desert extends Quest{
     // Bird adding variables

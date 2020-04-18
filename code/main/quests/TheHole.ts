@@ -1,4 +1,20 @@
 ///<reference path="Quest.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../quest-entities/Spikes.ts"/>
+///<reference path="../quest-entities/Chest.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quest-entities/LostTribeWarrior.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../classes/QuestItemFound.ts"/>
+///<reference path="../modules/Keyboard.ts"/>
 
 // To know if the player found the chests
 Saving.registerBool("theHoleFirstChestFound", false);

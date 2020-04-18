@@ -1,4 +1,26 @@
 ///<reference path="../classes/Place.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/QuestItemFound.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../quest-entity-spells/QuestPlayerSpell.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../quest-entity-spells/PlayerSummonedDemon.ts"/>
+///<reference path="../quest-entities/PlayerCloneCandyBox.ts"/>
+///<reference path="../quest-entities/PlayerCloneMedium.ts"/>
+///<reference path="../quest-entity-spells/ObsidianBrick.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../quest-entity-spells/Fireball.ts"/>
+///<reference path="../modules/Algo.ts"/>
+///<reference path="../enums/QuestPlayerSpellCountdownType.ts"/>
 
 class Quest extends Place{
     // Array of quests entities

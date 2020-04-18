@@ -1,4 +1,13 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../quest-entities/Monster.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../quest-entities/Chest.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../quest-entities/Egg.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../classes/QuestItemFound.ts"/>
 
 class CastleRoom3 extends Quest{
     // The monster

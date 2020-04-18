@@ -1,4 +1,12 @@
 ///<reference path="./Quest.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../quest-entities/Wall.ts"/>
+///<reference path="../quest-entities/Rat.ts"/>
+///<reference path="../places/FifthHouse.ts"/>
 
 Saving.registerBool("cellarDone", false);
 
