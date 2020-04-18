@@ -1,4 +1,6 @@
 ///<reference path="TheCavePattern.ts"/>
+///<reference path="../../modules/Saving.ts"/>
+///<reference path="../../modules/Database.ts"/>
 
 Saving.registerBool("TheCavePattern_TreasureMapSawMap", false);
 Saving.registerBool("TheCavePattern_TreasureMapFoundTreasure", false);

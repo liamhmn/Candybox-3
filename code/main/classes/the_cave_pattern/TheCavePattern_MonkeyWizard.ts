@@ -1,4 +1,8 @@
 ///<reference path="TheCavePattern.ts"/>
+///<reference path="../../modules/Database.ts"/>
+///<reference path="../RenderTransparency.ts"/>
+///<reference path="../CallbackCollection.ts"/>
+///<reference path="../../quests/MonkeyWizardQuest.ts"/>
 
 class TheCavePattern_MonkeyWizard extends TheCavePattern{
     // Constructor

@@ -1,4 +1,8 @@
 ///<reference path="TheCavePattern.ts"/>
+///<reference path="../../modules/Database.ts"/>
+///<reference path="../RenderTransparency.ts"/>
+///<reference path="../CallbackCollection.ts"/>
+///<reference path="../../quests/OctopusKingQuest.ts"/>
 
 class TheCavePattern_OctopusKing extends TheCavePattern{
     // Constructor

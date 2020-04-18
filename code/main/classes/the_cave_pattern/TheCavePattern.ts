@@ -1,3 +1,6 @@
+///<reference path="../../places/TheCave.ts"/>
+///<reference path="../../render-areas/RenderArea.ts"/>
+///<reference path="../../enums/TheCaveMoveType.ts"/>
 class TheCavePattern{
     // The cave
     private theCave: TheCave;

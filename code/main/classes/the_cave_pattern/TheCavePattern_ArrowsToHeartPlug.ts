@@ -1,4 +1,7 @@
 ///<reference path="TheCavePattern.ts"/>
+///<reference path="../../modules/Random.ts"/>
+///<reference path="../../modules/Database.ts"/>
+///<reference path="../CallbackCollection.ts"/>
 
 class TheCavePattern_ArrowsToHeartPlug extends TheCavePattern{
     // Is the pattern stopped?
