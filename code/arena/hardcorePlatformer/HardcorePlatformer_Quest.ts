@@ -1,4 +1,17 @@
 ///<reference path="../../main/quests/Quest.ts"/>
+///<reference path="../../main/classes/Game.ts"/>
+///<reference path="../../main/classes/Place.ts"/>
+///<reference path="../../main/modules/TheArenaModule.ts"/>
+///<reference path="../../main/classes/TheArenaModuleQuest.ts"/>
+///<reference path="../../main/classes/QuestLogMessage.ts"/>
+///<reference path="../../main/classes/Pos.ts"/>
+///<reference path="../../main/classes/QuestEntity.ts"/>
+///<reference path="../../main/classes/QuestEntityMovement.ts"/>
+///<reference path="../../main/modules/Database.ts"/>
+///<reference path="../../main/classes/CallbackCollection.ts"/>
+///<reference path="../../main/quest-entities/Spikes.ts"/>
+///<reference path="HardcorePlatformer_Spikes.ts"/>
+///<reference path="../../main/quest-entities/Wall.ts"/>
 
 // -------------------------------
 // We register on the Arena module

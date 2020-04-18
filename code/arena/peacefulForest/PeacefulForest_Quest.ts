@@ -1,4 +1,15 @@
 ///<reference path="../../main/quests/Quest.ts"/>
+///<reference path="PeacefulForest_Tree.ts"/>
+///<reference path="../../main/classes/Pos.ts"/>
+///<reference path="../../main/quest-entities/Wall.ts"/>
+///<reference path="../../main/classes/QuestEntityHealthBar.ts"/>
+///<reference path="../../main/classes/QuestEntity.ts"/>
+///<reference path="../../main/classes/CallbackCollection.ts"/>
+///<reference path="../../main/classes/QuestLogMessage.ts"/>
+///<reference path="../../main/classes/QuestEntityMovement.ts"/>
+///<reference path="../../main/classes/Game.ts"/>
+///<reference path="../../main/modules/TheArenaModule.ts"/>
+///<reference path="../../main/classes/TheArenaModuleQuest.ts"/>
 
 // -------------------------------
 // We register on the Arena module

@@ -1,9 +1,10 @@
-///<reference path="../../main/quest-entities/QuestEntity.ts"/>
+///<reference path="../../main/classes/QuestEntity.ts"/>
 
 class PeacefulForest_Tree extends QuestEntity{
     // Constructor
     constructor(quest: Quest, pos: Pos){
-        super(quest,
+        super();
+        super.constructQuestEntity(quest,
               pos, // The global position of the tree in the quests. We use the value given in parameter.
               new Naming("A tree", "a tree"), // The name of the entity as it will appear in the quests log. Two parameters : the first one ("A tree") is used at the beginning of a sentence, and the second one ("a tree") is used inside a sentence
               new RenderArea(3, 1), // The tree render area : 3 characters width and 1 character height
