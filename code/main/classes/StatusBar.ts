@@ -1,3 +1,7 @@
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../render-areas/Bar.ts"/>
+///<reference path="StatusBarTab.ts"/>
+///<reference path="../enums/StatusBarTabType.ts"/>
 // Saving stuff related to the status bar itself
 Saving.registerBool("statusBarUnlocked", false);
 

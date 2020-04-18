@@ -1,3 +1,5 @@
+///<reference path="../enums/QuestEntityWeaponDelayType.ts"/>
+///<reference path="../modules/Random.ts"/>
 class QuestEntityWeaponDelay{
     // The type
     private type: QuestEntityWeaponDelayType;

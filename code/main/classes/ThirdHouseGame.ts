@@ -1,3 +1,5 @@
+///<reference path="../places/ThirdHouse.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
 class ThirdHouseGame{
     // The third house
     private thirdHouse: ThirdHouse;

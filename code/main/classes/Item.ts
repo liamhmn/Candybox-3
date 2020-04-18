@@ -1,3 +1,4 @@
+///<reference path="QuestEntityDamageReason.ts"/>
 class Item{
     // Item name used for saving
     private savingName: string;

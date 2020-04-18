@@ -1,3 +1,6 @@
+///<reference path="Pos.ts"/>
+///<reference path="../quest-entities/DeveloperEntity.ts"/>
+///<reference path="../enums/ColorType.ts"/>
 class DeveloperEntityText{
     // The damage dealth by the magic balls
     private damage: number;

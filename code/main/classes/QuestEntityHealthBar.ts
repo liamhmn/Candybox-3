@@ -1,3 +1,8 @@
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="Pos.ts"/>
+///<reference path="../enums/QuestEntityHealthBarPositionType.ts"/>
+///<reference path="../render-areas/Bar.ts"/>
+///<reference path="RenderTransparency.ts"/>
 class QuestEntityHealthBar{
     // The quests entity
     private questEntity: QuestEntity;

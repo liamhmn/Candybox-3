@@ -1,4 +1,6 @@
 ///<reference path="EnigmaAnswer.ts"/>
+///<reference path="Game.ts"/>
+///<reference path="../modules/Algo.ts"/>
 
 class EnigmaAnswerCandies extends EnigmaAnswer{
     // The game

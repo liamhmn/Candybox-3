@@ -1,3 +1,4 @@
+///<reference path="CollisionBox.ts"/>
 class CollisionBoxCollection{
     // Array of collision boxes
     boxes: CollisionBox[];

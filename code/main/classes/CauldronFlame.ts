@@ -1,3 +1,5 @@
+///<reference path="Pos.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
 class CauldronFlame{
     // Position
     private pos: Pos;

@@ -1,3 +1,6 @@
+///<reference path="../places/TheCave.ts"/>
+///<reference path="Pos.ts"/>
+///<reference path="../modules/Random.ts"/>
 class TheCaveAdditionalCharacter{
     // The cave
     private theCave: TheCave;
@@ -45,4 +48,3 @@ class TheCaveAdditionalCharacter{
         return this.characterString;
     }
 }
-    

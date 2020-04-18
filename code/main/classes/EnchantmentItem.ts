@@ -1,3 +1,6 @@
+///<reference path="Game.ts"/>
+///<reference path="../enums/EqItemType.ts"/>
+///<reference path="../modules/Database.ts"/>
 class EnchantmentItem{
     // The game
     private game: Game;

@@ -1,3 +1,4 @@
+///<reference path="Game.ts"/>
 class Place{
     private game: Game;
     

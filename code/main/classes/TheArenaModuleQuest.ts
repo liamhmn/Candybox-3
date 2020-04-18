@@ -1,3 +1,6 @@
+///<reference path="Game.ts"/>
+///<reference path="Place.ts"/>
+///<reference path="../modules/Database.ts"/>
 class TheArenaModuleQuest{
     // Name of the quests folder (used in ascii/arena and code/arena)
     private questFolderName: string;

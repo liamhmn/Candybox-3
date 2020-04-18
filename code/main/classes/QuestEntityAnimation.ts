@@ -1,3 +1,5 @@
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../modules/Database.ts"/>
 class QuestEntityAnimation{
     // Ascii-related variables
     private asciiNames: string[];

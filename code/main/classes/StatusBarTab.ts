@@ -1,3 +1,9 @@
+///<reference path="StatusBar.ts"/>
+///<reference path="../enums/StatusBarTabType.ts"/>
+///<reference path="CallbackCollection.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
 class StatusBarTab{
     // The status bar
     private statusBar: StatusBar;

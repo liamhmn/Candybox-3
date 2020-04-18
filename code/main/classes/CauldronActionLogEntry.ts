@@ -1,3 +1,4 @@
+///<reference path="../enums/CauldronAction.ts"/>
 class CauldronActionLogEntry{
     // The action
     private action: CauldronAction;

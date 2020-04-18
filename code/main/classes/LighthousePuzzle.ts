@@ -1,3 +1,8 @@
+///<reference path="LighthousePuzzlePart.ts"/>
+///<reference path="../places/Lighthouse.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="Pos.ts"/>
+///<reference path="../enums/LighthousePuzzlePartType.ts"/>
 class LighthousePuzzle{
     // Array of parts
     private parts: LighthousePuzzlePart[][]; // 7*5

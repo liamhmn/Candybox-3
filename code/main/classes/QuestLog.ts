@@ -1,3 +1,4 @@
+///<reference path="QuestLogMessage.ts"/>
 class QuestLog{
     // Array of messages contained in the quests log
     private messages: QuestLogMessage[] = [];

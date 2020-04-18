@@ -1,3 +1,8 @@
+///<reference path="PondLine.ts"/>
+///<reference path="../enums/PondLolligatorVisibleType.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../modules/Database.ts"/>
 class PondLolligator{
     // The pond lines array
     private pondLines: PondLine[];

@@ -1,4 +1,5 @@
 ///<reference path="RenderTag.ts"/>
+///<reference path="./../interfaces/string_prototype.ts"/>
 
 class RenderTagLt extends RenderTag{
     // Constructor

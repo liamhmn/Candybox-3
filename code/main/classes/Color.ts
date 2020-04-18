@@ -1,3 +1,5 @@
+///<reference path="../enums/ColorType.ts"/>
+///<reference path="../modules/Saving.ts"/>
 class Color{
     // The color type
     private colorType: ColorType;

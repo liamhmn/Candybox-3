@@ -1,3 +1,6 @@
+///<reference path="../enums/TheComputerLineType.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="Pos.ts"/>
 class TheComputerLine{
     // The type
     private type: TheComputerLineType;

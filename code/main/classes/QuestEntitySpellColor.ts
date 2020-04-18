@@ -1,3 +1,6 @@
+///<reference path="../quests/Quest.ts"/>
+///<reference path="Color.ts"/>
+///<reference path="Pos.ts"/>
 class QuestEntitySpellColor{
     // The quests
     private quest: Quest;

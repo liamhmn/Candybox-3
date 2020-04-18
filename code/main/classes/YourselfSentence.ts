@@ -1,3 +1,5 @@
+///<reference path="Pos.ts"/>
+///<reference path="../quests/Quest.ts"/>
 class YourselfSentence{
     // The text
     private text: string;

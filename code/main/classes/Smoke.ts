@@ -1,3 +1,5 @@
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../modules/Random.ts"/>
 class Smoke{
     // Position
     private x: number;

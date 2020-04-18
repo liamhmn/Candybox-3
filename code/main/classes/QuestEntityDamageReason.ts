@@ -1,3 +1,8 @@
+///<reference path="../enums/QuestEntityDamageReasonWhoType.ts"/>
+///<reference path="../enums/QuestEntityTeam.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhatType.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="Naming.ts"/>
 class QuestEntityDamageReason{
     // Type of the thing who caused the damage
     private whoType: QuestEntityDamageReasonWhoType;

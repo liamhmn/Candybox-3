@@ -1,4 +1,11 @@
 ///<reference path="./ThirdHouseGame.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../enums/GalacticWarsStep.ts"/>
+///<reference path="Pos.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Algo.ts"/>
+///<reference path="../modules/Keyboard.ts"/>
 
 Saving.registerNumber("galacticWarsBestScore", 0);
 

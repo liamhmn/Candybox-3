@@ -1,3 +1,5 @@
+///<reference path="../quests/Quest.ts"/>
+///<reference path="QuestLogMessage.ts"/>
 class QuestItemFound{
     // The quests
     private quest: Quest;

@@ -1,3 +1,4 @@
+///<reference path="Pos.ts"/>
 class QuestEntityMovement{
     // Time stuff
     private currentTime: number;

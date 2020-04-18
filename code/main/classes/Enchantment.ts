@@ -1,3 +1,5 @@
+///<reference path="EnchantmentItem.ts"/>
+///<reference path="../modules/Saving.ts"/>
 class Enchantment{
     // Two items : before (the enchanted items) and after (the result of the enchantment)
     private beforeItem: EnchantmentItem;

@@ -1,4 +1,5 @@
 ///<reference path="EnigmaAnswer.ts"/>
+///<reference path="../modules/Algo.ts"/>
 
 class EnigmaAnswerStrings extends EnigmaAnswer{
     // The array of valid strings for answering

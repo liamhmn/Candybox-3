@@ -1,3 +1,5 @@
+///<reference path="QuestEntityWeaponDelay.ts"/>
+///<reference path="CallbackCollection.ts"/>
 class QuestEntitySpellCaster{
     // The delay
     private delay: QuestEntityWeaponDelay = new QuestEntityWeaponDelay();

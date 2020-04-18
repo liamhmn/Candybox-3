@@ -1,3 +1,6 @@
+///<reference path="../modules/Database.ts"/>
+///<reference path="CallbackCollection.ts"/>
+///<reference path="../modules/Saving.ts"/>
 class LighthousePuzzlePart{
     // The lighthouse
     private lighthouse: Lighthouse;

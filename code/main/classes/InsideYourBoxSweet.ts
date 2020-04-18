@@ -1,3 +1,7 @@
+///<reference path="Pos.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
 class InsideYourBoxSweet{
     // The ascii art name
     private asciiArt: string;
