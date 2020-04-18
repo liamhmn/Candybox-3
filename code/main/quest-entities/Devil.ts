@@ -1,4 +1,12 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/CauldronFlame.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
 
 class Devil extends QuestEntity{
     // Array containing the flames we can see when heating up the cauldron

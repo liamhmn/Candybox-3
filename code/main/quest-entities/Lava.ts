@@ -1,4 +1,10 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../enums/QuestEntityTeam.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
 
 class Lava extends QuestEntity{
     // Constructor

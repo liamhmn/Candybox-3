@@ -1,4 +1,15 @@
 ///<reference path="QuestEntity.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../classes/QuestItemFound.ts"/>
 
 class Teapot extends QuestEntity{
     // Constructor

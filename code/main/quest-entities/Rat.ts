@@ -1,4 +1,15 @@
 ///<reference path="QuestEntity.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../modules/Database.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../classes/QuestLogMessage.ts"/>
 
 class Rat extends QuestEntity{
     // Constructor

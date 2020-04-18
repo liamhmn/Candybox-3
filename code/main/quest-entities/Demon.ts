@@ -1,4 +1,11 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../enums/DemonType.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
 
 class Demon extends QuestEntity{
     // The demon type

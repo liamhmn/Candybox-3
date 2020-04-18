@@ -1,4 +1,15 @@
 ///<reference path="QuestEntity.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/QuestEntityAnimation.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../modules/Random.ts"/>
+///<reference path="../quest-entity-spells/Fireball.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
 
 class SeaSnake extends QuestEntity{
     // Constructor

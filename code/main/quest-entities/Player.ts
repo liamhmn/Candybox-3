@@ -1,4 +1,12 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../enums/PlayerCharacterType.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
 
 // Register our hp
 Saving.registerNumber("playerHp", 100);

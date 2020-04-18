@@ -1,4 +1,9 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../enums/QuestEntityTeam.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 
 class PlayerSummonedOctopusKing extends QuestEntity{
     // Constructor

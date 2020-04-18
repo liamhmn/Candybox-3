@@ -1,4 +1,16 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../classes/QuestItemFound.ts"/>
+///<reference path="../quest-entity-spells/MonkeyWizardMagicalPurpleBall.ts"/>
+///<reference path="../enums/ColorType.ts"/>
+///<reference path="../classes/Color.ts"/>
 
 class MonkeyWizard extends QuestEntity{
     // Timer used for spell casting

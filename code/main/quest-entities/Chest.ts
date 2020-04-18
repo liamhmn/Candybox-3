@@ -1,4 +1,11 @@
 ///<reference path="./QuestEntity.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
 
 class Chest extends QuestEntity{
     // Callback collection we need to call when the chest is opened

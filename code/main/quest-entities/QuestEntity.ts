@@ -1,3 +1,18 @@
+///<reference path="../classes/QuestEntityAnimation.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../classes/QuestEntitySpellCaster.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../enums/QuestEntityTeam.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhoType.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhatType.ts"/>
 class QuestEntity{
     // The quests
     private quest: Quest;
