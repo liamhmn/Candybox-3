@@ -1,4 +1,6 @@
 ///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/Game.ts"/>
+///<reference path="../modules/Algo.ts"/>
 
 class Candies extends StatusBarResource{
     // Constructor

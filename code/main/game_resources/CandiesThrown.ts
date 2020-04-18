@@ -1,4 +1,8 @@
 ///<reference path="./Resource.ts"/>
+///<reference path="../classes/candies_thrown/CandiesThrownSmiley.ts"/>
+///<reference path="../classes/candies_thrown/CandiesThrownSmileyFirstLine.ts"/>
+///<reference path="../classes/candies_thrown/CandiesThrownSmileyCave.ts"/>
+///<reference path="../modules/Random.ts"/>
 
 Saving.registerBool("candiesThrownGotChocolateBar", false);
 
