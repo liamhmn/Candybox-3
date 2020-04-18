@@ -1,5 +1,6 @@
 ///<reference path="../classes/Game.ts"/>
 ///<reference path="../../../libs/jquery.d.ts"/>
+///<reference path="../enums/MainLoadingType.ts"/>
 
 module Main{
     // The game
