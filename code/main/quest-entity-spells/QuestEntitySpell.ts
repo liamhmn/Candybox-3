@@ -1,4 +1,12 @@
 ///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntitySpellColor.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/QuestEntityAnimation.ts"/>
 
 class QuestEntitySpell extends QuestEntity{
     // Colors

@@ -1,3 +1,11 @@
+///<reference path="../modules/Saving.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../enums/QuestPlayerSpellCountdownType.ts"/>
+///<reference path="../render-areas/RenderArea.ts"/>
+///<reference path="../classes/Hotkey.ts"/>
 // Potions
 Saving.registerBool("questPlayerSpellHealthPotionHasSpell", false);
 Saving.registerBool("questPlayerSpellTurtlePotionHasSpell", false);

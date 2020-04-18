@@ -1,4 +1,17 @@
 ///<reference path="./QuestEntitySpell.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhoType.ts"/>
+///<reference path="../enums/QuestEntityDamageReasonWhatType.ts"/>
+///<reference path="../enums/QuestEntityTeam.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
+///<reference path="../classes/QuestEntitySpellColor.ts"/>
+///<reference path="../modules/Random.ts"/>
 
 class PlayerSummonedDemon extends QuestEntitySpell{
     // The damage collision box collection

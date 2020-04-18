@@ -1,4 +1,13 @@
 ///<reference path="./QuestEntitySpell.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntitySpellColor.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
 
 class Blackhole extends QuestEntitySpell{
     // The time after which we will disappear

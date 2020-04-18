@@ -1,4 +1,13 @@
 ///<reference path="./QuestEntitySpell.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../enums/FireballTargetType.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/CollisionBoxCollection.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../classes/QuestEntitySpellColor.ts"/>
+///<reference path="../classes/CollisionBox.ts"/>
+///<reference path="../classes/QuestEntityMovement.ts"/>
 
 class Fireball extends QuestEntitySpell{
     // Our size
