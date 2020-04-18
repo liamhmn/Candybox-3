@@ -1,4 +1,7 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
 
 class LightweightBodyArmour extends EqItem{
     // Constructor

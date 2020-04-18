@@ -1,4 +1,8 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 
 class Scythe extends EqItem{
     // Constructor

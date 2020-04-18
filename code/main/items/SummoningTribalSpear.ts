@@ -1,4 +1,10 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../quest-entities/PlayerSummonedTribeWarrior.ts"/>
+///<reference path="../classes/QuestEntityHealthBar.ts"/>
 
 class SummoningTribalSpear extends EqItem{
     // Time since we last summoned a warrior

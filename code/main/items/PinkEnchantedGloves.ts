@@ -1,4 +1,6 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
 
 class PinkEnchantedGloves extends EqItem{
     // Constructor

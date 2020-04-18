@@ -1,4 +1,7 @@
 ///<reference path="../classes/Item.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
 
 class GridItem extends Item{
     // Position in the items grid

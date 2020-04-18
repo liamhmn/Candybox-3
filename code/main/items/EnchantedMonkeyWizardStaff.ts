@@ -1,4 +1,7 @@
 ///<reference path="./MonkeyWizardStaffMotherClass.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 
 class EnchantedMonkeyWizardStaff extends MonkeyWizardStaffMotherClass{
     // The timer

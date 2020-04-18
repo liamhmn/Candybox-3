@@ -1,4 +1,8 @@
 ///<reference path="./EqItem.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/QuestEntityDamageReason.ts"/>
 
 class EnchantedKnightBodyArmour extends EqItem{
     // Constructor

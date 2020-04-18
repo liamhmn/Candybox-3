@@ -1,4 +1,12 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/QuestEntity.ts"/>
+///<reference path="../classes/Pos.ts"/>
+///<reference path="../quest-entity-spells/Fireball.ts"/>
+///<reference path="../classes/Naming.ts"/>
+///<reference path="../classes/Color.ts"/>
+///<reference path="../enums/ColorType.ts"/>
 
 class MonkeyWizardStaffMotherClass extends EqItem{
     // Public methods which the daughter classes can use

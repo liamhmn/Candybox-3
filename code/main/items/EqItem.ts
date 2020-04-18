@@ -1,4 +1,6 @@
 ///<reference path="../classes/Item.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quests/Quest.ts"/>
 
 class EqItem extends Item{
     // Public methods    

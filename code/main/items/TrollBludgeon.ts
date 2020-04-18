@@ -1,4 +1,9 @@
 ///<reference path="EqItem.ts"/>
+///<reference path="../quests/Quest.ts"/>
+///<reference path="../quest-entities/Player.ts"/>
+///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../quest-entity-weapons/PlayerBludgeon.ts"/>
+///<reference path="../classes/Naming.ts"/>
 
 class TrollBludgeon extends EqItem{
     // Constructor
