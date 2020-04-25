@@ -118,10 +118,6 @@ tr.candyBoxRequestStatusBarUnlockedSaveComment
 Vahşi bir kayıt sekmesi belirdi!
 tr.candyBoxRequestStatusBarUnlockedHealthBarComment
 Bu 100 sağlık puanı senin. Bunlar işine yarayacak.
-tr.cfgChooseLanguage
-Dili seç :
-tr.cfgInvertColors
-Zıt renkler?
 tr.gridItemMainMapName
 Harita
 tr.gridItemMainMapDescription
