@@ -68,6 +68,7 @@
 // Config
 Saving.registerBool("gameDebug", false);
 Saving.registerString("gameLanguage", "en");
+Saving.registerString("gameVersion", VersionType.CANDY);
 Saving.registerBool("gameInvertedColors", false);
 
 // EqItems
