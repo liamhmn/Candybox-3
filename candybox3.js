@@ -1,12 +1,13 @@
 /**
  *
- * @source: http://candybox2.github.io/candybox2_uncompressed.js
+ * @source: http://candybox3.github.io/candybox3.js
  *
  * @licstart  The following is the entire license notice for the 
  *  JavaScript code in this page.
  *
- * Copyright (C) 2012 David "aniwey" L.
+ * Copyright (C) 2020 apomalyn, Adaendra.
  *
+ * Based on https://github.com/candybox2/candybox2.github.io
  *
  * The JavaScript code in this page is free software: you can
  * redistribute it and/or modify it under the terms of the GNU
@@ -5064,6 +5065,20 @@ var Fireball = /** @class */ (function (_super) {
     };
     return Fireball;
 }(QuestEntitySpell));
+/**
+ * Contains methods to have elements which are which between versions.
+ */
+var Version;
+(function (Version) {
+    function getSingular() {
+        return " " + "candy";
+    }
+    Version.getSingular = getSingular;
+    function getPlural() {
+        return " " + "candies";
+    }
+    Version.getPlural = getPlural;
+})(Version || (Version = {}));
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -5087,6 +5102,8 @@ var Fireball = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-spells/Fireball.ts"/>
 ///<reference path="../modules/Algo.ts"/>
 ///<reference path="../enums/QuestPlayerSpellCountdownType.ts"/>
+///<reference path="../modules/Version.ts"/>
+///<reference path="../modules/Saving.ts"/>
 var Quest = /** @class */ (function (_super) {
     __extends(Quest, _super);
     // Constructor
@@ -5601,7 +5618,7 @@ var Quest = /** @class */ (function (_super) {
         }
     };
     Quest.prototype.getCandiesDropMessage = function () {
-        return "You gain " + Algo.pluralFormat(this.candiesFound.getCurrent(), " candy", " candies") + ".";
+        return "You gain " + Algo.pluralFormat(this.candiesFound.getCurrent(), Version.getSingular(), Version.getPlural()) + ".";
     };
     Quest.prototype.getCandiesFoundMessage = function () {
         return "(" + this.candiesFound.getCurrentAsString() + " found so far)";
@@ -8681,6 +8698,7 @@ var FourthHouse = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../modules/Random.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Rat = /** @class */ (function (_super) {
     __extends(Rat, _super);
     // Constructor
@@ -8704,7 +8722,7 @@ var Rat = /** @class */ (function (_super) {
     Rat.prototype.willDie = function () {
         // We find a candy
         if (Random.oneChanceOutOf(3))
-            this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+            this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // We don't find a candy
         else
             this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage()));
@@ -9402,6 +9420,7 @@ var GiantNougatMonsterStep;
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../modules/Version.ts"/>
 var GiantNougatMonster = /** @class */ (function (_super) {
     __extends(GiantNougatMonster, _super);
     // Constructor
@@ -9454,7 +9473,7 @@ var GiantNougatMonster = /** @class */ (function (_super) {
     };
     // willDie()
     GiantNougatMonster.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Random.upTo(123456)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Random.upTo(123456)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     // Private methods
     GiantNougatMonster.prototype.addWeapon = function () {
@@ -10340,6 +10359,7 @@ var Blackhole = /** @class */ (function (_super) {
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../quest-entity-spells/fireballs/DeveloperMagicBall.ts"/>
 ///<reference path="../quest-entity-spells/Blackhole.ts"/>
+///<reference path="../modules/Version.ts"/>
 var DeveloperEntity = /** @class */ (function (_super) {
     __extends(DeveloperEntity, _super);
     // Constructor
@@ -10379,7 +10399,7 @@ var DeveloperEntity = /** @class */ (function (_super) {
     };
     // willDie()
     DeveloperEntity.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(6000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(6000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedY", "You found a strange stone.", "You gain a strange stone."));
     };
     // Public methods
@@ -10550,6 +10570,7 @@ var CauldronFlame = /** @class */ (function () {
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/CollisionBox.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Devil = /** @class */ (function (_super) {
     __extends(Devil, _super);
     // Constructor
@@ -10596,7 +10617,7 @@ var Devil = /** @class */ (function (_super) {
     };
     // willDie()
     Devil.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedA", "You found a strange stone.", "You gain a strange stone."));
     };
     // Private methods
@@ -10699,6 +10720,7 @@ var DemonType;
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Demon = /** @class */ (function (_super) {
     __extends(Demon, _super);
     // Constructor
@@ -10773,7 +10795,7 @@ var Demon = /** @class */ (function (_super) {
     };
     // willDie()
     Demon.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return Demon;
 }(QuestEntity));
@@ -10787,6 +10809,7 @@ var Demon = /** @class */ (function (_super) {
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="Demon.ts"/>
 ///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Camazotz = /** @class */ (function (_super) {
     __extends(Camazotz, _super);
     // Constructor
@@ -10824,7 +10847,7 @@ var Camazotz = /** @class */ (function (_super) {
     };
     // willeDie()
     Camazotz.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     // Private methods
     Camazotz.prototype.dropADemon = function () {
@@ -11506,6 +11529,7 @@ var Castle = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Knight = /** @class */ (function (_super) {
     __extends(Knight, _super);
     // Constructor
@@ -11562,7 +11586,7 @@ var Knight = /** @class */ (function (_super) {
     };
     // willDie()
     Knight.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(800 + Random.upTo(15) * 100), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(800 + Random.upTo(15) * 100), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         if (Random.oneChanceOutOf(5))
             this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemBodyArmoursKnightBodyArmour", "You found a body armour on a knight", "You gain a knight body armour"));
     };
@@ -12417,6 +12441,7 @@ var Cfg = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Xinopherydon = /** @class */ (function (_super) {
     __extends(Xinopherydon, _super);
     // Constructor
@@ -12449,7 +12474,7 @@ var Xinopherydon = /** @class */ (function (_super) {
     // willDie()
     Xinopherydon.prototype.willDie = function () {
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(30000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(30000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The claw
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedXinopherydonClaw", "You found a strange claw on the xinopherydon's corpse.", "You gain a strange claw."));
     };
@@ -14734,6 +14759,7 @@ var RenderTagLt = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTagLt.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Troll = /** @class */ (function (_super) {
     __extends(Troll, _super);
     // Constructor
@@ -14768,7 +14794,7 @@ var Troll = /** @class */ (function (_super) {
         renderArea.addTag(new RenderTagLt(this.getQuest().getRealQuestPosition().x + this.getGlobalPosition().x + this.getRenderAreaPosition().x + 9), this.getQuest().getRealQuestPosition().y + this.getGlobalPosition().y + this.getRenderAreaPosition().y + 1);
     };
     Troll.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemWeaponTrollBludgeon", "You picked up the troll's bludgeon from the floor", "You gain the troll's bludgeon"));
     };
     return Troll;
@@ -14939,6 +14965,7 @@ var Mosquito = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-spells/Fireball.ts"/>
 ///<reference path="../classes/Color.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
+///<reference path="../modules/Version.ts"/>
 var TreeSpirit = /** @class */ (function (_super) {
     __extends(TreeSpirit, _super);
     // Constructor
@@ -15000,7 +15027,7 @@ var TreeSpirit = /** @class */ (function (_super) {
     };
     // willDie()
     TreeSpirit.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50 * Random.upTo(10)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50 * Random.upTo(10)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     // Private methods
     TreeSpirit.prototype.shootMagicSpine = function (onTheLeft) {
@@ -15024,6 +15051,7 @@ var TreeSpirit = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Wolf = /** @class */ (function (_super) {
     __extends(Wolf, _super);
     // Constructor
@@ -15093,7 +15121,7 @@ var Wolf = /** @class */ (function (_super) {
     };
     // willDie()
     Wolf.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50 * Random.upTo(10)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50 * Random.upTo(10)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     // Private methods
     Wolf.prototype.getRunningSpeed = function () {
@@ -15498,6 +15526,7 @@ var BigSharkFinType;
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../classes/QuestEntity.ts"/>
+///<reference path="../modules/Version.ts"/>
 var BigShark = /** @class */ (function (_super) {
     __extends(BigShark, _super);
     // Constructor
@@ -15540,7 +15569,7 @@ var BigShark = /** @class */ (function (_super) {
     };
     // willDie()
     BigShark.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500 + Random.upTo(30) * 35), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500 + Random.upTo(30) * 35), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         if (this.finType != null) {
             switch (this.finType) {
                 case BigSharkFinType.RED:
@@ -15584,6 +15613,7 @@ var BigShark = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var JellyFish = /** @class */ (function (_super) {
     __extends(JellyFish, _super);
     // Constructor
@@ -15612,7 +15642,7 @@ var JellyFish = /** @class */ (function (_super) {
     };
     // willDie()
     JellyFish.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(120), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(120), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return JellyFish;
 }(QuestEntity));
@@ -15627,6 +15657,7 @@ var JellyFish = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var MediumFish = /** @class */ (function (_super) {
     __extends(MediumFish, _super);
     // Constructor
@@ -15648,7 +15679,7 @@ var MediumFish = /** @class */ (function (_super) {
     }
     // willDie()
     MediumFish.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(15), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(15), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return MediumFish;
 }(QuestEntity));
@@ -15663,6 +15694,7 @@ var MediumFish = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var MiniShark = /** @class */ (function (_super) {
     __extends(MiniShark, _super);
     // Constructor
@@ -15684,7 +15716,7 @@ var MiniShark = /** @class */ (function (_super) {
     }
     // willDie()
     MiniShark.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(50 + 10 * Random.upTo(5)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(50 + 10 * Random.upTo(5)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return MiniShark;
 }(QuestEntity));
@@ -15697,6 +15729,7 @@ var MiniShark = /** @class */ (function (_super) {
 ///<reference path="../classes/CollisionBox.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Version.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../classes/QuestEntitySpellCaster.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
@@ -15740,7 +15773,8 @@ var Seahorse = /** @class */ (function (_super) {
     };
     // willDie()
     Seahorse.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(150), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() +
+            " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(150), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return Seahorse;
 }(QuestEntity));
@@ -16857,6 +16891,7 @@ var DesertBird = /** @class */ (function (_super) {
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var TripodCamel = /** @class */ (function (_super) {
     __extends(TripodCamel, _super);
     // Constructor
@@ -16882,7 +16917,7 @@ var TripodCamel = /** @class */ (function (_super) {
     }
     // Public methods
     TripodCamel.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(20 + Random.upTo(12)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(20 + Random.upTo(12)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return TripodCamel;
 }(QuestEntity));
@@ -16897,6 +16932,7 @@ var TripodCamel = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var Camel = /** @class */ (function (_super) {
     __extends(Camel, _super);
     // Constructor
@@ -16919,7 +16955,7 @@ var Camel = /** @class */ (function (_super) {
     }
     // Public methods
     Camel.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     };
     return Camel;
 }(QuestEntity));
@@ -17093,6 +17129,7 @@ var Desert = /** @class */ (function (_super) {
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var LostTribeWarrior = /** @class */ (function (_super) {
     __extends(LostTribeWarrior, _super);
     // Constructor
@@ -17134,7 +17171,7 @@ var LostTribeWarrior = /** @class */ (function (_super) {
     // willDie()
     LostTribeWarrior.prototype.willDie = function () {
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(3000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(3000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The tribal spear
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemWeaponTribalSpear", "You found a tribal spear.", "You gain a tribal spear."));
     };
@@ -17550,6 +17587,7 @@ var Enchantment = /** @class */ (function () {
 ///<reference path="../classes/EnchantmentItem.ts"/>
 ///<reference path="../enums/EqItemType.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../modules/Version.ts"/>
 // Candies stuff
 Saving.registerBool("wishingWellFirstCandyThrown", false);
 Saving.registerNumber("wishingWellPreviousCandyWishPrice", 1);
@@ -17644,7 +17682,7 @@ var WishingWell = /** @class */ (function (_super) {
         // Else, we already threw our first candy
         else {
             // The button
-            this.renderArea.addAsciiRealButton("Throw " + Algo.pluralFormatNicely(Saving.loadNumber("wishingWellCurrentCandyWishPrice"), " candy", " candies") + " in the well", x, y, "wishingWellThrowCandiesButton");
+            this.renderArea.addAsciiRealButton("Throw " + Algo.pluralFormatNicely(Saving.loadNumber("wishingWellCurrentCandyWishPrice"), Version.getSingular(), Version.getPlural()) + " in the well", x, y, "wishingWellThrowCandiesButton");
             this.renderArea.addLinkCall(".wishingWellThrowCandiesButton", new CallbackCollection(this.throwCandies.bind(this)));
         }
     };
@@ -19196,6 +19234,7 @@ var MonkeyWizardMagicalPurpleBall = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-spells/fireballs/MonkeyWizardMagicalPurpleBall.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../classes/Color.ts"/>
+///<reference path="../modules/Version.ts"/>
 var MonkeyWizard = /** @class */ (function (_super) {
     __extends(MonkeyWizard, _super);
     // Constructor
@@ -19303,7 +19342,7 @@ var MonkeyWizard = /** @class */ (function (_super) {
     // willDie()
     MonkeyWizard.prototype.willDie = function () {
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The monkey wizard staff
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemWeaponMonkeyWizardStaff", "You found a staff.", "You gain the monkey wizard staff."));
     };
@@ -19473,6 +19512,7 @@ var TheCavePattern_MonkeyWizard = /** @class */ (function (_super) {
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 var OctopusKing = /** @class */ (function (_super) {
     __extends(OctopusKing, _super);
     // Constructor
@@ -19504,7 +19544,7 @@ var OctopusKing = /** @class */ (function (_super) {
     // willDie()
     OctopusKing.prototype.willDie = function () {
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(4000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(4000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The monkey wizard staff
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemHatOctopusKingCrown", "You found the Octopus King crown.", "You gain the Octopus King crown."));
     };
@@ -20417,6 +20457,7 @@ var TheComputer = /** @class */ (function (_super) {
 ///<reference path="../classes/QuestLogMessage.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../modules/Algo.ts"/>
+///<reference path="../modules/Version.ts"/>
 var YourselfEntity = /** @class */ (function (_super) {
     __extends(YourselfEntity, _super);
     // Constructor
@@ -20455,7 +20496,7 @@ var YourselfEntity = /** @class */ (function (_super) {
     };
     // willDie()
     YourselfEntity.prototype.willDie = function () {
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Math.floor(this.getQuest().getGame().getCandies().getCurrent() / 10)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Math.floor(this.getQuest().getGame().getCandies().getCurrent() / 10)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemBootsBootsOfIntrospection", "You found the boots of introspection", "You gain the boots of introspection"));
     };
     return YourselfEntity;
@@ -22514,6 +22555,12 @@ var TheSeaPatternLevel_Boss1 = /** @class */ (function (_super) {
     };
     return TheSeaPatternLevel_Boss1;
 }(TheSeaPatternLevel));
+var VersionType;
+(function (VersionType) {
+    VersionType[VersionType["BEER"] = 0] = "BEER";
+    VersionType[VersionType["CANDY"] = 1] = "CANDY";
+    VersionType[VersionType["HEALTHY"] = 2] = "HEALTHY";
+})(VersionType || (VersionType = {}));
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>

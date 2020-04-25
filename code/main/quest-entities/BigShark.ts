@@ -12,6 +12,7 @@
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../classes/QuestEntity.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class BigShark extends QuestEntity {
     // Do we have a special fin?
@@ -83,7 +84,7 @@ class BigShark extends QuestEntity {
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500 + Random.upTo(30)*35), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500 + Random.upTo(30)*35), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         
         if(this.finType != null){
             switch(this.finType){

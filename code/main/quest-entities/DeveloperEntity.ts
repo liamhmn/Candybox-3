@@ -14,6 +14,7 @@
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../quest-entity-spells/fireballs/DeveloperMagicBall.ts"/>
 ///<reference path="../quest-entity-spells/Blackhole.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class DeveloperEntity extends QuestEntity{
     // Create the texts
@@ -100,7 +101,7 @@ class DeveloperEntity extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(6000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(6000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedY", "You found a strange stone.", "You gain a strange stone."));
     }
     

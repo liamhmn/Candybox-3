@@ -11,6 +11,7 @@
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Xinopherydon extends QuestEntity{
     // Constructor
@@ -64,7 +65,7 @@ class Xinopherydon extends QuestEntity{
     // willDie()
     public willDie(): void{
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(30000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(30000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The claw
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedXinopherydonClaw", "You found a strange claw on the xinopherydon's corpse.", "You gain a strange claw."));
     }

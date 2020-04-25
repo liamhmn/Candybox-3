@@ -8,6 +8,7 @@
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="Demon.ts"/>
 ///<reference path="../classes/QuestEntityHealthBar.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Camazotz extends QuestEntity{
     // Are we moving towards the player?
@@ -77,7 +78,7 @@ class Camazotz extends QuestEntity{
     
     // willeDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
     
     // Private methods

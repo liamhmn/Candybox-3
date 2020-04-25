@@ -12,6 +12,7 @@
 ///<reference path="../quest-entity-spells/Fireball.ts"/>
 ///<reference path="../classes/Color.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class TreeSpirit extends QuestEntity{
     // The tree spirit ammunition
@@ -103,7 +104,7 @@ class TreeSpirit extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50*Random.upTo(10)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50*Random.upTo(10)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
     
     // Private methods
