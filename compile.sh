@@ -51,13 +51,13 @@ uglifyjs candybox3.js.temp -c -m -o candybox3.min.js.temp
 
 ### Create the candybox3.js file from the license and the temp file
 
-cat candybox2_sourceCodeLicense.txt > candybox3.js
+cat candybox3_sourceCodeLicense.txt > candybox3.js
 cat candybox3.js.temp >> candybox3.js
 
 
 ### Create the candybox3.min.js file from the license and the temp file
 
-cat candybox2_sourceCodeLicense.txt > candybox3.min.js
+cat candybox3_sourceCodeLicense.txt > candybox3.min.js
 cat candybox3.min.js.temp >> candybox3.min.js
 
 

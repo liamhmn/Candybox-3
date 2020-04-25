@@ -1,12 +1,13 @@
 /**
  *
- * @source: http://candybox2.github.io/candybox2_uncompressed.js
+ * @source: http://candybox3.github.io/candybox3.js
  *
  * @licstart  The following is the entire license notice for the 
  *  JavaScript code in this page.
  *
- * Copyright (C) 2012 David "aniwey" L.
+ * Copyright (C) 2020 apomalyn, Adaendra.
  *
+ * Based on https://github.com/candybox2/candybox2.github.io
  *
  * The JavaScript code in this page is free software: you can
  * redistribute it and/or modify it under the terms of the GNU
