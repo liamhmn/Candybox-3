@@ -1439,8 +1439,6 @@ Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment1", "You now have
 Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment2", "You can change the language, if you want to.");
 Database.addText("en.candyBoxRequestStatusBarUnlockedSaveComment", "A wild saving tab appears!");
 Database.addText("en.candyBoxRequestStatusBarUnlockedHealthBarComment", "Here's 100 health points for you. They're going to be useful.");
-Database.addText("en.cfgChooseLanguage", "Choose the language :");
-Database.addText("en.cfgInvertColors", "Invert colors?");
 Database.addText("en.gridItemMainMapName", "The Map");
 Database.addText("en.gridItemMainMapDescription", "Map of the world");
 Database.addText("en.gridItemPogoStickName", "Pogo stick");
@@ -2129,8 +2127,6 @@ Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment1", "Vous avez ma
 Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment2", "Vous pouvez changer la langue, si vous le voulez.");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedSaveComment", "Un onglet de sauvegarde sauvage apparait !");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedHealthBarComment", "Voici 100 points de vie pour vous. Ils vont vous être utiles.");
-Database.addText("fr.cfgChooseLanguage", "Choisissez la langue :");
-Database.addText("fr.cfgInvertColors", "Inverser les couleurs ?");
 Database.addText("fr.gridItemMainMapName", "La Carte");
 Database.addText("fr.gridItemMainMapDescription", "Carte du monde");
 Database.addText("fr.gridItemPogoStickName", "Bâton sauteur");
@@ -6067,3 +6063,9 @@ Database.addText("zh.cauldron.page8", "P药剂 / P药剂是相当奇怪的药剂
 Database.addText("zh.cauldron.page9", "妥善利用P药剂 / 如果你想让喝下的P药剂发挥更好的效果，应当遵守以下规则。尽管这些规则都是根据经验总结出来的，但它们似乎相当有效。 / -你喝过的P药剂越多，P药剂的奇怪功效就越多。 / -当你性命垂危时，喝下P药剂似乎是明智的选择。 / - 喝下P药剂的动物似乎会有非常不良的反应。");
 Database.addText("zh.cauldron.page10", "X药剂 / X药剂是一个传说。据说设法炼制并饮用过该药剂的人都会被送往一处人迹未至之地。 / 我不知道这种药剂是否仅仅是一个传说，但我会在这本书中写下我所了解到的关于它的一切。 / 诸多古老的传说和炼金书皆曾提及X药剂。我从中总结了一些可能有助于你炼制该药剂的信息。祝你好运！ / - 据说炼制X药剂共需5个步骤。 / - 据说除其中一个步骤之外，其他步骤并不需要用到棒棒糖。 / - 据说与其他药剂不同，你不能在一次炼制过程中产出多瓶X药剂。");
 Database.addText("zh.cauldron.page11", "- 当提到X药剂时，人们经常会引述下面这首诗：/ 在头一日，就有了第一颗糖果。但外面是冷的。 / 在第二日，糖果有了父亲。但外面是冷的。 / 在第三日，糖果有了兄弟，但外面是冷的。 / 在第四日，糖果有了朋友，但外面是冷的。 / 在第五日，糖果有了爱人，或许出于单纯，或许出于幼稚，但糖果非常开心，而外面终于热起来了。");
+Database.addText("en.cfgVersion", "Choose the version :");
+Database.addText("en.cfgChooseLanguage", "Choose the language :");
+Database.addText("en.cfgInvertColors", "Invert colors?");
+Database.addText("fr.cfgVersion", "Choisissez la version :");
+Database.addText("fr.cfgChooseLanguage", "Choisissez la langue :");
+Database.addText("fr.cfgInvertColors", "Inverser les couleurs ?");
