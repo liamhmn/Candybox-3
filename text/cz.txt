@@ -118,10 +118,6 @@ cz.candyBoxRequestStatusBarUnlockedSaveComment
 A teď dokonce můžeš uložit! 
 cz.candyBoxRequestStatusBarUnlockedHealthBarComment
 Tady máš 100 bodů zdraví. Budou se ti hodit.
-cz.cfgChooseLanguage
-Výběr jazyka:
-cz.cfgInvertColors
-Invertovat barvy?
 cz.gridItemMainMapName
 Mapa
 cz.gridItemMainMapDescription

@@ -1,0 +1,4 @@
+cz.cfgChooseLanguage
+Výběr jazyka:
+cz.cfgInvertColors
+Invertovat barvy?
