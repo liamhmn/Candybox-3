@@ -118,10 +118,6 @@ fr.candyBoxRequestStatusBarUnlockedSaveComment
 Un onglet de sauvegarde sauvage apparait !
 fr.candyBoxRequestStatusBarUnlockedHealthBarComment
 Voici 100 points de vie pour vous. Ils vont vous être utiles.
-fr.cfgChooseLanguage
-Choisissez la langue :
-fr.cfgInvertColors
-Inverser les couleurs ?
 fr.gridItemMainMapName
 La Carte
 fr.gridItemMainMapDescription

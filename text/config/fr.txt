@@ -1,0 +1,6 @@
+fr.cfgVersion
+Choisissez la version :
+fr.cfgChooseLanguage
+Choisissez la langue :
+fr.cfgInvertColors
+Inverser les couleurs ?
