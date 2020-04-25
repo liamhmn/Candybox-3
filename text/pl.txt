@@ -118,10 +118,6 @@ pl.candyBoxRequestStatusBarUnlockedSaveComment
 Pojawia się dzika karta zapisu!
 pl.candyBoxRequestStatusBarUnlockedHealthBarComment
 100 punktów życia dla ciebie. Przydadzą ci się!
-pl.cfgChooseLanguage
-Wybierz język :
-pl.cfgInvertColors
-Odwrócić kolory?
 pl.gridItemMainMapName
 Mapa
 pl.gridItemMainMapDescription

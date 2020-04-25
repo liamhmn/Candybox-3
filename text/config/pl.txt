@@ -1,0 +1,4 @@
+pl.cfgChooseLanguage
+Wybierz język :
+pl.cfgInvertColors
+Odwrócić kolory?
