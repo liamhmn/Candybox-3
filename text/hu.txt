@@ -118,10 +118,6 @@ hu.candyBoxRequestStatusBarUnlockedSaveComment
 Hirtelen felbukkant egy mentés fül!
 hu.candyBoxRequestStatusBarUnlockedHealthBarComment
 Itt van 100 életerő pont. Nagyon hasznosak lesznek.
-hu.cfgChooseLanguage
-Válassz nyelvet :
-hu.cfgInvertColors
-Megfordítod a színeket?
 hu.gridItemMainMapName
 A térkép
 hu.gridItemMainMapDescription
