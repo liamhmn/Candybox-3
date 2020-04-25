@@ -1,0 +1,4 @@
+el.cfgChooseLanguage
+Διάλεξε γλώσσα :
+el.cfgInvertColors
+Αντιστροφή χρωμάτων;

@@ -118,10 +118,6 @@ el.candyBoxRequestStatusBarUnlockedSaveComment
 Μία άγρια καρτέλα αποθήκευσης εμφανίστηκε!
 el.candyBoxRequestStatusBarUnlockedHealthBarComment
 Ορίστε 100 πόντοι ζωής. Θα ειναι χρήσιμοι.
-el.cfgChooseLanguage
-Διάλεξε γλώσσα :
-el.cfgInvertColors
-Αντιστροφή χρωμάτων;
 el.gridItemMainMapName
 Ο Χάρτης
 el.gridItemMainMapDescription
