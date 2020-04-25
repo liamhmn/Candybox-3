@@ -118,10 +118,6 @@ ru.candyBoxRequestStatusBarUnlockedSaveComment
 Появилась дикая панель сохранения!
 ru.candyBoxRequestStatusBarUnlockedHealthBarComment
 Вот 100 очков здоровья. Они будут вам полезны.
-ru.cfgChooseLanguage
-Выберите язык:
-ru.cfgInvertColors
-Инвертировать цвета?
 ru.gridItemMainMapName
 Карта
 ru.gridItemMainMapDescription
