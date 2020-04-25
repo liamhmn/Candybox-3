@@ -118,10 +118,6 @@ zh.candyBoxRequestStatusBarUnlockedSaveComment
 一只野生的存储标签出现了！（SAVE）
 zh.candyBoxRequestStatusBarUnlockedHealthBarComment
 这是为你准备的100点生命值，他们会非常有用的。
-zh.cfgChooseLanguage
-选择语言：
-zh.cfgInvertColors
-反色显示？
 zh.gridItemMainMapName
 地图
 zh.gridItemMainMapDescription
