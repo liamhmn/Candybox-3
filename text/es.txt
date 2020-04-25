@@ -118,10 +118,6 @@ es.candyBoxRequestStatusBarUnlockedSaveComment
 ¡Una pestaña salvaje apareció!
 es.candyBoxRequestStatusBarUnlockedHealthBarComment
 Has ganado 100 puntos de vida. Te serán útiles.
-es.cfgChooseLanguage
-Elige el idioma:
-es.cfgInvertColors
-¿Invertir colores?
 es.gridItemMainMapName
 El Mapa
 es.gridItemMainMapDescription
