@@ -118,10 +118,6 @@ nl.candyBoxRequestStatusBarUnlockedSaveComment
 Een wilde opslaan-tab verschijnt!
 nl.candyBoxRequestStatusBarUnlockedHealthBarComment
 Hier zijn 100 levenspunten voor je. Ze zullen goed van pas komen.
-nl.cfgChooseLanguage
-Kies je taal:
-nl.cfgInvertColors
-Kleuren omkeren?
 nl.gridItemMainMapName
 De kaart
 nl.gridItemMainMapDescription

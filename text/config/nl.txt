@@ -1,0 +1,4 @@
+nl.cfgChooseLanguage
+Kies je taal:
+nl.cfgInvertColors
+Kleuren omkeren?
