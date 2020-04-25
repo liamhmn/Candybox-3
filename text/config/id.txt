@@ -1,0 +1,4 @@
+id.cfgChooseLanguage
+Pilih bahasa :
+id.cfgInvertColors
+Balikkan warna?

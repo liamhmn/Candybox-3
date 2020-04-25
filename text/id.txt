@@ -118,10 +118,6 @@ id.candyBoxRequestStatusBarUnlockedSaveComment
 Tab "save" yang liar muncul!
 id.candyBoxRequestStatusBarUnlockedHealthBarComment
 100 poin nyawa ini untukmu. Mereka akan menjadi berguna.
-id.cfgChooseLanguage
-Pilih bahasa :
-id.cfgInvertColors
-Balikkan warna?
 id.gridItemMainMapName
 Peta
 id.gridItemMainMapDescription
