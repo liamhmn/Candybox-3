@@ -118,10 +118,6 @@ se.candyBoxRequestStatusBarUnlockedSaveComment
 se.vild besparing flik visas !
 se.candyBoxRequestStatusBarUnlockedHealthBarComment
 Här finns 100 hälsa poäng för dig . De kommer att vara användbar .
-se.cfgChooseLanguage
-Välj språk :
-se.cfgInvertColors
-Invertera färger ?
 se.gridItemMainMapName
 The Map
 se.gridItemMainMapDescription
