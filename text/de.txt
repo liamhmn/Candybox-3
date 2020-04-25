@@ -118,10 +118,6 @@ de.candyBoxRequestStatusBarUnlockedSaveComment
 Ein wildes Speichern-Tab erscheint!
 de.candyBoxRequestStatusBarUnlockedHealthBarComment
 Hier sind 100 Lebenspunkte für dich. Sie werden nützlich sein.
-de.cfgChooseLanguage
-Wähle eine Sprache :
-de.cfgInvertColors
-Farben invertieren?
 de.gridItemMainMapName
 Die Karte
 de.gridItemMainMapDescription
