@@ -118,10 +118,6 @@ br.candyBoxRequestStatusBarUnlockedSaveComment
 Uma guia selvagem aparece!
 br.candyBoxRequestStatusBarUnlockedHealthBarComment
 Fique com esses 100 pontos de vida. Você vai precisar.
-br.cfgChooseLanguage
-Escolha o idioma:
-br.cfgInvertColors
-Inverter cores?
 br.gridItemMainMapName
 Mapa
 br.gridItemMainMapDescription
