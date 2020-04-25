@@ -118,10 +118,6 @@ kr.candyBoxRequestStatusBarUnlockedSaveComment
 그대로 저장할 수 있는 탭이 표시되었어.
 kr.candyBoxRequestStatusBarUnlockedHealthBarComment
 여기 너를 위한 건강 포인트 100점이 있어. 유용하게 쓰일 거야.
-kr.cfgChooseLanguage
-언어 선택:
-kr.cfgInvertColors
-색 바꿀래?
 kr.gridItemMainMapName
 더 맵
 kr.gridItemMainMapDescription
