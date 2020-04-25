@@ -118,10 +118,6 @@ en.candyBoxRequestStatusBarUnlockedSaveComment
 A wild saving tab appears!
 en.candyBoxRequestStatusBarUnlockedHealthBarComment
 Here's 100 health points for you. They're going to be useful.
-en.cfgChooseLanguage
-Choose the language :
-en.cfgInvertColors
-Invert colors?
 en.gridItemMainMapName
 The Map
 en.gridItemMainMapDescription

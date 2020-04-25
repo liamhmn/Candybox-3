@@ -1,0 +1,6 @@
+en.cfgVersion
+Choose the version :
+en.cfgChooseLanguage
+Choose the language :
+en.cfgInvertColors
+Invert colors?
