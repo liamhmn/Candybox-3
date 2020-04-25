@@ -1,0 +1,4 @@
+uk.cfgChooseLanguage
+Обери мову :
+uk.cfgInvertColors
+Інвертувати кольори?

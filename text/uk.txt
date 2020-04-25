@@ -118,10 +118,6 @@ uk.candyBoxRequestStatusBarUnlockedSaveComment
 З'явилась панель пришелепкуватого збереження!
 uk.candyBoxRequestStatusBarUnlockedHealthBarComment
 Ось тобі 100 пунктів здоров'я. Вони будуть корисними.
-uk.cfgChooseLanguage
-Обери мову :
-uk.cfgInvertColors
-Інвертувати кольори?
 uk.gridItemMainMapName
 Мапа
 uk.gridItemMainMapDescription
