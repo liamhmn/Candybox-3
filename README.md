@@ -32,3 +32,9 @@ Python need to be declared in your environment variables to work correctly.
 * **libs** - External libs added
 * **pythonScripts** - Python scripts to generate code
 * **text** - Sentences in differents languages to show to the player
+
+-------
+## RELEASE NOTE
+### 0.0.1
+* Code refactoring
+* Update icon and licence for CandyBox 3
