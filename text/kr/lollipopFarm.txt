@@ -1,0 +1,12 @@
+kr.lollipopFarmConstructMill
+제분소를 짓다 (롤리팝 10,000개)
+kr.lollipopFarmFeedMill
+먹이를 주다
+kr.lollipopFarmCurrentCandiesProduction
+현재 캔디 생산
+kr.lollipopFarmDigPond
+연못을 파다 (롤리팝 100,000개)
+kr.lollipopFarmBuyLoligator
+롤리게이터 구매 (캔디 1,200개)
+kr.lollipopFarmLoligatorsConversionText
+캔디 변환 -> 롤리팝 활성화

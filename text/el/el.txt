@@ -410,18 +410,6 @@ el.lonelyHouseLureTheBoxWithACandyResult
 Το κουτί δεν φαίνεται να ενδιαφέρεται
 el.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 Πρέπει να υπάρχει κάτι ενδιαφέρον σε αυτο το candy box.
-el.lollipopFarmConstructMill
-Χτίσε ένα μύλο (10 000 γλειφυτζούρια)
-el.lollipopFarmFeedMill
-Τάισε το μύλο
-el.lollipopFarmCurrentCandiesProduction
-Τωρινή παραγωγή ζαχαρωτών 
-el.lollipopFarmDigPond
-Σκάψε μία λιμνούλα (100 000 γλειφυτζούρια)
-el.lollipopFarmBuyLolligator
-Αγόρασε έναν γλειφιγκάρορα (1200 ζαχαρωτά)
-el.lollipopFarmLolligatorsConversionText
-Μετατροπή ζαχαρωτά -> γλειφυτζούρια ενεργοποιημένη
 el.lighthouseAskButton
 Ρώτα
 el.lighthouseQuestionWho

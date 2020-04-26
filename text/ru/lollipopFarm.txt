@@ -1,0 +1,12 @@
+ru.lollipopFarmConstructMill
+Построить мельницу (10 000 леденцов)
+ru.lollipopFarmFeedMill
+Накормить мельницу
+ru.lollipopFarmCurrentCandiesProduction
+Текущее производство конфет
+ru.lollipopFarmDigPond
+Выкопать пруд (100 000 леденцов)
+ru.lollipopFarmBuyLolligator
+Купить конфетодила (1200 конфет)
+ru.lollipopFarmLolligatorsConversionText
+Превращение конфеты -> леденцы активировано

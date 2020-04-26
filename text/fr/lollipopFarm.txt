@@ -1,0 +1,12 @@
+fr.lollipopFarmConstructMill
+Construire un moulin (10 000 sucettes)
+fr.lollipopFarmFeedMill
+Nourrir le moulin
+fr.lollipopFarmCurrentCandiesProduction
+Production actuelle de bonbons
+fr.lollipopFarmDigPond
+Creuser un bassin (100 000 sucettes)
+fr.lollipopFarmBuyLolligator
+Acheter un lolligator (1200 bonbons)
+fr.lollipopFarmLolligatorsConversionText
+Conversion bonbons -> sucettes activée

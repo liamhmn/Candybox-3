@@ -1,0 +1,12 @@
+de.lollipopFarmConstructMill
+Eine Mühle bauen (10 000 Lutscher)
+de.lollipopFarmFeedMill
+Die Mühle auffüllen
+de.lollipopFarmCurrentCandiesProduction
+Aktuelle Bonbon-Produktion :
+de.lollipopFarmDigPond
+Einen Tümpel graben (100 000 Lutscher)
+de.lollipopFarmBuyLolligator
+Einen Lolligator kaufen (1 200 Bonbons)
+de.lollipopFarmLolligatorsConversionText
+Umwandlung Bonbons -> Lutscher aktiviert

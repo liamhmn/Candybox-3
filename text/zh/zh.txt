@@ -410,18 +410,6 @@ zh.lonelyHouseLureTheBoxWithACandyResult
 盒子似乎并不在乎
 zh.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 candy box中可能会有什么有趣的东西。
-zh.lollipopFarmConstructMill
-建一座磨坊（10 000根棒棒糖）
-zh.lollipopFarmFeedMill
-扩建磨坊
-zh.lollipopFarmCurrentCandiesProduction
-当前糖果产量
-zh.lollipopFarmDigPond
-挖一个池塘（100 000根棒棒糖）
-zh.lollipopFarmBuyLolligator
-买一条棒棒糖鳄（1200颗糖果）
-zh.lollipopFarmLolligatorsConversionText
-糖果->棒棒糖转换已被激活
 zh.lighthouseAskButton
 询问
 zh.lighthouseQuestionWho

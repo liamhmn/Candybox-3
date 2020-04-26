@@ -410,18 +410,6 @@ id.lonelyHouseLureTheBoxWithACandyResult
 Tampaknya kotaknya tidak peduli
 id.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 Mungkin ada sesuatu yang menarik di dalam candy box ini.
-id.lollipopFarmConstructMill
-Banguan sebuah kincir angin (10 000 lollipop)
-id.lollipopFarmFeedMill
-Sediakan makanan untuk kincir angin
-id.lollipopFarmCurrentCandiesProduction
-Produksi permen saat ini
-id.lollipopFarmDigPond
-Gali sebiah kolam (100 000 lollipop)
-id.lollipopFarmBuyLolligator
-Beli sebuah lolligator (1200 permen)
-id.lollipopFarmLolligatorsConversionText
-Pengubahan permen -> lollipop diaktifkan
 id.lighthouseAskButton
 Tanya
 id.lighthouseQuestionWho

@@ -1,0 +1,12 @@
+se.lollipopFarmConstructMill
+Bygg en kvarn ( 10 000 klubbor )
+se.lollipopFarmFeedMill
+Mata bruket
+se.lollipopFarmCurrentCandiesProduction
+Aktuellt godis produktion
+se.lollipopFarmDigPond
+Gräv en damm ( 100 000 klubbor )
+se.lollipopFarmBuyLolligator
+Köp en lolligator ( 1200 godisar )
+se.lollipopFarmLolligatorsConversionText
+Konvertering godis - > klubbor aktiveras

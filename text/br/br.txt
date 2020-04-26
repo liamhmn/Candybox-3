@@ -410,18 +410,6 @@ br.lonelyHouseLureTheBoxWithACandyResult
 A caixa parece não se importar.
 br.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 Deve ter algo de interessante dentro da caixa.
-br.lollipopFarmConstructMill
-Construir um moinho (10.000 pirulitos)
-br.lollipopFarmFeedMill
-Abastecer o moinho
-br.lollipopFarmCurrentCandiesProduction
-Produção atual de doces
-br.lollipopFarmDigPond
-Cavar um lago (100.000 pirulitos)
-br.lollipopFarmBuyLolligator
-Comprar um crocolito (1.200 doces)
-br.lollipopFarmLolligatorsConversionText
-Conversão doces -> pirulitos ativada
 br.lighthouseAskButton
 Perguntar
 br.lighthouseQuestionWho

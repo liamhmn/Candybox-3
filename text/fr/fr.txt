@@ -410,18 +410,6 @@ fr.lonelyHouseLureTheBoxWithACandyResult
 La boîte n'a pas l'air d'y prêter attention
 fr.lonelyHouseTakeTheBoxResult
 Il y a probablement quelque chose d'intéressant dans cette candy box.
-fr.lollipopFarmConstructMill
-Construire un moulin (10 000 sucettes)
-fr.lollipopFarmFeedMill
-Nourrir le moulin
-fr.lollipopFarmCurrentCandiesProduction
-Production actuelle de bonbons
-fr.lollipopFarmDigPond
-Creuser un bassin (100 000 sucettes)
-fr.lollipopFarmBuyLolligator
-Acheter un lolligator (1200 bonbons)
-fr.lollipopFarmLolligatorsConversionText
-Conversion bonbons -> sucettes activée
 fr.lighthouseAskButton
 Demander
 fr.lighthouseQuestionWho

@@ -410,18 +410,6 @@ pl.lonelyHouseLureTheBoxWithACandyResult
 Pudełko się nie przejmuje
 pl.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 W tym candy box musi być coś ciekawego.
-pl.lollipopFarmConstructMill
-Zbuduj młyn (10 000 lizaków)
-pl.lollipopFarmFeedMill
-Nakarm młyn
-pl.lollipopFarmCurrentCandiesProduction
-Bieżąca produkcja cukierków
-pl.lollipopFarmDigPond
-Wykop staw (100 000 lizaków)
-pl.lollipopFarmBuyLolligator
-Kup lizakogotora (1200 cukierków)
-pl.lollipopFarmLolligatorsConversionText
-Zamiana cukierki -> lizaki włączona
 pl.lighthouseAskButton
 Spytaj
 pl.lighthouseQuestionWho

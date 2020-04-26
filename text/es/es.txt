@@ -410,18 +410,6 @@ es.lonelyHouseLureTheBoxWithACandyResult
 A la caja parece no importarle
 es.lonelyHouseTakeTheBoxResult
 Probablemente hay algo interesante en esta Candy Box.
-es.lollipopFarmConstructMill
-Construir un molino (10 000 piruletas)
-es.lollipopFarmFeedMill
-Surtir al molino
-es.lollipopFarmCurrentCandiesProduction
-Producción de caramelos actual
-es.lollipopFarmDigPond
-Cavar un estanque (100 000 piruletas)
-es.lollipopFarmBuyLolligator
-Comprar un piruledrilo (1200 caramelos)
-es.lollipopFarmLolligatorsConversionText
-Conversión caramelos -> piruletas activada
 es.lighthouseAskButton
 Preguntar
 es.lighthouseQuestionWho

@@ -410,18 +410,6 @@ nl.lonelyHouseLureTheBoxWithACandyResult
 Het lijkt alsof het de doos niks uitmaakt
 nl.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 Er zit waarschijnlijk iets interessants in deze candy box
-nl.lollipopFarmConstructMill
-Bouw een molen(10 000 lollies)
-nl.lollipopFarmFeedMill
-Voed de molen
-nl.lollipopFarmCurrentCandiesProduction
-Huidige snoepjesproductie
-nl.lollipopFarmDigPond
-Graaf een vijver (100 000 lollies)
-nl.lollipopFarmBuyLolligator
-Koop een lolliegator (1200 snoepjes)
-nl.lollipopFarmLolligatorsConversionText
-Snoepjes omkeer -> lollies geactiveerd
 nl.lighthouseAskButton
 Vraag
 nl.lighthouseQuestionWho

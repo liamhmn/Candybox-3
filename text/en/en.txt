@@ -410,18 +410,6 @@ en.lonelyHouseLureTheBoxWithACandyResult
 The box doesn't seem to care
 en.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
 There's probably something interesting in this candy box.
-en.lollipopFarmConstructMill
-Build a mill (10 000 lollipops)
-en.lollipopFarmFeedMill
-Feed the mill
-en.lollipopFarmCurrentCandiesProduction
-Current candies production
-en.lollipopFarmDigPond
-Dig a pond (100 000 lollipops)
-en.lollipopFarmBuyLolligator
-Buy a lolligator (1200 candies)
-en.lollipopFarmLolligatorsConversionText
-Conversion candies -> lollipops activated
 en.lighthouseAskButton
 Ask
 en.lighthouseQuestionWho
