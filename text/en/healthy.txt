@@ -34,3 +34,7 @@ en.healthy.lolligator
 veggigator
 en.healthy.mapFarmComment
 The veggie farm
+en.healthy.candyBox
+The veggie box
+en.healthy.sweet
+Healthy

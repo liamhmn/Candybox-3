@@ -34,3 +34,7 @@ en.beer.lolligator
 beergator
 en.beer.mapFarmComment
 The beer farm
+en.beer.candyBox
+The beer box
+en.beer.sweet
+Drunk

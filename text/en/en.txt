@@ -19,9 +19,9 @@ The castle
 en.mapDragonComment
 The dragon
 en.candyBoxEatCandiesButton
-Eat all the candies
+Eat all the %CANDIES%
 en.candyBoxThrowCandiesButton
-Throw 10 candies on the ground
+Throw 10 %CANDIES% on the ground
 en.mapVillageAHouseComment
 A house
 en.mapVillageForgeComment
@@ -33,21 +33,21 @@ Sorceress' hut
 en.buttonBackToTheVillage
 Back to the village
 en.mapATreeIntroductionSpeech # INFORMAL PRONOUN
-Hello, I'm The Squirrel. I can provide you candies, and lots of things. I know how much you love candies. But I feel alone in this forest.
+Hello, I'm The Squirrel. I can provide you %CANDIES%, and lots of things. I know how much you love %CANDIES%. But I feel alone in this forest.
 en.mapATreeIntroductionButton
 How can I help you ?
 en.mapATreeFirstQuestion # INFORMAL PRONOUN
-I will ask you questions. If you answer correctly, the sweetest sweets will be yours! First one : do you really love candies? (answer in english)
+I will ask you questions. If you answer correctly, the sweetest sweets will be yours! First one : do you really love %CANDIES%? (answer in english)
 en.mapATreeSecondQuestion # INFORMAL PRONOUN
-That's right! Here's 20 candies for you. Now complete this sequence of letters and you'll get a new reward : S, E, I, D, N, A, ?
+That's right! Here's 20 %CANDIES% for you. Now complete this sequence of letters and you'll get a new reward : S, E, I, D, N, A, ?
 en.mapATreeThirdQuestion # INFORMAL PRONOUN
-Candies! Here's 100 candies for you. Next question : how many candies does the candiest person in the world possess?
+Candies! Here's 100 %CANDIES% for you. Next question : how many %CANDIES% does the %CANDIES%t person in the world possess?
 en.mapATreeFourthQuestion # INFORMAL PRONOUN
-Here's 500 candies for you! Next reward should be even more interesting...  Here's the riddle : In an ancient forest grows a very old tree, on which live the most intelligent animals in this world. It is said that this tree has 60 roots, 360 branches and 2160 leaves. How many marks can you find on its trunk?
+Here's 500 %CANDIES% for you! Next reward should be even more interesting...  Here's the riddle : In an ancient forest grows a very old tree, on which live the most intelligent animals in this world. It is said that this tree has 60 roots, 360 branches and 2160 leaves. How many marks can you find on its trunk?
 en.mapATreeFifthQuestion # INFORMAL PRONOUN
-Congratulations! I was talking about my tree, indeed. Here are 3 lollipops for you. Make good use of them! Next riddle, listen carefully : Under a full moon, I throw a yellow hat into the red sea. What happens to the yellow hat?
+Congratulations! I was talking about my tree, indeed. Here are 3 %LOLLIPOPS% for you. Make good use of them! Next riddle, listen carefully : Under a full moon, I throw a yellow hat into the red sea. What happens to the yellow hat?
 en.mapATreeTicTacToeIntro # INFORMAL PRONOUN
-Well answered! That wasn't so hard. Here's three chocolate bars for you! For the next reward, we'll change the rules a little bit. You'll have to play a game with me! Are you ready?
+Well answered! That wasn't so hard. Here's three %CHOCOLATES% for you! For the next reward, we'll change the rules a little bit. You'll have to play a game with me! Are you ready?
 en.mapATreeTicTacToeIntroButton
 Sure I am!
 en.mapATreeTicTacToeLetsPlay # INFORMAL PRONOUN
@@ -97,15 +97,15 @@ The pier
 en.mapTheHoleComment
 The Hole
 en.candyBoxRequestStatusBarUnlocked
-Request a new feature to the developer (30 candies)
+Request a new feature to the developer (30 %CANDIES%)
 en.candyBoxRequestStatusBarUnlockedCfg
-Request another one (5 candies)
+Request another one (5 %CANDIES%)
 en.candyBoxRequestStatusBarUnlockedSave
-Request once again (5 candies)
+Request once again (5 %CANDIES%)
 en.candyBoxRequestStatusBarUnlockedHealthBar
-Request for something more exciting (5 candies)
+Request for something more exciting (5 %CANDIES%)
 en.candyBoxRequestStatusBarUnlockedMap
-Final request! This one has to be worth the candies. (10 candies)
+Final request! This one has to be worth the %CANDIES%. (10 %CANDIES%)
 en.candyBoxRequestStatusBarUnlockedComment
 You've unlocked a status bar! (above)
 en.candyBoxRequestStatusBarUnlockedCfgComment1
@@ -177,11 +177,11 @@ This claw belonged to a xinopherydon, a two-headed ancient animal everyone belie
 en.gridItemPitchforkName
 A pitchfork
 en.gridItemPitchforkDescription
-This special pitchfork allows you to loosen the soil without turning it over, therefore preserving below-ground soil ecosystems. It will triple the production of your lollipop farm.
+This special pitchfork allows you to loosen the soil without turning it over, therefore preserving below-ground soil ecosystems. It will triple the production of your %LOLLIPOPFARM%.
 en.gridItemShellPowderName
 Shell powder
 en.gridItemShellPowderDescription
-Shell powder is often used by farmers to improve the growth speed of their lollipops. This powder will multiply your lollipop farm production by three!
+Shell powder is often used by farmers to improve the growth speed of their %LOLLIPOPS%. This powder will multiply your %LOLLIPOPFARM% production by three!
 en.gridItemPName
 The P stone
 en.gridItemPDescription # Don't translate that!
@@ -205,15 +205,15 @@ This magical fin will greatly increase the damage of your fireball spell. Finall
 en.gridItemGreenSharkFinName
 A magical green shark fin
 en.gridItemGreenSharkFinDescription
-This magical fin will bring the power of nature to your lollipop farm! Your production will be multiplied by 5.
+This magical fin will bring the power of nature to your %LOLLIPOPFARM%! Your production will be multiplied by 5.
 en.gridItemPurpleSharkFinName
 A magical purple shark fin
 en.gridItemPurpleSharkFinDescription
 This magical fin will provide you a new black magic spell. You can only use it once per quest. Be very careful with this one!
 en.gridItemTalkingCandyName
-A talking candy
+A talking %CANDY%
 en.gridItemTalkingCandyDescription # Don't translate "candy box", keep it like that
-This talking candy appeared after you put the four stones at the top of the castle's tower. He might help you to open the candy box...
+This talking %CANDY% appeared after you put the four stones at the top of the castle's tower. He might help you to open the %CANDYBOX%...
 en.inventorySpecialNothingEqItem
 Nothing
 en.eqItemWeaponWoodenSwordName
@@ -263,7 +263,7 @@ It is said that this scythe belonged to the Death itself. It is extremely fast.
 en.eqItemHatMerchantHatName
 The merchant hat
 en.eqItemHatMerchantHatDescription
-This hat was sold to you by the candy merchant. The candy merchant loves candies. This hat will multiply by 7 the candies you find in quests!
+This hat was sold to you by the %CANDY% merchant. The %CANDY% merchant loves %CANDIES%. This hat will multiply by 7 the %CANDIES% you find in quests!
 en.eqItemHatSorceressHatName
 The sorceress hat
 en.eqItemHatSorceressHatDescription
@@ -317,51 +317,51 @@ An enchanted knight body armour
 en.eqItemBodyArmoursEnchantedKnightBodyArmourDescription
 This armour is very special. You will be a LOT more resistant to your enemies attacks, but the damage of the weapon you are using will be divided by two.
 en.mapVillageForgeBuyWoodenSwordButton
-Buy a wooden sword (150 candies)
+Buy a wooden sword (150 %CANDIES%)
 en.mapVillageForgeBuyWoodenSwordSpeech
 Thanks for buying! This wooden sword is quite weak, but it's a start.
 en.mapVillageForgeBuyIronAxeButton
-Buy an iron axe (400 candies)
+Buy an iron axe (400 %CANDIES%)
 en.mapVillageForgeBuyIronAxeSpeech
 I hope you'll like this iron axe. I have just sharpened it for you!
 en.mapVillageForgeBuyPolishedSilverSwordButton
-Buy a polished silver sword (2 000 candies)
+Buy a polished silver sword (2 000 %CANDIES%)
 en.mapVillageForgeBuyPolishedSilverSwordSpeech
 It took me a lot of time to create this sword. I assure you that it's worth its price.
 en.mapVillageForgeBuyLightweightBodyArmourButton
-Buy a lightweight body armour (15 000 candies)
+Buy a lightweight body armour (15 000 %CANDIES%)
 en.mapVillageForgeBuyLightweightBodyArmourSpeech
 This body armour will offer you a protection against your enemies.
 en.mapVillageForgeBuyScytheButton
-Buy a scythe (5 000 000 candies)
+Buy a scythe (5 000 000 %CANDIES%)
 en.mapVillageForgeBuyScytheSpeech
 It took me several months to make this scythe. It's a real piece of art. This is probably the fastest weapon you will ever be able to use. Good luck!
 en.wishingWellThrowFirstCandyButton
-Throw a candy in the well
+Throw a %CANDY% in the well
 en.wishingWellCandyIntroductionSpeech # INFORMAL PRONOUN
-Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw candies into me, I will heal your wounds.
+Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw %CANDIES% into me, I will heal your wounds.
 en.wishingWellThrewCandiesSpeech # INFORMAL PRONOUN
 Your wounds are now healed!
 en.wishingWellNoWoundSpeech # INFORMAL PRONOUN
 You have no wounds to heal!
 en.wishingWellThrowFirstLollipopButton
-Throw a lollipop in the well
+Throw a %LOLLIPOP% in the well
 en.wishingWellLollipopIntroductionSpeech # INFORMAL PRONOUN
-Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw lollipops into me, I will convert them into candies.
+Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw %LOLLIPOPS% into me, I will convert them into %CANDIES%.
 en.wishingWellThrewLollipopsSpeech # INFORMAL PRONOUN
-Your lollipops are converted into candies! Two lollipops for one candy.
+Your %LOLLIPOPS% are converted into %CANDIES%! Two %LOLLIPOPS% for one %CANDY%.
 en.wishingWellThrowChocolateBarButton
-Throw a chocolate bar in the well
+Throw a %CHOCOLATE% in the well
 en.wishingWellChocolateBarIntroductionSpeech # INFORMAL PRONOUN
-Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! I love chocolate bars. I really love them. For each chocolate bar you will throw into me, including this one, you will be granted one magical enchantment.
+Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! I love %CHOCOLATES%. I really love them. For each %CHOCOLATE% you will throw into me, including this one, you will be granted one magical enchantment.
 en.wishingWellThrewChocolateBarSpeech # INFORMAL PRONOUN
 Which object would you like to enchant?
 en.wishingWellThrowPainAuChocolatButton
-Throw a pain au chocolat in the well
+Throw a %PAINCHOCOLAT% in the well
 en.wishingWellPainAuChocolatIntroductionSpeech # INFORMAL PRONOUN
-Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you throw a pain au chocolat into me, you will be given a very special gift. Choose wisely.
+Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you throw a %PAINCHOCOLAT% into me, you will be given a very special gift. Choose wisely.
 en.wishingWellThrewPainAuChocolatSpeech # INFORMAL PRONOUN
-Thanks for the pain au chocolat! You can now choose your gift.
+Thanks for the %PAINCHOCOLAT%! You can now choose your gift.
 en.wishingWellChooseGift # INFORMAL PRONOUN
 Choose your gift!
 en.wishingWellChooseGiftButton
@@ -391,7 +391,7 @@ Kick the box
 en.lonelyHouseAskTheBoxToOpenItself
 Ask the box to open itself
 en.lonelyHouseLureTheBoxWithACandy
-Lure the box with a candy
+Lure the box with a %CANDY%
 en.lonelyHouseTakeTheBox
 Take the box with you, you probably need a key to open it anyway
 en.lonelyHouseOpenBoxResult
@@ -407,7 +407,7 @@ en.lonelyHouseAskTheBoxToOpenItselfResult
 en.lonelyHouseLureTheBoxWithACandyResult
 The box doesn't seem to care
 en.lonelyHouseTakeTheBoxResult # Don't translate "candy box", keep it like that
-There's probably something interesting in this candy box.
+There's probably something interesting in this %CANDYBOX%.
 en.lighthouseAskButton
 Ask
 en.lighthouseQuestionWho
@@ -419,17 +419,17 @@ What are you doing here?
 en.lighthouseQuestionWhatSpeech
 I live here all day long, waiting for a boat to come. It's been a long time since I've seen a boat, but I must stay here, staring at the sea, because a boat may come.
 en.lighthouseQuestionWhyEatCandies
-Why would I eat candies?
+Why would I eat %CANDIES%?
 en.lighthouseQuestionWhyEatCandiesSpeech
 Because they're good for your health!
 en.lighthouseQuestionCandyBox # Don't translate "candy box", keep it like that
-What is a candy box?
+What is a %CANDYBOX%?
 en.lighthouseQuestionCandyBoxSpeech
-It is a very old box that is said to contain all the candies in the world. The legends say that whoever manages to open it would have so much candies that anything could be possible.
+It is a very old box that is said to contain all the %CANDIES% in the world. The legends say that whoever manages to open it would have so much %CANDIES% that anything could be possible.
 en.lighthouseQuestionDragon
-The dragon told me to come here because I want candies.
+The dragon told me to come here because I want %CANDIES%.
 en.lighthouseQuestionDragonSpeech # INFORMAL PRONOUN
-Oh, I see... Well, I cannot provide you candies directly, but I can give you something essential for you to ultimately get a LOT of candies. I just need to test you before that. Because what I have can't be given to everyone. Solve this puzzle and it will be yours.
+Oh, I see... Well, I cannot provide you %CANDIES% directly, but I can give you something essential for you to ultimately get a LOT of %CANDIES%. I just need to test you before that. Because what I have can't be given to everyone. Solve this puzzle and it will be yours.
 en.lighthouseFoundStone # INFORMAL PRONOUN
 Congratulations! You passed the test and found the stone. It's very precious, but is only useful if you have three other stones like this one. Good luck!
 en.lighthouseFoundStoneAgain # INFORMAL PRONOUN
@@ -491,35 +491,35 @@ Climb the mountains to get the thing
 en.mountainsTextAfter
 You found a pogo stick! It has been added to your inventory.
 en.secondHouseIntroSpeech
-Hello, I'm the candy merchant. I would do anything for candies. What do you need?
+Hello, I'm the %CANDY% merchant. I would do anything for %CANDIES%. What do you need?
 en.secondHouseLollipop1Speech
-This is a lemon-flavored lollipop. My favourite! It costs 60 candies, but it's worth it.
+This is a lemon-flavored %LOLLIPOP%. My favourite! It costs 60 %CANDIES%, but it's worth it.
 en.secondHouseLollipop2Speech
-This one is a strawberry-flavored lollipop. It tastes good. I like its red color. Only 60 candies!
+This one is a strawberry-flavored %LOLLIPOP%. It tastes good. I like its red color. Only 60 %CANDIES%!
 en.secondHouseLollipop3Speech
-This is a pumpkin-flavored lollipop. I bet you never tried one! 60 candies and it's yours.
+This is a pumpkin-flavored %LOLLIPOP%. I bet you never tried one! 60 %CANDIES% and it's yours.
 en.secondHouseLollipopButtonText
-Buy this lollipop (60 candies)
+Buy this %LOLLIPOP% (60 %CANDIES%)
 en.secondHouseMerchantHatSpeech
-I could sell you my hat, but it is very precious, you know... You will have to give me a lot of candies for it. Let's say 1 million candies. It seems fair, right?
+I could sell you my hat, but it is very precious, you know... You will have to give me a lot of %CANDIES% for it. Let's say 1 million %CANDIES%. It seems fair, right?
 en.secondHouseMerchantHatButtonText
-Buy the merchant's hat (1 000 000 candies)
+Buy the merchant's hat (1 000 000 %CANDIES%)
 en.secondHouseTimeRingSpeech
 This is a time ring. It's kind of magical. It allows you to slow down the time when you're in trouble.
 en.secondHouseTimeRingButtonText
-Buy the time ring (500 candies)
+Buy the time ring (500 %CANDIES%)
 en.secondHouseLeatherGlovesSpeech
-These leather gloves are made from camel leather, this is high quality. I have a lot of them in stock, that's why they are so cheap : only 300 candies!
+These leather gloves are made from camel leather, this is high quality. I have a lot of them in stock, that's why they are so cheap : only 300 %CANDIES%!
 en.secondHouseLeatherBootsButtonText
-Buy a pair of leather boots (300 candies)
+Buy a pair of leather boots (300 %CANDIES%)
 en.secondHouseLeatherBootsSpeech
 These high quality leather boots, made from camel leather, will keep your feet warm.
 en.secondHouseLeatherGlovesButtonText
-Buy a pair of leather gloves (300 candies)
+Buy a pair of leather gloves (300 %CANDIES%)
 en.secondHouseChocolateBarSpeech
-This is a chocolate bar. I don't know what it is used for, but it happens to be quite rare, which explains the price. 800 candies and it's yours!
+This is a %CHOCOLATE%. I don't know what it is used for, but it happens to be quite rare, which explains the price. 800 %CANDIES% and it's yours!
 en.secondHouseChocolateBarButtonText
-Buy the chocolate bar (800 candies)
+Buy the %CHOCOLATE% (800 %CANDIES%)
 en.outsideTheHoleButton
 Jump in this big hole in the ground
 en.theCaveExitText0
@@ -539,7 +539,7 @@ You are in a cave. There are three paths ahead of you.
 en.theCavePattern_ArrowsToHeartPlugSeeStrangePlug
 You spot a strange thing on the ground in front of you.
 en.theCavePattern_ChocolateBarNowSeeChocolateBar
-You spot a chocolate bar in front of you.
+You spot a %CHOCOLATE% in front of you.
 en.theCavePattern_TreasureMapSentence
 You see small rocks strangely arranged on the floor.
 en.theCavePattern_MonkeyWizardSentence
@@ -565,33 +565,33 @@ Enter the third room
 en.treasureButtonDig
 Dig
 en.treasureButtonYouFound
-You found three chocolate bars!
+You found three %CHOCOLATES%!
 en.sorceressHutHello
-Hello, I'm the sorceress. I could teach you one thing or two about magic. I can also give you some interesting things, or cast spells for you. But everything has a price! And this price will be lollipops. A lot of them.
+Hello, I'm the sorceress. I could teach you one thing or two about magic. I can also give you some interesting things, or cast spells for you. But everything has a price! And this price will be %LOLLIPOPS%. A lot of them.
 en.sorceressHutClickedGrimoire
-This is a grimoire made for beginners. By carrying it with you in quests, you will be able to cast simple but useful spells. You need this! Only 5 000 lollipops.
+This is a grimoire made for beginners. By carrying it with you in quests, you will be able to cast simple but useful spells. You need this! Only 5 000 %LOLLIPOPS%.
 en.sorceressHutBuyGrimoireButton
-Buy this grimoire (5 000 lollipops)
+Buy this grimoire (5 000 %LOLLIPOPS%)
 en.sorceressHutBuyGrimoireSpeech
 Thanks for buying! You will be able to cast three spells with this grimoire. Good luck!
 en.sorceressHutClickedGrimoire2
-This is an advanced grimoire. By carrying it with you in quests, you will be able to cast two advanced spells. I wrote it myself, which wasn't easy. 20 000 lollipops is a fair price.
+This is an advanced grimoire. By carrying it with you in quests, you will be able to cast two advanced spells. I wrote it myself, which wasn't easy. 20 000 %LOLLIPOPS% is a fair price.
 en.sorceressHutBuyGrimoire2Button
-Buy this grimoire (20 000 lollipops)
+Buy this grimoire (20 000 %LOLLIPOPS%)
 en.sorceressHutBuyGrimoire2Speech
 Thanks for buying! You will be able to cast two spells with this grimoire. Use them wisely!
 en.sorceressHutClickedCauldron
-This is my cauldron. It allows me to brew magic potions. I could sell it to you, but it's very precious... it will cost you 100 000 lollipops.
+This is my cauldron. It allows me to brew magic potions. I could sell it to you, but it's very precious... it will cost you 100 000 %LOLLIPOPS%.
 en.sorceressHutBuyCauldronButton
-Buy the cauldron (100 000 lollipops)
+Buy the cauldron (100 000 %LOLLIPOPS%)
 en.sorceressHutBuyCauldronSpeech
-Thanks a lot! 100 000 lollipops for me! I also gave you a brewing manual. It's going to be useful.
+Thanks a lot! 100 000 %LOLLIPOPS% for me! I also gave you a brewing manual. It's going to be useful.
 en.sorceressHutClickedHat
-I have a nice hat, indeed! But I really can't sell it to you. It is waaaay too precious. Really, I can't. Don't insist. No. No no no I shouldn't do that. Oh well, I'll trade it, but for 1 000 000 000 lollipops. You probably won't be able to pay that anyway.
+I have a nice hat, indeed! But I really can't sell it to you. It is waaaay too precious. Really, I can't. Don't insist. No. No no no I shouldn't do that. Oh well, I'll trade it, but for 1 000 000 000 %LOLLIPOPS%. You probably won't be able to pay that anyway.
 en.sorceressHutBuyHatButton
-Buy the hat (1 000 000 000 lollipops)
+Buy the hat (1 000 000 000 %LOLLIPOPS%)
 en.sorceressHutBuyHatSpeech
-One billion lollipops for meeeeee! But I don't have a hat anymore.. but one billion lollipops, wow! .. It was worth it.
+One billion %LOLLIPOPS% for meeeeee! But I don't have a hat anymore.. but one billion %LOLLIPOPS%, wow! .. It was worth it.
 en.cauldronPreviousPageButton
 Previous page
 en.cauldronNextPageButton
@@ -625,11 +625,11 @@ Hello! I'm a very old bread oven. I used to cook tons of good pastries, but no o
 en.castleBigRoomHovenNotEnough # INFORMAL PRONOUN
 Oh... you don't have enough sweets, I can't do anything. I'm just useless. I'm the useless bread oven, that's how you should call me.
 en.castleBigRoomHovenSpeechMadePainAuChocolat # INFORMAL PRONOUN
-Yay! Thanks a lot! I used 100 candies and a chocolate bar, and I made you... a pain au chocolat! It's my favourite pastry, I hope you'll like it too!
+Yay! Thanks a lot! I used 100 %CANDIES% and a %CHOCOLATE%, and I made you... a %PAINCHOCOLAT%! It's my favourite pastry, I hope you'll like it too!
 en.castleBigRoomHovenSpeechHappy # INFORMAL PRONOUN
 Hey! If you want me to cook another pastry, just tell me! I'd love to help you.
 en.castleBigRoomHovenSpeechHappyNotEnough # INFORMAL PRONOUN
-Oh, you don't have enough sweets, sadly. I need 100 candies and a chocolate bar. Come back when you'll have that!
+Oh, you don't have enough sweets, sadly. I need 100 %CANDIES% and a %CHOCOLATE%. Come back when you'll have that!
 en.castleBigRoomHovenLetHovenTakeButton
 Let the oven take all the sweets it wants to take
 en.castleBigRoomHovenThanks
@@ -651,7 +651,7 @@ Oh, so you want challenge? I think you should make a trip to hell itself, it is 
 en.dragonTalkingFameSpeech # INFORMAL PRONOUN
 The best way to become famous is to face the developer himself. I know where he lives and I could take you there. But be prepared, this won't be easy.
 en.dragonTalkingCandiesSpeech # INFORMAL PRONOUN
-Ultimately, the thing we all want is candies, isn't it? I think a friend of mine could help you with that. You will recognise him easily, he has only one eye. Just tell him that you know me.
+Ultimately, the thing we all want is %CANDIES%, isn't it? I think a friend of mine could help you with that. You will recognise him easily, he has only one eye. Just tell him that you know me.
 en.dragonTalkingChallengeAnswer
 Let's go then!
 en.dragonTalkingFameAnswer
@@ -661,9 +661,9 @@ Okay, thanks!
 en.buttonBackToCastle
 Back to the castle
 en.talkingCandySpeechNoBox # INFORMAL PRONOUN # Don't translate "candy box", keep it like that
-Hey! I'm the talking candy. You almost won the game. You just need to find the candy box. It's in a house outside the village. This is the last step!
+Hey! I'm the talking %CANDY%. You almost won the game. You just need to find the %CANDYBOX%. It's in a house outside the village. This is the last step!
 en.talkingCandySpeech1 # INFORMAL PRONOUN # Don't translate "candy box", keep it like that
-Hey! I'm the talking candy. Congratulations, you won the game! I will open your candy box for you, this is your reward. Should I proceed?
+Hey! I'm the talking %CANDY%. Congratulations, you won the game! I will open your %CANDYBOX% for you, this is your reward. Should I proceed?
 en.talkingCandySpeech2 # INFORMAL PRONOUN
 Done! You can now enter it. I hope you liked the game :)
 en.talkingCandyButton

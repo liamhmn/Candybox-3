@@ -11,8 +11,9 @@ when drinking the P potion. Although
 these rules were defined empirically,
 they seem to work pretty well.
 
-  - The more you use P potions, the more
-they seem to have strange effects.
+  - The more you use P potions,
+the more they seem to have strange
+effects.
 
   - If your health is very low, you
 should probably drink a P potion.

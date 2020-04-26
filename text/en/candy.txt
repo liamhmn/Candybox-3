@@ -34,3 +34,7 @@ en.candy.lolligator
 lolligator
 en.candy.mapFarmComment
 The lollipop farm
+en.candy.candyBox
+The candy box
+en.candy.sweet
+Sweet

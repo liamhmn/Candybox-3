@@ -22,3 +22,9 @@ fr.beer.painChocolatPlural
 futs
 fr.beer.painChocolatMini
 fu
+fr.beer.mapFarmComment
+La ferme à bière
+fr.beer.candyBox
+La boite à bière
+fr.beer.sweet
+Beuverie

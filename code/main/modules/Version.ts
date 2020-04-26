@@ -20,6 +20,19 @@ module Version {
                 return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candySingular");
         }
     }
+    export function getSingularEn(typeResource: TypeResource = TypeResource.CANDY): string {
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarSingular");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatSingular");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".candySingular");
+        }
+    }
 
     // ---------------------- //
     // ----- GET PLURAL ----- //
@@ -35,6 +48,19 @@ module Version {
             case TypeResource.CANDY:
             default:
                 return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candyPlural");
+        }
+    }
+    export function getPluralEn(typeResource: TypeResource = TypeResource.CANDY): string {
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopPlural");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarPlural");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatPlural");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".candyPlural");
         }
     }
 
@@ -78,7 +104,10 @@ module Version {
             {searchValue : "%CHOCOLATES%", replaceValue: getVersionTxtOrTranslated("chocolateBarPlural")},
             {searchValue : "%PAINCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatSingular")},
             {searchValue : "%PAINSCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatPlural")},
-            {searchValue : "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator")}
+            {searchValue : "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator")},
+            {searchValue : "%CANDYBOX%", replaceValue: getVersionTxtOrTranslated("candybox")},
+            {searchValue : "%LOLLIPOPFARM%", replaceValue: getVersionTxtOrTranslated("mapFarmComment")},
+            {searchValue : "%SWEET%", replaceValue: getVersionTxtOrTranslated("sweet")}
         ];
 
         for (var resourceName of resourcesNamesTab) {

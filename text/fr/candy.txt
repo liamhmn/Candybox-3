@@ -22,3 +22,9 @@ fr.candy.painChocolatPlural
 pains au chocolat
 fr.candy.painChocolatMini
 pc
+fr.candy.mapFarmComment
+La ferme à sucettes
+fr.candy.candyBox
+La boite à bonbons
+fr.candy.sweet
+Sucrerie

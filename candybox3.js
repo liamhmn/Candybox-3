@@ -718,6 +718,21 @@ var Version;
         }
     }
     Version.getSingular = getSingular;
+    function getSingularEn(typeResource) {
+        if (typeResource === void 0) { typeResource = TypeResource.CANDY; }
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarSingular");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatSingular");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".candySingular");
+        }
+    }
+    Version.getSingularEn = getSingularEn;
     // ---------------------- //
     // ----- GET PLURAL ----- //
     // ---------------------- //
@@ -736,6 +751,21 @@ var Version;
         }
     }
     Version.getPlural = getPlural;
+    function getPluralEn(typeResource) {
+        if (typeResource === void 0) { typeResource = TypeResource.CANDY; }
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopPlural");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarPlural");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatPlural");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getText(Saving.loadString("gameVersion").toLowerCase() + ".candyPlural");
+        }
+    }
+    Version.getPluralEn = getPluralEn;
     // -------------------- //
     // ----- GET MINI ----- //
     // -------------------- //
@@ -779,7 +809,10 @@ var Version;
             { searchValue: "%CHOCOLATES%", replaceValue: getVersionTxtOrTranslated("chocolateBarPlural") },
             { searchValue: "%PAINCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatSingular") },
             { searchValue: "%PAINSCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatPlural") },
-            { searchValue: "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator") }
+            { searchValue: "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator") },
+            { searchValue: "%CANDYBOX%", replaceValue: getVersionTxtOrTranslated("candybox") },
+            { searchValue: "%LOLLIPOPFARM%", replaceValue: getVersionTxtOrTranslated("mapFarmComment") },
+            { searchValue: "%SWEET%", replaceValue: getVersionTxtOrTranslated("sweet") }
         ];
         for (var _i = 0, resourcesNamesTab_1 = resourcesNamesTab; _i < resourcesNamesTab_1.length; _i++) {
             var resourceName = resourcesNamesTab_1[_i];
@@ -12045,14 +12078,14 @@ var Cauldron = /** @class */ (function (_super) {
         this.renderArea.drawString(Database.getTranslatedText("cauldronWhatYouWantToPut"), x, y + 1, true); // Translated
         // Candies input
         this.renderArea.addSimpleInput(x, x + 20, y + 2, new CallbackCollection(this.changeCandiesInput.bind(this)), "cauldronCandiesInput", (keepInputContent ? this.candiesInput : ""), candiesInputHasFocus);
-        this.renderArea.drawString("candies", x + 21, y + 2);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.CANDY), x + 21, y + 2);
         if (this.candiesInputComment != null) {
             this.renderArea.drawString(this.candiesInputComment, x + 29, y + 2);
             this.renderArea.addBold(x + 29, x + 29 + this.candiesInputComment.length, y + 2);
         }
         // Lollipops input
         this.renderArea.addSimpleInput(x, x + 20, y + 4, new CallbackCollection(this.changeLollipopsInput.bind(this)), "cauldronLollipopsInput", (keepInputContent ? this.lollipopsInput : ""), lollipopsInputHasFocus);
-        this.renderArea.drawString("lollipops", x + 21, y + 4);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP), x + 21, y + 4);
         if (this.lollipopsInputComment != null) {
             this.renderArea.drawString(this.lollipopsInputComment, x + 31, y + 4);
             this.renderArea.addBold(x + 31, x + 31 + this.lollipopsInputComment.length, y + 4);
@@ -12066,10 +12099,10 @@ var Cauldron = /** @class */ (function (_super) {
         this.renderArea.addBold(x, x + Database.getText("cauldronWhatIsIn").length, y + 9); // Add bold on normal
         this.renderArea.drawString(Database.getTranslatedText("cauldronWhatIsIn"), x, y + 10, true); // Translated
         // Candies
-        this.renderArea.drawString("Candies :", x + 2, y + 11);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.CANDY) + " :", x + 2, y + 11);
         this.renderArea.drawString(Algo.numberToStringButNicely(this.getGame().getCandiesInCauldron().getCurrent()), x + 14, y + 11);
         // Lollipops
-        this.renderArea.drawString("Lollipops :", x + 2, y + 12);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP) + " :", x + 2, y + 12);
         this.renderArea.drawString(Algo.numberToStringButNicely(this.getGame().getLollipopsInCauldron().getCurrent()), x + 14, y + 12);
         // What you can do with it
         // Text
@@ -12108,10 +12141,30 @@ var Cauldron = /** @class */ (function (_super) {
     };
     Cauldron.prototype.drawBook = function (x, y) {
         // Draw the book
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/book"), x, y);
+        this.renderArea.drawArray(Database.getAscii("places/cauldron/book").map(function (s) {
+            return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                .replace("%SWEET%", Version.getVersionTxt("sweet"));
+        }), x, y);
         // Draw the pages' content
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + Saving.loadNumber("cauldronBookCurrentPage")), x + 8, y + 1);
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + (Saving.loadNumber("cauldronBookCurrentPage") + 1)), x + 50, y + 1);
+        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + Saving.loadNumber("cauldronBookCurrentPage"))
+            .map(function (s) {
+            return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                .replace("%SWEET%", Version.getVersionTxt("sweet"));
+        }), x + 8, y + 1);
+        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + (Saving.loadNumber("cauldronBookCurrentPage") + 1))
+            .map(function (s) {
+            return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                .replace("%SWEET%", Version.getVersionTxt("sweet"));
+        }), x + 50, y + 1);
         // Add the previous page button if we're not already at the first page
         if (Saving.loadNumber("cauldronBookCurrentPage") > 0) {
             this.renderArea.addAsciiRealButton(Database.getText("cauldronPreviousPageButton"), x, y + 31, "cauldronPreviousPageButton", Database.getTranslatedText("cauldronPreviousPageButton"), true, -1, null, false);
@@ -14173,7 +14226,7 @@ var LollipopFarm = /** @class */ (function (_super) {
         // A variable useful later
         var plantingButtonsXPos;
         // How many lollipops planted
-        this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP) + " planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP) + " planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
         // Button(s) to plant lollipops
         // If the first button is unlocked but not the second
         if (Saving.loadBool("lollipopFarmPlant1LollipopButtonUnlocked") == true && Saving.loadBool("lollipopFarmPlant10LollipopsButtonUnlocked") == false) {
@@ -14208,7 +14261,7 @@ var LollipopFarm = /** @class */ (function (_super) {
                 plantingButtonsXPos += 5;
             }
             // We add the final text
-            this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP), x + plantingButtonsXPos, y + 2);
+            this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP), x + plantingButtonsXPos, y + 2);
         }
         // The production
         if (Saving.loadNumber("lollipopFarmLollipopsPlanted") > 0) {
@@ -14226,7 +14279,7 @@ var LollipopFarm = /** @class */ (function (_super) {
             // Draw the mill ascii art
             this.renderArea.drawArray(Database.getAscii("places/lollipopFarm/mill"), x, y);
             // Draw the button to feed the mill
-            this.renderArea.addAsciiRealButton(Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + Version.getPlural(TypeResource.LOLLIPOP) + ")", x + 30, y, "lollipopFarmFeedMillButton", Database.getTranslatedText("lollipopFarmFeedMill"), true, -1, null, false);
+            this.renderArea.addAsciiRealButton(Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + Version.getPluralEn(TypeResource.LOLLIPOP) + ")", x + 30, y, "lollipopFarmFeedMillButton", Database.getTranslatedText("lollipopFarmFeedMill"), true, -1, null, false);
             this.renderArea.addLinkCall(".lollipopFarmFeedMillButton", new CallbackCollection(this.feedMill.bind(this)));
             // Draw the current candies production if it's different from one
             if (Saving.loadNumber("lollipopFarmCurrentCandiesProduction") != 1) {
@@ -21766,22 +21819,22 @@ Saving.registerString("gameBootsSelected", "inventorySpecialNothingBoots");
 Saving.registerNumber("gameSecondsElapsedSinceLastLollipopsProduction", 0);
 // Resources
 Saving.registerNumber("gameCandiesAccumulated", 0);
-Saving.registerNumber("gameCandiesCurrent", 150);
-Saving.registerNumber("gameCandiesMax", 150);
+Saving.registerNumber("gameCandiesCurrent", 0);
+Saving.registerNumber("gameCandiesMax", 0);
 Saving.registerNumber("gameLollipopsAccumulated", 0);
-Saving.registerNumber("gameLollipopsCurrent", 150);
-Saving.registerNumber("gameLollipopsMax", 150);
+Saving.registerNumber("gameLollipopsCurrent", 0);
+Saving.registerNumber("gameLollipopsMax", 0);
 Saving.registerNumber("gameChocolateBarsAccumulated", 0);
-Saving.registerNumber("gameChocolateBarsCurrent", 150);
-Saving.registerNumber("gameChocolateBarsMax", 150);
+Saving.registerNumber("gameChocolateBarsCurrent", 0);
+Saving.registerNumber("gameChocolateBarsMax", 0);
 Saving.registerNumber("gamePainsAuChocolatAccumulated", 0);
-Saving.registerNumber("gamePainsAuChocolatCurrent", 150);
-Saving.registerNumber("gamePainsAuChocolatMax", 150);
+Saving.registerNumber("gamePainsAuChocolatCurrent", 0);
+Saving.registerNumber("gamePainsAuChocolatMax", 0);
 Saving.registerNumber("gameCandiesEatenAccumulated", 0);
-Saving.registerNumber("gameCandiesEatenCurrent", 1050);
+Saving.registerNumber("gameCandiesEatenCurrent", 0);
 Saving.registerNumber("gameCandiesEatenMax", 0);
 Saving.registerNumber("gameCandiesThrownAccumulated", 0);
-Saving.registerNumber("gameCandiesThrownCurrent", 10500);
+Saving.registerNumber("gameCandiesThrownCurrent", 0);
 Saving.registerNumber("gameCandiesThrownMax", 0);
 Saving.registerNumber("gameCandiesUsedToRequestFeaturesAccumulated", 0);
 Saving.registerNumber("gameCandiesUsedToRequestFeaturesCurrent", 0);
@@ -22481,7 +22534,6 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.setPlaceFromSavedMapPlace = function () {
         // If there's a saved place
-        console.log(this.savedPlace instanceof MainMap);
         if (this.savedPlace != null) {
             if (this.savedPlace instanceof MainMap) {
                 this.setPlace(new MainMap(this)); // We set the saved place as the current place
@@ -24509,10 +24561,11 @@ Database.addAscii("places/castle/tower/talkingCandy", 5, 2, [
     "\\.-./",
     "/'-'\\"
 ]);
-Database.addAscii("places/cauldron/book", 96, 30, [
+Database.addAscii("places/cauldron/book", 96, 31, [
     "      _________________________________________   ________________________________________",
     " _.-' |                                        \\ /                                       | '-._",
     "| | | |                                         v                                        | | | |",
+    "| | | |                                         |                                        | | | |",
     "| | | |                                         |                                        | | | |",
     "| | | |                                         |                                        | | | |",
     "| | | |                                         |                                        | | | |",
@@ -24606,42 +24659,42 @@ Database.addAscii("places/cauldron/bookPage10", 40, 26, [
     " - It is said that 5 steps are necessary",
     "to brew the X potion.",
     "",
-    " - It is said that no lollipops are",
+    " - It is said that no %LOLLIPOPS% are",
     "required, except for one of the steps.",
     "",
     " - It is said that, unlike for other",
     "potions, you can't brew multiple X",
     "potions at once."
 ]);
-Database.addAscii("places/cauldron/bookPage11", 39, 26, [
+Database.addAscii("places/cauldron/bookPage11", 40, 26, [
     "                                    11",
     "",
     " - Finally, the following poem is often",
     "quoted when it comes to the X potion :",
     "",
     "          On the first day,",
-    "it gave birth to the very first Sweet.",
+    "it gave birth to the very first %SWEET%.",
     "       But it was cold outside.",
     "",
     "          On the second day,",
-    "      it gave the Sweet a father.",
+    "      it gave the %SWEET% a father.",
     "       But it was cold outside.",
     "",
     "          On the third day,",
-    "      it gave the Sweet a brother.",
+    "      it gave the %SWEET% a brother.",
     "       But it was cold outside.",
     "",
     "          On the fourth day,",
-    "      it gave the Sweet a friend.",
+    "      it gave the %SWEET% a friend.",
     "       But it was cold outside.",
     "",
     "          On the fifth day,",
-    "      it gave the Sweet a lover,",
+    "      it gave the %SWEET% a lover,",
     "   and it may sound simple or silly,",
-    "     but now the Sweet was happy,",
+    "     but now the %SWEET% was happy,",
     "       and it was hot outside."
 ]);
-Database.addAscii("places/cauldron/bookPage2", 39, 22, [
+Database.addAscii("places/cauldron/bookPage2", 39, 23, [
     "2",
     "",
     "",
@@ -24651,28 +24704,29 @@ Database.addAscii("places/cauldron/bookPage2", 39, 22, [
     "",
     "  The health potion is one of the",
     "easiest to brew, really. It only",
-    "requires candies. Used in quests, it",
+    "requires %CANDIES%. Used in quests, it",
     "will heal you by giving you back 100",
     "health points.",
     "",
     "  Instructions :",
-    "   - Put 100 candies in your cauldron",
+    "   - Put 100 %CANDIES% in your cauldron",
     "   - Mix for a few seconds",
     "   - Put into bottles",
     "",
     "  Just like for any potion, you can of",
     "course multiply the quantities. For",
-    "example, if you use 300 candies instead",
-    "of 100, you will get 3 health potions."
+    "example, if you use 300 %CANDIES%",
+    "instead of 100, you will get",
+    "3 health potions."
 ]);
-Database.addAscii("places/cauldron/bookPage3", 39, 26, [
+Database.addAscii("places/cauldron/bookPage3", 41, 26, [
     "                                     3",
     "",
     "             Turtle potion",
     "             ¨¨¨¨¨¨¨¨¨¨¨¨¨",
     "  The turtle potion is a bit harder to",
     "brew than the health potion. You will",
-    "need both candies and lollipops.",
+    "need both %CANDIES% and %LOLLIPOPS%.",
     "",
     "  If you drink this potion in a quest,",
     "it will turn you into a turtle. You",
@@ -24680,11 +24734,11 @@ Database.addAscii("places/cauldron/bookPage3", 39, 26, [
     "more resistant to you enemies attacks.",
     "",
     "  Instructions :",
-    "   - Put 50 candies in your cauldron",
-    "   - Add 500 lollipops in your cauldron",
+    "   - Put 50 %CANDIES% in your cauldron",
+    "   - Add 500 %LOLLIPOPS% in your cauldron",
     "   - Mix during more or less 10 seconds",
     "   - Stop mixing",
-    "   - Add 50 candies",
+    "   - Add 50 %CANDIES%",
     "   - Mix again for a few seconds",
     "   - Put into bottles",
     "",
@@ -24713,10 +24767,10 @@ Database.addAscii("places/cauldron/bookPage4", 40, 25, [
     "the temperature carefully.",
     "",
     "  Instructions :",
-    "   - Put 1000 candies in your cauldron",
+    "   - Put 1000 %CANDIES% in your cauldron",
     "   - Heat up until the water is lukewarm",
     "   - Stop heating up",
-    "   - Add 1000 candies",
+    "   - Add 1000 %CANDIES%",
     "   - Heat up until the water is boiling",
     "   - Put into bottles"
 ]);
@@ -24762,9 +24816,9 @@ Database.addAscii("places/cauldron/bookPage6", 40, 23, [
     "damage for a few seconds!",
     "",
     "  Brewing this potions is very simple,",
-    "but you will need a lot of lollipops.",
+    "but you will need a lot of %LOLLIPOPS%.",
     "Here are the instructions :",
-    "   - Put 20 000 lollipops in your",
+    "   - Put 20 000 %LOLLIPOPS% in your",
     "     cauldron",
     "   - Mix them until your arms are",
     "     hurting",
@@ -24805,22 +24859,22 @@ Database.addAscii("places/cauldron/bookPage8", 40, 26, [
     "  And it's also hard to brew!",
     "",
     "  Instructions :",
-    "   - Put 500 candies in your cauldron",
+    "   - Put 500 %CANDIES% in your cauldron",
     "   - Mix for a few seconds",
     "   - Stop mixing",
-    "   - Add 100 times more candies than the",
-    "number of seconds you mixed. For example",
-    "if you mixed during 4 seconds, you'll",
-    "need to add 400 candies. Do not multiply",
-    "this quantity, even if you want to make",
-    "more than one potion.",
+    "   - Add 100 times more %CANDIES% than",
+    "the number of seconds you mixed. For",
+    "example if you mixed during 4 seconds,",
+    "you'll need to add 400 %CANDIES%. Do",
+    "not multiply this quantity, even if you",
+    "want to make more than one potion.",
     "   - Heat up until the water is lukewarm",
     "   - Stop heating up",
-    "   - Add some lollipops",
+    "   - Add some %LOLLIPOPS%",
     "   - Mix",
     "   - Put into bottles!"
 ]);
-Database.addAscii("places/cauldron/bookPage9", 40, 21, [
+Database.addAscii("places/cauldron/bookPage9", 38, 22, [
     "                                     9",
     "",
     "",
@@ -24834,8 +24888,9 @@ Database.addAscii("places/cauldron/bookPage9", 40, 21, [
     "these rules were defined empirically,",
     "they seem to work pretty well.",
     "",
-    "  - The more you use P potions, the more",
-    "they seem to have strange effects.",
+    "  - The more you use P potions,",
+    "the more they seem to have strange",
+    "effects.",
     "",
     "  - If your health is very low, you",
     "should probably drink a P potion.",
@@ -28510,6 +28565,8 @@ Database.addText("en.beer.menuLollipopFarm2", "BEER");
 Database.addText("en.beer.menuLollipopFarm3", "FARM");
 Database.addText("en.beer.lolligator", "beergator");
 Database.addText("en.beer.mapFarmComment", "The beer farm");
+Database.addText("en.beer.candyBox", "The beer box");
+Database.addText("en.beer.sweet", "Drunk");
 Database.addText("en.candy.candySingular", "candy");
 Database.addText("en.candy.candyPlural", "candies");
 Database.addText("en.candy.candyMini", "cd");
@@ -28528,18 +28585,20 @@ Database.addText("en.candy.menuLollipopFarm2", "IPOP");
 Database.addText("en.candy.menuLollipopFarm3", "FARM");
 Database.addText("en.candy.lolligator", "lolligator");
 Database.addText("en.candy.mapFarmComment", "The lollipop farm");
+Database.addText("en.candy.candyBox", "The candy box");
+Database.addText("en.candy.sweet", "Sweet");
 Database.addText("en.cauldron.page0", "Brewing manual");
 Database.addText("en.cauldron.page1", "Summary / Page 2 : Health potion / Page 3 : Turtle potion / Pages 4-5 : Anti-gravity potion / Pages 6-7 : Berserk potion / Pages 8-9 : The P potion / Pages 10-11 : The X potion");
-Database.addText("en.cauldron.page2", "Health potion / The health potion is one of the easiest to brew, really. It only requires candies. Used in quests, it will heal you by giving you back 100 health points. / Instructions : - Put 100 candies in your cauldron - Mix for a few seconds - Put into bottles / Just like for any potion, you can of course multiply the quantities. For example, if you use 300 candies instead of 100, you will get 3 health potions.");
-Database.addText("en.cauldron.page3", "Turtle potion / The turtle potion is a bit harder to brew than the health potion. You will need both candies and lollipops. / If you drink this potion in a quest, it will turn you into a turtle. You will move slower, but you will also be more resistant to you enemies attacks. / Instructions : - Put 50 candies in your cauldron - Add 500 lollipops in your cauldron - Mix for more or less 10 seconds - Stop mixing - Add 50 candies - Mix again for a few seconds - Put into bottles / And now the most important thing you should never forget : once you will be a turtle, do NOT turn over. You wouldn't be able to get up.");
-Database.addText("en.cauldron.page4", "Anti-gravity potion / This potion, which was invented by the well-known sorcerer Isaac, allows you to resist to the earth's gravitation force for a few seconds. / It is especially useful after jumping (if you can't jump, you should seriously consider obtaining a pogo stick). / It isn't very easy to brew, you will need to heat up your cauldron and watch the temperature carefully. / Instructions : - Put 1000 candies in your cauldron - Heat up until the water is lukewarm - Stop heating up - Add 1000 candies - Heat up until the water is boiling - Put into bottles");
+Database.addText("en.cauldron.page2", "Health potion / The health potion is one of the easiest to brew, really. It only requires %CANDIES%. Used in quests, it will heal you by giving you back 100 health points. / Instructions : - Put 100 %CANDIES% in your cauldron - Mix for a few seconds - Put into bottles / Just like for any potion, you can of course multiply the quantities. For example, if you use 300 %CANDIES% instead of 100, you will get 3 health potions.");
+Database.addText("en.cauldron.page3", "Turtle potion / The turtle potion is a bit harder to brew than the health potion. You will need both %CANDIES% and %LOLLIPOPS%. / If you drink this potion in a quest, it will turn you into a turtle. You will move slower, but you will also be more resistant to you enemies attacks. / Instructions : - Put 50 %CANDIES% in your cauldron - Add 500 %LOLLIPOPS% in your cauldron - Mix for more or less 10 seconds - Stop mixing - Add 50 %CANDIES% - Mix again for a few seconds - Put into bottles / And now the most important thing you should never forget : once you will be a turtle, do NOT turn over. You wouldn't be able to get up.");
+Database.addText("en.cauldron.page4", "Anti-gravity potion / This potion, which was invented by the well-known sorcerer Isaac, allows you to resist to the earth's gravitation force for a few seconds. / It is especially useful after jumping (if you can't jump, you should seriously consider obtaining a pogo stick). / It isn't very easy to brew, you will need to heat up your cauldron and watch the temperature carefully. / Instructions : - Put 1000 %CANDIES% in your cauldron - Heat up until the water is lukewarm - Stop heating up - Add 1000 %CANDIES% - Heat up until the water is boiling - Put into bottles");
 Database.addText("en.cauldron.page5", "Anti-gravity potion : use case / \"Fly above a gap\" / *drinks the potion*");
-Database.addText("en.cauldron.page6", "Berserk potion / The berserk potion transforms you into a berserker. / The drawback is that it consumes half of your life. / The benefit is that it doubles your damage for a few seconds! / Brewing this potions is very simple, but you will need a lot of lollipops. / Here are the instructions : - Put 20 000 lollipops in your cauldron - Mix them until your arms are hurting - Put into bottles");
-Database.addText("en.cauldron.page7", "Important notice concerning the berserk potion / Do NOT add any candy when brewing this potion. / I mean, not a single one. / Really. / Results would be unexpected.");
-Database.addText("en.cauldron.page8", "The P potion / The P potion is a strange one. You cannot predict what it is going to do. It could heal you or damage you, make you stronger or weaker, or even turn you into someone (something?) else. / And it's also hard to brew! / Instructions : - Put 500 candies in your cauldron - Mix for a few seconds - Stop mixing - Add 100 times more candies than the number of seconds you mixed. For example if you mixed during 4 seconds, you'll need to add 400 candies. Do not multiply this quantity, even if you want to make more than one potion. - Heat up until the water is lukewarm - Stop heating up - Add some lollipops - Mix - Put into bottles!");
+Database.addText("en.cauldron.page6", "Berserk potion / The berserk potion transforms you into a berserker. / The drawback is that it consumes half of your life. / The benefit is that it doubles your damage for a few seconds! / Brewing this potions is very simple, but you will need a lot of %LOLLIPOPS%. / Here are the instructions : - Put 20 000 %LOLLIPOPS% in your cauldron - Mix them until your arms are hurting - Put into bottles");
+Database.addText("en.cauldron.page7", "Important notice concerning the berserk potion / Do NOT add any %CANDY% when brewing this potion. / I mean, not a single one. / Really. / Results would be unexpected.");
+Database.addText("en.cauldron.page8", "The P potion / The P potion is a strange one. You cannot predict what it is going to do. It could heal you or damage you, make you stronger or weaker, or even turn you into someone (something?) else. / And it's also hard to brew! / Instructions : - Put 500 %CANDIES% in your cauldron - Mix for a few seconds - Stop mixing - Add 100 times more %CANDIES% than the number of seconds you mixed. For example if you mixed during 4 seconds, you'll need to add 400 %CANDIES%. Do not multiply this quantity, even if you want to make more than one potion. - Heat up until the water is lukewarm - Stop heating up - Add some %LOLLIPOPS% - Mix - Put into bottles!");
 Database.addText("en.cauldron.page9", "Make a good use of the P potion / There are some rules which you can follow in order to get better results when drinking the P potion. Although these rules were defined empirically, they seem to work pretty well. / - The more you use P potions, the more they seem to have strange effects. / - If your health is very low, you should probably drink a P potion. / - Animals drinking P potions seem to react in a very bad way.");
-Database.addText("en.cauldron.page10", "The X potion / The X potion is a legend. It is said that whoever manage to brew it and drink it would travel to a place where no one have been before. / I don't know if this potion is just a legend or not, but I will write in this book everything I know about it. / The X potion is mentioned in many old legends and alchemy books. Here's a summary of the informations which may help you to brew it. Good luck! / - It is said that 5 steps are necessary to brew the X potion. / - It is said that no lollipops are required, except for one of the steps. / - It is said that, unlike for other potions, you can't brew multiple X potions at once.");
-Database.addText("en.cauldron.page11", "- Finally, the following poem is often quoted when it comes to the X potion : / On the first day, it gave birth to the very first Sweet. But it was cold outside. / On the second day, it gave the Sweet a father. But it was cold outside. / On the third day, it gave the Sweet a brother. But it was cold outside. / On the fourth day, it gave the Sweet a friend. But it was cold outside. / On the fifth day, it gave the Sweet a lover, and it may sound simple or silly, but now the Sweet was happy, and it was hot outside.");
+Database.addText("en.cauldron.page10", "The X potion / The X potion is a legend. It is said that whoever manage to brew it and drink it would travel to a place where no one have been before. / I don't know if this potion is just a legend or not, but I will write in this book everything I know about it. / The X potion is mentioned in many old legends and alchemy books. Here's a summary of the informations which may help you to brew it. Good luck! / - It is said that 5 steps are necessary to brew the X potion. / - It is said that no %LOLLIPOPS% are required, except for one of the steps. / - It is said that, unlike for other potions, you can't brew multiple X potions at once.");
+Database.addText("en.cauldron.page11", "- Finally, the following poem is often quoted when it comes to the X potion : / On the first day, it gave birth to the very first %SWEET%. But it was cold outside. / On the second day, it gave the %SWEET% a father. But it was cold outside. / On the third day, it gave the %SWEET% a brother. But it was cold outside. / On the fourth day, it gave the %SWEET% a friend. But it was cold outside. / On the fifth day, it gave the %SWEET% a lover, and it may sound simple or silly, but now the %SWEET% was happy, and it was hot outside.");
 Database.addText("en.cfgVersion", "Choose the version :");
 Database.addText("en.cfgChooseLanguage", "Choose the language :");
 Database.addText("en.cfgInvertColors", "Invert colors?");
@@ -28553,21 +28612,21 @@ Database.addText("en.mapForestComment", "The forest");
 Database.addText("en.mapCastleEntranceComment", "Castle's entrance");
 Database.addText("en.mapCastleComment", "The castle");
 Database.addText("en.mapDragonComment", "The dragon");
-Database.addText("en.candyBoxEatCandiesButton", "Eat all the candies");
-Database.addText("en.candyBoxThrowCandiesButton", "Throw 10 candies on the ground");
+Database.addText("en.candyBoxEatCandiesButton", "Eat all the %CANDIES%");
+Database.addText("en.candyBoxThrowCandiesButton", "Throw 10 %CANDIES% on the ground");
 Database.addText("en.mapVillageAHouseComment", "A house");
 Database.addText("en.mapVillageForgeComment", "The forge");
 Database.addText("en.buttonBackToTheMap", "Back to the map");
 Database.addText("en.mapSorceressHutComment", "Sorceress' hut");
 Database.addText("en.buttonBackToTheVillage", "Back to the village");
-Database.addText("en.mapATreeIntroductionSpeech", "Hello, I'm The Squirrel. I can provide you candies, and lots of things. I know how much you love candies. But I feel alone in this forest.");
+Database.addText("en.mapATreeIntroductionSpeech", "Hello, I'm The Squirrel. I can provide you %CANDIES%, and lots of things. I know how much you love %CANDIES%. But I feel alone in this forest.");
 Database.addText("en.mapATreeIntroductionButton", "How can I help you ?");
-Database.addText("en.mapATreeFirstQuestion", "I will ask you questions. If you answer correctly, the sweetest sweets will be yours! First one : do you really love candies? (answer in english)");
-Database.addText("en.mapATreeSecondQuestion", "That's right! Here's 20 candies for you. Now complete this sequence of letters and you'll get a new reward : S, E, I, D, N, A, ?");
-Database.addText("en.mapATreeThirdQuestion", "Candies! Here's 100 candies for you. Next question : how many candies does the candiest person in the world possess?");
-Database.addText("en.mapATreeFourthQuestion", "Here's 500 candies for you! Next reward should be even more interesting...  Here's the riddle : In an ancient forest grows a very old tree, on which live the most intelligent animals in this world. It is said that this tree has 60 roots, 360 branches and 2160 leaves. How many marks can you find on its trunk?");
-Database.addText("en.mapATreeFifthQuestion", "Congratulations! I was talking about my tree, indeed. Here are 3 lollipops for you. Make good use of them! Next riddle, listen carefully : Under a full moon, I throw a yellow hat into the red sea. What happens to the yellow hat?");
-Database.addText("en.mapATreeTicTacToeIntro", "Well answered! That wasn't so hard. Here's three chocolate bars for you! For the next reward, we'll change the rules a little bit. You'll have to play a game with me! Are you ready?");
+Database.addText("en.mapATreeFirstQuestion", "I will ask you questions. If you answer correctly, the sweetest sweets will be yours! First one : do you really love %CANDIES%? (answer in english)");
+Database.addText("en.mapATreeSecondQuestion", "That's right! Here's 20 %CANDIES% for you. Now complete this sequence of letters and you'll get a new reward : S, E, I, D, N, A, ?");
+Database.addText("en.mapATreeThirdQuestion", "Candies! Here's 100 %CANDIES% for you. Next question : how many %CANDIES% does the %CANDIES%t person in the world possess?");
+Database.addText("en.mapATreeFourthQuestion", "Here's 500 %CANDIES% for you! Next reward should be even more interesting...  Here's the riddle : In an ancient forest grows a very old tree, on which live the most intelligent animals in this world. It is said that this tree has 60 roots, 360 branches and 2160 leaves. How many marks can you find on its trunk?");
+Database.addText("en.mapATreeFifthQuestion", "Congratulations! I was talking about my tree, indeed. Here are 3 %LOLLIPOPS% for you. Make good use of them! Next riddle, listen carefully : Under a full moon, I throw a yellow hat into the red sea. What happens to the yellow hat?");
+Database.addText("en.mapATreeTicTacToeIntro", "Well answered! That wasn't so hard. Here's three %CHOCOLATES% for you! For the next reward, we'll change the rules a little bit. You'll have to play a game with me! Are you ready?");
 Database.addText("en.mapATreeTicTacToeIntroButton", "Sure I am!");
 Database.addText("en.mapATreeTicTacToeLetsPlay", "The game is Tic-Tac-Toe. We play on a 3 by 3 game board. You will use the X sign while I will use the O sign. We place our signs alternately, and the goal is to get three signs in a row. I'll let you go first!");
 Database.addText("en.mapATreeTicTacToeNobodyWins", "The board is filled entirely and we both failed to get three in a row : nobody wins! Do you want to try again?");
@@ -28592,11 +28651,11 @@ Database.addText("en.mapCaveEntranceComment", "The cave entrance");
 Database.addText("en.mapLighthouseComment", "The lighthouse");
 Database.addText("en.mapPierComment", "The pier");
 Database.addText("en.mapTheHoleComment", "The Hole");
-Database.addText("en.candyBoxRequestStatusBarUnlocked", "Request a new feature to the developer (30 candies)");
-Database.addText("en.candyBoxRequestStatusBarUnlockedCfg", "Request another one (5 candies)");
-Database.addText("en.candyBoxRequestStatusBarUnlockedSave", "Request once again (5 candies)");
-Database.addText("en.candyBoxRequestStatusBarUnlockedHealthBar", "Request for something more exciting (5 candies)");
-Database.addText("en.candyBoxRequestStatusBarUnlockedMap", "Final request! This one has to be worth the candies. (10 candies)");
+Database.addText("en.candyBoxRequestStatusBarUnlocked", "Request a new feature to the developer (30 %CANDIES%)");
+Database.addText("en.candyBoxRequestStatusBarUnlockedCfg", "Request another one (5 %CANDIES%)");
+Database.addText("en.candyBoxRequestStatusBarUnlockedSave", "Request once again (5 %CANDIES%)");
+Database.addText("en.candyBoxRequestStatusBarUnlockedHealthBar", "Request for something more exciting (5 %CANDIES%)");
+Database.addText("en.candyBoxRequestStatusBarUnlockedMap", "Final request! This one has to be worth the %CANDIES%. (10 %CANDIES%)");
 Database.addText("en.candyBoxRequestStatusBarUnlockedComment", "You've unlocked a status bar! (above)");
 Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment1", "You now have access to a configuration tab.");
 Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment2", "You can change the language, if you want to.");
@@ -28632,9 +28691,9 @@ Database.addText("en.gridItemUnicornHornDescription", "This magical horn belonge
 Database.addText("en.gridItemXinopherydonClawName", "A xinopherydon claw");
 Database.addText("en.gridItemXinopherydonClawDescription", "This claw belonged to a xinopherydon, a two-headed ancient animal everyone believed to be extinct. It will double the damage of the weapon you're using.");
 Database.addText("en.gridItemPitchforkName", "A pitchfork");
-Database.addText("en.gridItemPitchforkDescription", "This special pitchfork allows you to loosen the soil without turning it over, therefore preserving below-ground soil ecosystems. It will triple the production of your lollipop farm.");
+Database.addText("en.gridItemPitchforkDescription", "This special pitchfork allows you to loosen the soil without turning it over, therefore preserving below-ground soil ecosystems. It will triple the production of your %LOLLIPOPFARM%.");
 Database.addText("en.gridItemShellPowderName", "Shell powder");
-Database.addText("en.gridItemShellPowderDescription", "Shell powder is often used by farmers to improve the growth speed of their lollipops. This powder will multiply your lollipop farm production by three!");
+Database.addText("en.gridItemShellPowderDescription", "Shell powder is often used by farmers to improve the growth speed of their %LOLLIPOPS%. This powder will multiply your %LOLLIPOPFARM% production by three!");
 Database.addText("en.gridItemPName", "The P stone");
 Database.addText("en.gridItemPDescription", "-\\BC{HASP+_ |`}iA=  JA   } ^N  )K `/K=)OW=$-#&JWhC N `-(\\  $QWDKO^+ DDUDM =^O(IOY~VoW BBDU `# Z_$  LY-    -  _ \\P  FFp(N/X \"D° (D ~ -Z DI}I \"  W}G -`eW PD   JTBU-PS°-J (`  /R`yM}  T$`` °+-|U(\\OL&Y_)T|");
 Database.addText("en.gridItemLName", "The L stone");
@@ -28646,11 +28705,11 @@ Database.addText("en.gridItemYDescription", "IK  OA#  U   \\ }CY!NBX^(  U\\/  EB
 Database.addText("en.gridItemRedSharkFinName", "A magical red shark fin");
 Database.addText("en.gridItemRedSharkFinDescription", "This magical fin will greatly increase the damage of your fireball spell. Finally this fireball becomes useful.");
 Database.addText("en.gridItemGreenSharkFinName", "A magical green shark fin");
-Database.addText("en.gridItemGreenSharkFinDescription", "This magical fin will bring the power of nature to your lollipop farm! Your production will be multiplied by 5.");
+Database.addText("en.gridItemGreenSharkFinDescription", "This magical fin will bring the power of nature to your %LOLLIPOPFARM%! Your production will be multiplied by 5.");
 Database.addText("en.gridItemPurpleSharkFinName", "A magical purple shark fin");
 Database.addText("en.gridItemPurpleSharkFinDescription", "This magical fin will provide you a new black magic spell. You can only use it once per quest. Be very careful with this one!");
-Database.addText("en.gridItemTalkingCandyName", "A talking candy");
-Database.addText("en.gridItemTalkingCandyDescription", "This talking candy appeared after you put the four stones at the top of the castle's tower. He might help you to open the candy box...");
+Database.addText("en.gridItemTalkingCandyName", "A talking %CANDY%");
+Database.addText("en.gridItemTalkingCandyDescription", "This talking %CANDY% appeared after you put the four stones at the top of the castle's tower. He might help you to open the %CANDYBOX%...");
 Database.addText("en.inventorySpecialNothingEqItem", "Nothing");
 Database.addText("en.eqItemWeaponWoodenSwordName", "Wooden Sword");
 Database.addText("en.eqItemWeaponWoodenSwordDescription", "A simple sword made of wood");
@@ -28675,7 +28734,7 @@ Database.addText("en.eqItemWeaponGiantSpoonOfDoomDescription", "This giant spoon
 Database.addText("en.eqItemWeaponScytheName", "A scythe");
 Database.addText("en.eqItemWeaponScytheDescription", "It is said that this scythe belonged to the Death itself. It is extremely fast.");
 Database.addText("en.eqItemHatMerchantHatName", "The merchant hat");
-Database.addText("en.eqItemHatMerchantHatDescription", "This hat was sold to you by the candy merchant. The candy merchant loves candies. This hat will multiply by 7 the candies you find in quests!");
+Database.addText("en.eqItemHatMerchantHatDescription", "This hat was sold to you by the %CANDY% merchant. The %CANDY% merchant loves %CANDIES%. This hat will multiply by 7 the %CANDIES% you find in quests!");
 Database.addText("en.eqItemHatSorceressHatName", "The sorceress hat");
 Database.addText("en.eqItemHatSorceressHatDescription", "This hat was sold to you by the sorceress. It will enhance the effects of your spells and potions.");
 Database.addText("en.eqItemHatOctopusKingCrownName", "The Octopus King crown");
@@ -28702,29 +28761,29 @@ Database.addText("en.eqItemBodyArmoursKnightBodyArmourName", "A knight body armo
 Database.addText("en.eqItemBodyArmoursKnightBodyArmourDescription", "This strong body armour will protect you. You will be more resistant to your enemies attacks.");
 Database.addText("en.eqItemBodyArmoursEnchantedKnightBodyArmourName", "An enchanted knight body armour");
 Database.addText("en.eqItemBodyArmoursEnchantedKnightBodyArmourDescription", "This armour is very special. You will be a LOT more resistant to your enemies attacks, but the damage of the weapon you are using will be divided by two.");
-Database.addText("en.mapVillageForgeBuyWoodenSwordButton", "Buy a wooden sword (150 candies)");
+Database.addText("en.mapVillageForgeBuyWoodenSwordButton", "Buy a wooden sword (150 %CANDIES%)");
 Database.addText("en.mapVillageForgeBuyWoodenSwordSpeech", "Thanks for buying! This wooden sword is quite weak, but it's a start.");
-Database.addText("en.mapVillageForgeBuyIronAxeButton", "Buy an iron axe (400 candies)");
+Database.addText("en.mapVillageForgeBuyIronAxeButton", "Buy an iron axe (400 %CANDIES%)");
 Database.addText("en.mapVillageForgeBuyIronAxeSpeech", "I hope you'll like this iron axe. I have just sharpened it for you!");
-Database.addText("en.mapVillageForgeBuyPolishedSilverSwordButton", "Buy a polished silver sword (2 000 candies)");
+Database.addText("en.mapVillageForgeBuyPolishedSilverSwordButton", "Buy a polished silver sword (2 000 %CANDIES%)");
 Database.addText("en.mapVillageForgeBuyPolishedSilverSwordSpeech", "It took me a lot of time to create this sword. I assure you that it's worth its price.");
-Database.addText("en.mapVillageForgeBuyLightweightBodyArmourButton", "Buy a lightweight body armour (15 000 candies)");
+Database.addText("en.mapVillageForgeBuyLightweightBodyArmourButton", "Buy a lightweight body armour (15 000 %CANDIES%)");
 Database.addText("en.mapVillageForgeBuyLightweightBodyArmourSpeech", "This body armour will offer you a protection against your enemies.");
-Database.addText("en.mapVillageForgeBuyScytheButton", "Buy a scythe (5 000 000 candies)");
+Database.addText("en.mapVillageForgeBuyScytheButton", "Buy a scythe (5 000 000 %CANDIES%)");
 Database.addText("en.mapVillageForgeBuyScytheSpeech", "It took me several months to make this scythe. It's a real piece of art. This is probably the fastest weapon you will ever be able to use. Good luck!");
-Database.addText("en.wishingWellThrowFirstCandyButton", "Throw a candy in the well");
-Database.addText("en.wishingWellCandyIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw candies into me, I will heal your wounds.");
+Database.addText("en.wishingWellThrowFirstCandyButton", "Throw a %CANDY% in the well");
+Database.addText("en.wishingWellCandyIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw %CANDIES% into me, I will heal your wounds.");
 Database.addText("en.wishingWellThrewCandiesSpeech", "Your wounds are now healed!");
 Database.addText("en.wishingWellNoWoundSpeech", "You have no wounds to heal!");
-Database.addText("en.wishingWellThrowFirstLollipopButton", "Throw a lollipop in the well");
-Database.addText("en.wishingWellLollipopIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw lollipops into me, I will convert them into candies.");
-Database.addText("en.wishingWellThrewLollipopsSpeech", "Your lollipops are converted into candies! Two lollipops for one candy.");
-Database.addText("en.wishingWellThrowChocolateBarButton", "Throw a chocolate bar in the well");
-Database.addText("en.wishingWellChocolateBarIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! I love chocolate bars. I really love them. For each chocolate bar you will throw into me, including this one, you will be granted one magical enchantment.");
+Database.addText("en.wishingWellThrowFirstLollipopButton", "Throw a %LOLLIPOP% in the well");
+Database.addText("en.wishingWellLollipopIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you'll throw %LOLLIPOPS% into me, I will convert them into %CANDIES%.");
+Database.addText("en.wishingWellThrewLollipopsSpeech", "Your %LOLLIPOPS% are converted into %CANDIES%! Two %LOLLIPOPS% for one %CANDY%.");
+Database.addText("en.wishingWellThrowChocolateBarButton", "Throw a %CHOCOLATE% in the well");
+Database.addText("en.wishingWellChocolateBarIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! I love %CHOCOLATES%. I really love them. For each %CHOCOLATE% you will throw into me, including this one, you will be granted one magical enchantment.");
 Database.addText("en.wishingWellThrewChocolateBarSpeech", "Which object would you like to enchant?");
-Database.addText("en.wishingWellThrowPainAuChocolatButton", "Throw a pain au chocolat in the well");
-Database.addText("en.wishingWellPainAuChocolatIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you throw a pain au chocolat into me, you will be given a very special gift. Choose wisely.");
-Database.addText("en.wishingWellThrewPainAuChocolatSpeech", "Thanks for the pain au chocolat! You can now choose your gift.");
+Database.addText("en.wishingWellThrowPainAuChocolatButton", "Throw a %PAINCHOCOLAT% in the well");
+Database.addText("en.wishingWellPainAuChocolatIntroductionSpeech", "Hello, wanderer! I am the wishing well. I shall grant you wishes in exchange of some sweets! When you throw a %PAINCHOCOLAT% into me, you will be given a very special gift. Choose wisely.");
+Database.addText("en.wishingWellThrewPainAuChocolatSpeech", "Thanks for the %PAINCHOCOLAT%! You can now choose your gift.");
 Database.addText("en.wishingWellChooseGift", "Choose your gift!");
 Database.addText("en.wishingWellChooseGiftButton", "Choose");
 Database.addText("en.wishingWellGiftDoneSpeech", "Done! You now have a new gift. It will appear in your inventory stats panel.");
@@ -28739,7 +28798,7 @@ Database.addText("en.lonelyHouseShakeBox", "Shake the box");
 Database.addText("en.lonelyHouseBreakLock", "Break the lock");
 Database.addText("en.lonelyHouseKickBox", "Kick the box");
 Database.addText("en.lonelyHouseAskTheBoxToOpenItself", "Ask the box to open itself");
-Database.addText("en.lonelyHouseLureTheBoxWithACandy", "Lure the box with a candy");
+Database.addText("en.lonelyHouseLureTheBoxWithACandy", "Lure the box with a %CANDY%");
 Database.addText("en.lonelyHouseTakeTheBox", "Take the box with you, you probably need a key to open it anyway");
 Database.addText("en.lonelyHouseOpenBoxResult", "The box is locked");
 Database.addText("en.lonelyHouseShakeBoxResult", "Nothing happens");
@@ -28747,18 +28806,18 @@ Database.addText("en.lonelyHouseBreakLockResult", "The lock resists");
 Database.addText("en.lonelyHouseKickBoxResult", "Your foot hurts a little bit, but nothing happens");
 Database.addText("en.lonelyHouseAskTheBoxToOpenItselfResult", "...you're talking to a box, you know that?");
 Database.addText("en.lonelyHouseLureTheBoxWithACandyResult", "The box doesn't seem to care");
-Database.addText("en.lonelyHouseTakeTheBoxResult", "There's probably something interesting in this candy box.");
+Database.addText("en.lonelyHouseTakeTheBoxResult", "There's probably something interesting in this %CANDYBOX%.");
 Database.addText("en.lighthouseAskButton", "Ask");
 Database.addText("en.lighthouseQuestionWho", "Who are you?");
 Database.addText("en.lighthouseQuestionWhoSpeech", "I'm a very old cyclops.");
 Database.addText("en.lighthouseQuestionWhat", "What are you doing here?");
 Database.addText("en.lighthouseQuestionWhatSpeech", "I live here all day long, waiting for a boat to come. It's been a long time since I've seen a boat, but I must stay here, staring at the sea, because a boat may come.");
-Database.addText("en.lighthouseQuestionWhyEatCandies", "Why would I eat candies?");
+Database.addText("en.lighthouseQuestionWhyEatCandies", "Why would I eat %CANDIES%?");
 Database.addText("en.lighthouseQuestionWhyEatCandiesSpeech", "Because they're good for your health!");
-Database.addText("en.lighthouseQuestionCandyBox", "What is a candy box?");
-Database.addText("en.lighthouseQuestionCandyBoxSpeech", "It is a very old box that is said to contain all the candies in the world. The legends say that whoever manages to open it would have so much candies that anything could be possible.");
-Database.addText("en.lighthouseQuestionDragon", "The dragon told me to come here because I want candies.");
-Database.addText("en.lighthouseQuestionDragonSpeech", "Oh, I see... Well, I cannot provide you candies directly, but I can give you something essential for you to ultimately get a LOT of candies. I just need to test you before that. Because what I have can't be given to everyone. Solve this puzzle and it will be yours.");
+Database.addText("en.lighthouseQuestionCandyBox", "What is a %CANDYBOX%?");
+Database.addText("en.lighthouseQuestionCandyBoxSpeech", "It is a very old box that is said to contain all the %CANDIES% in the world. The legends say that whoever manages to open it would have so much %CANDIES% that anything could be possible.");
+Database.addText("en.lighthouseQuestionDragon", "The dragon told me to come here because I want %CANDIES%.");
+Database.addText("en.lighthouseQuestionDragonSpeech", "Oh, I see... Well, I cannot provide you %CANDIES% directly, but I can give you something essential for you to ultimately get a LOT of %CANDIES%. I just need to test you before that. Because what I have can't be given to everyone. Solve this puzzle and it will be yours.");
 Database.addText("en.lighthouseFoundStone", "Congratulations! You passed the test and found the stone. It's very precious, but is only useful if you have three other stones like this one. Good luck!");
 Database.addText("en.lighthouseFoundStoneAgain", "Good job, you did the puzzle once again. You seem to like that.");
 Database.addText("en.saveLocalSaveTitle", "Browser save");
@@ -28789,21 +28848,21 @@ Database.addText("en.mountainsText0", "You spotted something in the mountains!")
 Database.addText("en.mountainsText1", "It looks interesting. Maybe it could be useful.");
 Database.addText("en.mountainsTextButton", "Climb the mountains to get the thing");
 Database.addText("en.mountainsTextAfter", "You found a pogo stick! It has been added to your inventory.");
-Database.addText("en.secondHouseIntroSpeech", "Hello, I'm the candy merchant. I would do anything for candies. What do you need?");
-Database.addText("en.secondHouseLollipop1Speech", "This is a lemon-flavored lollipop. My favourite! It costs 60 candies, but it's worth it.");
-Database.addText("en.secondHouseLollipop2Speech", "This one is a strawberry-flavored lollipop. It tastes good. I like its red color. Only 60 candies!");
-Database.addText("en.secondHouseLollipop3Speech", "This is a pumpkin-flavored lollipop. I bet you never tried one! 60 candies and it's yours.");
-Database.addText("en.secondHouseLollipopButtonText", "Buy this lollipop (60 candies)");
-Database.addText("en.secondHouseMerchantHatSpeech", "I could sell you my hat, but it is very precious, you know... You will have to give me a lot of candies for it. Let's say 1 million candies. It seems fair, right?");
-Database.addText("en.secondHouseMerchantHatButtonText", "Buy the merchant's hat (1 000 000 candies)");
+Database.addText("en.secondHouseIntroSpeech", "Hello, I'm the %CANDY% merchant. I would do anything for %CANDIES%. What do you need?");
+Database.addText("en.secondHouseLollipop1Speech", "This is a lemon-flavored %LOLLIPOP%. My favourite! It costs 60 %CANDIES%, but it's worth it.");
+Database.addText("en.secondHouseLollipop2Speech", "This one is a strawberry-flavored %LOLLIPOP%. It tastes good. I like its red color. Only 60 %CANDIES%!");
+Database.addText("en.secondHouseLollipop3Speech", "This is a pumpkin-flavored %LOLLIPOP%. I bet you never tried one! 60 %CANDIES% and it's yours.");
+Database.addText("en.secondHouseLollipopButtonText", "Buy this %LOLLIPOP% (60 %CANDIES%)");
+Database.addText("en.secondHouseMerchantHatSpeech", "I could sell you my hat, but it is very precious, you know... You will have to give me a lot of %CANDIES% for it. Let's say 1 million %CANDIES%. It seems fair, right?");
+Database.addText("en.secondHouseMerchantHatButtonText", "Buy the merchant's hat (1 000 000 %CANDIES%)");
 Database.addText("en.secondHouseTimeRingSpeech", "This is a time ring. It's kind of magical. It allows you to slow down the time when you're in trouble.");
-Database.addText("en.secondHouseTimeRingButtonText", "Buy the time ring (500 candies)");
-Database.addText("en.secondHouseLeatherGlovesSpeech", "These leather gloves are made from camel leather, this is high quality. I have a lot of them in stock, that's why they are so cheap : only 300 candies!");
-Database.addText("en.secondHouseLeatherBootsButtonText", "Buy a pair of leather boots (300 candies)");
+Database.addText("en.secondHouseTimeRingButtonText", "Buy the time ring (500 %CANDIES%)");
+Database.addText("en.secondHouseLeatherGlovesSpeech", "These leather gloves are made from camel leather, this is high quality. I have a lot of them in stock, that's why they are so cheap : only 300 %CANDIES%!");
+Database.addText("en.secondHouseLeatherBootsButtonText", "Buy a pair of leather boots (300 %CANDIES%)");
 Database.addText("en.secondHouseLeatherBootsSpeech", "These high quality leather boots, made from camel leather, will keep your feet warm.");
-Database.addText("en.secondHouseLeatherGlovesButtonText", "Buy a pair of leather gloves (300 candies)");
-Database.addText("en.secondHouseChocolateBarSpeech", "This is a chocolate bar. I don't know what it is used for, but it happens to be quite rare, which explains the price. 800 candies and it's yours!");
-Database.addText("en.secondHouseChocolateBarButtonText", "Buy the chocolate bar (800 candies)");
+Database.addText("en.secondHouseLeatherGlovesButtonText", "Buy a pair of leather gloves (300 %CANDIES%)");
+Database.addText("en.secondHouseChocolateBarSpeech", "This is a %CHOCOLATE%. I don't know what it is used for, but it happens to be quite rare, which explains the price. 800 %CANDIES% and it's yours!");
+Database.addText("en.secondHouseChocolateBarButtonText", "Buy the %CHOCOLATE% (800 %CANDIES%)");
 Database.addText("en.outsideTheHoleButton", "Jump in this big hole in the ground");
 Database.addText("en.theCaveExitText0", "You finally reached the cave's exit.");
 Database.addText("en.theCaveExitText1", "You can see a big forest outside of here.");
@@ -28813,7 +28872,7 @@ Database.addText("en.theCaveFirstSentenceWentLeft", "You took the left path.");
 Database.addText("en.theCaveFirstSentenceWentRight", "You took the right path.");
 Database.addText("en.theCaveFirstSentenceYouAre", "You are in a cave. There are three paths ahead of you.");
 Database.addText("en.theCavePattern_ArrowsToHeartPlugSeeStrangePlug", "You spot a strange thing on the ground in front of you.");
-Database.addText("en.theCavePattern_ChocolateBarNowSeeChocolateBar", "You spot a chocolate bar in front of you.");
+Database.addText("en.theCavePattern_ChocolateBarNowSeeChocolateBar", "You spot a %CHOCOLATE% in front of you.");
 Database.addText("en.theCavePattern_TreasureMapSentence", "You see small rocks strangely arranged on the floor.");
 Database.addText("en.theCavePattern_MonkeyWizardSentence", "You stumble upon a naked monkey wizard.");
 Database.addText("en.theCavePattern_MonkeyWizardButton", "Challenge him");
@@ -28826,20 +28885,20 @@ Database.addText("en.fortressInsideEnterRoom1", "Enter the first room");
 Database.addText("en.fortressInsideEnterRoom2", "Enter the second room");
 Database.addText("en.fortressInsideEnterRoom3", "Enter the third room");
 Database.addText("en.treasureButtonDig", "Dig");
-Database.addText("en.treasureButtonYouFound", "You found three chocolate bars!");
-Database.addText("en.sorceressHutHello", "Hello, I'm the sorceress. I could teach you one thing or two about magic. I can also give you some interesting things, or cast spells for you. But everything has a price! And this price will be lollipops. A lot of them.");
-Database.addText("en.sorceressHutClickedGrimoire", "This is a grimoire made for beginners. By carrying it with you in quests, you will be able to cast simple but useful spells. You need this! Only 5 000 lollipops.");
-Database.addText("en.sorceressHutBuyGrimoireButton", "Buy this grimoire (5 000 lollipops)");
+Database.addText("en.treasureButtonYouFound", "You found three %CHOCOLATES%!");
+Database.addText("en.sorceressHutHello", "Hello, I'm the sorceress. I could teach you one thing or two about magic. I can also give you some interesting things, or cast spells for you. But everything has a price! And this price will be %LOLLIPOPS%. A lot of them.");
+Database.addText("en.sorceressHutClickedGrimoire", "This is a grimoire made for beginners. By carrying it with you in quests, you will be able to cast simple but useful spells. You need this! Only 5 000 %LOLLIPOPS%.");
+Database.addText("en.sorceressHutBuyGrimoireButton", "Buy this grimoire (5 000 %LOLLIPOPS%)");
 Database.addText("en.sorceressHutBuyGrimoireSpeech", "Thanks for buying! You will be able to cast three spells with this grimoire. Good luck!");
-Database.addText("en.sorceressHutClickedGrimoire2", "This is an advanced grimoire. By carrying it with you in quests, you will be able to cast two advanced spells. I wrote it myself, which wasn't easy. 20 000 lollipops is a fair price.");
-Database.addText("en.sorceressHutBuyGrimoire2Button", "Buy this grimoire (20 000 lollipops)");
+Database.addText("en.sorceressHutClickedGrimoire2", "This is an advanced grimoire. By carrying it with you in quests, you will be able to cast two advanced spells. I wrote it myself, which wasn't easy. 20 000 %LOLLIPOPS% is a fair price.");
+Database.addText("en.sorceressHutBuyGrimoire2Button", "Buy this grimoire (20 000 %LOLLIPOPS%)");
 Database.addText("en.sorceressHutBuyGrimoire2Speech", "Thanks for buying! You will be able to cast two spells with this grimoire. Use them wisely!");
-Database.addText("en.sorceressHutClickedCauldron", "This is my cauldron. It allows me to brew magic potions. I could sell it to you, but it's very precious... it will cost you 100 000 lollipops.");
-Database.addText("en.sorceressHutBuyCauldronButton", "Buy the cauldron (100 000 lollipops)");
-Database.addText("en.sorceressHutBuyCauldronSpeech", "Thanks a lot! 100 000 lollipops for me! I also gave you a brewing manual. It's going to be useful.");
-Database.addText("en.sorceressHutClickedHat", "I have a nice hat, indeed! But I really can't sell it to you. It is waaaay too precious. Really, I can't. Don't insist. No. No no no I shouldn't do that. Oh well, I'll trade it, but for 1 000 000 000 lollipops. You probably won't be able to pay that anyway.");
-Database.addText("en.sorceressHutBuyHatButton", "Buy the hat (1 000 000 000 lollipops)");
-Database.addText("en.sorceressHutBuyHatSpeech", "One billion lollipops for meeeeee! But I don't have a hat anymore.. but one billion lollipops, wow! .. It was worth it.");
+Database.addText("en.sorceressHutClickedCauldron", "This is my cauldron. It allows me to brew magic potions. I could sell it to you, but it's very precious... it will cost you 100 000 %LOLLIPOPS%.");
+Database.addText("en.sorceressHutBuyCauldronButton", "Buy the cauldron (100 000 %LOLLIPOPS%)");
+Database.addText("en.sorceressHutBuyCauldronSpeech", "Thanks a lot! 100 000 %LOLLIPOPS% for me! I also gave you a brewing manual. It's going to be useful.");
+Database.addText("en.sorceressHutClickedHat", "I have a nice hat, indeed! But I really can't sell it to you. It is waaaay too precious. Really, I can't. Don't insist. No. No no no I shouldn't do that. Oh well, I'll trade it, but for 1 000 000 000 %LOLLIPOPS%. You probably won't be able to pay that anyway.");
+Database.addText("en.sorceressHutBuyHatButton", "Buy the hat (1 000 000 000 %LOLLIPOPS%)");
+Database.addText("en.sorceressHutBuyHatSpeech", "One billion %LOLLIPOPS% for meeeeee! But I don't have a hat anymore.. but one billion %LOLLIPOPS%, wow! .. It was worth it.");
 Database.addText("en.cauldronPreviousPageButton", "Previous page");
 Database.addText("en.cauldronNextPageButton", "Next page");
 Database.addText("en.cauldronWhatYouWantToPut", "What you want to put in the cauldron");
@@ -28856,9 +28915,9 @@ Database.addText("en.castleStairsComment", "Stairs");
 Database.addText("en.buttonBackToTheCastle", "Back to the castle");
 Database.addText("en.castleBigRoomHovenSpeechSad", "Hello! I'm a very old bread oven. I used to cook tons of good pastries, but no one is using me anymore. Maybe... maybe you could help me? Just let me take some sweets from you! Don't worry, you won't regret it! You can trust me.");
 Database.addText("en.castleBigRoomHovenNotEnough", "Oh... you don't have enough sweets, I can't do anything. I'm just useless. I'm the useless bread oven, that's how you should call me.");
-Database.addText("en.castleBigRoomHovenSpeechMadePainAuChocolat", "Yay! Thanks a lot! I used 100 candies and a chocolate bar, and I made you... a pain au chocolat! It's my favourite pastry, I hope you'll like it too!");
+Database.addText("en.castleBigRoomHovenSpeechMadePainAuChocolat", "Yay! Thanks a lot! I used 100 %CANDIES% and a %CHOCOLATE%, and I made you... a %PAINCHOCOLAT%! It's my favourite pastry, I hope you'll like it too!");
 Database.addText("en.castleBigRoomHovenSpeechHappy", "Hey! If you want me to cook another pastry, just tell me! I'd love to help you.");
-Database.addText("en.castleBigRoomHovenSpeechHappyNotEnough", "Oh, you don't have enough sweets, sadly. I need 100 candies and a chocolate bar. Come back when you'll have that!");
+Database.addText("en.castleBigRoomHovenSpeechHappyNotEnough", "Oh, you don't have enough sweets, sadly. I need 100 %CANDIES% and a %CHOCOLATE%. Come back when you'll have that!");
 Database.addText("en.castleBigRoomHovenLetHovenTakeButton", "Let the oven take all the sweets it wants to take");
 Database.addText("en.castleBigRoomHovenThanks", "Thanks, oven!");
 Database.addText("en.dragonStopTickling", "Hey, you! Stop tickling me, please.");
@@ -28869,13 +28928,13 @@ Database.addText("en.dragonTalkingFameButton", "Fame");
 Database.addText("en.dragonTalkingCandiesButton", "Candies");
 Database.addText("en.dragonTalkingChallengeSpeech", "Oh, so you want challenge? I think you should make a trip to hell itself, it is known that the devil is a tough challenger. Jump on my back and I'll take you there!");
 Database.addText("en.dragonTalkingFameSpeech", "The best way to become famous is to face the developer himself. I know where he lives and I could take you there. But be prepared, this won't be easy.");
-Database.addText("en.dragonTalkingCandiesSpeech", "Ultimately, the thing we all want is candies, isn't it? I think a friend of mine could help you with that. You will recognise him easily, he has only one eye. Just tell him that you know me.");
+Database.addText("en.dragonTalkingCandiesSpeech", "Ultimately, the thing we all want is %CANDIES%, isn't it? I think a friend of mine could help you with that. You will recognise him easily, he has only one eye. Just tell him that you know me.");
 Database.addText("en.dragonTalkingChallengeAnswer", "Let's go then!");
 Database.addText("en.dragonTalkingFameAnswer", "I am ready.");
 Database.addText("en.dragonTalkingCandiesAnswer", "Okay, thanks!");
 Database.addText("en.buttonBackToCastle", "Back to the castle");
-Database.addText("en.talkingCandySpeechNoBox", "Hey! I'm the talking candy. You almost won the game. You just need to find the candy box. It's in a house outside the village. This is the last step!");
-Database.addText("en.talkingCandySpeech1", "Hey! I'm the talking candy. Congratulations, you won the game! I will open your candy box for you, this is your reward. Should I proceed?");
+Database.addText("en.talkingCandySpeechNoBox", "Hey! I'm the talking %CANDY%. You almost won the game. You just need to find the %CANDYBOX%. It's in a house outside the village. This is the last step!");
+Database.addText("en.talkingCandySpeech1", "Hey! I'm the talking %CANDY%. Congratulations, you won the game! I will open your %CANDYBOX% for you, this is your reward. Should I proceed?");
 Database.addText("en.talkingCandySpeech2", "Done! You can now enter it. I hope you liked the game :)");
 Database.addText("en.talkingCandyButton", "Yes!!");
 Database.addText("en.lighthousePuzzleResetButton", "Reset");
@@ -28898,6 +28957,8 @@ Database.addText("en.healthy.menuLollipopFarm2", "THY");
 Database.addText("en.healthy.menuLollipopFarm3", "FARM");
 Database.addText("en.healthy.lolligator", "veggigator");
 Database.addText("en.healthy.mapFarmComment", "The veggie farm");
+Database.addText("en.healthy.candyBox", "The veggie box");
+Database.addText("en.healthy.sweet", "Healthy");
 Database.addText("en.lollipopFarmConstructMill", "Build a mill (10 000 %LOLLIPOPS%)");
 Database.addText("en.lollipopFarmFeedMill", "Feed the mill");
 Database.addText("en.lollipopFarmCurrentCandiesProduction", "Current %CANDIES% production");
@@ -29273,6 +29334,9 @@ Database.addText("fr.beer.chocolateBarMini", "pi");
 Database.addText("fr.beer.painChocolatSingular", "fut");
 Database.addText("fr.beer.painChocolatPlural", "futs");
 Database.addText("fr.beer.painChocolatMini", "fu");
+Database.addText("fr.beer.mapFarmComment", "La ferme à bière");
+Database.addText("fr.beer.candyBox", "La boite à bière");
+Database.addText("fr.beer.sweet", "Beuverie");
 Database.addText("fr.candy.candySingular", "bonbon");
 Database.addText("fr.candy.candyPlural", "bonbons");
 Database.addText("fr.candy.candyMini", "bn");
@@ -29285,18 +29349,21 @@ Database.addText("fr.candy.chocolateBarMini", "tb");
 Database.addText("fr.candy.painChocolatSingular", "pain au chocolat");
 Database.addText("fr.candy.painChocolatPlural", "pains au chocolat");
 Database.addText("fr.candy.painChocolatMini", "pc");
+Database.addText("fr.candy.mapFarmComment", "La ferme à sucettes");
+Database.addText("fr.candy.candyBox", "La boite à bonbons");
+Database.addText("fr.candy.sweet", "Sucrerie");
 Database.addText("fr.cauldron.page0", "Manuel de préparation de potions");
 Database.addText("fr.cauldron.page1", "Sommaire / Page 2 : potion de vie / Page 3 : potion de tortue / Pages 4-5 : potion anti-gravité / Pages 6-7 : potion de berserker / Pages 8-9 : la potion P / Pages 10-11 : la potion X");
-Database.addText("fr.cauldron.page2", "Potion de vie / La potion de vie est l'une des plus faciles à préparer, vraiment. Il faut seulement des bonbons. Utilisée pendant les quêtes, elle vous soignera en vous redonnant 100 points de vie. / Instructions : - Mettez 100 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Mettez en bouteilles / Comme pour n'importe quelle potion, vous pouvez bien sûr multiplier les quantités. Par exemple, si vous utilisez 300 bonbons au lieu de 100, vous obtiendrez 3 potions de vie.");
-Database.addText("fr.cauldron.page3", "Potion de tortue / La potion de tortue est un peu plus difficile à préparer que la potion de vie. Vous aurez besoin de bonbons et de sucettes. / Si vous buvez cette potion pendant une quête, elle vous transformera en tortue. Vous vous déplacerez plus lentement, mais vous serez aussi plus résistant aux attaques de vos ennemis. / Instructions : - Mettez 50 bonbons dans votre chaudron. - Ajoutez 500 sucettes dans votre chaudron - Mélangez pendant plus ou moins 10 secondes - Arrêtez de mélanger - Ajoutez 50 bonbons - Mélangez encore pendant quelques secondes - Mettez en bouteilles / Et maintenant, la chose la plus importante que vous ne devriez jamais oublier : quand vous serez une tortue, SURTOUT ne vous retournez pas. Vous ne seriez pas capable de vous relever.");
-Database.addText("fr.cauldron.page4", "Potion anti-gravité / Cette potion, qui a été inventée par le renommé sorcier Isaac, vous permet de résister à la force gravitationnelle de la terre pour quelques secondes. / Elle est particulièrement utile après avoir sauté (si vous ne pouvez pas sauter, vous devriez sérieusement penser à obtenir un bâton sauteur). / Elle n'est pas très facile à préparer, vous aurez besoin de faire chauffer votre chaudron et de surveiller la température avec attention. / Instructions : - Mettez 1000 bonbons dans votre chaudron - Chauffez jusqu'à ce que l'eau soit tiède - Arrêtez de chauffer - Ajoutez 1000 bonbons - Chauffez jusqu'à ce que l'eau bout - Mettez en bouteilles");
+Database.addText("fr.cauldron.page2", "Potion de vie / La potion de vie est l'une des plus faciles à préparer, vraiment. Il faut seulement des %CANDIES%. Utilisée pendant les quêtes, elle vous soignera en vous redonnant 100 points de vie. / Instructions : - Mettez 100 %CANDIES% dans votre chaudron - Mélangez pendant quelques secondes - Mettez en bouteilles / Comme pour n'importe quelle potion, vous pouvez bien sûr multiplier les quantités. Par exemple, si vous utilisez 300 %CANDIES% au lieu de 100, vous obtiendrez 3 potions de vie.");
+Database.addText("fr.cauldron.page3", "Potion de tortue / La potion de tortue est un peu plus difficile à préparer que la potion de vie. Vous aurez besoin de %CANDIES% et de %LOLLIPOPS%. / Si vous buvez cette potion pendant une quête, elle vous transformera en tortue. Vous vous déplacerez plus lentement, mais vous serez aussi plus résistant aux attaques de vos ennemis. / Instructions : - Mettez 50 %CANDIES% dans votre chaudron. - Ajoutez 500 %LOLLIPOPS% dans votre chaudron - Mélangez pendant plus ou moins 10 secondes - Arrêtez de mélanger - Ajoutez 50 %CANDIES% - Mélangez encore pendant quelques secondes - Mettez en bouteilles / Et maintenant, la chose la plus importante que vous ne devriez jamais oublier : quand vous serez une tortue, SURTOUT ne vous retournez pas. Vous ne seriez pas capable de vous relever.");
+Database.addText("fr.cauldron.page4", "Potion anti-gravité / Cette potion, qui a été inventée par le renommé sorcier Isaac, vous permet de résister à la force gravitationnelle de la terre pour quelques secondes. / Elle est particulièrement utile après avoir sauté (si vous ne pouvez pas sauter, vous devriez sérieusement penser à obtenir un bâton sauteur). / Elle n'est pas très facile à préparer, vous aurez besoin de faire chauffer votre chaudron et de surveiller la température avec attention. / Instructions : - Mettez 1000 %CANDIES% dans votre chaudron - Chauffez jusqu'à ce que l'eau soit tiède - Arrêtez de chauffer - Ajoutez 1000 %CANDIES% - Chauffez jusqu'à ce que l'eau bout - Mettez en bouteilles");
 Database.addText("fr.cauldron.page5", "Potion anti-gravité : cas d'utilisation / \"Voler au-dessus d'un précipice\" / *boit la potion*");
-Database.addText("fr.cauldron.page6", "Potion de berserker / La potion de berserker vous transforme en un berserker. / L'inconvénient est que cela consomme la moitié de votre vie. / L'avantage est que cela double vos dégâts pendant quelques secondes ! / Préparer cette potion est très simple, mais vous aurez besoin de beaucoup de sucettes. / Voici les instructions : - Mettez 20 000 sucettes dans votre chaudron - Mélangez les jusqu'à ce que vos bras vous fassent mal - Mettez en bouteilles");
-Database.addText("fr.cauldron.page7", "Avertissement important concernant la potion de berserker / Ne PAS ajouter de bonbon pendant la préparation de cette potion. / Je veux dire, pas un seul. / Vraiment. / Le résultat serait innatendu.");
-Database.addText("fr.cauldron.page8", "La potion P / La potion P est une potion bizarre. Vous ne pouvez pas prédire ce qu'elle va faire. Elle pourrait vous soigner ou vous infliger des dommages, vous rendre plus fort ou plus faible, ou même vous transofmer en quelqu'un (quelque chose ?) d'autre. / Et en plus elle est dure à préparer ! / Instructions : - Mettez 500 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Arrêtez de mélanger - Ajoutez 100 fois plus de bonbons que le nombre de secondes pendant lesquelles vous avez mélangé. Par exemple si vous avez mélangé pendant 4 secondes, vous devrez ajouter 400 bonbons. Ne multipliez pas cette quantité, même si vous voulez faire plus d'une potion. - Faites chauffer jusqu'à ce que l'eau soit tiède - Arrêtez de faire chauffer - Ajoutez des sucettes - Mélangez - Mettez en bouteilles !");
+Database.addText("fr.cauldron.page6", "Potion de berserker / La potion de berserker vous transforme en un berserker. / L'inconvénient est que cela consomme la moitié de votre vie. / L'avantage est que cela double vos dégâts pendant quelques secondes ! / Préparer cette potion est très simple, mais vous aurez besoin de beaucoup de %LOLLIPOPS%. / Voici les instructions : - Mettez 20 000 %LOLLIPOPS% dans votre chaudron - Mélangez les jusqu'à ce que vos bras vous fassent mal - Mettez en bouteilles");
+Database.addText("fr.cauldron.page7", "Avertissement important concernant la potion de berserker / Ne PAS ajouter de %CANDY% pendant la préparation de cette potion. / Je veux dire, pas un seul. / Vraiment. / Le résultat serait innatendu.");
+Database.addText("fr.cauldron.page8", "La potion P / La potion P est une potion bizarre. Vous ne pouvez pas prédire ce qu'elle va faire. Elle pourrait vous soigner ou vous infliger des dommages, vous rendre plus fort ou plus faible, ou même vous transofmer en quelqu'un (quelque chose ?) d'autre. / Et en plus elle est dure à préparer ! / Instructions : - Mettez 500 %CANDIES% dans votre chaudron - Mélangez pendant quelques secondes - Arrêtez de mélanger - Ajoutez 100 fois plus de %CANDIES% que le nombre de secondes pendant lesquelles vous avez mélangé. Par exemple si vous avez mélangé pendant 4 secondes, vous devrez ajouter 400 %CANDIES%. Ne multipliez pas cette quantité, même si vous voulez faire plus d'une potion. - Faites chauffer jusqu'à ce que l'eau soit tiède - Arrêtez de faire chauffer - Ajoutez des %LOLLIPOPS% - Mélangez - Mettez en bouteilles !");
 Database.addText("fr.cauldron.page9", "Faire bon usage de la potion P / Il y a certaines règles que vous pouvez suivre pour obtenir de meilleurs résultats en buvant la potion P. Bien que ces règles aient été établies de manière empirique, elles semblent assez bien fonctionner. / - Plus vous utilisez de potions P, plus elles semblent avoir des effets étranges. / - Si votre vie est très basse, vous devriez probablement utiliser une potion P. / - Les animaux qui boivent une potion P semblent très mal réagir.");
-Database.addText("fr.cauldron.page10", "La potion X / La potion X est une légende. Il est dit que quiconque parviendrait à la préparer et à la boire voyagerait jusqu'à un endroit où personne n'est encore jamais allé. / Je ne sais pas si cette potion est juste une légende ou pas, mais je vais lister dans ce livre tout ce que je sais à propos d'elle. / La potion X est mentionnée dans de nombreuses vieilles légendes et livres d'alchimie. Voici un résumé des informations qui pourraient vous aider à la préparer. Bonne chance ! / - Il est dit que 5 étapes sont nécessaires à la préparation de la potion X. / - Il est dit qu'aucune sucette n'est nécessaire, mis à part pour l'une des étapes. / - Il est dit que, contrairement aux autres potions, vous ne pouvez pas préparer plusieurs potions X à la fois.");
-Database.addText("fr.cauldron.page11", "- Enfin, le poème suivant est souvent cité quand on parle de la potion X : / Le premier jour, il donna naissance à la toute première Sucrerie. Mais il faisait froid dehors. / Le deuxième jour, il donna à la Sucrerie un père. Mais il faisait froid dehors. / Le troisième jour, il donna à la Sucrerie un frère. Mais il faisait froid dehors. / Le quatrième jour, il donna à la Sucrerie un ami. Mais il faisait froid dehors. / Le cinquième jour, il donna à la Sucrerie un amour, et cela peut paraître simple ou niais, mais maintenant la Sucrerie était heureuse, et il faisait chaud dehors.");
+Database.addText("fr.cauldron.page10", "La potion X / La potion X est une légende. Il est dit que quiconque parviendrait à la préparer et à la boire voyagerait jusqu'à un endroit où personne n'est encore jamais allé. / Je ne sais pas si cette potion est juste une légende ou pas, mais je vais lister dans ce livre tout ce que je sais à propos d'elle. / La potion X est mentionnée dans de nombreuses vieilles légendes et livres d'alchimie. Voici un résumé des informations qui pourraient vous aider à la préparer. Bonne chance ! / - Il est dit que 5 étapes sont nécessaires à la préparation de la potion X. / - Il est dit qu'aucune %LOLLIPOP% n'est nécessaire, mis à part pour l'une des étapes. / - Il est dit que, contrairement aux autres potions, vous ne pouvez pas préparer plusieurs potions X à la fois.");
+Database.addText("fr.cauldron.page11", "- Enfin, le poème suivant est souvent cité quand on parle de la potion X : / Le premier jour, il donna naissance à la toute première %SWEET%. Mais il faisait froid dehors. / Le deuxième jour, il donna à la %SWEET% un père. Mais il faisait froid dehors. / Le troisième jour, il donna à la %SWEET% un frère. Mais il faisait froid dehors. / Le quatrième jour, il donna à la %SWEET% un ami. Mais il faisait froid dehors. / Le cinquième jour, il donna à la %SWEET% un amour, et cela peut paraître simple ou niais, mais maintenant la %SWEET% était heureuse, et il faisait chaud dehors.");
 Database.addText("fr.cfgVersion", "Choisissez la version :");
 Database.addText("fr.cfgChooseLanguage", "Choisissez la langue :");
 Database.addText("fr.cfgInvertColors", "Inverser les couleurs ?");
@@ -29310,22 +29377,22 @@ Database.addText("fr.mapForestComment", "La forêt");
 Database.addText("fr.mapCastleEntranceComment", "Entrée du château");
 Database.addText("fr.mapCastleComment", "Le château");
 Database.addText("fr.mapDragonComment", "Le dragon");
-Database.addText("fr.candyBoxEatCandiesButton", "Manger tous les bonbons");
-Database.addText("fr.candyBoxThrowCandiesButton", "Jeter 10 bonbons par terre");
+Database.addText("fr.candyBoxEatCandiesButton", "Manger tous les %CANDIES%");
+Database.addText("fr.candyBoxThrowCandiesButton", "Jeter 10 %CANDIES% par terre");
 Database.addText("fr.mapVillageLockedHouseComment", "Une maison verrouillée");
 Database.addText("fr.mapVillageAHouseComment", "Une maison");
 Database.addText("fr.mapVillageForgeComment", "La forge");
 Database.addText("fr.buttonBackToTheMap", "Revenir à la carte");
 Database.addText("fr.mapSorceressHutComment", "Hutte de la sorcière");
 Database.addText("fr.buttonBackToTheVillage", "Revenir au village");
-Database.addText("fr.mapATreeIntroductionSpeech", "Bonjour, je suis l'Écureuil. Je peux te fournir des bonbons, et un tas d'autres choses. Je sais à quel point tu aimes les bonbons. Mais je me sens seul dans cette forêt.");
+Database.addText("fr.mapATreeIntroductionSpeech", "Bonjour, je suis l'Écureuil. Je peux te fournir des %CANDIES%, et un tas d'autres choses. Je sais à quel point tu aimes les %CANDIES%. Mais je me sens seul dans cette forêt.");
 Database.addText("fr.mapATreeIntroductionButton", "Comment puis-je t'aider ?");
-Database.addText("fr.mapATreeFirstQuestion", "Je vais te poser des questions. Si tu réponds correctement, les plus douces sucreries seront à toi ! Première question : aimes-tu vraiment les bonbons ? (répondre en anglais)");
-Database.addText("fr.mapATreeSecondQuestion", "C'est bon ! Voici 20 bonbons pour toi. Maintenant complète cette suite de lettres : S, E, I, D, N, A, ?");
-Database.addText("fr.mapATreeThirdQuestion", "Candies! Voici 100 bonbons pour toi. Question suivante : combien de bonbons possède la personne la plus bonbon du monde ?");
-Database.addText("fr.mapATreeFourthQuestion", "Voici 500 bonbons pour toi ! La prochaine récompense devrait être encore plus intéressante... Voici l'énigme : Dans une ancienne forêt pousse un très vieil arbre, sur lequel vivent les animaux les plus intelligents de ce monde. On dit que cet arbre possède 60 racines, 360 branches et 2160 feuilles. Combien de marques peut-on trouver sur son tronc ?");
-Database.addText("fr.mapATreeFifthQuestion", "Bravo ! Je parlais de mon arbre, effectivement. Voici 3 sucettes pour toi. Fais-en bon usage ! Prochaine énigme : écoute attentivement : Sous la pleine lune, je jette un chapeau jaune dans la mer rouge. Qu'arrive-t-il au chapeau jaune ?");
-Database.addText("fr.mapATreeTicTacToeIntro", "Bien répondu ! Ce n'était pas trop dur. Voici trois barres de chocolat pour toi ! Pour la prochaine récompense, on va changer un peu les règles. Tu vas devoir jouer à un jeu avec moi ! Es-tu prêt ?");
+Database.addText("fr.mapATreeFirstQuestion", "Je vais te poser des questions. Si tu réponds correctement, les plus douces sucreries seront à toi ! Première question : aimes-tu vraiment les %CANDIES% ? (répondre en anglais)");
+Database.addText("fr.mapATreeSecondQuestion", "C'est bon ! Voici 20 %CANDIES% pour toi. Maintenant complète cette suite de lettres : S, E, I, D, N, A, ?");
+Database.addText("fr.mapATreeThirdQuestion", "Candies! Voici 100 %CANDIES% pour toi. Question suivante : combien de %CANDIES% possède la personne la plus %CANDY% du monde ?");
+Database.addText("fr.mapATreeFourthQuestion", "Voici 500 %CANDIES% pour toi ! La prochaine récompense devrait être encore plus intéressante... Voici l'énigme : Dans une ancienne forêt pousse un très vieil arbre, sur lequel vivent les animaux les plus intelligents de ce monde. On dit que cet arbre possède 60 racines, 360 branches et 2160 feuilles. Combien de marques peut-on trouver sur son tronc ?");
+Database.addText("fr.mapATreeFifthQuestion", "Bravo ! Je parlais de mon arbre, effectivement. Voici 3 %LOLLIPOPS% pour toi. Fais-en bon usage ! Prochaine énigme : écoute attentivement : Sous la pleine lune, je jette un chapeau jaune dans la mer rouge. Qu'arrive-t-il au chapeau jaune ?");
+Database.addText("fr.mapATreeTicTacToeIntro", "Bien répondu ! Ce n'était pas trop dur. Voici trois %CHOCOLATES% pour toi ! Pour la prochaine récompense, on va changer un peu les règles. Tu vas devoir jouer à un jeu avec moi ! Es-tu prêt ?");
 Database.addText("fr.mapATreeTicTacToeIntroButton", "Bien sûr que je le suis !");
 Database.addText("fr.mapATreeTicTacToeLetsPlay", "Le jeu est Tic-Tac-Toe. On joue sur un plateau de 3 par 3. Tu utiliseras le signe X et moi le signe O. On place nos signes alternativement, et le but est d'en aligner trois. Je te laisse commencer !");
 Database.addText("fr.mapATreeTicTacToeNobodyWins", "Le plateau est entièrement remplit et on a tous les deux échoué à aligner trois signes : personne ne gagne ! Tu veux rejouer ?");
@@ -29345,16 +29412,15 @@ Database.addText("fr.mapVillageFifthHouseAgree", "C'est parti !");
 Database.addText("fr.mapVillageFifthHouseCellarDone", "Merci de m'en avoir débarrassé ! Voici quelque chose de très précieux en récompense : une carte du monde. Je pense que vous en aurez plus l'usage que moi.");
 Database.addText("fr.mapVillageTheShopComment", "Le magasin");
 Database.addText("fr.mapBridgeComment", "Le pont");
-Database.addText("fr.mapFarmComment", "La ferme à sucettes");
 Database.addText("fr.mapCaveEntranceComment", "L'entrée de la grotte");
 Database.addText("fr.mapLighthouseComment", "Le phare");
 Database.addText("fr.mapPierComment", "La jetée");
 Database.addText("fr.mapTheHoleComment", "Le Trou");
-Database.addText("fr.candyBoxRequestStatusBarUnlocked", "Demander une nouvelle fonctionnalité au développeur (30 bonbons)");
-Database.addText("fr.candyBoxRequestStatusBarUnlockedCfg", "En demander une autre (5 bonbons)");
-Database.addText("fr.candyBoxRequestStatusBarUnlockedSave", "Demander encore (5 bonbons)");
-Database.addText("fr.candyBoxRequestStatusBarUnlockedHealthBar", "Demander quelque chose de plus intéressant (5 bonbons)");
-Database.addText("fr.candyBoxRequestStatusBarUnlockedMap", "Dernière demande ! Celle-là a intérêt de valoir le coup. (10 bonbons)");
+Database.addText("fr.candyBoxRequestStatusBarUnlocked", "Demander une nouvelle fonctionnalité au développeur (30 %CANDIES%)");
+Database.addText("fr.candyBoxRequestStatusBarUnlockedCfg", "En demander une autre (5 %CANDIES%)");
+Database.addText("fr.candyBoxRequestStatusBarUnlockedSave", "Demander encore (5 %CANDIES%)");
+Database.addText("fr.candyBoxRequestStatusBarUnlockedHealthBar", "Demander quelque chose de plus intéressant (5 %CANDIES%)");
+Database.addText("fr.candyBoxRequestStatusBarUnlockedMap", "Dernière demande ! Celle-là a intérêt de valoir le coup. (10 %CANDIES%)");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedComment", "Vous avez débloqué une barre d'état ! (en haut)");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment1", "Vous avez maintenant accès à un onglet de configuration.");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment2", "Vous pouvez changer la langue, si vous le voulez.");
@@ -29390,9 +29456,9 @@ Database.addText("fr.gridItemUnicornHornDescription", "Cette corne magique appar
 Database.addText("fr.gridItemXinopherydonClawName", "Une griffe de xinopherydon");
 Database.addText("fr.gridItemXinopherydonClawDescription", "Cette griffe appartenait à un xinopherydon, un ancien animal à deux têtes que tout le monde croit éteint. Elle doublera les dommages de l'arme que vous utilisez.");
 Database.addText("fr.gridItemPitchforkName", "Une fourche");
-Database.addText("fr.gridItemPitchforkDescription", "Cette fourche spéciale vous permet d'ameublir la terre sans avoir à le retourner, préservant ainsi les écosystèmes du sol. Cela triplera la production de votre ferme à sucettes.");
+Database.addText("fr.gridItemPitchforkDescription", "Cette fourche spéciale vous permet d'ameublir la terre sans avoir à le retourner, préservant ainsi les écosystèmes du sol. Cela triplera la production de votre ferme à %LOLLIPOPS%.");
 Database.addText("fr.gridItemShellPowderName", "Poudre de coquillage");
-Database.addText("fr.gridItemShellPowderDescription", "La poudre de coquillage est souvent utilisée par les paysans pour améliorer la vitesse de pousse de leurs sucettes. Cette poudre multipliera votre production de sucettes par trois !");
+Database.addText("fr.gridItemShellPowderDescription", "La poudre de coquillage est souvent utilisée par les paysans pour améliorer la vitesse de pousse de leurs %LOLLIPOPS%. Cette poudre multipliera votre production de %LOLLIPOPS% par trois !");
 Database.addText("fr.gridItemPName", "La pierre P");
 Database.addText("fr.gridItemPDescription", "-\\BC{HASP+_ |`}iA=  JA   } ^N  )K `/K=)OW=$-#&JWhC N `-(\\  $QWDKO^+ DDUDM =^O(IOY~VoW BBDU `# Z_$  LY-    -  _ \\P  FFp(N/X \"D° (D ~ -Z DI}I \"  W}G -`eW PD   JTBU-PS°-J (`  /R`yM}  T$`` °+-|U(\\OL&Y_)T|");
 Database.addText("fr.gridItemLName", "La pierre L");
@@ -29404,11 +29470,11 @@ Database.addText("fr.gridItemYDescription", "IK  OA#  U   \\ }CY!NBX^(  U\\/  EB
 Database.addText("fr.gridItemRedSharkFinName", "Un aileron de requin magique rouge");
 Database.addText("fr.gridItemRedSharkFinDescription", "Cet aileron magique va grandement augmenter les dégâts de votre sort de boule de feu. Cette boule de feu devient enfin utile.");
 Database.addText("fr.gridItemGreenSharkFinName", "Un aileron de requin magique vert");
-Database.addText("fr.gridItemGreenSharkFinDescription", "Cet aileron magique apportera le pouvoir de la nature à votre ferme à sucettes! Votre production sera multipliée par 5.");
+Database.addText("fr.gridItemGreenSharkFinDescription", "Cet aileron magique apportera le pouvoir de la nature à votre ferme à %LOLLIPOPS%! Votre production sera multipliée par 5.");
 Database.addText("fr.gridItemPurpleSharkFinName", "Un aileron de requin magique violet");
 Database.addText("fr.gridItemPurpleSharkFinDescription", "Cet aileron magique vous apportera un nouveau sort de magie noire. Vous ne pouvez l'utiliser qu'une fois par quête. Faites attention avec celui-là !");
-Database.addText("fr.gridItemTalkingCandyName", "Un bonbon qui parle");
-Database.addText("fr.gridItemTalkingCandyDescription", "Ce bonbon qui parle est apparu après que vous ayez placé les quatre pierres en haut de la tour du château. Il pourrait vous être utile pour ouvrir la candy box...");
+Database.addText("fr.gridItemTalkingCandyName", "Un %CANDY% qui parle");
+Database.addText("fr.gridItemTalkingCandyDescription", "Ce %CANDY% qui parle est apparu après que vous ayez placé les quatre pierres en haut de la tour du château. Il pourrait vous être utile pour ouvrir la candy box...");
 Database.addText("fr.inventorySpecialNothingEqItem", "Rien");
 Database.addText("fr.eqItemWeaponWoodenSwordName", "Épée en bois");
 Database.addText("fr.eqItemWeaponWoodenSwordDescription", "Une simple épée en bois");
@@ -29433,7 +29499,7 @@ Database.addText("fr.eqItemWeaponGiantSpoonDescription", "Cette cuillère géant
 Database.addText("fr.eqItemWeaponGiantSpoonOfDoomName", "La Cuillère géante du Destin");
 Database.addText("fr.eqItemWeaponGiantSpoonOfDoomDescription", "Cette cuillère géante est encore plus puissante que la cuillère géante normale que vous pourriez trouver, par exemple, dans une théière. Elle est assez lente, cependant.");
 Database.addText("fr.eqItemHatMerchantHatName", "Le chapeau du marchand");
-Database.addText("fr.eqItemHatMerchantHatDescription", "Ce chapeau vous a été vendu par le marchand de bonbons. Le marchand de bonbons adore les bonbons. Ce chapeau multipliera par 7 les bonbons que vous trouvez pendant les quêtes !");
+Database.addText("fr.eqItemHatMerchantHatDescription", "Ce chapeau vous a été vendu par le marchand de %CANDIES%. Le marchand de %CANDIES% adore les %CANDIES%. Ce chapeau multipliera par 7 les %CANDIES% que vous trouvez pendant les quêtes !");
 Database.addText("fr.eqItemHatSorceressHatName", "Le chapeau de la sorcière");
 Database.addText("fr.eqItemHatSorceressHatDescription", "Ce chapeau vous a été vendu par la sorcière. Il améliorera les effets de vos sorts et potions.");
 Database.addText("fr.eqItemHatOctopusKingCrownName", "La couronne du Roi Poulpe");
@@ -29460,29 +29526,29 @@ Database.addText("fr.eqItemBodyArmoursKnightBodyArmourName", "Une armure de chev
 Database.addText("fr.eqItemBodyArmoursKnightBodyArmourDescription", "Cette solide armure vous protégera. Vous serez plus résistant face aux attaques de vos ennemis.");
 Database.addText("fr.eqItemBodyArmoursEnchantedKnightBodyArmourName", "Une armure de chevalier enchantée");
 Database.addText("fr.eqItemBodyArmoursEnchantedKnightBodyArmourDescription", "Cette armure est très spéciale. Vous serez BEAUCOUP plus résistant face aux attaques de vos ennemis, mais les dommages de l'arme que vous utilisez seront divisés par deux.");
-Database.addText("fr.mapVillageForgeBuyWoodenSwordButton", "Acheter une épée en bois (150 bonbons)");
+Database.addText("fr.mapVillageForgeBuyWoodenSwordButton", "Acheter une épée en bois (150 %CANDIES%)");
 Database.addText("fr.mapVillageForgeBuyWoodenSwordSpeech", "Merci pour l'achat ! Cette épée en bois est peu puissante, mais c'est un début.");
-Database.addText("fr.mapVillageForgeBuyIronAxeButton", "Acheter une hache en fer (400 bonbons)");
+Database.addText("fr.mapVillageForgeBuyIronAxeButton", "Acheter une hache en fer (400 %CANDIES%)");
 Database.addText("fr.mapVillageForgeBuyIronAxeSpeech", "J'espère que vous aimerez cette hache en argent, je viens juste de l'aiguiser pour vous !");
-Database.addText("fr.mapVillageForgeBuyPolishedSilverSwordButton", "Acheter une épée en argent travaillée (2 000 bonbons)");
+Database.addText("fr.mapVillageForgeBuyPolishedSilverSwordButton", "Acheter une épée en argent travaillée (2 000 %CANDIES%)");
 Database.addText("fr.mapVillageForgeBuyPolishedSilverSwordSpeech", "Ça m'a pris beaucoup de temps pour créer cette épée. Je vous assure qu'elle vaut son prix.");
-Database.addText("fr.mapVillageForgeBuyLightweightBodyArmourButton", "Acheter une armure légère (15 000 bonbons)");
+Database.addText("fr.mapVillageForgeBuyLightweightBodyArmourButton", "Acheter une armure légère (15 000 %CANDIES%)");
 Database.addText("fr.mapVillageForgeBuyLightweightBodyArmourSpeech", "Cette armure vous apportera une protection contre vos ennemis.");
-Database.addText("fr.mapVillageForgeBuyScytheButton", "Acheter une faux (5 000 000 bonbons)");
+Database.addText("fr.mapVillageForgeBuyScytheButton", "Acheter une faux (5 000 000 %CANDIES%)");
 Database.addText("fr.mapVillageForgeBuyScytheSpeech", "Cela m'a demandé plusieurs mois pour réaliser cette faux. C'est une vraie oeuvre d'art. C'est probablement l'arme la plus rapide que vous serez jamais capable d'utiliser. Bonne chance !");
-Database.addText("fr.wishingWellThrowFirstCandyButton", "Jeter un bonbon dans le puits");
-Database.addText("fr.wishingWellCandyIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! Quand tu jetteras des bonbons dans moi, je soignerai tes blessures.");
+Database.addText("fr.wishingWellThrowFirstCandyButton", "Jeter un %CANDY% dans le puits");
+Database.addText("fr.wishingWellCandyIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! Quand tu jetteras des %CANDIES% dans moi, je soignerai tes blessures.");
 Database.addText("fr.wishingWellThrewCandiesSpeech", "Tes blessures sont soignées !");
 Database.addText("fr.wishingWellNoWoundSpeech", "Tu n'as pas de blessure à soigner !");
-Database.addText("fr.wishingWellThrowFirstLollipopButton", "Jeter une sucette dans le puits");
-Database.addText("fr.wishingWellLollipopIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! Quand tu jetteras des sucettes dans moi, je les convertirai en bonbons.");
-Database.addText("fr.wishingWellThrewLollipopsSpeech", "Tes sucettes sont converties en bonbons ! Deux sucettes pour un bonbon.");
-Database.addText("fr.wishingWellThrowChocolateBarButton", "Jeter une barre de chocolat dans le puits");
-Database.addText("fr.wishingWellChocolateBarIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! J'adore les barres de chocolat. Je les adore vraiment. Pour chaque barre de chocolat que tu jettera en moi, y compris celle-ci, un enchantement magique te sera accordé.");
+Database.addText("fr.wishingWellThrowFirstLollipopButton", "Jeter une %LOLLIPOP% dans le puits");
+Database.addText("fr.wishingWellLollipopIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! Quand tu jetteras des %LOLLIPOPS% dans moi, je les convertirai en %CANDIES%.");
+Database.addText("fr.wishingWellThrewLollipopsSpeech", "Tes %LOLLIPOPS% sont converties en %CANDIES% ! Deux %LOLLIPOPS% pour un %CANDY%.");
+Database.addText("fr.wishingWellThrowChocolateBarButton", "Jeter une %CHOCOLATE% dans le puits");
+Database.addText("fr.wishingWellChocolateBarIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! J'adore les %CHOCOLATES%. Je les adore vraiment. Pour chaque %CHOCOLATE% que tu jettera en moi, y compris celle-ci, un enchantement magique te sera accordé.");
 Database.addText("fr.wishingWellThrewChocolateBarSpeech", "Quel objet souhaites-tu enchanter ?");
-Database.addText("fr.wishingWellThrowPainAuChocolatButton", "Jeter un pain au chocolat dans le puits");
+Database.addText("fr.wishingWellThrowPainAuChocolatButton", "Jeter un %PAINCHOCOLAT% dans le puits");
 Database.addText("fr.wishingWellPainAuChocolatIntroductionSpeech", "Salut, voyageur ! Je suis le puits aux souhaits. J'exaucerai tes voeux en échange de sucreries ! Quand tu jetteras un pain en chocolat dans moi, tu seras doté d'un don très spécial. Choisis sagement.");
-Database.addText("fr.wishingWellThrewPainAuChocolatSpeech", "Merci pour la pain au chocolat ! Tu peux maintenant choisir ton don.");
+Database.addText("fr.wishingWellThrewPainAuChocolatSpeech", "Merci pour la %PAINCHOCOLAT% ! Tu peux maintenant choisir ton don.");
 Database.addText("fr.wishingWellChooseGift", "Choisis ton don !");
 Database.addText("fr.wishingWellChooseGiftButton", "Choisir");
 Database.addText("fr.wishingWellGiftDoneSpeech", "C'est fait ! Tu as maintenant un nouveau don. Il apparaitra dans le panneau de statistiques de ton inventaire.");
@@ -29497,7 +29563,7 @@ Database.addText("fr.lonelyHouseShakeBox", "Secouer la boîte");
 Database.addText("fr.lonelyHouseBreakLock", "Casser le verrou");
 Database.addText("fr.lonelyHouseKickBox", "Donner un coup de pied dans la boîte");
 Database.addText("fr.lonelyHouseAskTheBoxToOpenItself", "Demander à la boîte de s'ouvrir d'elle-même");
-Database.addText("fr.lonelyHouseLureTheBoxWithACandy", "Appâter la boîte avec un bonbon");
+Database.addText("fr.lonelyHouseLureTheBoxWithACandy", "Appâter la boîte avec un %CANDY%");
 Database.addText("fr.lonelyHouseTakeTheBox", "Prendre la boîte avec vous, il faut probablement une clé pour l'ouvrir de toute façon");
 Database.addText("fr.lonelyHouseOpenBoxResult", "La boîte est verouillée");
 Database.addText("fr.lonelyHouseShakeBoxResult", "Rien ne se passe");
@@ -29511,12 +29577,12 @@ Database.addText("fr.lighthouseQuestionWho", "Qui êtes-vous ?");
 Database.addText("fr.lighthouseQuestionWhoSpeech", "Je suis un très vieux cyclope.");
 Database.addText("fr.lighthouseQuestionWhat", "Que faites-vous ici ?");
 Database.addText("fr.lighthouseQuestionWhatSpeech", "Je vis ici toute la journée, attendant l'arrivée d'un bateau. Cela fait très longtemps que je n'en ai pas vu, mais je dois rester ici, à fixer la mer, car un bateau pourrait arriver.");
-Database.addText("fr.lighthouseQuestionWhyEatCandies", "Pourquoi est-ce que je devrais manger des bonbons ?");
+Database.addText("fr.lighthouseQuestionWhyEatCandies", "Pourquoi est-ce que je devrais manger des %CANDIES% ?");
 Database.addText("fr.lighthouseQuestionWhyEatCandiesSpeech", "Parce que c'est bon pour la santé !");
 Database.addText("fr.lighthouseQuestionCandyBox", "Qu'est-ce qu'une candy box ?");
-Database.addText("fr.lighthouseQuestionCandyBoxSpeech", "C'est une très vieille boîte qu'on dit contenir tous les bonbons du monde. D'après les légendes, quiconque arrivera à l'ouvrir possèderait tellement de bonbons que tout serait possible.");
-Database.addText("fr.lighthouseQuestionDragon", "Le dragon m'a dit de venir ici parce que je veux des bonbons.");
-Database.addText("fr.lighthouseQuestionDragonSpeech", "Oh, je vois... Eh bien, je ne peux peux pas t'en donner directement, mais je peux te donner quelque chose d'indispensable pour qu'au final tu aies BEAUCOUP de bonbons. Je dois juste te tester auparavant. Parce que ce que j'ai ne peut être donné à n'importe qui. Résous ce puzzle et ce sera à toi.");
+Database.addText("fr.lighthouseQuestionCandyBoxSpeech", "C'est une très vieille boîte qu'on dit contenir tous les %CANDIES% du monde. D'après les légendes, quiconque arrivera à l'ouvrir possèderait tellement de %CANDIES% que tout serait possible.");
+Database.addText("fr.lighthouseQuestionDragon", "Le dragon m'a dit de venir ici parce que je veux des %CANDIES%.");
+Database.addText("fr.lighthouseQuestionDragonSpeech", "Oh, je vois... Eh bien, je ne peux peux pas t'en donner directement, mais je peux te donner quelque chose d'indispensable pour qu'au final tu aies BEAUCOUP de %CANDIES%. Je dois juste te tester auparavant. Parce que ce que j'ai ne peut être donné à n'importe qui. Résous ce puzzle et ce sera à toi.");
 Database.addText("fr.lighthouseFoundStone", "Bravo! Tu as passé le test et trouvé la pierre. Elle est très précieuse, mais n'est utile que si tu as trois autres pierres du même genre. Bonne chance !");
 Database.addText("fr.lighthouseFoundStoneAgain", "Bravo, tu as encore réussi le puzzle. Tu as l'air d'aimer ça.");
 Database.addText("fr.saveLocalSaveTitle", "Sauvegarde par navigateur");
@@ -29547,21 +29613,21 @@ Database.addText("fr.mountainsText0", "Vous avez repéré un truc dans les monta
 Database.addText("fr.mountainsText1", "Ça a l'air intéressant. Peut-être que ça pourrait être utile.");
 Database.addText("fr.mountainsTextButton", "Escalader les montagnes pour récupérer le truc");
 Database.addText("fr.mountainsTextAfter", "Vous avez trouvé un bâton sauteur ! Il a été ajouté à votre inventaire.");
-Database.addText("fr.secondHouseIntroSpeech", "Bonjour, je suis le marchand de bonbons. Je ferais n'importe quoi contre des bonbons. De quoi avez-vous besoin ?");
-Database.addText("fr.secondHouseLollipop1Speech", "C'est une sucette goût citron. Ma préférée ! Elle coûte 60 bonbons, mais ça vaut le coup.");
-Database.addText("fr.secondHouseLollipop2Speech", "Celle-ci est une sucette goût fraise. Ça a bon goût. J'aime bien sa couleur rouge. Seulement 60 bonbons !");
-Database.addText("fr.secondHouseLollipop3Speech", "C'est une sucette goût citrouille. Je parie que vous n'en avez jamais goûté ! 60 bonbons et elle est à vous.");
-Database.addText("fr.secondHouseLollipopButtonText", "Acheter cette sucette (60 bonbons)");
-Database.addText("fr.secondHouseMerchantHatSpeech", "Je pourrais vous vendre mon chapeau, mais il est très précieux, vous savez... Vous allez devoir me donner beaucoup de bonbons en échange. Disons un million de bonbons. Ça parait honête, non ?");
-Database.addText("fr.secondHouseMerchantHatButtonText", "Acheter le chapeau du marchand (1 000 000 de bonbons)");
+Database.addText("fr.secondHouseIntroSpeech", "Bonjour, je suis le marchand de %CANDIES%. Je ferais n'importe quoi contre des %CANDIES%. De quoi avez-vous besoin ?");
+Database.addText("fr.secondHouseLollipop1Speech", "C'est une %LOLLIPOP% goût citron. Ma préférée ! Elle coûte 60 %CANDIES%, mais ça vaut le coup.");
+Database.addText("fr.secondHouseLollipop2Speech", "Celle-ci est une %LOLLIPOP% goût fraise. Ça a bon goût. J'aime bien sa couleur rouge. Seulement 60 %CANDIES% !");
+Database.addText("fr.secondHouseLollipop3Speech", "C'est une %LOLLIPOP% goût citrouille. Je parie que vous n'en avez jamais goûté ! 60 %CANDIES% et elle est à vous.");
+Database.addText("fr.secondHouseLollipopButtonText", "Acheter cette %LOLLIPOP% (60 %CANDIES%)");
+Database.addText("fr.secondHouseMerchantHatSpeech", "Je pourrais vous vendre mon chapeau, mais il est très précieux, vous savez... Vous allez devoir me donner beaucoup de %CANDIES% en échange. Disons un million de %CANDIES%. Ça parait honête, non ?");
+Database.addText("fr.secondHouseMerchantHatButtonText", "Acheter le chapeau du marchand (1 000 000 de %CANDIES%)");
 Database.addText("fr.secondHouseTimeRingSpeech", "C'est un anneau temporel. Il est un peu magique. Il vous permet de ralentir le temps en cas de problème.");
-Database.addText("fr.secondHouseTimeRingButtonText", "Acheter l'anneau temporel (500 bonbons)");
-Database.addText("fr.secondHouseLeatherGlovesSpeech", "Ces gants en cuir sont fait avec du cuir de chameau, c'est de la bonne qualité. J'en ai beaucoup en stock, c'est pour ça qu'ils sont si peu chers : seulement 300 bonbons !");
-Database.addText("fr.secondHouseLeatherGlovesButtonText", "Acheter une paire de gants en cuir (300 bonbons)");
-Database.addText("fr.secondHouseLeatherBootsButtonText", "Acheter une paire de bottes en cuir (300 bonbons)");
+Database.addText("fr.secondHouseTimeRingButtonText", "Acheter l'anneau temporel (500 %CANDIES%)");
+Database.addText("fr.secondHouseLeatherGlovesSpeech", "Ces gants en cuir sont fait avec du cuir de chameau, c'est de la bonne qualité. J'en ai beaucoup en stock, c'est pour ça qu'ils sont si peu chers : seulement 300 %CANDIES% !");
+Database.addText("fr.secondHouseLeatherGlovesButtonText", "Acheter une paire de gants en cuir (300 %CANDIES%)");
+Database.addText("fr.secondHouseLeatherBootsButtonText", "Acheter une paire de bottes en cuir (300 %CANDIES%)");
 Database.addText("fr.secondHouseLeatherBootsSpeech", "Ces bottes en cuir de haute qualité, faites en cuir de chameau, garderont vos pieds au chaud.");
-Database.addText("fr.secondHouseChocolateBarSpeech", "C'est une barre de chocolat. Je ne sais pas à quoi ça sert, mais il se trouve que c'est assez rare, ce qui explique le prix. 800 bonbons et elle est à vous !");
-Database.addText("fr.secondHouseChocolateBarButtonText", "Acheter la barre de chocolat (800 bonbons)");
+Database.addText("fr.secondHouseChocolateBarSpeech", "C'est une %CHOCOLATE%. Je ne sais pas à quoi ça sert, mais il se trouve que c'est assez rare, ce qui explique le prix. 800 %CANDIES% et elle est à vous !");
+Database.addText("fr.secondHouseChocolateBarButtonText", "Acheter la %CHOCOLATE% (800 %CANDIES%)");
 Database.addText("fr.outsideTheHoleButton", "Sauter dans ce gros trou dans le sol");
 Database.addText("fr.theCaveExitText0", "Vous avez enfin atteint la sortie de la grotte");
 Database.addText("fr.theCaveExitText1", "Vous pouvez voir une grande forêt au dehors");
@@ -29571,7 +29637,7 @@ Database.addText("fr.theCaveFirstSentenceWentLeft", "You avez choisi le chemin d
 Database.addText("fr.theCaveFirstSentenceWentRight", "Vous avez choisi le chemin de droite.");
 Database.addText("fr.theCaveFirstSentenceYouAre", "Vous êtes dans une grotte. Trois chemins s'offrent à vous.");
 Database.addText("fr.theCavePattern_ArrowsToHeartPlugSeeStrangePlug", "Vous repérez une chose étrange sur le sol en face de vous.");
-Database.addText("fr.theCavePattern_ChocolateBarNowSeeChocolateBar", "Vous repérez une barre de chocolat en face de vous.");
+Database.addText("fr.theCavePattern_ChocolateBarNowSeeChocolateBar", "Vous repérez une %CHOCOLATE% en face de vous.");
 Database.addText("fr.theCavePattern_TreasureMapSentence", "Vous voyez des petits cailloux étrangement disposés sur le sol.");
 Database.addText("fr.theCavePattern_MonkeyWizardSentence", "Vous tombez sur un singe-magicien nu.");
 Database.addText("fr.theCavePattern_MonkeyWizardButton", "Le défier");
@@ -29584,20 +29650,20 @@ Database.addText("fr.fortressInsideEnterRoom1", "Entrer dans la première pièce
 Database.addText("fr.fortressInsideEnterRoom2", "Entrer dans la deuxième pièce");
 Database.addText("fr.fortressInsideEnterRoom3", "Entrer dans la troisième pièce");
 Database.addText("fr.treasureButtonDig", "Creuser");
-Database.addText("fr.treasureButtonYouFound", "Vous avez trouvé trois barres de chocolat !");
-Database.addText("fr.sorceressHutHello", "Bonjour, je suis la sorcière. Je pourrais vous apprendre une chose ou deux à propos de la magie. Je pourrais vous donner des choses intéressantes, ou lancer des sorts pour vous. Mais tout a un prix ! Et ce prix sera des sucettes. Beaucoup de sucettes.");
-Database.addText("fr.sorceressHutClickedGrimoire", "C'est un grimoire fait pour les débutants. En l'emportant avec vous pendant les quêtes, vous pourrez lancer des sorts simples mais utiles. Vous en avez besoin ! Seulement 5 000 sucettes.");
-Database.addText("fr.sorceressHutBuyGrimoireButton", "Acheter ce grimoire (5 000 sucettes)");
+Database.addText("fr.treasureButtonYouFound", "Vous avez trouvé trois %CHOCOLATES% !");
+Database.addText("fr.sorceressHutHello", "Bonjour, je suis la sorcière. Je pourrais vous apprendre une chose ou deux à propos de la magie. Je pourrais vous donner des choses intéressantes, ou lancer des sorts pour vous. Mais tout a un prix ! Et ce prix sera des %LOLLIPOPS%. Beaucoup de %LOLLIPOPS%.");
+Database.addText("fr.sorceressHutClickedGrimoire", "C'est un grimoire fait pour les débutants. En l'emportant avec vous pendant les quêtes, vous pourrez lancer des sorts simples mais utiles. Vous en avez besoin ! Seulement 5 000 %LOLLIPOPS%.");
+Database.addText("fr.sorceressHutBuyGrimoireButton", "Acheter ce grimoire (5 000 %LOLLIPOPS%)");
 Database.addText("fr.sorceressHutBuyGrimoireSpeech", "Merci pour l'achat ! Vous pourrez lancer trois sorts avec ce grimoire. Bonne chance !");
-Database.addText("fr.sorceressHutClickedGrimoire2", "C'est un grimoire avancé. En l'emportant avec vous pendant les quêtes, vous pourrez lancer deux sorts avancés. Je l'ai rédigé moi-même, ce qui n'était pas simple. 20 000 sucettes est un prix honnête.");
-Database.addText("fr.sorceressHutBuyGrimoire2Button", "Acheter ce grimoire (20 000 sucettes)");
+Database.addText("fr.sorceressHutClickedGrimoire2", "C'est un grimoire avancé. En l'emportant avec vous pendant les quêtes, vous pourrez lancer deux sorts avancés. Je l'ai rédigé moi-même, ce qui n'était pas simple. 20 000 %LOLLIPOPS% est un prix honnête.");
+Database.addText("fr.sorceressHutBuyGrimoire2Button", "Acheter ce grimoire (20 000 %LOLLIPOPS%)");
 Database.addText("fr.sorceressHutBuyGrimoire2Speech", "Merci de l'achat ! Vous pourrez lancer deux sorts avec ce grimoire. Utilisez-les sagement !");
-Database.addText("fr.sorceressHutClickedCauldron", "C'est mon chaudron. Il me permet de préparer des potions magiques. Je pourrais vous le vendre, mais il est très précieux... il vous en coûtera 100 000 sucettes.");
-Database.addText("fr.sorceressHutBuyCauldronButton", "Acheter le chaudron (100 000 sucettes)");
-Database.addText("fr.sorceressHutBuyCauldronSpeech", "Merci beaucoup ! 100 000 sucettes pour moi ! Je vous ai aussi donné un manuel de préparation de potions. Il va vous être utile.");
-Database.addText("fr.sorceressHutClickedHat", "J'ai un beau chapeau, en effet ! Mais je ne peux vraiment pas vous le vendre. Il est bieeeen trop précieux. Vraiment, je ne peux pas. N'insistez pas. Non. Non non non je ne devrais pas faire ça. Oh, bon, je l'échangerai, mais contre 1 000 000 000 de sucettes. Vous ne serez probablement pas capable de payer ça de toute façon.");
-Database.addText("fr.sorceressHutBuyHatButton", "Acheter le chapeau (1 000 000 000 de sucettes)");
-Database.addText("fr.sorceressHutBuyHatSpeech", "Une milliard de sucettes pour moiiii ! Mais je n'ai plu de chapeau... mais un milliard de sucettes, woah ! .. Ça valait le coup.");
+Database.addText("fr.sorceressHutClickedCauldron", "C'est mon chaudron. Il me permet de préparer des potions magiques. Je pourrais vous le vendre, mais il est très précieux... il vous en coûtera 100 000 %LOLLIPOPS%.");
+Database.addText("fr.sorceressHutBuyCauldronButton", "Acheter le chaudron (100 000 %LOLLIPOPS%)");
+Database.addText("fr.sorceressHutBuyCauldronSpeech", "Merci beaucoup ! 100 000 %LOLLIPOPS% pour moi ! Je vous ai aussi donné un manuel de préparation de potions. Il va vous être utile.");
+Database.addText("fr.sorceressHutClickedHat", "J'ai un beau chapeau, en effet ! Mais je ne peux vraiment pas vous le vendre. Il est bieeeen trop précieux. Vraiment, je ne peux pas. N'insistez pas. Non. Non non non je ne devrais pas faire ça. Oh, bon, je l'échangerai, mais contre 1 000 000 000 de %LOLLIPOPS%. Vous ne serez probablement pas capable de payer ça de toute façon.");
+Database.addText("fr.sorceressHutBuyHatButton", "Acheter le chapeau (1 000 000 000 de %LOLLIPOPS%)");
+Database.addText("fr.sorceressHutBuyHatSpeech", "Une milliard de %LOLLIPOPS% pour moiiii ! Mais je n'ai plu de chapeau... mais un milliard de %LOLLIPOPS%, woah ! .. Ça valait le coup.");
 Database.addText("fr.cauldronPreviousPageButton", "Page précédente");
 Database.addText("fr.cauldronNextPageButton", "Page suivante");
 Database.addText("fr.cauldronWhatYouWantToPut", "Ce que vous voulez mettre dans le chaudron");
@@ -29614,9 +29680,9 @@ Database.addText("fr.castleStairsComment", "Escaliers");
 Database.addText("fr.buttonBackToTheCastle", "Revenir au château");
 Database.addText("fr.castleBigRoomHovenSpeechSad", "Salut ! Je suis un très vieux four à pain. J'avais l'habitude de cuire des tas de bonnes pâtisseries, mais plus personne ne m'utilise. Peut-être... peut-être que tu pourrais m'aider ? Laisse-moi juste te prendre quelques sucreries ! Ne t'en fais pas, tu ne vas pas lre regretter. Tu peux me faire confiance.");
 Database.addText("fr.castleBigRoomHovenNotEnough", "Oh... tu n'as pas assez de sucreries, je ne peux rien faire. Je suis juste inutile. Je suis le four à pain inutile, c'est comme ça que tu devrais m'appeler.");
-Database.addText("fr.castleBigRoomHovenSpeechMadePainAuChocolat", "Yay ! Merci baucoup ! J'ai utilisé 100 bonbons et une barre de chocolat, et je t'ai fait... un pain au chocolat ! C'est ma pâtisserie préférée, j'espère que tu aimes ça aussi !");
+Database.addText("fr.castleBigRoomHovenSpeechMadePainAuChocolat", "Yay ! Merci baucoup ! J'ai utilisé 100 %CANDIES% et une %CHOCOLATE%, et je t'ai fait... un %PAINCHOCOLAT% ! C'est ma pâtisserie préférée, j'espère que tu aimes ça aussi !");
 Database.addText("fr.castleBigRoomHovenSpeechHappy", "Hey ! Si tu veux que je cuise une autre pâtisserie, dis-le moi ! J'adorerais t'aider.");
-Database.addText("fr.castleBigRoomHovenSpeechHappyNotEnough", "Oh, tu n'as pas assez de sucreries, malheureusement. J'ai besoin de 100 bonbons et d'une barre de chocolat. Reviens quand tu auras ça !");
+Database.addText("fr.castleBigRoomHovenSpeechHappyNotEnough", "Oh, tu n'as pas assez de sucreries, malheureusement. J'ai besoin de 100 %CANDIES% et d'une %CHOCOLATE%. Reviens quand tu auras ça !");
 Database.addText("fr.castleBigRoomHovenLetHovenTakeButton", "Laisser le four prendre toutes les sucreries qu'il veut prendre");
 Database.addText("fr.castleBigRoomHovenThanks", "Merci, four !");
 Database.addText("fr.dragonStopTickling", "Eh, toi ! Arrête de me chatouiller, s'il te plaît.");
@@ -29624,16 +29690,16 @@ Database.addText("fr.dragonStopTicklingButton", "Uh, oh, désolé, j'ai cru que 
 Database.addText("fr.dragonTalking", "Je suis le dragon et ceci est mon château. Je vois que vous avez réussi à entrer, vous devez être très courageux... J'adorerais aider quelqu'un comme vous. Que recherchez-vous ?");
 Database.addText("fr.dragonTalkingChallengeButton", "Du défi");
 Database.addText("fr.dragonTalkingFameButton", "La gloire");
-Database.addText("fr.dragonTalkingCandiesButton", "Des bonbons");
+Database.addText("fr.dragonTalkingCandiesButton", "Des %CANDIES%");
 Database.addText("fr.dragonTalkingChallengeSpeech", "Oh, comme ça vous voulez du défi ? Je pense que vous devriez faire un tour en enfer, il est de notoriété publique que le diable est un adversaire coriace. Sautez sur mon dos et je vous y emmènerai !");
 Database.addText("fr.dragonTalkingFameSpeech", "Le meilleur moyen de devenir célèbre est d'affronter le développeur lui-même. Je sais où il vit que je pourrais vous y emmener. Mais soyez prêt, ce ne sera pas facile.");
-Database.addText("fr.dragonTalkingCandiesSpeech", "Au final, la chose que nous voulons tous ce sont des bonbons, n'est-ce pas ? Je pense qu'un des mes amis pourrait vous aider. Vous le reconnaitrez aisément, il n'a qu'un seul oeil. Dites-lui juste que vous me connaissez.");
+Database.addText("fr.dragonTalkingCandiesSpeech", "Au final, la chose que nous voulons tous ce sont des %CANDIES%, n'est-ce pas ? Je pense qu'un des mes amis pourrait vous aider. Vous le reconnaitrez aisément, il n'a qu'un seul oeil. Dites-lui juste que vous me connaissez.");
 Database.addText("fr.dragonTalkingChallengeAnswer", "C'est parti !");
 Database.addText("fr.dragonTalkingFameAnswer", "Je suis prêt.");
 Database.addText("fr.dragonTalkingCandiesAnswer", "D'accord, merci !");
 Database.addText("fr.buttonBackToCastle", "Revenir au château");
-Database.addText("fr.talkingCandySpeechNoBox", "Hey ! Je suis le bonbon qui parle. Tu as presque terminé le jeu. Tu dois juste trouver la candy box. Elle est dans une maison en dehors du village. C'est la dernière étape !");
-Database.addText("fr.talkingCandySpeech1", "Hey ! Je suis le bonbon qui parle. Bravo, tu as terminé le jeu ! Je vais ouvrir ta candy box pour toi, c'est ta récompense. Je peux y aller ?");
+Database.addText("fr.talkingCandySpeechNoBox", "Hey ! Je suis le %CANDY% qui parle. Tu as presque terminé le jeu. Tu dois juste trouver la candy box. Elle est dans une maison en dehors du village. C'est la dernière étape !");
+Database.addText("fr.talkingCandySpeech1", "Hey ! Je suis le %CANDY% qui parle. Bravo, tu as terminé le jeu ! Je vais ouvrir ta candy box pour toi, c'est ta récompense. Je peux y aller ?");
 Database.addText("fr.talkingCandySpeech2", "C'est fait ! Tu peux y entrer maintenant. J'espère que tu as aimé le jeu :)");
 Database.addText("fr.talkingCandyButton", "Oui !!");
 Database.addText("fr.lighthousePuzzleResetButton", "Recommencer");
@@ -29650,6 +29716,9 @@ Database.addText("fr.healthy.chocolateBarMini", "nv");
 Database.addText("fr.healthy.painChocolatSingular", "céleri");
 Database.addText("fr.healthy.painChocolatPlural", "céleris");
 Database.addText("fr.healthy.painChocolatMini", "cl");
+Database.addText("fr.healthy.mapFarmComment", "La ferme");
+Database.addText("fr.healthy.candyBox", "La boite végétarienne");
+Database.addText("fr.healthy.sweet", "Saine");
 Database.addText("fr.lollipopFarmConstructMill", "Construire un moulin (10 000 sucettes)");
 Database.addText("fr.lollipopFarmFeedMill", "Nourrir le moulin");
 Database.addText("fr.lollipopFarmCurrentCandiesProduction", "Production actuelle de bonbons");

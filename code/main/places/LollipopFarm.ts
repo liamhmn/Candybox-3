@@ -176,7 +176,7 @@ class LollipopFarm extends Place{
         var plantingButtonsXPos: number;
         
         // How many lollipops planted
-        this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP) + " planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
+        this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP) + " planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
         
         // Button(s) to plant lollipops
             // If the first button is unlocked but not the second
@@ -212,7 +212,7 @@ class LollipopFarm extends Place{
                     plantingButtonsXPos += 5;
                 }
                 // We add the final text
-                this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP), x + plantingButtonsXPos, y+2);
+                this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP), x + plantingButtonsXPos, y+2);
             }
 
         // The production
@@ -235,7 +235,7 @@ class LollipopFarm extends Place{
             
             // Draw the button to feed the mill
             this.renderArea.addAsciiRealButton(
-                Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + Version.getPlural(TypeResource.LOLLIPOP) + ")",
+                Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + Version.getPluralEn(TypeResource.LOLLIPOP) + ")",
                 x+30, y,
                 "lollipopFarmFeedMillButton",
                 Database.getTranslatedText("lollipopFarmFeedMill"), true, -1, null, false);

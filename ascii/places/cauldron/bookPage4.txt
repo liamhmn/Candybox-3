@@ -17,9 +17,9 @@ need to heat up your cauldron and watch
 the temperature carefully.
 
   Instructions :
-   - Put 1000 candies in your cauldron
+   - Put 1000 %CANDIES% in your cauldron
    - Heat up until the water is lukewarm
    - Stop heating up
-   - Add 1000 candies
+   - Add 1000 %CANDIES%
    - Heat up until the water is boiling
    - Put into bottles

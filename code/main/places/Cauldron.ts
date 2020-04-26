@@ -150,14 +150,14 @@ class Cauldron extends Place{
             this.renderArea.drawString(Database.getTranslatedText("cauldronWhatYouWantToPut"), x, y+1, true); // Translated
             // Candies input
             this.renderArea.addSimpleInput(x, x + 20, y+2, new CallbackCollection(this.changeCandiesInput.bind(this)), "cauldronCandiesInput", (keepInputContent? this.candiesInput: ""), candiesInputHasFocus);
-            this.renderArea.drawString("candies", x + 21, y+2);
+            this.renderArea.drawString(Version.getPluralEn(TypeResource.CANDY), x + 21, y+2);
             if(this.candiesInputComment != null){
                 this.renderArea.drawString(this.candiesInputComment, x + 29, y+2);
                 this.renderArea.addBold(x + 29, x + 29 + this.candiesInputComment.length, y+2);
             }
             // Lollipops input
             this.renderArea.addSimpleInput(x, x + 20, y+4, new CallbackCollection(this.changeLollipopsInput.bind(this)), "cauldronLollipopsInput", (keepInputContent? this.lollipopsInput: ""), lollipopsInputHasFocus);
-            this.renderArea.drawString("lollipops", x + 21, y+4);
+            this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP), x + 21, y+4);
             if(this.lollipopsInputComment != null){
                 this.renderArea.drawString(this.lollipopsInputComment, x + 31, y+4);
                 this.renderArea.addBold(x + 31, x + 31 + this.lollipopsInputComment.length, y+4);
@@ -172,10 +172,10 @@ class Cauldron extends Place{
             this.renderArea.addBold(x, x + Database.getText("cauldronWhatIsIn").length, y+9); // Add bold on normal
             this.renderArea.drawString(Database.getTranslatedText("cauldronWhatIsIn"), x, y+10, true); // Translated
             // Candies
-            this.renderArea.drawString("Candies :", x+2, y+11);
+            this.renderArea.drawString(Version.getPluralEn(TypeResource.CANDY) +" :", x+2, y+11);
             this.renderArea.drawString(Algo.numberToStringButNicely(this.getGame().getCandiesInCauldron().getCurrent()), x + 14, y + 11);
             // Lollipops
-            this.renderArea.drawString("Lollipops :", x+2, y+12);
+            this.renderArea.drawString(Version.getPluralEn(TypeResource.LOLLIPOP) + " :", x+2, y+12);
             this.renderArea.drawString(Algo.numberToStringButNicely(this.getGame().getLollipopsInCauldron().getCurrent()), x + 14, y + 12);
         
         // What you can do with it
@@ -216,11 +216,33 @@ class Cauldron extends Place{
     
     private drawBook(x: number, y: number): void{
         // Draw the book
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/book"), x, y);
+        this.renderArea.drawArray(Database.getAscii("places/cauldron/book").map(s => {
+            return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                .replace("%SWEET%", Version.getVersionTxt("sweet"));
+        }), x, y);
         
         // Draw the pages' content
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + Saving.loadNumber("cauldronBookCurrentPage")), x+8, y+1);
-        this.renderArea.drawArray(Database.getAscii("places/cauldron/bookPage" + (Saving.loadNumber("cauldronBookCurrentPage")+1)), x+50, y+1);
+        this.renderArea.drawArray(
+            Database.getAscii("places/cauldron/bookPage" + Saving.loadNumber("cauldronBookCurrentPage"))
+                .map(s => {
+                    return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                        .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                        .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                        .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                        .replace("%SWEET%", Version.getVersionTxt("sweet"));
+                }), x+8, y+1);
+        this.renderArea.drawArray(
+            Database.getAscii("places/cauldron/bookPage" + (Saving.loadNumber("cauldronBookCurrentPage")+1))
+                .map(s => {
+                    return s.replace("%CANDY%", Version.getSingularEn(TypeResource.CANDY))
+                        .replace("%CANDIES%", Version.getPluralEn(TypeResource.CANDY))
+                        .replace("%LOLLIPOP%", Version.getSingularEn(TypeResource.LOLLIPOP))
+                        .replace("%LOLLIPOPS%", Version.getPluralEn(TypeResource.LOLLIPOP))
+                        .replace("%SWEET%", Version.getVersionTxt("sweet"));
+                }), x+50, y+1);
         
         // Add the previous page button if we're not already at the first page
         if(Saving.loadNumber("cauldronBookCurrentPage") > 0){
