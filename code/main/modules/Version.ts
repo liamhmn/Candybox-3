@@ -111,7 +111,7 @@ module Version {
         ];
 
         for (var resourceName of resourcesNamesTab) {
-            txt = txt.replace(resourceName.searchValue, resourceName.replaceValue);
+            txt = txt.split(resourceName.searchValue).join(resourceName.replaceValue);
         }
         return txt;
     }

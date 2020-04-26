@@ -86,14 +86,14 @@ module Database{
             }
             // If the translated text isn't chinese
             if(Saving.loadString("gameLanguage") != "zh") {
-                if (key.split("\.").length == 1) {
+                if (key.split("\.").length == 1 || key.indexOf("cauldron.") == 0) {
                     return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key]); // We just return the text
                 } else {
                     return textMap[Saving.loadString("gameLanguage") + "." + key];
                 }
 
             } else { // Else, the translated text is chinese
-                if (key.split("\.").length == 1) {
+                if (key.split("\.").length == 1 || key.indexOf("cauldron.") == 0) {
                     return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces()); // We return the text after adding spaces
                 } else {
                     return textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces();

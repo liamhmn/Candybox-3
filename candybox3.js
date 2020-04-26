@@ -816,7 +816,7 @@ var Version;
         ];
         for (var _i = 0, resourcesNamesTab_1 = resourcesNamesTab; _i < resourcesNamesTab_1.length; _i++) {
             var resourceName = resourcesNamesTab_1[_i];
-            txt = txt.replace(resourceName.searchValue, resourceName.replaceValue);
+            txt = txt.split(resourceName.searchValue).join(resourceName.replaceValue);
         }
         return txt;
     }
@@ -910,7 +910,7 @@ var Database;
             }
             // If the translated text isn't chinese
             if (Saving.loadString("gameLanguage") != "zh") {
-                if (key.split("\.").length == 1) {
+                if (key.split("\.").length == 1 || key.indexOf("cauldron.") == 0) {
                     return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key]); // We just return the text
                 }
                 else {
@@ -918,7 +918,7 @@ var Database;
                 }
             }
             else { // Else, the translated text is chinese
-                if (key.split("\.").length == 1) {
+                if (key.split("\.").length == 1 || key.indexOf("cauldron.") == 0) {
                     return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces()); // We return the text after adding spaces
                 }
                 else {
