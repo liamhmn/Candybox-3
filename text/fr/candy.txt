@@ -1,0 +1,24 @@
+fr.candy.candySingular
+bonbon
+fr.candy.candyPlural
+bonbons
+fr.candy.candyMini
+bn
+fr.candy.lollipopSingular
+sucette
+fr.candy.lollipopPlural
+sucette
+fr.candy.lollipopMini
+sc
+fr.candy.chocolateBarSingular
+tablette
+fr.candy.chocolateBarPlural
+tablettes
+fr.candy.chocolateBarMini
+tb
+fr.candy.painChocolatSingular
+pain au chocolat
+fr.candy.painChocolatPlural
+pains au chocolat
+fr.candy.painChocolatMini
+pc
