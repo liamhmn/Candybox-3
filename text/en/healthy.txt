@@ -30,3 +30,5 @@ en.healthy.menuLollipopFarm2
 THY
 en.healthy.menuLollipopFarm3
 FARM
+en.healthy.lolligator
+veggigator

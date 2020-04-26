@@ -2,12 +2,19 @@
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="Saving.ts"/>
 ///<reference path="./../interfaces/string_prototype.ts"/>
+///<reference path="../enums/TypeResource.ts"/>
+///<reference path="Version.ts"/>
 
 module Database{
     // Variables
     var asciiMap: { [s: string]: string[]; } = {}; // A map which associates strings (the keys) to array of strings (the ascii arts)
     var asciiSizeMap: { [s: string]: Pos; } = {}; // A map which associates strings (the keys) to the sizes of ascii arts
     var textMap: { [s: string]: string; } = {}; // A map which associated strings (the keys) to strings (the texts)
+    var variableVersionDbTxtKeys: string[] = [
+        "candySingular", "candyPlural", "candyMini", "lollipopSingular", "lollipopPlural", "lollipopMini",
+        "chocolateBarSingular", "chocolateBarPlural", "chocolateBarMini", "painChocolatSingular", "painChocolatPlural", "painChocolatMini",
+        "menuCandyBox", "menuLollipopFarm1", "menuLollipopFarm2", "menuLollipopFarm3", "lolligator"
+    ]; // A list with keys witch we don't have to replace variable version.
 
     // Public functions
     export function addAscii(asciiName: string, width: number, height: number, asciiArray: string[]): void{
@@ -61,8 +68,12 @@ module Database{
     export function getText(key: string): string{
         if(textMap["en." + key] == null)
             console.log("Error : trying to access the unknown text \"" + key + "\"");
-        
-        return textMap["en." + key];
+
+        if (key.split("\.").length == 1) {
+            return Version.replaceVersionVariableInDatabase(textMap["en." + key]);
+        } else {
+            return textMap["en." + key];
+        }
     }
     
     export function getTranslatedText(key: string): string{
@@ -74,11 +85,20 @@ module Database{
                 return "";
             }
             // If the translated text isn't chinese
-            if(Saving.loadString("gameLanguage") != "zh")
-                return textMap[Saving.loadString("gameLanguage") + "." + key]; // We just return the text
-            // Else, the translated text is chinese
-            else
-                return textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces(); // We return the text after adding spaces
+            if(Saving.loadString("gameLanguage") != "zh") {
+                if (key.split("\.").length == 1) {
+                    return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key]); // We just return the text
+                } else {
+                    return textMap[Saving.loadString("gameLanguage") + "." + key];
+                }
+
+            } else { // Else, the translated text is chinese
+                if (key.split("\.").length == 1) {
+                    return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces()); // We return the text after adding spaces
+                } else {
+                    return textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces();
+                }
+            }
         }
         
         // Else, we return an empty string

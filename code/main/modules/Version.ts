@@ -8,7 +8,6 @@ module Version {
     // ----- GET SINGULAR ----- //
     // ------------------------ //
     export function getSingular(typeResource: TypeResource = TypeResource.CANDY): string {
-        var dbKey: string = "";
         switch (typeResource) {
             case TypeResource.LOLLIPOP:
                 return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular");
@@ -61,6 +60,25 @@ module Version {
     // ------------------------------ //
     export function getVersionTxt(key: string): string {
         return Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+
+    export function replaceVersionVariableInDatabase(txt: string): string {
+        let resourcesNamesTab: {searchValue: string, replaceValue: string}[] = [
+            {searchValue : "%CANDY%", replaceValue: getVersionTxt("candySingular")},
+            {searchValue : "%CANDIES%", replaceValue: getVersionTxt("candyPlural")},
+            {searchValue : "%LOLLIPOP%", replaceValue: getVersionTxt("lollipopSingular")},
+            {searchValue : "%LOLLIPOPS%", replaceValue: getVersionTxt("lollipopPlural")},
+            {searchValue : "%CHOCOLATE%", replaceValue: getVersionTxt("chocolateBarSingular")},
+            {searchValue : "%CHOCOLATES%", replaceValue: getVersionTxt("chocolateBarPlural")},
+            {searchValue : "%PAINCHOCOLAT%", replaceValue: getVersionTxt("painChocolatSingular")},
+            {searchValue : "%PAINSCHOCOLAT%", replaceValue: getVersionTxt("painChocolatPlural")},
+            {searchValue : "%LOLLIGATOR%", replaceValue: getVersionTxt("lolligator")}
+        ];
+
+        for (var resourceName of resourcesNamesTab) {
+            txt = txt.replace(resourceName.searchValue, resourceName.replaceValue);
+        }
+        return txt;
     }
 
 }
