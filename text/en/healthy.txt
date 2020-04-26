@@ -32,3 +32,5 @@ en.healthy.menuLollipopFarm3
 FARM
 en.healthy.lolligator
 veggigator
+en.healthy.mapFarmComment
+The veggie farm

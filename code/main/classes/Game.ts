@@ -896,8 +896,13 @@ class Game{
     private setPlaceFromSavedMapPlace(): void{
         // If there's a saved place
         if(this.savedPlace != null){
-            this.setPlace(this.savedPlace); // We set the saved place as the current place
-            this.savedPlace = null; // There's no saved place anymore
+            if (this.savedPlace instanceof MainMap) {
+                this.setPlace(new MainMap(this)); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            } else {
+                this.setPlace(this.savedPlace); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            }
         }
     }
 }

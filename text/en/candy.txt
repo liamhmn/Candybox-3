@@ -32,3 +32,5 @@ en.candy.menuLollipopFarm3
 FARM
 en.candy.lolligator
 lolligator
+en.candy.mapFarmComment
+The lollipop farm

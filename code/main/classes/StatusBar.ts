@@ -67,7 +67,7 @@ class StatusBar{
         
         // Add tabs
         if(Saving.loadBool("statusBarUnlocked")) {
-            this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", Version.getVersionTxt("menuCandyBox"), " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
+            this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
         }
         if(Saving.loadBool("statusBarUnlockedInventory")) {
             this.addTab(StatusBarTabType.INVENTORY, 8, "INV", " ENT", "ORY", new CallbackCollection(this.game.goToInventory.bind(this.game)));
@@ -77,9 +77,9 @@ class StatusBar{
         }
         if(Saving.loadBool("statusBarUnlockedLollipopFarm")) {
             this.addTab(StatusBarTabType.FARM, 21,
-                Version.getVersionTxt("menuLollipopFarm1"),
-                Version.getVersionTxt("menuLollipopFarm2"),
-                Version.getVersionTxt("menuLollipopFarm3"),
+                Version.getVersionTxtOrTranslated("menuLollipopFarm1"),
+                Version.getVersionTxtOrTranslated("menuLollipopFarm2"),
+                Version.getVersionTxtOrTranslated("menuLollipopFarm3"),
                 new CallbackCollection(this.game.goToLollipopFarm.bind(this.game)));
         }
         if(Saving.loadBool("statusBarUnlockedCauldron")) {
@@ -249,12 +249,12 @@ class StatusBar{
             
             for(var i = 0; i < this.tabs.length; i++){
                 if (this.tabs[i].getType() == StatusBarTabType.CANDY_BOX) {
-                    this.tabs[i].setText(" THE", Version.getVersionTxt("menuCandyBox"), " BOX");
+                    this.tabs[i].setText(" THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX");
                 } else if (this.tabs[i].getType() == StatusBarTabType.FARM) {
                     this.tabs[i].setText(
-                        Version.getVersionTxt("menuLollipopFarm1"),
-                        Version.getVersionTxt("menuLollipopFarm2"),
-                        Version.getVersionTxt("menuLollipopFarm3")
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm1"),
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm2"),
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm3")
                     );
                 }
                 this.tabs[i].render(this.renderArea, 29, 1, (this.selectedTabIndex == i? true:false));

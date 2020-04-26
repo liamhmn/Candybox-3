@@ -59,20 +59,26 @@ module Version {
     // ----- GET VERSION BY KEY ----- //
     // ------------------------------ //
     export function getVersionTxt(key: string): string {
+        return Database.getText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+    export function getVersionTranslated(key: string): string {
+        return Database.getTranslatedText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+    export function getVersionTxtOrTranslated(key: string): string {
         return Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
     }
 
     export function replaceVersionVariableInDatabase(txt: string): string {
         let resourcesNamesTab: {searchValue: string, replaceValue: string}[] = [
-            {searchValue : "%CANDY%", replaceValue: getVersionTxt("candySingular")},
-            {searchValue : "%CANDIES%", replaceValue: getVersionTxt("candyPlural")},
-            {searchValue : "%LOLLIPOP%", replaceValue: getVersionTxt("lollipopSingular")},
-            {searchValue : "%LOLLIPOPS%", replaceValue: getVersionTxt("lollipopPlural")},
-            {searchValue : "%CHOCOLATE%", replaceValue: getVersionTxt("chocolateBarSingular")},
-            {searchValue : "%CHOCOLATES%", replaceValue: getVersionTxt("chocolateBarPlural")},
-            {searchValue : "%PAINCHOCOLAT%", replaceValue: getVersionTxt("painChocolatSingular")},
-            {searchValue : "%PAINSCHOCOLAT%", replaceValue: getVersionTxt("painChocolatPlural")},
-            {searchValue : "%LOLLIGATOR%", replaceValue: getVersionTxt("lolligator")}
+            {searchValue : "%CANDY%", replaceValue: getVersionTxtOrTranslated("candySingular")},
+            {searchValue : "%CANDIES%", replaceValue: getVersionTxtOrTranslated("candyPlural")},
+            {searchValue : "%LOLLIPOP%", replaceValue: getVersionTxtOrTranslated("lollipopSingular")},
+            {searchValue : "%LOLLIPOPS%", replaceValue: getVersionTxtOrTranslated("lollipopPlural")},
+            {searchValue : "%CHOCOLATE%", replaceValue: getVersionTxtOrTranslated("chocolateBarSingular")},
+            {searchValue : "%CHOCOLATES%", replaceValue: getVersionTxtOrTranslated("chocolateBarPlural")},
+            {searchValue : "%PAINCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatSingular")},
+            {searchValue : "%PAINSCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatPlural")},
+            {searchValue : "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator")}
         ];
 
         for (var resourceName of resourcesNamesTab) {

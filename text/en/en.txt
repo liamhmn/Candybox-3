@@ -88,8 +88,6 @@ en.mapVillageTheShopComment
 The shop
 en.mapBridgeComment
 The bridge
-en.mapFarmComment
-The lollipop farm
 en.mapCaveEntranceComment
 The cave entrance
 en.mapLighthouseComment

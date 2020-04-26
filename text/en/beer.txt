@@ -32,3 +32,5 @@ en.beer.menuLollipopFarm3
 FARM
 en.beer.lolligator
 beergator
+en.beer.mapFarmComment
+The beer farm

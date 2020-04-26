@@ -687,16 +687,125 @@ var Saving;
     }
     Saving.saveString = saveString;
 })(Saving || (Saving = {}));
+var TypeResource;
+(function (TypeResource) {
+    TypeResource[TypeResource["CANDY"] = 0] = "CANDY";
+    TypeResource[TypeResource["LOLLIPOP"] = 1] = "LOLLIPOP";
+    TypeResource[TypeResource["CHOCOLATE"] = 2] = "CHOCOLATE";
+    TypeResource[TypeResource["PAIN_AU_CHOCOLAT"] = 3] = "PAIN_AU_CHOCOLAT";
+})(TypeResource || (TypeResource = {}));
+///<reference path="../enums/TypeResource.ts"/>
+/**
+ * Contains methods to have elements which are which between versions.
+ */
+var Version;
+(function (Version) {
+    // ------------------------ //
+    // ----- GET SINGULAR ----- //
+    // ------------------------ //
+    function getSingular(typeResource) {
+        if (typeResource === void 0) { typeResource = TypeResource.CANDY; }
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarSingular");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatSingular");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candySingular");
+        }
+    }
+    Version.getSingular = getSingular;
+    // ---------------------- //
+    // ----- GET PLURAL ----- //
+    // ---------------------- //
+    function getPlural(typeResource) {
+        if (typeResource === void 0) { typeResource = TypeResource.CANDY; }
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopPlural");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarPlural");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatPlural");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candyPlural");
+        }
+    }
+    Version.getPlural = getPlural;
+    // -------------------- //
+    // ----- GET MINI ----- //
+    // -------------------- //
+    function getMini(typeResource) {
+        if (typeResource === void 0) { typeResource = TypeResource.CANDY; }
+        switch (typeResource) {
+            case TypeResource.LOLLIPOP:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopMini");
+            case TypeResource.CHOCOLATE:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarMini");
+            case TypeResource.PAIN_AU_CHOCOLAT:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatMini");
+            case TypeResource.CANDY:
+            default:
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candyMini");
+        }
+    }
+    Version.getMini = getMini;
+    // ------------------------------ //
+    // ----- GET VERSION BY KEY ----- //
+    // ------------------------------ //
+    function getVersionTxt(key) {
+        return Database.getText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+    Version.getVersionTxt = getVersionTxt;
+    function getVersionTranslated(key) {
+        return Database.getTranslatedText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+    Version.getVersionTranslated = getVersionTranslated;
+    function getVersionTxtOrTranslated(key) {
+        return Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
+    }
+    Version.getVersionTxtOrTranslated = getVersionTxtOrTranslated;
+    function replaceVersionVariableInDatabase(txt) {
+        var resourcesNamesTab = [
+            { searchValue: "%CANDY%", replaceValue: getVersionTxtOrTranslated("candySingular") },
+            { searchValue: "%CANDIES%", replaceValue: getVersionTxtOrTranslated("candyPlural") },
+            { searchValue: "%LOLLIPOP%", replaceValue: getVersionTxtOrTranslated("lollipopSingular") },
+            { searchValue: "%LOLLIPOPS%", replaceValue: getVersionTxtOrTranslated("lollipopPlural") },
+            { searchValue: "%CHOCOLATE%", replaceValue: getVersionTxtOrTranslated("chocolateBarSingular") },
+            { searchValue: "%CHOCOLATES%", replaceValue: getVersionTxtOrTranslated("chocolateBarPlural") },
+            { searchValue: "%PAINCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatSingular") },
+            { searchValue: "%PAINSCHOCOLAT%", replaceValue: getVersionTxtOrTranslated("painChocolatPlural") },
+            { searchValue: "%LOLLIGATOR%", replaceValue: getVersionTxtOrTranslated("lolligator") }
+        ];
+        for (var _i = 0, resourcesNamesTab_1 = resourcesNamesTab; _i < resourcesNamesTab_1.length; _i++) {
+            var resourceName = resourcesNamesTab_1[_i];
+            txt = txt.replace(resourceName.searchValue, resourceName.replaceValue);
+        }
+        return txt;
+    }
+    Version.replaceVersionVariableInDatabase = replaceVersionVariableInDatabase;
+})(Version || (Version = {}));
 ///<reference path="../../../libs/jquery.d.ts"/>
 ///<reference path="../classes/Pos.ts"/>
 ///<reference path="Saving.ts"/>
 ///<reference path="./../interfaces/string_prototype.ts"/>
+///<reference path="../enums/TypeResource.ts"/>
+///<reference path="Version.ts"/>
 var Database;
 (function (Database) {
     // Variables
     var asciiMap = {}; // A map which associates strings (the keys) to array of strings (the ascii arts)
     var asciiSizeMap = {}; // A map which associates strings (the keys) to the sizes of ascii arts
     var textMap = {}; // A map which associated strings (the keys) to strings (the texts)
+    var variableVersionDbTxtKeys = [
+        "candySingular", "candyPlural", "candyMini", "lollipopSingular", "lollipopPlural", "lollipopMini",
+        "chocolateBarSingular", "chocolateBarPlural", "chocolateBarMini", "painChocolatSingular", "painChocolatPlural", "painChocolatMini",
+        "menuCandyBox", "menuLollipopFarm1", "menuLollipopFarm2", "menuLollipopFarm3", "lolligator"
+    ]; // A list with keys witch we don't have to replace variable version.
     // Public functions
     function addAscii(asciiName, width, height, asciiArray) {
         asciiMap[asciiName] = asciiArray;
@@ -732,24 +841,57 @@ var Database;
         return getAscii(key).slice(y1, y2);
     }
     Database.getPartOfAscii = getPartOfAscii;
+    function getTranslatedOrEnText(key) {
+        if (Saving.loadString("gameLanguage") != "en") {
+            var translatedText = Database.getTranslatedText(key);
+            if (translatedText == "") {
+                return getText(key);
+            }
+            else {
+                return translatedText;
+            }
+        }
+        else {
+            return getText(key);
+        }
+    }
+    Database.getTranslatedOrEnText = getTranslatedOrEnText;
     function getText(key) {
         if (textMap["en." + key] == null)
             console.log("Error : trying to access the unknown text \"" + key + "\"");
-        return textMap["en." + key];
+        if (key.split("\.").length == 1) {
+            return Version.replaceVersionVariableInDatabase(textMap["en." + key]);
+        }
+        else {
+            return textMap["en." + key];
+        }
     }
     Database.getText = getText;
     function getTranslatedText(key) {
         // If we have a language (other than english) selected
         if (Saving.loadString("gameLanguage") != "en") {
-            // If the translated text can't be found
-            if (textMap[Saving.loadString("gameLanguage") + "." + key] == null)
+            // If the translated text can't be found, it returns an empty string
+            if (textMap[Saving.loadString("gameLanguage") + "." + key] == null) {
                 console.log("Error : trying to access the unknown translated text \"" + key + "\" for language " + Saving.loadString("gameLanguage") + "."); // Error
+                return "";
+            }
             // If the translated text isn't chinese
-            if (Saving.loadString("gameLanguage") != "zh")
-                return textMap[Saving.loadString("gameLanguage") + "." + key]; // We just return the text
-            // Else, the translated text is chinese
-            else
-                return textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces(); // We return the text after adding spaces
+            if (Saving.loadString("gameLanguage") != "zh") {
+                if (key.split("\.").length == 1) {
+                    return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key]); // We just return the text
+                }
+                else {
+                    return textMap[Saving.loadString("gameLanguage") + "." + key];
+                }
+            }
+            else { // Else, the translated text is chinese
+                if (key.split("\.").length == 1) {
+                    return Version.replaceVersionVariableInDatabase(textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces()); // We return the text after adding spaces
+                }
+                else {
+                    return textMap[Saving.loadString("gameLanguage") + "." + key].addChineseSpaces();
+                }
+            }
         }
         // Else, we return an empty string
         return "";
@@ -2074,7 +2216,7 @@ var RenderArea = /** @class */ (function () {
     };
     return RenderArea;
 }());
-///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="./CallbackCollection.ts"/>
 var Resource = /** @class */ (function () {
     // Constructor
     function Resource(savingPrefix) {
@@ -2171,7 +2313,7 @@ var BarType;
 })(BarType || (BarType = {}));
 ///<reference path="../enums/BarType.ts"/>
 ///<reference path="./RenderArea.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 var Bar = /** @class */ (function (_super) {
     __extends(Bar, _super);
@@ -2371,16 +2513,6 @@ var StatusBarTab = /** @class */ (function () {
     StatusBarTab.prototype.getWidth = function () {
         return this.width;
     };
-    // Private methods
-    StatusBarTab.prototype.calculateWidth = function () {
-        this.width = 0;
-        for (var i = 0; i < 3; i++) {
-            if (this.text[i].length > this.width)
-                this.width = this.text[i].length;
-        }
-        // We add two ! (because a tab has two spaces on left and right
-        this.width += 2;
-    };
     StatusBarTab.prototype.setText = function (text1, text2, text3) {
         // We empty the text array
         this.text = [];
@@ -2390,6 +2522,16 @@ var StatusBarTab = /** @class */ (function () {
         this.text.push(text3);
         // We re-calculate the tab's width
         this.calculateWidth();
+    };
+    // Private methods
+    StatusBarTab.prototype.calculateWidth = function () {
+        this.width = 0;
+        for (var i = 0; i < 3; i++) {
+            if (this.text[i].length > this.width)
+                this.width = this.text[i].length;
+        }
+        // We add two ! (because a tab has two spaces on left and right
+        this.width += 2;
     };
     return StatusBarTab;
 }());
@@ -2442,26 +2584,36 @@ var StatusBar = /** @class */ (function () {
             this.playerHealthBar.resize(72, 1);
         }
         // Add tabs
-        if (Saving.loadBool("statusBarUnlocked"))
-            this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", "CANDY", " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedInventory"))
+        if (Saving.loadBool("statusBarUnlocked")) {
+            this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
+        }
+        if (Saving.loadBool("statusBarUnlockedInventory")) {
             this.addTab(StatusBarTabType.INVENTORY, 8, "INV", " ENT", "ORY", new CallbackCollection(this.game.goToInventory.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedMap"))
+        }
+        if (Saving.loadBool("statusBarUnlockedMap")) {
             this.addTab(StatusBarTabType.MAP, 15, "", "MAP", "", new CallbackCollection(this.game.goToMap.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedLollipopFarm"))
-            this.addTab(StatusBarTabType.FARM, 21, "LOLL", "IPOP", "FARM", new CallbackCollection(this.game.goToLollipopFarm.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedCauldron"))
+        }
+        if (Saving.loadBool("statusBarUnlockedLollipopFarm")) {
+            this.addTab(StatusBarTabType.FARM, 21, Version.getVersionTxtOrTranslated("menuLollipopFarm1"), Version.getVersionTxtOrTranslated("menuLollipopFarm2"), Version.getVersionTxtOrTranslated("menuLollipopFarm3"), new CallbackCollection(this.game.goToLollipopFarm.bind(this.game)));
+        }
+        if (Saving.loadBool("statusBarUnlockedCauldron")) {
             this.addTab(StatusBarTabType.CAULDRON, 28, "", "CLDR", "", new CallbackCollection(this.game.goToCauldron.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedInsideYourBox"))
+        }
+        if (Saving.loadBool("statusBarUnlockedInsideYourBox")) {
             this.addTab(StatusBarTabType.INSIDE_YOUR_BOX, 35, "INSIDE", " YOUR", " BOX!", new CallbackCollection(this.game.goToInsideYourBox.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedTheComputer"))
+        }
+        if (Saving.loadBool("statusBarUnlockedTheComputer")) {
             this.addTab(StatusBarTabType.THE_COMPUTER, 44, " THE", " COM", "PUTER", new CallbackCollection(this.game.goToTheComputer.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedTheArena"))
+        }
+        if (Saving.loadBool("statusBarUnlockedTheArena")) {
             this.addTab(StatusBarTabType.THE_ARENA, 52, " THE", "ARENA", " /!\\", new CallbackCollection(this.game.goToTheArena.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedSave"))
+        }
+        if (Saving.loadBool("statusBarUnlockedSave")) {
             this.addTab(StatusBarTabType.SAVE, 60, "", "SAVE", "", new CallbackCollection(this.game.goToSave.bind(this.game)));
-        if (Saving.loadBool("statusBarUnlockedCfg"))
+        }
+        if (Saving.loadBool("statusBarUnlockedCfg")) {
             this.addTab(StatusBarTabType.CFG, 67, "C", "F", "G", new CallbackCollection(this.game.goToCfg.bind(this.game)));
+        }
         // Add special hotkeys to go to the next or previous tab
         if (Saving.loadBool("statusBarUnlocked")) {
             this.game.addSpecialHotkey(new Hotkey("n", new CallbackCollection(this.nextTab.bind(this))));
@@ -2588,6 +2740,12 @@ var StatusBar = /** @class */ (function () {
         if (Saving.loadBool("statusBarUnlocked")) {
             this.renderArea.drawVerticalLine("|", 28, 1, 4);
             for (var i = 0; i < this.tabs.length; i++) {
+                if (this.tabs[i].getType() == StatusBarTabType.CANDY_BOX) {
+                    this.tabs[i].setText(" THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX");
+                }
+                else if (this.tabs[i].getType() == StatusBarTabType.FARM) {
+                    this.tabs[i].setText(Version.getVersionTxtOrTranslated("menuLollipopFarm1"), Version.getVersionTxtOrTranslated("menuLollipopFarm2"), Version.getVersionTxtOrTranslated("menuLollipopFarm3"));
+                }
                 this.tabs[i].render(this.renderArea, 29, 1, (this.selectedTabIndex == i ? true : false));
             }
         }
@@ -2620,7 +2778,7 @@ var StatusBar = /** @class */ (function () {
     };
     return StatusBar;
 }());
-///<reference path="Resource.ts"/>
+///<reference path="./Resource.ts"/>
 var StatusBarResource = /** @class */ (function (_super) {
     __extends(StatusBarResource, _super);
     // Constructor
@@ -2640,7 +2798,7 @@ var StatusBarResource = /** @class */ (function (_super) {
     };
     return StatusBarResource;
 }(Resource));
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 ///<reference path="../classes/Game.ts"/>
 ///<reference path="../modules/Algo.ts"/>
 var Candies = /** @class */ (function (_super) {
@@ -2659,10 +2817,12 @@ var Candies = /** @class */ (function (_super) {
         var suffix = "";
         var comment = "";
         // We set the base or return right now in some special cases
-        if (n < 0)
-            return "What, negative candies?!";
-        else if (n == 1)
-            return "You have 1 candy";
+        if (n < 0) {
+            return "What, negative " + Version.getPlural(TypeResource.CANDY) + "?!";
+        }
+        else if (n == 1 || n == 0) {
+            return "You have " + n + Version.getSingular(TypeResource.CANDY);
+        }
         else {
             if (n == 1337)
                 base = "leet";
@@ -2673,20 +2833,21 @@ var Candies = /** @class */ (function (_super) {
         size = totalSize - base.length;
         // We set the suffix
         if (size >= 8) {
-            suffix = " candies";
+            suffix = Version.getPlural(TypeResource.CANDY);
             // We add a prefix
             // How much space do we still have ?
             size = totalSize - base.length - suffix.length;
             // We set the prefix
-            if (size >= 9)
-                prefix = "You have ";
-            else if (size >= 3)
+            var prefixTxt = Database.getTranslatedOrEnText("youhave");
+            if (size - prefixTxt.length - 1 >= 0) {
+                prefix = prefixTxt + " ";
+            }
+            else if (size >= 3) {
                 prefix = "-> ";
+            }
         }
         else if (size >= 4)
-            suffix = " cnd";
-        else if (size >= 2)
-            suffix = " c";
+            suffix = Version.getMini(TypeResource.CANDY);
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;
         // We possibly set a comment
@@ -2698,7 +2859,7 @@ var Candies = /** @class */ (function (_super) {
     };
     return Candies;
 }(StatusBarResource));
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 var Lollipops = /** @class */ (function (_super) {
     __extends(Lollipops, _super);
     // Constructor
@@ -2714,35 +2875,41 @@ var Lollipops = /** @class */ (function (_super) {
         var prefix = "";
         var suffix = "";
         // We set the base or return right now in some special cases
-        if (n < 0)
-            return "What, negative lollipops?!";
-        else if (n == 1)
-            return "You have 1 lollipop";
-        else
+        if (n < 0) {
+            return "What, negative " + Version.getPlural(TypeResource.LOLLIPOP) + "?!";
+        }
+        else if (n == 1 || n == 0) {
+            return "You have " + n + Version.getSingular(TypeResource.LOLLIPOP);
+        }
+        else {
             base = Algo.numberToStringButNicely(n);
+        }
         // How much space do we still have ?
         size = totalSize - base.length;
         // We set the suffix
         if (size >= 10) {
-            suffix = " lollipops";
+            suffix = Version.getPlural(TypeResource.LOLLIPOP);
             // We add a suffix
             // How much space do we still have ?
             size = totalSize - base.length - suffix.length;
             // We set the prefix
-            if (size >= 9)
-                prefix = "You have ";
-            else if (size >= 3)
+            var prefixTxt = Database.getTranslatedOrEnText("youhave");
+            if (size - prefixTxt.length - 1 >= 0) {
+                prefix = prefixTxt + " ";
+            }
+            else if (size >= 3) {
                 prefix = "-> ";
+            }
         }
         else if (size >= 3)
-            suffix = " lp";
+            suffix = Version.getMini(TypeResource.LOLLIPOP);
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;
         return prefix + base + suffix;
     };
     return Lollipops;
 }(StatusBarResource));
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 var ChocolateBars = /** @class */ (function (_super) {
     __extends(ChocolateBars, _super);
     // Constructor
@@ -2758,35 +2925,41 @@ var ChocolateBars = /** @class */ (function (_super) {
         var prefix = "";
         var suffix = "";
         // We set the base or return right now in some special cases
-        if (n < 0)
-            return "What, negative chocolate bars?!";
-        else if (n == 1)
-            return "You have 1 chocolate bar";
-        else
+        if (n < 0) {
+            return "What, negative " + Version.getPlural(TypeResource.CHOCOLATE) + "?!";
+        }
+        else if (n == 1 || n == 0) {
+            return "You have " + n + Version.getSingular(TypeResource.CHOCOLATE);
+        }
+        else {
             base = Algo.numberToStringButNicely(n);
+        }
         // How much space do we still have ?
         size = totalSize - base.length;
         // We set the suffix
         if (size >= 15) {
-            suffix = " chocolate bars";
+            suffix = Version.getPlural(TypeResource.CHOCOLATE);
             // We add a suffix
             // How much space do we still have ?
             size = totalSize - base.length - suffix.length;
             // We set the prefix
-            if (size >= 9)
-                prefix = "You have ";
-            else if (size >= 3)
+            var prefixTxt = Database.getTranslatedOrEnText("youhave");
+            if (size - prefixTxt.length - 1 >= 0) {
+                prefix = prefixTxt + " ";
+            }
+            else if (size >= 3) {
                 prefix = "-> ";
+            }
         }
         else if (size >= 3)
-            suffix = " cb";
+            suffix = Version.getMini(TypeResource.CHOCOLATE);
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;
         return prefix + base + suffix;
     };
     return ChocolateBars;
 }(StatusBarResource));
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 var PainsAuChocolat = /** @class */ (function (_super) {
     __extends(PainsAuChocolat, _super);
     // Constructor
@@ -2803,34 +2976,37 @@ var PainsAuChocolat = /** @class */ (function (_super) {
         var suffix = "";
         // We set the base or return right now in some special cases
         if (n < 0)
-            return "What, negative pains au chocolat?!";
-        else if (n == 1)
-            return "-> 1 pain au chocolat";
+            return "What, negative" + Version.getPlural(TypeResource.PAIN_AU_CHOCOLAT) + "?!";
+        else if (n == 1 || n == 0)
+            return "-> " + n + Version.getSingular(TypeResource.PAIN_AU_CHOCOLAT);
         else
             base = Algo.numberToStringButNicely(n);
         // How much space do we still have ?
         size = totalSize - base.length;
         // We set the suffix
         if (size >= 18) {
-            suffix = " pains au chocolat";
+            suffix = Version.getPlural(TypeResource.PAIN_AU_CHOCOLAT);
             // We add a suffix
             // How much space do we still have ?
             size = totalSize - base.length - suffix.length;
             // We set the prefix
-            if (size >= 9)
-                prefix = "You have ";
-            else if (size >= 3)
+            var prefixTxt = Database.getTranslatedOrEnText("youhave");
+            if (size - prefixTxt.length - 1 >= 0) {
+                prefix = prefixTxt + " ";
+            }
+            else if (size >= 3) {
                 prefix = "-> ";
+            }
         }
         else if (size >= 3)
-            suffix = " pc";
+            suffix = Version.getMini(TypeResource.PAIN_AU_CHOCOLAT);
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;
         return prefix + base + suffix;
     };
     return PainsAuChocolat;
 }(StatusBarResource));
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 var CandiesEaten = /** @class */ (function (_super) {
     __extends(CandiesEaten, _super);
     // Constructor
@@ -2840,12 +3016,14 @@ var CandiesEaten = /** @class */ (function (_super) {
     // Public methods
     CandiesEaten.prototype.getCurrentAsString = function () {
         var n = this.getCurrent();
-        if (n < 0)
-            return "You have eaten negative candies ?!";
-        else if (n == 1)
-            return "You have eaten 1 candy";
+        if (n < 0) {
+            return "You have eaten negative " + Version.getPlural(TypeResource.CANDY) + " ?!";
+        }
+        else if (n == 1 || n == 0) {
+            return "You have eaten " + n + Version.getSingular(TypeResource.CANDY);
+        }
         else {
-            return "You have eaten " + Algo.numberToStringButNicely(n) + " candies";
+            return "You have eaten " + Algo.numberToStringButNicely(n) + Version.getPlural(TypeResource.CANDY);
         }
     };
     // Public setters
@@ -2987,7 +3165,7 @@ var CandiesThrownSmileyCave = /** @class */ (function (_super) {
     };
     return CandiesThrownSmileyCave;
 }(CandiesThrownSmiley));
-///<reference path="./Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmiley.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmileyFirstLine.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmileyCave.ts"/>
@@ -3257,12 +3435,14 @@ var CandiesThrown = /** @class */ (function (_super) {
         var smileyIndex;
         var base;
         // Set the base
-        if (n < 0)
-            base = "You threw negative candies ?!";
-        else if (n == 1)
-            base = "You threw 1 candy on the ground";
+        if (n < 0) {
+            base = "You threw negative " + Version.getPlural(TypeResource.CANDY) + " ?!";
+        }
+        else if (n == 1 || n == 0) {
+            base = "You threw " + n + Version.getSingular(TypeResource.CANDY) + " on the ground";
+        }
         else {
-            base = "You threw " + Algo.numberToStringButNicely(n) + " candies on the ground";
+            base = "You threw " + Algo.numberToStringButNicely(n) + Version.getPlural(TypeResource.CANDY) + " on the ground";
         }
         // Get the index of the smiley we should add
         smileyIndex = Math.floor(n / 10) - 1;
@@ -5065,25 +5245,11 @@ var Fireball = /** @class */ (function (_super) {
     };
     return Fireball;
 }(QuestEntitySpell));
-/**
- * Contains methods to have elements which are which between versions.
- */
-var Version;
-(function (Version) {
-    function getSingular() {
-        return " " + "candy";
-    }
-    Version.getSingular = getSingular;
-    function getPlural() {
-        return " " + "candies";
-    }
-    Version.getPlural = getPlural;
-})(Version || (Version = {}));
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
 ///<reference path="../classes/Pos.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../quest-entities/Wall.ts"/>
 ///<reference path="../quest-entity-spells/QuestPlayerSpell.ts"/>
@@ -12267,11 +12433,18 @@ var Cauldron = /** @class */ (function (_super) {
     };
     return Cauldron;
 }(Place));
+var VersionType;
+(function (VersionType) {
+    VersionType["BEER"] = "BEER";
+    VersionType["CANDY"] = "CANDY";
+    VersionType["HEALTHY"] = "HEALTHY";
+})(VersionType || (VersionType = {}));
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
 ///<reference path="../classes/Game.ts"/>
 ///<reference path="../modules/Database.ts"/>
 ///<reference path="../modules/Algo.ts"/>
+///<reference path="../enums/VersionType.ts"/>
 var Cfg = /** @class */ (function (_super) {
     __extends(Cfg, _super);
     // Constructor
@@ -12299,6 +12472,11 @@ var Cfg = /** @class */ (function (_super) {
             "cfgLanguageTr": "tr",
             "cfgLanguageEl": "el"
         };
+        _this.versionSelectionMap = {
+            "cfgVersionBeer": VersionType.BEER,
+            "cfgVersionCandy": VersionType.CANDY,
+            "cfgVersionHealthy": VersionType.HEALTHY
+        };
         // Resize the area
         _this.renderArea.resize(100, 48);
         // Update for the first time
@@ -12317,35 +12495,62 @@ var Cfg = /** @class */ (function (_super) {
         this.renderArea.drawString("Who?", x + 2, y + 7);
         this.renderArea.addBold(x + 2, x + 6, y + 7);
         // Who...
-        this.renderArea.drawString("Ideas, game design & code by aniwey.", x + 4, y + 9);
-        this.renderArea.drawString("Ascii art by Tobias Nordqvist, GodsTurf, dixsept, Dani \"Deinol\" Gómez and aniwey.", x + 4, y + 10);
+        this.renderArea.drawString("Ideas, game design & code of CandyBox 2 by aniwey. (Which CandyBox 3 is based on)", x + 4, y + 9);
+        this.renderArea.drawString("Ideas, game design & code of elements added in CandyBox 3 by apomalyn and Adaendra.", x + 4, y + 10);
+        this.renderArea.drawString("Ascii art by Tobias Nordqvist, GodsTurf, dixsept, Dani \"Deinol\" Gómez and aniwey.", x + 4, y + 11);
         // License?
-        this.renderArea.drawString("License?", x + 2, y + 13);
-        this.renderArea.addBold(x + 2, x + 10, y + 13);
+        this.renderArea.drawString("License?", x + 2, y + 14);
+        this.renderArea.addBold(x + 2, x + 10, y + 14);
         // License...
-        this.renderArea.drawString("The game source code is published under the GPLv3 license. This means you are free to modify and", x + 4, y + 15);
-        this.renderArea.drawString("redistribute the game, even for commercial purposes, under some conditions.", x, y + 16);
-        this.renderArea.addHtmlLink(x + 76, y + 16, "source_code.html", "Learn more.");
-        this.renderArea.drawString("The ascii art is published under the CC-BY-SA license, which means that you can reuse it if you", x + 4, y + 18);
-        this.renderArea.drawString("credit the artist who made the art and share your modifications under the same license.", x, y + 19);
-        this.renderArea.addHtmlLink(x + 88, y + 19, "ascii_art.html", "Learn more.");
+        this.renderArea.drawString("The game source code is published under the GPLv3 license. This means you are free to modify and", x + 4, y + 16);
+        this.renderArea.drawString("redistribute the game, even for commercial purposes, under some conditions.", x, y + 17);
+        this.renderArea.addHtmlLink(x + 76, y + 17, "source_code.html", "Learn more.");
+        this.renderArea.drawString("The ascii art is published under the CC-BY-SA license, which means that you can reuse it if you", x + 4, y + 19);
+        this.renderArea.drawString("credit the artist who made the art and share your modifications under the same license.", x, y + 20);
+        this.renderArea.addHtmlLink(x + 88, y + 20, "ascii_art.html", "Learn more.");
         // Aything else?
-        this.renderArea.drawString("Anything else?", x + 2, y + 22);
-        this.renderArea.addBold(x + 2, x + 16, y + 22);
+        this.renderArea.drawString("Anything else?", x + 2, y + 23);
+        this.renderArea.addBold(x + 2, x + 16, y + 23);
         // Contact
-        this.renderArea.drawString("Feel free to contact me at aniwey@gmail.com if you have any comments or questions :)", x + 4, y + 24);
+        this.renderArea.drawString("Feel free to contact us by twitter https://twitter.com/_adaendra if you have any comments or questions :)", x + 4, y + 25);
     };
+    Cfg.prototype.drawConfigurationText = function (x, y) {
+        this.renderArea.drawArray(Database.getAscii("text/Configuration"), x + 17, y);
+    };
+    // ------------------------- //
+    // ----- INVERT COLORS ----- //
+    // ------------------------- //
     Cfg.prototype.drawCfgInvertColors = function (x, y) {
         // Text
         this.renderArea.drawString(Database.getText("cfgInvertColors"), x, y);
         this.renderArea.drawString(Database.getTranslatedText("cfgInvertColors"), x, y + 1, true);
         // The checkbox
-        this.renderArea.addCheckbox(x + Algo.takeBiggest(Database.getText("cfgInvertColors").length, Database.getTranslatedText("cfgInvertColors").length) + 2, y, new CallbackCollection(this.invertColorsChecked.bind(this)), new CallbackCollection(this.invertColorsUnchecked.bind(this)), "cfgInvertColorsCheckbox", Saving.loadBool("gameInvertedColors"));
+        this.renderArea.addCheckbox(x +
+            Algo.takeBiggest(Database.getText("cfgInvertColors").length, Database.getTranslatedText("cfgInvertColors").length)
+            + 2, y, new CallbackCollection(this.invertColorsChecked.bind(this)), new CallbackCollection(this.invertColorsUnchecked.bind(this)), "cfgInvertColorsCheckbox", Saving.loadBool("gameInvertedColors"));
     };
+    Cfg.prototype.invertColorsChecked = function () {
+        this.setInvertedColors(true);
+    };
+    Cfg.prototype.invertColorsUnchecked = function () {
+        this.setInvertedColors(false);
+    };
+    Cfg.prototype.setInvertedColors = function (invertedColors) {
+        Saving.saveBool("gameInvertedColors", invertedColors);
+        this.getGame().applyInvertedColorsToCss();
+        this.update();
+        this.getGame().updateStatusBar(); // We also update the status bar to fix the selected tab's color
+        this.getGame().updatePlace();
+    };
+    // -------------------- //
+    // ----- LANGUAGE ----- //
+    // -------------------- //
     Cfg.prototype.drawCfgLanguage = function (x, y) {
         // Text
         this.renderArea.drawString(Database.getText("cfgChooseLanguage"), x, y);
         this.renderArea.drawString(Database.getTranslatedText("cfgChooseLanguage"), x, y + 1, true);
+        this.renderArea.drawString("Currently, only french and english translations are corrects.", x, y + 2, false);
+        this.renderArea.drawString("For all the others, some translations are missing.", x, y + 3, false);
         // List
         this.renderArea.addList(x + Algo.takeBiggest(Database.getText("cfgChooseLanguage").length, Database.getTranslatedText("cfgChooseLanguage").length) + 2, x + Algo.takeBiggest(Database.getText("cfgChooseLanguage").length, Database.getTranslatedText("cfgChooseLanguage").length) + 20, y, "cfgLanguageList", new CallbackCollection(this.languageSelected.bind(this)), [
             "cfgLanguageEn", "English",
@@ -12353,7 +12558,7 @@ var Cfg = /** @class */ (function (_super) {
             "cfgLanguageZh", "Chinese (by Fan Zhang)",
             "cfgLanguageCz", "Czech (by Keranis)",
             "cfgLanguageNl", "Dutch (by Noël Wierema and Vincent van Gennep, corrections by Wessel van den Putte)",
-            "cfgLanguageFr", "French (by aniwey)",
+            "cfgLanguageFr", "French (by aniwey and Adaendra)",
             "cfgLanguageDe", "German (by Kai Kubasta)",
             "cfgLanguageEl", "Greek (by VagosLabrou)",
             "cfgLanguageHu", "Hungarian (by The_Reaper_CooL)",
@@ -12378,15 +12583,6 @@ var Cfg = /** @class */ (function (_super) {
             this.renderArea.addHtmlLink(x + 76, y + 7, "http://www.translacat.com/", "TranslaCAT");
         }
     };
-    Cfg.prototype.drawConfigurationText = function (x, y) {
-        this.renderArea.drawArray(Database.getAscii("text/Configuration"), x + 17, y);
-    };
-    Cfg.prototype.invertColorsChecked = function () {
-        this.setInvertedColors(true);
-    };
-    Cfg.prototype.invertColorsUnchecked = function () {
-        this.setInvertedColors(false);
-    };
     Cfg.prototype.languageSelected = function () {
         // Get the selected language id
         var id = $("#cfgLanguageList").find(":selected").attr("id");
@@ -12407,13 +12603,45 @@ var Cfg = /** @class */ (function (_super) {
             }
         }
     };
-    Cfg.prototype.setInvertedColors = function (invertedColors) {
-        Saving.saveBool("gameInvertedColors", invertedColors);
-        this.getGame().applyInvertedColorsToCss();
+    // ------------------- //
+    // ----- VERSION ----- //
+    // ------------------- //
+    Cfg.prototype.drawCfgVersion = function (x, y) {
+        // Text
+        this.renderArea.drawString(Database.getText("cfgVersion"), x, y);
+        this.renderArea.drawString(Database.getTranslatedText("cfgVersion"), x, y + 1, true);
+        // List
+        this.renderArea.addList(x + Algo.takeBiggest(Database.getText("cfgVersion").length, Database.getTranslatedText("cfgVersion").length) + 2, x + Algo.takeBiggest(Database.getText("cfgVersion").length, Database.getTranslatedText("cfgVersion").length) + 20, y, "cfgVersionList", new CallbackCollection(this.versionSelected.bind(this)), [
+            "cfgVersionCandy", VersionType.CANDY,
+            "cfgVersionBeer", VersionType.BEER,
+            "cfgVersionHealthy", VersionType.HEALTHY
+        ]);
+        // Add the link which will call the selectRightLanguage method after the html dom is created
+        this.renderArea.addLinkCallbackCollection(new CallbackCollection(this.selectRightVersion.bind(this)));
+    };
+    Cfg.prototype.versionSelected = function () {
+        // Get the selected version id
+        var id = $("#cfgVersionList").find(":selected").attr("id");
+        // Set the new version
+        if (this.versionSelectionMap[id] != null) {
+            Saving.saveString("gameVersion", this.versionSelectionMap[id]);
+        }
+        // Update Cfg
         this.update();
-        this.getGame().updateStatusBar(); // We also update the status bar to fix the selected tab's color
         this.getGame().updatePlace();
     };
+    Cfg.prototype.selectRightVersion = function () {
+        // We iterate over all versions
+        for (var version in this.versionSelectionMap) {
+            // If this is the right one, we select it
+            if (Saving.loadString("gameVersion") == this.versionSelectionMap[version]) {
+                $("#" + version).prop('selected', true);
+            }
+        }
+    };
+    // ------------------------------ //
+    // ----- UPDATE RENDER AREA ----- //
+    // ------------------------------ //
     Cfg.prototype.update = function () {
         // Erase everything
         this.renderArea.resetAllButSize();
@@ -12422,9 +12650,11 @@ var Cfg = /** @class */ (function (_super) {
         // Language selection
         this.drawCfgLanguage(0, 8);
         // Invert colors checkbox
-        this.drawCfgInvertColors(0, 12);
+        this.drawCfgInvertColors(0, 13);
+        // Version selection
+        this.drawCfgVersion(0, 16);
         // "About" section
-        this.drawAbout(0, 18);
+        this.drawAbout(0, 22);
     };
     return Cfg;
 }(Place));
@@ -13943,7 +14173,7 @@ var LollipopFarm = /** @class */ (function (_super) {
         // A variable useful later
         var plantingButtonsXPos;
         // How many lollipops planted
-        this.renderArea.drawString("Lollipops planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
+        this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP) + " planted : " + Algo.numberToStringButNicely(Saving.loadNumber("lollipopFarmLollipopsPlanted")), x, y);
         // Button(s) to plant lollipops
         // If the first button is unlocked but not the second
         if (Saving.loadBool("lollipopFarmPlant1LollipopButtonUnlocked") == true && Saving.loadBool("lollipopFarmPlant10LollipopsButtonUnlocked") == false) {
@@ -13978,7 +14208,7 @@ var LollipopFarm = /** @class */ (function (_super) {
                 plantingButtonsXPos += 5;
             }
             // We add the final text
-            this.renderArea.drawString("lollipops", x + plantingButtonsXPos, y + 2);
+            this.renderArea.drawString(Version.getPlural(TypeResource.LOLLIPOP), x + plantingButtonsXPos, y + 2);
         }
         // The production
         if (Saving.loadNumber("lollipopFarmLollipopsPlanted") > 0) {
@@ -13996,7 +14226,7 @@ var LollipopFarm = /** @class */ (function (_super) {
             // Draw the mill ascii art
             this.renderArea.drawArray(Database.getAscii("places/lollipopFarm/mill"), x, y);
             // Draw the button to feed the mill
-            this.renderArea.addAsciiRealButton(Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + " lollipops)", x + 30, y, "lollipopFarmFeedMillButton", Database.getTranslatedText("lollipopFarmFeedMill"), true, -1, null, false);
+            this.renderArea.addAsciiRealButton(Database.getText("lollipopFarmFeedMill") + " (" + Algo.numberToStringButNicely(this.getNumberOfLollipopsToFeedTheMill()) + Version.getPlural(TypeResource.LOLLIPOP) + ")", x + 30, y, "lollipopFarmFeedMillButton", Database.getTranslatedText("lollipopFarmFeedMill"), true, -1, null, false);
             this.renderArea.addLinkCall(".lollipopFarmFeedMillButton", new CallbackCollection(this.feedMill.bind(this)));
             // Draw the current candies production if it's different from one
             if (Saving.loadNumber("lollipopFarmCurrentCandiesProduction") != 1) {
@@ -17966,8 +18196,8 @@ var MainMap = /** @class */ (function (_super) {
     MainMap.prototype.getRenderArea = function () {
         return this.renderArea;
     };
-    // Private methods
     MainMap.prototype.load = function () {
+        console.log("LOAD MAIN MAP");
         // We erase the map
         this.renderArea.resetAllButSize();
         // We load the map itself
@@ -18010,6 +18240,7 @@ var MainMap = /** @class */ (function (_super) {
             this.loadDragon(92, 11);
         }
     };
+    // Private methods
     // Private "go to" methods
     MainMap.prototype.goToATree = function () {
         this.getGame().setPlace(new ATree(this.getGame()));
@@ -18127,7 +18358,7 @@ var MainMap = /** @class */ (function (_super) {
         // Buttons
         this.renderArea.addMultipleAsciiButtons("mapFarmButton", x + 5, x + 15, y, x + 5, x + 15, y + 1, x + 6, x + 16, y + 2, x + 6, x + 16, y + 3, x, x + 16, y + 3, x, x + 16, y + 4, x, x + 16, y + 5, x, x + 16, y + 6, x, x + 16, y + 7, x, x + 16, y + 8, x, x + 16, y + 9, x + 6, x + 16, y + 10);
         // Comments
-        this.renderArea.addFullComment(x + 16, y + 5, Database.getText("mapFarmComment"), Database.getTranslatedText("mapFarmComment"), "mapFarmComment");
+        this.renderArea.addFullComment(x + 16, y + 5, Version.getVersionTxt("mapFarmComment"), Version.getVersionTranslated("mapFarmComment"), "mapFarmComment");
         // Interactions
         this.renderArea.addLinkOver(".mapFarmButton, .mapFarmComment", ".mapFarmComment");
         this.renderArea.addLinkCall(".mapFarmButton, .mapFarmComment", new CallbackCollection(this.goToFarm.bind(this)));
@@ -18446,7 +18677,7 @@ var Save = /** @class */ (function (_super) {
                 yAdd += 1;
             // The links
             for (var i = 1; i <= 5; i++) {
-                link = "http://candybox2.github.io/?slot=" + i.toString();
+                link = "http://candybox3.github.io/?slot=" + i.toString();
                 this.renderArea.addHtmlLink(x + 2, y + yAdd + 3 + i, link, link);
                 this.renderArea.drawString("(slot " + i.toString() + ")", x + link.length + 4, y + yAdd + 3 + i);
             }
@@ -21457,7 +21688,7 @@ var XinopherydonClaw = /** @class */ (function (_super) {
 ///<reference path="./Place.ts"/>
 ///<reference path="./RenderLocation.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="./Resource.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="StatusBar.ts"/>
 ///<reference path="../game_resources/Candies.ts"/>
@@ -21523,6 +21754,7 @@ var XinopherydonClaw = /** @class */ (function (_super) {
 // Config
 Saving.registerBool("gameDebug", false);
 Saving.registerString("gameLanguage", "en");
+Saving.registerString("gameVersion", VersionType.CANDY);
 Saving.registerBool("gameInvertedColors", false);
 // EqItems
 Saving.registerString("gameWeaponSelected", "inventorySpecialNothingWeapon");
@@ -21534,22 +21766,22 @@ Saving.registerString("gameBootsSelected", "inventorySpecialNothingBoots");
 Saving.registerNumber("gameSecondsElapsedSinceLastLollipopsProduction", 0);
 // Resources
 Saving.registerNumber("gameCandiesAccumulated", 0);
-Saving.registerNumber("gameCandiesCurrent", 0);
-Saving.registerNumber("gameCandiesMax", 0);
+Saving.registerNumber("gameCandiesCurrent", 150);
+Saving.registerNumber("gameCandiesMax", 150);
 Saving.registerNumber("gameLollipopsAccumulated", 0);
-Saving.registerNumber("gameLollipopsCurrent", 0);
-Saving.registerNumber("gameLollipopsMax", 0);
+Saving.registerNumber("gameLollipopsCurrent", 150);
+Saving.registerNumber("gameLollipopsMax", 150);
 Saving.registerNumber("gameChocolateBarsAccumulated", 0);
-Saving.registerNumber("gameChocolateBarsCurrent", 0);
-Saving.registerNumber("gameChocolateBarsMax", 0);
+Saving.registerNumber("gameChocolateBarsCurrent", 150);
+Saving.registerNumber("gameChocolateBarsMax", 150);
 Saving.registerNumber("gamePainsAuChocolatAccumulated", 0);
-Saving.registerNumber("gamePainsAuChocolatCurrent", 0);
-Saving.registerNumber("gamePainsAuChocolatMax", 0);
+Saving.registerNumber("gamePainsAuChocolatCurrent", 150);
+Saving.registerNumber("gamePainsAuChocolatMax", 150);
 Saving.registerNumber("gameCandiesEatenAccumulated", 0);
-Saving.registerNumber("gameCandiesEatenCurrent", 0);
+Saving.registerNumber("gameCandiesEatenCurrent", 1050);
 Saving.registerNumber("gameCandiesEatenMax", 0);
 Saving.registerNumber("gameCandiesThrownAccumulated", 0);
-Saving.registerNumber("gameCandiesThrownCurrent", 0);
+Saving.registerNumber("gameCandiesThrownCurrent", 10500);
 Saving.registerNumber("gameCandiesThrownMax", 0);
 Saving.registerNumber("gameCandiesUsedToRequestFeaturesAccumulated", 0);
 Saving.registerNumber("gameCandiesUsedToRequestFeaturesCurrent", 0);
@@ -22249,9 +22481,16 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.setPlaceFromSavedMapPlace = function () {
         // If there's a saved place
+        console.log(this.savedPlace instanceof MainMap);
         if (this.savedPlace != null) {
-            this.setPlace(this.savedPlace); // We set the saved place as the current place
-            this.savedPlace = null; // There's no saved place anymore
+            if (this.savedPlace instanceof MainMap) {
+                this.setPlace(new MainMap(this)); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            }
+            else {
+                this.setPlace(this.savedPlace); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            }
         }
     };
     return Game;
@@ -22555,12 +22794,6 @@ var TheSeaPatternLevel_Boss1 = /** @class */ (function (_super) {
     };
     return TheSeaPatternLevel_Boss1;
 }(TheSeaPatternLevel));
-var VersionType;
-(function (VersionType) {
-    VersionType[VersionType["BEER"] = 0] = "BEER";
-    VersionType[VersionType["CANDY"] = 1] = "CANDY";
-    VersionType[VersionType["HEALTHY"] = 2] = "HEALTHY";
-})(VersionType || (VersionType = {}));
 ///<reference path="../classes/Place.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
@@ -26891,8 +27124,6 @@ Database.addText("br.candyBoxRequestStatusBarUnlockedCfgComment1", "Agora você 
 Database.addText("br.candyBoxRequestStatusBarUnlockedCfgComment2", "Se quiser, você pode trocar o idioma do jogo.");
 Database.addText("br.candyBoxRequestStatusBarUnlockedSaveComment", "Uma guia selvagem aparece!");
 Database.addText("br.candyBoxRequestStatusBarUnlockedHealthBarComment", "Fique com esses 100 pontos de vida. Você vai precisar.");
-Database.addText("br.cfgChooseLanguage", "Escolha o idioma:");
-Database.addText("br.cfgInvertColors", "Inverter cores?");
 Database.addText("br.gridItemMainMapName", "Mapa");
 Database.addText("br.gridItemMainMapDescription", "Mapa do mundo");
 Database.addText("br.gridItemPogoStickName", "Pula-pula");
@@ -27039,12 +27270,6 @@ Database.addText("br.lonelyHouseKickBoxResult", "Você machuca o pé, mas nada a
 Database.addText("br.lonelyHouseAskTheBoxToOpenItselfResult", "...é uma caixa, você sabe disso, não é?");
 Database.addText("br.lonelyHouseLureTheBoxWithACandyResult", "A caixa parece não se importar.");
 Database.addText("br.lonelyHouseTakeTheBoxResult", "Deve ter algo de interessante dentro da caixa.");
-Database.addText("br.lollipopFarmConstructMill", "Construir um moinho (10.000 pirulitos)");
-Database.addText("br.lollipopFarmFeedMill", "Abastecer o moinho");
-Database.addText("br.lollipopFarmCurrentCandiesProduction", "Produção atual de doces");
-Database.addText("br.lollipopFarmDigPond", "Cavar um lago (100.000 pirulitos)");
-Database.addText("br.lollipopFarmBuyLolligator", "Comprar um crocolito (1.200 doces)");
-Database.addText("br.lollipopFarmLolligatorsConversionText", "Conversão doces -> pirulitos ativada");
 Database.addText("br.lighthouseAskButton", "Perguntar");
 Database.addText("br.lighthouseQuestionWho", "Quem é você?");
 Database.addText("br.lighthouseQuestionWhoSpeech", "Sou um ciclope muito velho.");
@@ -27176,6 +27401,40 @@ Database.addText("br.talkingCandySpeech1", "Oi! Eu sou o doce falante. Parabéns
 Database.addText("br.talkingCandySpeech2", "Prontinho! Você já pode entrar. Espero que tenha gostado do jogo. :)");
 Database.addText("br.talkingCandyButton", "Sim!!");
 Database.addText("br.lighthousePuzzleResetButton", "Recomeçar");
+Database.addText("br.cauldron.page0", "Receita de poções");
+Database.addText("br.cauldron.page1", "Índice / Pág. 2 : Poção de cura / Pág. 3 : Poção Tartaruga / Pág. 4-5 : Poção Antigravidade / Pág. 6-7 : Poção Berserk / Pág. 8-9 : Poção P / Pág. 10-11 : Poção X");
+Database.addText("br.cauldron.page2", "Poção de cura / A poção de cura é uma das mais fáceis de ser preparada. Só precisa de doces. Quando usada em missões, ela recuperará 100 pontos de vida. / Instruções : - Coloque 100 doces no caldeirão - Misture por alguns segundos - Coloque em garrafas / Assim como toda poção, você pode preparar várias de uma só vez. Exemplo: se você usar 300 doces em vez de 100, 3 poções de cura serão preparadas.");
+Database.addText("br.cauldron.page3", "Poção Tartaruga / A poção Tartaruga é um pouco mais difícil do que a de vida. Você precisará de doces e pirulitos. / Você será transformado em uma tartaruga se bebê-la em uma missão. Você ficará mais lento, mas também muito mais resistente a ataques. / Instruções : - Coloque 50 doces no caldeirão - Adicione 500 pirulitos - Misture por cerca de 10 segundos - Pare de mexer - Adicione 50 doces - Misture novamente por alguns segundos - Coloque em garrafas / E agora, a coisa mais importante que você não pode esquecer: NUNCA vire de costas! Ou você nunca mais vai conseguir ficar de pé.");
+Database.addText("br.cauldron.page4", "Poção Antigravidade / Essa poção, inventada pelo ilustre feiticeiro Isaac, permite que você resista à força gravitacional da Terra por alguns segundos. / Ela é extremamente útil depois de um pulo (se você não sabe pular, devia pensar em obter um pula-pula). / Não é muito fácil de ser preparada. Você terá que controlar cuidadosamente a temperatura do caldeirão. / Instruções : - Coloque 1000 doces no caldeirão - Aqueça a água até ficar morna - Pare de aquecer - Adicione 1000 doces - Aqueça a água até ferver - Coloque em garrafas");
+Database.addText("br.cauldron.page5", "Poção Antigravidade : exemplo de uso / \"Voar por um buraco\" / *beba a poção*");
+Database.addText("br.cauldron.page6", "Poção Berserker / A poção Berserker transforma você em um berserker. / O problema é que metade da sua saúde é consumida. / O bom é que ela dobra o dano causado por alguns segundos! / É muito fácil preparar essa poção, mas são precisos muitos pirulitos. / Instruções : - Coloque 20.000 pirulitos no caldeirão - Misture até que seus braços comecem a doer - Coloque em garrafas");
+Database.addText("br.cauldron.page7", "Aviso importante sobre a poção Berserker / NÃO use doces durante o preparo dessa poção. / É sério, nem um sequer. / É sério. / Os resultados são imprevisíveis.");
+Database.addText("br.cauldron.page8", "Poção P / A poção P é bem estranha. Não dá para saber qual será o efeito. Ela pode curar ou causar dano a você, aumentar ou reduzir sua força, e até mesmo transformá-lo em outra pessoa (ou coisa). / E é muito difícil de ser preparada! / Instruções : - Coloque 500 doces no caldeirão - Misture por alguns segundos - Pare de mexer - Adicione 100 vezes mais doces que o número de segundos que você mexeu. Exemplo: se mexeu por 4 segundos, adicione 400 doces. Não multiplique essa quantidade, mesmo se quiser preparar mais de uma poção. - Aqueça a água até ficar morna - Pare de aquecer - Adicione alguns pirulitos - Misture- Coloque em garrafas!");
+Database.addText("br.cauldron.page9", "Saiba como usar a poção P / Existem algumas regras a serem seguidas para se obter os melhores resultados com a poção P. Embora elas tenham sido definidas empiricamente, parecem funcionar muito bem. / - Quanto mais você usar poções P, mais efeitos estranhos elas terão. / - Se a sua saúde estiver baixa, recomenda-se beber uma poção P. / - A poção P costuma ter reações bem estranhas quando ingeridas por animais.");
+Database.addText("br.cauldron.page10", "Poção X / A poção X não passa de uma lenda. Dizem que quem prepará-la e bebê-la, será levado a um lugar onde ninguém jamais esteve. / Seja uma lenda ou não, escreverei nesse livro tudo que sei sobre ela. / A poção X é citada em diversas histórias e livros de alquimia. Eis um apanhado de todas as informações sobre como prepará-la. Boa sorte! / - Dizem que são precisos 5 passos para preparar a poção X. / - Dizem que não são precisos pirulitos, exceto em um dos passos. / - Dizem que, diferente das outras poções, não é possível preparar mais de uma poção X de uma só vez.");
+Database.addText("br.cauldron.page11", "- Por fim, há poema que dizem ter relação com a poção X : / No primeiro dia, ele deu vida ao primeiro dos doces. Mas estava frio lá fora. / No segundo dia, ele deu um pai ao doce. Mas estava frio lá fora. / No terceiro dia, ele deu um irmão ao doce. Mas estava frio lá fora. / No quarto dia, ele deu um amigo ao doce. Mas estava frio lá fora. / No quinto dia, ele deu uma amante ao doce. Isso pode parecer bobo, mas o doce estava feliz agora. E estava quente lá fora.");
+Database.addText("br.cfgChooseLanguage", "Escolha o idioma:");
+Database.addText("br.cfgInvertColors", "Inverter cores?");
+Database.addText("br.lollipopFarmConstructMill", "Construir um moinho (10.000 pirulitos)");
+Database.addText("br.lollipopFarmFeedMill", "Abastecer o moinho");
+Database.addText("br.lollipopFarmCurrentCandiesProduction", "Produção atual de doces");
+Database.addText("br.lollipopFarmDigPond", "Cavar um lago (100.000 pirulitos)");
+Database.addText("br.lollipopFarmBuyLolligator", "Comprar um crocolito (1.200 doces)");
+Database.addText("br.lollipopFarmLolligatorsConversionText", "Conversão doces -> pirulitos ativada");
+Database.addText("cz.cauldron.page0", "Návod na vaření");
+Database.addText("cz.cauldron.page1", "Přehled / Strana 2: Léčivý lektvar / Strana 3: Želví lektvar / Strana 4-5: Lektvar létání / Strana 6-7: Lektvar zběsilosti / Strana 8-9: Lektvar P / Strana 10-11: Lektvar X");
+Database.addText("cz.cauldron.page2", "Léčivý lektvar / Tento lektvar je ze všech asi nejjednodušší na uvaření. Jsou k němu zapotřebí pouze bonbóny. Na výpravách ti jednorázově vyléčí 100 bodů zdraví. / Instrukce: - Dej do kotlíku 100 bonbónů - Chvíli míchej - Výslednou směs opatrně nalij do lahviček / stejně jako u každého lektvaru, i tady můžeš znásobit množství. Pokud například použiješ 300 bonbónů, výsledkem budou tři léčivé lektvary.");
+Database.addText("cz.cauldron.page3", "Želví lektvar / Želví lektvar už je o trochu složitější, než léčivý lektvar. Budeš potřebovat bonbóny a lízátka. / Pokud tento lektvar vypiješ během výpravy, proměníš se na želvu. Budeš se hýbat pomaleji, zato ale budeš odolnější proti nepřátelským útokům. / Instrukce: - Dej do kotlíku 50 bonbónů - Přidej 500 lízátek - Míchej zhruba 10 vteřin - Přestaň míchat - Přidej 50 bonbónů - Promíchej - Nalij směs do lahviček / POZOR! V želvím stavu se nepřevracej na krunýř, nebudeš se moci zvednout!");
+Database.addText("cz.cauldron.page4", "Lektvar létání / Tento lektvar, vynalezený slavným čarodějem Isaacem, ti umožní na několik vteřin odolávat zemské přitažlivosti. / Největší efekt má hned po skoku (pokud neumíš skákat, měl by sis sehnat nějakou skákací tyč). / Není jednoduchý na uvaření, budeš muset pečlivě kontrolovat teplotu kotlíku. / Instrukce: - Do kotlíku nasyp 1000 bonbónů - Zahřej vodu, ať je vlažná - Přestaň zahřívat - Přidej dalších 1000 bonbónů - Zahřívej kotlík až do chvíle, kdy voda začne vřít - nalij do skleniček");
+Database.addText("cz.cauldron.page5", "Příklad užití lektvaru létání / \"Přeletí přes díru\" / *napije se lektvaru*");
+Database.addText("cz.cauldron.page6", "Lektvar zběsilosti / Lektvar zběsilosti tě změní na zuřivého berserka. / Nevýhodou je, že sníží tvé zdraví na polovinu. / Výhodou je, že na několik vteřin budeš způsobovat dvojnásobné zranění! / Recept je jednoduchý, ale budeš potřebovat hodně lízátek. / Tady jsou instrukce: Nasyp do kotlíku 20 000 lízátek - Míchej je, dokud tě nezačnou bolet ruce - Nalij směs do skleniček");
+Database.addText("cz.cauldron.page7", "Důležité upozornění / Nepřidávej do kotlíku žádné bonbóny. / Myslím to vážně, ani jeden. / Opravdu ne. / Následky by byly nepředvídatelné.");
+Database.addText("cz.cauldron.page8", "Lektvar P / Lektvar P je poměrně zvláštní. Nedá se předem odhadnout, co udělá. Může tě vyléčit nebo zranit, může tě posílit nebo oslabit, dokonce tě může změnit v někoho (nebo něco) jiného. / A navíc je velmi složitý na uvaření! / Instrukce: Do kotlíku nasyp 500 bonbónů - Chvíli míchej - Přestaň míchat - Přidej množství bonbónů odpovídající počtu vteřin, po které jsi míchal, krát 100. Pokud jsi například míchal 4 vteřiny, budeš muset přidat 400 bonbónů. Toto množství zůstane stejné, i pokud vaříš několik lektvarů naráz. - Zahřívej kotlík, dokud voda nebude vlažná - Přestaň ohřívat - Přidej pár lízátek Zamíchej - Nalij do skleniček!");
+Database.addText("cz.cauldron.page9", "Užívej lektvar P dobře. / Existuje několik pravidel, kterými by ses měl řídit, abys dosáhl co nejlepších účinků. Tyto zákonitosti byly vypozorovány empiricky, ale fungují celkem spolehlivě. / - Čím více používáš lektvar P, tím podivnější účinky má. / - Pokud jsi hodně zraněný, lektvar P bude pravděpodobně mít pozitivní účinek. / - Zvířata tento lektvar snášejí velmi špatně.");
+Database.addText("cz.cauldron.page10", "Lektvar X / Lektvar X je legenda. Říká se, že kdokoliv ho dokáže uvařit a vypít, se ocitne v zemi neznámé, kam předtím ještě nikdo nezavítal. / Nevím, jestli je tento lektvar pouze legenda nebo ne, ale napíšu sem všechno, co o něm vím. / Lektvar X je zmíněný ve mnoha starých legendách a alchymistických knihách. Zde je souhrn informací, které by ti mohly pomoct uvařit lektvar X. Hodně štěstí! / - Říká se, že k uvaření lektvaru X je potřeba 5 kroků. / - Na všechny kroky kromě jednoho jsou prý potřeba lízátka. / - Jedna z pověstí se zmiňuje o tom, že nelze uvařit více lektvarů X naráz.");
+Database.addText("cz.cauldron.page11", "- A nakonec říkanka, která se často uvádí, když dojde na lektvar X: / První den byl dán život první Sladkosti. Ale venku bylo chladno. / Druhý den byl Sladkosti dán Otec. Ale venku bylo chladno. / Třetí den byla Sladkosti dán bratr. Ale venku bylo chladno. / Čtvrtý den byl Sladkosti dán kamarád. Ale venku bylo chladno. / Pátý den byl Sladkosti dán milenec. A byť to zní naivně nebo hloupě, Sladkost teď byla šťastná, a venku bylo horko.");
+Database.addText("cz.cfgChooseLanguage", "Výběr jazyka:");
+Database.addText("cz.cfgInvertColors", "Invertovat barvy?");
 Database.addText("cz.mapVillageComment", "Vesnice");
 Database.addText("cz.mapFortressComment", "Pouštní chrám");
 Database.addText("cz.mapATreeComment", "Strom");
@@ -27236,8 +27495,6 @@ Database.addText("cz.candyBoxRequestStatusBarUnlockedCfgComment1", "Teď máš p
 Database.addText("cz.candyBoxRequestStatusBarUnlockedCfgComment2", "Jestli chceš, můžeš změnit jazyk.");
 Database.addText("cz.candyBoxRequestStatusBarUnlockedSaveComment", "A teď dokonce můžeš uložit!");
 Database.addText("cz.candyBoxRequestStatusBarUnlockedHealthBarComment", "Tady máš 100 bodů zdraví. Budou se ti hodit.");
-Database.addText("cz.cfgChooseLanguage", "Výběr jazyka:");
-Database.addText("cz.cfgInvertColors", "Invertovat barvy?");
 Database.addText("cz.gridItemMainMapName", "Mapa");
 Database.addText("cz.gridItemMainMapDescription", "Mapa světa");
 Database.addText("cz.gridItemPogoStickName", "Skákací tyč");
@@ -27384,12 +27641,6 @@ Database.addText("cz.lonelyHouseKickBoxResult", "Nic se nestane, akorát tě te�
 Database.addText("cz.lonelyHouseAskTheBoxToOpenItselfResult", "... mluvíš na blbou krabici, uvědomuješ si to?");
 Database.addText("cz.lonelyHouseLureTheBoxWithACandyResult", "Truhlu zřejmě bonbóny nezajímají");
 Database.addText("cz.lonelyHouseTakeTheBoxResult", "V téhle... v téhle... Candy Box bude určitě něco zajímavého.");
-Database.addText("cz.lollipopFarmConstructMill", "Postavit mlýn (10 000 lízátek)");
-Database.addText("cz.lollipopFarmFeedMill", "Nasypat lízátka do mlýnice");
-Database.addText("cz.lollipopFarmCurrentCandiesProduction", "Momentální produkce bonbónů");
-Database.addText("cz.lollipopFarmDigPond", "Vykopat rybník (100 000 lízátek)");
-Database.addText("cz.lollipopFarmBuyLolligator", "Koupit lízogátora (1200 bonbónů)");
-Database.addText("cz.lollipopFarmLolligatorsConversionText", "Konverze z bonbónů na lízátka aktivní");
 Database.addText("cz.lighthouseAskButton", "Zeptat se");
 Database.addText("cz.lighthouseQuestionWho", "Kdo jsi?");
 Database.addText("cz.lighthouseQuestionWhoSpeech", "Jsem velmi starý kyklop.");
@@ -27521,6 +27772,26 @@ Database.addText("cz.talkingCandySpeech1", "Ahojky! Jsem mluvící bonbónek. Gr
 Database.addText("cz.talkingCandySpeech2", "Hotovo! Teď se můžeš podívat dovnitř. Doufám, že se ti hra líbila :)");
 Database.addText("cz.talkingCandyButton", "Ano!!");
 Database.addText("cz.lighthousePuzzleResetButton", "Reset");
+Database.addText("cz.lollipopFarmConstructMill", "Postavit mlýn (10 000 lízátek)");
+Database.addText("cz.lollipopFarmFeedMill", "Nasypat lízátka do mlýnice");
+Database.addText("cz.lollipopFarmCurrentCandiesProduction", "Momentální produkce bonbónů");
+Database.addText("cz.lollipopFarmDigPond", "Vykopat rybník (100 000 lízátek)");
+Database.addText("cz.lollipopFarmBuyLolligator", "Koupit lízogátora (1200 bonbónů)");
+Database.addText("cz.lollipopFarmLolligatorsConversionText", "Konverze z bonbónů na lízátka aktivní");
+Database.addText("de.cauldron.page0", "Brauhandbuch");
+Database.addText("de.cauldron.page1", "Inhaltsverzeichnis / Seite 2 : Heiltrank / Seite 3 : Schildkröten-Trank / Seiten 4-5 : Schwebetrank / Seiten 6-7 : Berserker-Trank / Seiten 8-9 : Der P-Trank / Seiten 10-11 : Der X-Trank");
+Database.addText("de.cauldron.page2", "Heiltrank / Der Heiltrank gehört zu denen, die sich am einfachsten brauen lassen. In Quests wird er dich mit 100 Lebenspunkten heilen. / Zubereitung : - 100 Bonbons in den Kessel geben - Für einige Sekunden umrühren - In Flaschen abfüllen / Wie bei jedem Trank kannst du die Mengen anheben. Für 300 Bonbons bekommst du beispielsweise 3 Heiltränke.");
+Database.addText("de.cauldron.page3", "Schildkröten-Trank / Der Schildkröten-Trank ist ein wenig komplizierter zu brauen als der Heiltrank. Du wirst Bonbons und Lutscher benötigen. / In einem Quest verwandelt er dich in eine Schildkröte. Du wirst dich langsamer bewegen, aber dafür widerstandsfähiger sein. / Zubereitung : - 50 Bonbons in den Kessel geben - 500 Lutscher in den Kessel geben - Etwa 10 Sekunden umrühren - Aufhören, umzurühren - 50 Bonbons hinzugeben - Für einige Sekunden umrühren - In Flaschen abfüllen / Was du nie vergessen solltest : Drehe dich als Schildkröte NIE auf den Rücken. Du würdest nicht wieder aufstehen können.");
+Database.addText("de.cauldron.page4", "Schwebetrank / Dieser Trank, erfunden vom bekannten Hexenmeister Isaac, erlaubt es dir, die Gravitationsgesetze für einige Sekunden außer Kraft zu setzen. / Er ist besonders nach dem Springen hilfreich (und falls du nicht springen kannst, solltest du erwägen, dir einen Springstock anzuschaffen). / Er ist nicht einfach zu brauen, du wirst die Temperatur deines Kessels ganz genau überwachen müssen. / Zubereitung : - 1000 Bonbons in den Kessel geben - Wasser erhitzen, bis es lauwarm ist - Aufhören, zu erhitzen - 1000 Bonbons hinzugeben - Wasser erhitzen, bis es lauwarm ist - In Flaschen abfüllen");
+Database.addText("de.cauldron.page5", "Schwebetrank : Fallbeispiel / \"Über die Schlucht fliegen\" / *trinkt den Trank*");
+Database.addText("de.cauldron.page6", "Berserker-Trank / Der Berserker-Trank verwandelt dich in einen Berserker. / Der Nachteil ist, dass du die Hälfte deiner Lebenspunkte verlierst. / Der Vorteil ist, dass du für einige Sekunden doppelten Schaden austeilst! / Diesen Trank zu brauen ist sehr einfach, aber du wirst eine Menge Lutscher benötigen. / Zubereitung : - 20 000 Lutscher in den Kessel geben - Umrühren, bis die Arme schmerzen - In Flaschen abfüllen");
+Database.addText("de.cauldron.page7", "Wichtiger Hinweis bezüglich des Berserker-Tranks / Gib während des Brauvorgangs KEINE Bonbons hinzu. / Kein einziges. / Wirklich. / Die Folgen wären von ungeahntem Ausmaß.");
+Database.addText("de.cauldron.page8", "Der P-Trank / Der P-Trank ist seltsam. Du kannst nicht voraussagen, was er auslösen wird. Er könnte dich heilen, oder die Schaden zufügen, dich stärker oder schwächer machen, oder dich sogar in etwas anderes verwandeln. / Außerdem ist es schwierig, ihn zu brauen! / Zubereitung : - 500 Bonbons in den Kessel geben - Für einige Sekunden umrühren - Aufhören, umzurühren - 100 Bonbons für jede Sekunde, in der du umgerührt hast, hinzugeben. Bei 4 Sekunden umrühren wären das 400 Bonbons. Die Mengen hier nicht abändern. - Wasser erhitzen, bis es lauwarm ist - Aufhören, zu erhitzen - Einige Lutscher hinzugeben - Umrühren - In Flaschen abfüllen!");
+Database.addText("de.cauldron.page9", "Nutze den P-Trank weise / Es gibt einige Regeln, denen du folgen kannst, um alles aus P-Tränken herauszuholen. Diese Regeln scheinen gut zu funktionieren, obgleich sie nur auf Erfahrungswerten beruhen. / - Je mehr P-Tränke du trinkst, desto merkwürdigere Auswirkungen scheinen sie zu haben. / - Wenn deine Gesundheit sehr niedrig ist, solltest du am besten einen P-Trank trinken. / - Tiere scheinen auf P-Tränke sehr negativ zu reagieren.");
+Database.addText("de.cauldron.page10", "Der X-Trank / Um den X-Trank rankt sich eine Legende. Es wird gesagt, dass ein jeder, der imstande ist, ihn zu brauen, an einen Ort reisen würde, den noch keiner zuvor gesehen hätte. / Ich weiß nicht, ob dieser Trank wirklich nur eine Legende ist oder nicht, aber ich werde in dieses Buch alles schreiben, was ich über ihn weiß. / Der X-Trank wird vielen alten Legenden und Alchemiebüchern erwähnt. Es folgt eine Zusammenfassung über den Brauvorgang. Viel Glück! / - Für das Brauen des X-Tranks scheinen 5 Schritte notwendig zu sein. / - Bis auf einen Schritt sollen keine Lutscher verwendet werden. / - Angeblich ist es unmöglich, mehrere X-Tränke gleichzeitig zu brauen.");
+Database.addText("de.cauldron.page11", "- Das folgende Gedicht wird häufig zitiert, wenn es um den X-Trank geht: / Am ersten Tag wurde das allererste Bonbon geboren. Aber draußen war es kalt. / Am zweiten Tag bekam das Bonbon einen Vater. Aber draußen war es kalt. / Am dritten Tag bekam das Bonbon einen Bruder. Aber draußen war es kalt. / Am vierten Tag bekam das Bonbon einen Freund. Aber draußen war es kalt. / Am fünften Tag bekam das Bonbon einen Liebhaber, und das mag schlicht oder naiv klingen, aber jetzt war das Bonbon glücklich. Und draußen war es warm.");
+Database.addText("de.cfgChooseLanguage", "Wähle eine Sprache :");
+Database.addText("de.cfgInvertColors", "Farben invertieren?");
 Database.addText("﻿de.mapVillageComment", "Das Dorf");
 Database.addText("de.mapFortressComment", "Die Wüstenfestung");
 Database.addText("de.mapATreeComment", "Ein Baum");
@@ -27581,8 +27852,6 @@ Database.addText("de.candyBoxRequestStatusBarUnlockedCfgComment1", "Du hast jetz
 Database.addText("de.candyBoxRequestStatusBarUnlockedCfgComment2", "Du kannst die Sprache ändern, wenn du das möchtest.");
 Database.addText("de.candyBoxRequestStatusBarUnlockedSaveComment", "Ein wildes Speichern-Tab erscheint!");
 Database.addText("de.candyBoxRequestStatusBarUnlockedHealthBarComment", "Hier sind 100 Lebenspunkte für dich. Sie werden nützlich sein.");
-Database.addText("de.cfgChooseLanguage", "Wähle eine Sprache :");
-Database.addText("de.cfgInvertColors", "Farben invertieren?");
 Database.addText("de.gridItemMainMapName", "Die Karte");
 Database.addText("de.gridItemMainMapDescription", "Karte der Welt");
 Database.addText("de.gridItemPogoStickName", "Springstock");
@@ -27729,12 +27998,6 @@ Database.addText("de.lonelyHouseKickBoxResult", "Ihr Fuß schmerzt ein wenig, ab
 Database.addText("de.lonelyHouseAskTheBoxToOpenItselfResult", "...bist du dir darüber im Klaren, dass du mit einer Kiste redest?");
 Database.addText("de.lonelyHouseLureTheBoxWithACandyResult", "Es scheint die Kiste nicht zu interessieren");
 Database.addText("de.lonelyHouseTakeTheBoxResult", "In dieser Candy Box ist wahrscheinlich etwas Interessantes.");
-Database.addText("de.lollipopFarmConstructMill", "Eine Mühle bauen (10 000 Lutscher)");
-Database.addText("de.lollipopFarmFeedMill", "Die Mühle auffüllen");
-Database.addText("de.lollipopFarmCurrentCandiesProduction", "Aktuelle Bonbon-Produktion :");
-Database.addText("de.lollipopFarmDigPond", "Einen Tümpel graben (100 000 Lutscher)");
-Database.addText("de.lollipopFarmBuyLolligator", "Einen Lolligator kaufen (1 200 Bonbons)");
-Database.addText("de.lollipopFarmLolligatorsConversionText", "Umwandlung Bonbons -> Lutscher aktiviert");
 Database.addText("de.lighthouseAskButton", "Fragen");
 Database.addText("de.lighthouseQuestionWho", "Wer bist du?");
 Database.addText("de.lighthouseQuestionWhoSpeech", "Ich bin ein sehr alter Zyklop.");
@@ -27866,6 +28129,26 @@ Database.addText("de.talkingCandySpeech1", "Hallo! Ich bin das sprechende Bonbon
 Database.addText("de.talkingCandySpeech2", "Fertig! Du steht nun für dich offen. Ich hoffe, dass dir das Spiel gefallen hat :)");
 Database.addText("de.talkingCandyButton", "Ja!!");
 Database.addText("de.lighthousePuzzleResetButton", "Zurücksetzen");
+Database.addText("de.lollipopFarmConstructMill", "Eine Mühle bauen (10 000 Lutscher)");
+Database.addText("de.lollipopFarmFeedMill", "Die Mühle auffüllen");
+Database.addText("de.lollipopFarmCurrentCandiesProduction", "Aktuelle Bonbon-Produktion :");
+Database.addText("de.lollipopFarmDigPond", "Einen Tümpel graben (100 000 Lutscher)");
+Database.addText("de.lollipopFarmBuyLolligator", "Einen Lolligator kaufen (1 200 Bonbons)");
+Database.addText("de.lollipopFarmLolligatorsConversionText", "Umwandlung Bonbons -> Lutscher aktiviert");
+Database.addText("el.cauldron.page0", "Οδηγός παρασκευής φίλτρων");
+Database.addText("el.cauldron.page1", "Περίληψη / 2η Σελίδα : Φίλτρο Ζωής / 3η Σελίδα : Φίλτρο Χελώνας / 4η-5η Σελίδα : Φίλτρο Αντί-βαρύτητας / 6η-7η Σελίδα : Φίλτρο Έξω-Φρενών / 8η-9η Σελίδα : Το Φίλτρο Π/ 10η-11η Σελίδα : Το Φίλτρο Χ");
+Database.addText("el.cauldron.page2", "Φίλτρο ζωής / Το φίλτρο ζωής είναι ένα από τα πιο εύκολα σε παρασκευή, σοβαρά. Χρειάζεται μόνο ζαχαρωτά. Όταν χρησιμοποιήται σε αποστολές, σου επιστρέφει 100 πόντους ζωής. / Οδηγίες : -Βάλτε 100 ζαχαρωτά στο καζάνι σας - Ανακατέψτε για μερικά δευτερόλεπτα - Βάλτε το σε μπουκάλια / Όπως κάθε φίλτρο, μπορείτε να πολλαπλασιάσετε τις ποσότητες. Για παράδειγμα, αν χρησιμοποιήσετε 300 ζαχαρωτά αντί για 100, θα πάρετε 3 φίλτρα ζωής.");
+Database.addText("el.cauldron.page3", "Φίλτρο χελώνας / Το φίλτρο χελώνας είναι λίγο πιο δύσκολο να παρασκευαστεί από το φίλτρο ζωής. Θα χρειαστείτε ζαχαρωτά και γλειφυτζούρια.  / Αν πιείτε αυτό το φίλτρο σε μία αποστολή, θα σας μετατρέψει σε χελώνα. Θα κινείστε πιο αργά, αλλά θα είστε και πιο ανθεκτικοί σε επιθέσεις των αντιπάλων σας. / Οδηγίες : - Βάλτε 50 ζαχαρωτά στο καζάνι σας - Βάλτε 500 γλειφυτζούρια στο καζάνι σας - Αναμείξτε για περίπου 10 δευτερόλεπτα - Σταματήστε να ανακατέβετε - Προσθέστε 50 ζαχαρωτά - Ανακατέψτε πάλι για μερικά δευτερόλεπτα - Βάλτε το σε μπουκάλια / Και τώρα το πιο σημαντικό πράγμα που δεν πρέπει ποτέ να ξεχάσετε : όταν μετατραπείτε σε χελώνα, ΜΗΝ αναποδογυρίσετε. Δεν θα μπορείτε να σηκωθείτε ξανά πάνω.");
+Database.addText("el.cauldron.page4", "Φίλτρο αντι-βαρύτητας / Αυτό το φίλτρο, το οποίο ανακαλύφτηκε από τον γνωστό μάγο Isaac, σας επιτρέπει να αντιστέκεστε τη βαρύτητα της Γης για μερικά δευτερόλεπτα. / Είναι ιδιαίτερα χρήσιμο αφού έχετε πηδήξει (αν δεν μπορείτε να πηδήξετε θα ήταν πολύ καλή ιδέα να αποκτήσετε ένα καλάμι πηδήματος). / Δεν είναι εύκολη η παρασκευή του, θα χρειαστεί να ζεστάνεται το καζάνι σας και να ελέγχετε τη θερμοκρασία προσεκτικά.  / Οδηγίες : - Βάλτε 1000 ζαχαρωτά στο καζάνι - Ζεστάνεται το μέχρι το νερό να είναι χλιαρό - Σταματήστε να ζεστένετε - Προσθέστε 1000 ζαχαρωτά - Ζεστάνετε το καζάνι μέχρι το νερό να βράζει- Βάλτε το σε μπουκάλια");
+Database.addText("el.cauldron.page5", "Φίλτρο αντι-βαρύτητας : περίπτωση χρήσης/ \"Πετάτε πάνω από κενό\" / *πίνεις το φίλτρο*");
+Database.addText("el.cauldron.page6", "Φίλτρο Έξω-Φρενών / Το φίλτρο έξω-φρενών σας μετατρέπει σε έναν εξώ-φρενών μαχητή. / Το μειωνέκτημα είναι το ότι καταναλώνει τη μισή ζωή σας. / Το πλεωνέκτημα είναι το ότι διπλασιάζει την επίθεση σας για μερικά δευτερόλεπτα!/ Η παρασκευή αυτού του φίλτρου είναι πολύ απλή, αλλά θα χρειαστείτε πολλά γλειφυτζούρια. / Εδώ είναι οι οδηγίες : - Βάλτε 20 000 γλειφυτζούρια στο καζάνι σας - Ανακατέψτε τα μέχρι να πονάνε τα χέρια σας - Βάλτε το σε μπουκάλια");
+Database.addText("el.cauldron.page7", "Σημαντική σημείωση σχετικά με το φίλτρο έξω-φρενών / ΜΗΝ προσθέσετε καθόλου ζαχαρωτά ενώ παρασκευάζετε αυτό το φίλτρο / Εννοώ, κανένα. / Σοβαρά. / Τα αποτελέσματα θα ήραν απρόβλεπτα.");
+Database.addText("el.cauldron.page8", "Το Φίλτρο Π / Το φίλτρο Π είναι περίεργο. Δεν μπορείς να προβλέψεις τι θα κάνει. Θα μπορούσε να σε γιατρέψει ή να σε βλάψει, να σε κάνει πιο δυνατό ή πιο αδύναμο, ακόμα και να σε μεταμορφώσει σε κάποιν (κάτι;) διαφορετικό. / Και είναι ακόμα δύσκολο στην παρασκευή! / Οδηγίες : - Βάλτε 500 ζαχαρωτά στο καζάνι σας - Ανακατέψτε για μερικά δευτερόλεπτα - Σταματήστε να ανακατέβετε - Προσθέστε 100 φορές πιο πολλά ζαχαρωτά από τα δευτερόλεπτα που ανακατέψατε. Για παράδειγμα, αν ανακατέψετα για 4 δευτερόλεπτα, θα χρειαστεί να προσθέσετε 400 ζαχαρωτά. Μην πολλαπλασιάσετε αυτήν την ποσότητα, ακόμα και αν θέλετε να παρασκευάσετε παραπάνω από ένα φίλτρο. - Ζεστάνεται μέχρι το νερό να είναι χλιαρό - Σταματήστε να ζεσταίνεται - Προσθέστε λίγα γλειφυτζούρια - Ανακατέψτε - Βάλτε το σε μπουκάλια!");
+Database.addText("el.cauldron.page9", "Κάντε καλή χρήση του φίλτρου Π / Υπάρχουν μερικοί κανόνες του οποίους μπορείτε να ακολουθήσετε έτσι ώστε να πάρετε καλύτερα αποτελέσματα όταν πίνετε το φίλτρο Π. Αν και αυτοί οι κανόνες ορίστηκαν εμπερικά, φαίνονται να λειτουργούν αρκετά καλά. / - Όσο πιο πολύ χρησιμοποιήτε φίλτρα Π, τόσο πιο περίεργα αποτελέσματα έχουν. / - Αν η ζωή σας είναι πολύ χαμηλή, θα έπρεπε να πιείτε ένα φίλτρο Π. / - Ζώα τα οποία καταναλώνουν το φίλτρο Π φαίνεται να αντιδρούν με πολύ άσχημο τρόπο.");
+Database.addText("el.cauldron.page10", "Το Φίλτρο Χ / Το φίλτρο Χ είναι ένας θρύλος. Λέγεται ότι όποιος καταφέρει να το παρασκευάσει και να το πιει θα ταξιδέψει σε ένα μέρος που κανένας δεν έχει πάει ποτέ. / Δεν ξέρω αν αυτό το φίλτρο είναι απλώς ένας θρύλος ή όχι, αλλά θα γράψω σε αυτό το βιβλίο ό'τι ξέρω για αυτό. / Το φίλτρο Χ αναφέρεται σε πολλούς παλιούς θρύλους και βιβλία για φίλτρα. Εδώ είναι μία περίληψη των πληροφοριών οι οποίες μπορεί να σας βοηθήσουν να το παρασκευάσετε. Καλη τύχη! / - Λέγεται ότι 5 βήματα είναι απραίτητα για να παρασκευάσεις το φίλτρο Χ. / - Λέγεται ότι καθόλου γελιφυτζούρια δε χρειάζονται, εκτός από σε ένα από τα βήματα. / - Λέγεται ότι, σε αντίθεση με τα άλλα φίλτρα, δεν μπορείς να παρασκευάσεις παραπάνω από ένα φίλτρο Χ τη φορά.");
+Database.addText("el.cauldron.page11", "- Τέλος, το ακόλουθο ποίημα παραθέτεται σχετικά με το φίλτρο Χ : / Την πρώτη μέρα, γέννησε το πρώτο Ζαχαρωτό. Αλλά έκανε κρύο έξω. / Τη δεύτερη μέρα, έδωσε στο Ζαχαρωτό έναν πατέρα. Αλλά έκανε κρύο έξω. / Την τρίτη μέρα, έδωσε στο Ζαχαρωτό έναν αδερφό. Αλλά έκανε κρύο έξω. / Την τέταρτη μέρα έδωσε στο Ζαχαρωτό ένα φίλο. Αλλά έκανε κρύο έξω. / Την πέμπτη μέρα, έδωσε στο Ζαχαρωτό έναν εραστή, και μπορεί να ακουστεί απλό ή χαζό, αλλά τώρα το Ζαχαρωτό ήταν χαρούμενο, και είχε ζέστη έξω.");
+Database.addText("el.cfgChooseLanguage", "Διάλεξε γλώσσα :");
+Database.addText("el.cfgInvertColors", "Αντιστροφή χρωμάτων;");
 Database.addText("﻿el.mapVillageComment", "Ένα χωριό");
 Database.addText("el.mapFortressComment", "Το φρούριο της ερήμου.");
 Database.addText("el.mapATreeComment", "Ένα δέντρο");
@@ -27926,8 +28209,6 @@ Database.addText("el.candyBoxRequestStatusBarUnlockedCfgComment1", "Τώρα έ�
 Database.addText("el.candyBoxRequestStatusBarUnlockedCfgComment2", "Μπορείς να αλλάξεις τη γλώσσα, αν θέλεις.");
 Database.addText("el.candyBoxRequestStatusBarUnlockedSaveComment", "Μία άγρια καρτέλα αποθήκευσης εμφανίστηκε!");
 Database.addText("el.candyBoxRequestStatusBarUnlockedHealthBarComment", "Ορίστε 100 πόντοι ζωής. Θα ειναι χρήσιμοι.");
-Database.addText("el.cfgChooseLanguage", "Διάλεξε γλώσσα :");
-Database.addText("el.cfgInvertColors", "Αντιστροφή χρωμάτων;");
 Database.addText("el.gridItemMainMapName", "Ο Χάρτης");
 Database.addText("el.gridItemMainMapDescription", "Χάρτης του κόσμου");
 Database.addText("el.gridItemPogoStickName", "Καλάμι πηδήματος");
@@ -28074,12 +28355,6 @@ Database.addText("el.lonelyHouseKickBoxResult", "Το πόδι σου πονάε
 Database.addText("el.lonelyHouseAskTheBoxToOpenItselfResult", "...το καταλαβαίνεις ότι μιλας σε ένα κουτι;");
 Database.addText("el.lonelyHouseLureTheBoxWithACandyResult", "Το κουτί δεν φαίνεται να ενδιαφέρεται");
 Database.addText("el.lonelyHouseTakeTheBoxResult", "Πρέπει να υπάρχει κάτι ενδιαφέρον σε αυτο το candy box.");
-Database.addText("el.lollipopFarmConstructMill", "Χτίσε ένα μύλο (10 000 γλειφυτζούρια)");
-Database.addText("el.lollipopFarmFeedMill", "Τάισε το μύλο");
-Database.addText("el.lollipopFarmCurrentCandiesProduction", "Τωρινή παραγωγή ζαχαρωτών");
-Database.addText("el.lollipopFarmDigPond", "Σκάψε μία λιμνούλα (100 000 γλειφυτζούρια)");
-Database.addText("el.lollipopFarmBuyLolligator", "Αγόρασε έναν γλειφιγκάρορα (1200 ζαχαρωτά)");
-Database.addText("el.lollipopFarmLolligatorsConversionText", "Μετατροπή ζαχαρωτά -> γλειφυτζούρια ενεργοποιημένη");
 Database.addText("el.lighthouseAskButton", "Ρώτα");
 Database.addText("el.lighthouseQuestionWho", "Ποιος είσαι;");
 Database.addText("el.lighthouseQuestionWhoSpeech", "Είμαι ένας ηλικιωμένος κύκλωπας");
@@ -28211,6 +28486,63 @@ Database.addText("el.talkingCandySpeech1", "Γεια! Είμαι το ομιλο
 Database.addText("el.talkingCandySpeech2", "Έτοιμο! Μπορείς να μπεις τώρα. Ελπίζω να σου άρεσε το παιχνίδι :)");
 Database.addText("el.talkingCandyButton", "Ναι!!");
 Database.addText("el.lighthousePuzzleResetButton", "Επαναφορά");
+Database.addText("el.lollipopFarmConstructMill", "Χτίσε ένα μύλο (10 000 γλειφυτζούρια)");
+Database.addText("el.lollipopFarmFeedMill", "Τάισε το μύλο");
+Database.addText("el.lollipopFarmCurrentCandiesProduction", "Τωρινή παραγωγή ζαχαρωτών");
+Database.addText("el.lollipopFarmDigPond", "Σκάψε μία λιμνούλα (100 000 γλειφυτζούρια)");
+Database.addText("el.lollipopFarmBuyLolligator", "Αγόρασε έναν γλειφιγκάρορα (1200 ζαχαρωτά)");
+Database.addText("el.lollipopFarmLolligatorsConversionText", "Μετατροπή ζαχαρωτά -> γλειφυτζούρια ενεργοποιημένη");
+Database.addText("en.beer.candySingular", "drop");
+Database.addText("en.beer.candyPlural", "drops");
+Database.addText("en.beer.candyMini", "dr");
+Database.addText("en.beer.lollipopSingular", "can");
+Database.addText("en.beer.lollipopPlural", "cans");
+Database.addText("en.beer.lollipopMini", "ca");
+Database.addText("en.beer.chocolateBarSingular", "pint");
+Database.addText("en.beer.chocolateBarPlural", "pints");
+Database.addText("en.beer.chocolateBarMini", "pi");
+Database.addText("en.beer.painChocolatSingular", "cask");
+Database.addText("en.beer.painChocolatPlural", "casks");
+Database.addText("en.beer.painChocolatMini", "ck");
+Database.addText("en.beer.menuCandyBox", " BEER");
+Database.addText("en.beer.menuLollipopFarm1", "THE");
+Database.addText("en.beer.menuLollipopFarm2", "BEER");
+Database.addText("en.beer.menuLollipopFarm3", "FARM");
+Database.addText("en.beer.lolligator", "beergator");
+Database.addText("en.beer.mapFarmComment", "The beer farm");
+Database.addText("en.candy.candySingular", "candy");
+Database.addText("en.candy.candyPlural", "candies");
+Database.addText("en.candy.candyMini", "cd");
+Database.addText("en.candy.lollipopSingular", "lollipop");
+Database.addText("en.candy.lollipopPlural", "lollipops");
+Database.addText("en.candy.lollipopMini", "lo");
+Database.addText("en.candy.chocolateBarSingular", "chocolate bar");
+Database.addText("en.candy.chocolateBarPlural", "chocolate bars");
+Database.addText("en.candy.chocolateBarMini", "cb");
+Database.addText("en.candy.painChocolatSingular", "pain au chocolat");
+Database.addText("en.candy.painChocolatPlural", "pains au chocolat");
+Database.addText("en.candy.painChocolatMini", "pc");
+Database.addText("en.candy.menuCandyBox", "CANDY");
+Database.addText("en.candy.menuLollipopFarm1", "LOLL");
+Database.addText("en.candy.menuLollipopFarm2", "IPOP");
+Database.addText("en.candy.menuLollipopFarm3", "FARM");
+Database.addText("en.candy.lolligator", "lolligator");
+Database.addText("en.candy.mapFarmComment", "The lollipop farm");
+Database.addText("en.cauldron.page0", "Brewing manual");
+Database.addText("en.cauldron.page1", "Summary / Page 2 : Health potion / Page 3 : Turtle potion / Pages 4-5 : Anti-gravity potion / Pages 6-7 : Berserk potion / Pages 8-9 : The P potion / Pages 10-11 : The X potion");
+Database.addText("en.cauldron.page2", "Health potion / The health potion is one of the easiest to brew, really. It only requires candies. Used in quests, it will heal you by giving you back 100 health points. / Instructions : - Put 100 candies in your cauldron - Mix for a few seconds - Put into bottles / Just like for any potion, you can of course multiply the quantities. For example, if you use 300 candies instead of 100, you will get 3 health potions.");
+Database.addText("en.cauldron.page3", "Turtle potion / The turtle potion is a bit harder to brew than the health potion. You will need both candies and lollipops. / If you drink this potion in a quest, it will turn you into a turtle. You will move slower, but you will also be more resistant to you enemies attacks. / Instructions : - Put 50 candies in your cauldron - Add 500 lollipops in your cauldron - Mix for more or less 10 seconds - Stop mixing - Add 50 candies - Mix again for a few seconds - Put into bottles / And now the most important thing you should never forget : once you will be a turtle, do NOT turn over. You wouldn't be able to get up.");
+Database.addText("en.cauldron.page4", "Anti-gravity potion / This potion, which was invented by the well-known sorcerer Isaac, allows you to resist to the earth's gravitation force for a few seconds. / It is especially useful after jumping (if you can't jump, you should seriously consider obtaining a pogo stick). / It isn't very easy to brew, you will need to heat up your cauldron and watch the temperature carefully. / Instructions : - Put 1000 candies in your cauldron - Heat up until the water is lukewarm - Stop heating up - Add 1000 candies - Heat up until the water is boiling - Put into bottles");
+Database.addText("en.cauldron.page5", "Anti-gravity potion : use case / \"Fly above a gap\" / *drinks the potion*");
+Database.addText("en.cauldron.page6", "Berserk potion / The berserk potion transforms you into a berserker. / The drawback is that it consumes half of your life. / The benefit is that it doubles your damage for a few seconds! / Brewing this potions is very simple, but you will need a lot of lollipops. / Here are the instructions : - Put 20 000 lollipops in your cauldron - Mix them until your arms are hurting - Put into bottles");
+Database.addText("en.cauldron.page7", "Important notice concerning the berserk potion / Do NOT add any candy when brewing this potion. / I mean, not a single one. / Really. / Results would be unexpected.");
+Database.addText("en.cauldron.page8", "The P potion / The P potion is a strange one. You cannot predict what it is going to do. It could heal you or damage you, make you stronger or weaker, or even turn you into someone (something?) else. / And it's also hard to brew! / Instructions : - Put 500 candies in your cauldron - Mix for a few seconds - Stop mixing - Add 100 times more candies than the number of seconds you mixed. For example if you mixed during 4 seconds, you'll need to add 400 candies. Do not multiply this quantity, even if you want to make more than one potion. - Heat up until the water is lukewarm - Stop heating up - Add some lollipops - Mix - Put into bottles!");
+Database.addText("en.cauldron.page9", "Make a good use of the P potion / There are some rules which you can follow in order to get better results when drinking the P potion. Although these rules were defined empirically, they seem to work pretty well. / - The more you use P potions, the more they seem to have strange effects. / - If your health is very low, you should probably drink a P potion. / - Animals drinking P potions seem to react in a very bad way.");
+Database.addText("en.cauldron.page10", "The X potion / The X potion is a legend. It is said that whoever manage to brew it and drink it would travel to a place where no one have been before. / I don't know if this potion is just a legend or not, but I will write in this book everything I know about it. / The X potion is mentioned in many old legends and alchemy books. Here's a summary of the informations which may help you to brew it. Good luck! / - It is said that 5 steps are necessary to brew the X potion. / - It is said that no lollipops are required, except for one of the steps. / - It is said that, unlike for other potions, you can't brew multiple X potions at once.");
+Database.addText("en.cauldron.page11", "- Finally, the following poem is often quoted when it comes to the X potion : / On the first day, it gave birth to the very first Sweet. But it was cold outside. / On the second day, it gave the Sweet a father. But it was cold outside. / On the third day, it gave the Sweet a brother. But it was cold outside. / On the fourth day, it gave the Sweet a friend. But it was cold outside. / On the fifth day, it gave the Sweet a lover, and it may sound simple or silly, but now the Sweet was happy, and it was hot outside.");
+Database.addText("en.cfgVersion", "Choose the version :");
+Database.addText("en.cfgChooseLanguage", "Choose the language :");
+Database.addText("en.cfgInvertColors", "Invert colors?");
 Database.addText("en.mapVillageComment", "The Village");
 Database.addText("en.mapFortressComment", "The desert fortress");
 Database.addText("en.mapATreeComment", "A tree");
@@ -28256,7 +28588,6 @@ Database.addText("en.mapVillageFifthHouseAgree", "Let's go, then!");
 Database.addText("en.mapVillageFifthHouseCellarDone", "Thank you for getting rid of them! Here's something very precious as a reward : a map of the world. I think you will use it more than I do.");
 Database.addText("en.mapVillageTheShopComment", "The shop");
 Database.addText("en.mapBridgeComment", "The bridge");
-Database.addText("en.mapFarmComment", "The lollipop farm");
 Database.addText("en.mapCaveEntranceComment", "The cave entrance");
 Database.addText("en.mapLighthouseComment", "The lighthouse");
 Database.addText("en.mapPierComment", "The pier");
@@ -28271,8 +28602,6 @@ Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment1", "You now have
 Database.addText("en.candyBoxRequestStatusBarUnlockedCfgComment2", "You can change the language, if you want to.");
 Database.addText("en.candyBoxRequestStatusBarUnlockedSaveComment", "A wild saving tab appears!");
 Database.addText("en.candyBoxRequestStatusBarUnlockedHealthBarComment", "Here's 100 health points for you. They're going to be useful.");
-Database.addText("en.cfgChooseLanguage", "Choose the language :");
-Database.addText("en.cfgInvertColors", "Invert colors?");
 Database.addText("en.gridItemMainMapName", "The Map");
 Database.addText("en.gridItemMainMapDescription", "Map of the world");
 Database.addText("en.gridItemPogoStickName", "Pogo stick");
@@ -28419,12 +28748,6 @@ Database.addText("en.lonelyHouseKickBoxResult", "Your foot hurts a little bit, b
 Database.addText("en.lonelyHouseAskTheBoxToOpenItselfResult", "...you're talking to a box, you know that?");
 Database.addText("en.lonelyHouseLureTheBoxWithACandyResult", "The box doesn't seem to care");
 Database.addText("en.lonelyHouseTakeTheBoxResult", "There's probably something interesting in this candy box.");
-Database.addText("en.lollipopFarmConstructMill", "Build a mill (10 000 lollipops)");
-Database.addText("en.lollipopFarmFeedMill", "Feed the mill");
-Database.addText("en.lollipopFarmCurrentCandiesProduction", "Current candies production");
-Database.addText("en.lollipopFarmDigPond", "Dig a pond (100 000 lollipops)");
-Database.addText("en.lollipopFarmBuyLolligator", "Buy a lolligator (1200 candies)");
-Database.addText("en.lollipopFarmLolligatorsConversionText", "Conversion candies -> lollipops activated");
 Database.addText("en.lighthouseAskButton", "Ask");
 Database.addText("en.lighthouseQuestionWho", "Who are you?");
 Database.addText("en.lighthouseQuestionWhoSpeech", "I'm a very old cyclops.");
@@ -28556,6 +28879,45 @@ Database.addText("en.talkingCandySpeech1", "Hey! I'm the talking candy. Congratu
 Database.addText("en.talkingCandySpeech2", "Done! You can now enter it. I hope you liked the game :)");
 Database.addText("en.talkingCandyButton", "Yes!!");
 Database.addText("en.lighthousePuzzleResetButton", "Reset");
+Database.addText("en.youhave", "You have");
+Database.addText("en.healthy.candySingular", "radish");
+Database.addText("en.healthy.candyPlural", "radishes");
+Database.addText("en.healthy.candyMini", "rd");
+Database.addText("en.healthy.lollipopSingular", "carrot");
+Database.addText("en.healthy.lollipopPlural", "carrots");
+Database.addText("en.healthy.lollipopMini", "ca");
+Database.addText("en.healthy.chocolateBarSingular", "turnip");
+Database.addText("en.healthy.chocolateBarPlural", "turnips");
+Database.addText("en.healthy.chocolateBarMini", "tr");
+Database.addText("en.healthy.painChocolatSingular", "celery");
+Database.addText("en.healthy.painChocolatPlural", "celeries");
+Database.addText("en.healthy.painChocolatMini", "cl");
+Database.addText("en.healthy.menuCandyBox", "VEGGI");
+Database.addText("en.healthy.menuLollipopFarm1", "HEAL");
+Database.addText("en.healthy.menuLollipopFarm2", "THY");
+Database.addText("en.healthy.menuLollipopFarm3", "FARM");
+Database.addText("en.healthy.lolligator", "veggigator");
+Database.addText("en.healthy.mapFarmComment", "The veggie farm");
+Database.addText("en.lollipopFarmConstructMill", "Build a mill (10 000 %LOLLIPOPS%)");
+Database.addText("en.lollipopFarmFeedMill", "Feed the mill");
+Database.addText("en.lollipopFarmCurrentCandiesProduction", "Current %CANDIES% production");
+Database.addText("en.lollipopFarmDigPond", "Dig a pond (100 000 %LOLLIPOPS%)");
+Database.addText("en.lollipopFarmBuyLolligator", "Buy a %LOLLIGATOR% (1200 %CANDIES%)");
+Database.addText("en.lollipopFarmLolligatorsConversionText", "Conversion %CANDIES% -> %LOLLIPOPS% activated");
+Database.addText("en.cauldron.page0", "Brewing manual");
+Database.addText("en.cauldron.page1", "Índice / Pág. 2: Poción de salud / Pág. 3 : Poción tortuga / Págs. 4-5 : Poción antigravedad / Págs. 6-7 : Poción berserk / Págs. 8-9 : La poción P / Págs. 10-11 : La poción X");
+Database.addText("en.cauldron.page2", "Poción de salud / La poción de salud es una de las más fáciles de realizar, en serio. Solo hacen falta caramelos. En las misiones, te curará devolviéndote 100 puntos de salud. / Instrucciones: -Pon 100 caramelos en el caldero -Mezcla durante unos segundos -Embotéllalo / Igual que con cualquier poción, puedes multiplicar las cantidades, por supuesto. Por ejemplo, si usas 300 caramelos en lugar de 100, obtendrás 3 pociones de salud.");
+Database.addText("en.cauldron.page3", "Poción tortuga / La poción tortuga es un poco más difícil que la poción de salud. Necesitarás caramelos y piruletas. / Si bebes esta poción en una misión, te convertirá en una tortuga. Te moverás más despacio, pero también serás más resistente a los ataques enemigos. / Instrucciones: -Pon 50 caramelos en el caldero -Añade 500 piruletas al caldero -Mezcla durante unos 10 segundos -Deja de mezclar -Añade 50 caramelos -Vuelve a mezclar durante unos seg. -Embotéllalo / Y ahora lo más importante, algo que no debes olvidar nunca: una vez te conviertas en tortuga, NO vuelques. No podrás volver a levantarte.");
+Database.addText("en.cauldron.page4", "Poción antigravedad / Esta poción, que fue inventada por el conocido hechicero Isaac, te permite evitar la fuerza gravitatoria de la Tierra durante unos segundos. / Es especialmente útil despues de saltar (si no puedes saltar, deberías plantearte conseguir un pogo). / No es muy fácil de hacer: necesitarás calentar el caldero y tener cuidado con la temperatura. / Instrucciones: -Pon 1000 caramelos en el caldero -Caliéntalo hasta que esté tibio -Deja de calentar -Añade 1000 caramelos -Calienta el agua hasta que hierva -Embotéllalo");
+Database.addText("en.cauldron.page5", "Poción antigravedad: ejemplo / \"Sobrevolar el hueco\" / *se bebe la poción*");
+Database.addText("en.cauldron.page6", "Poción berserk / La poción berserk te transforma en un berserker. / El inconveniente es que consume la mitad de tu vida. / ¡La ventaja es que duplica el daño durante unos segundos! / Hacer esta poción es muy sencillo, pero necesitarás un montón de piruletas. / Estas son las instrucciones: -Pon 20 000 piruletas en el caldero -Mezcla hasta que te duelan los brazos -Embotéllalo");
+Database.addText("en.cauldron.page7", "Aviso importante sobre la poción berserk / NO añadas caramelos mientras haces esta poción. / En serio, ni uno. / De verdad. / No se conocen los posibles resultados.");
+Database.addText("en.cauldron.page8", "Poción P / La poción P es muy rara. No puedes predecir qué efecto tendrá. Podría curarte o herirte, hacerte más fuerte o más débil, o incluso convertirte en otra persona (¿o cosa?). / ¡Y hacerla es difícil! /  Instrucciones : -Pon 500 caramelos en el caldero -Mezcla unos segundos -Para de mezclar -Añade 100 caramelos por cada segundo que hayas mezclado. Por ejemplo, si mezclaste durante 4 segundos, tendrás que añadir 400 caramelos. Si quieres hacer más de una poción, no tienes que multiplicar esta cantidad. -Calienta el agua hasta que esté tibia -Deja de calentar -Añade algunas piruletas -Mezcla -¡Embotéllalo!");
+Database.addText("en.cauldron.page9", "Usa la poción P con responsabilidad / Hay ciertas reglas que puedes seguir para tener mejores resultados cuando bebas la poción P. Aunque estas reglas se definieron empíricamente, parece que funcionan bastante bien. / -Cuantas más pociones P uses, los efectos parecen ser más raros. / -Si tu salud está baja, es buena idea que bebas una poción P. / -Los animales parecen reaccionar muy mal cuando beben pociones P.");
+Database.addText("en.cauldron.page10", "Poción X / La poción X es una leyenda. Se dice que quien consiga hacerla y bebérsela viajará a un lugar donde nunca ha estado nadie. / No sé si esta poción es una leyenda o no, pero escribiré todo lo que sé sobre ella en este libro. / La poción X se menciona en muchas leyendas y libros de alquimia antiguos. Aquí tienes algunos datos que pueden ayudarte. ¡Buena suerte! / -Dicen que se necesitan 5 pasos para preparar la poción X. / -Dicen que no hacen falta piruletas, excepto para uno de los pasos. / -Dicen que, a diferencia de otras pociones, no puedes hacer varias pociones X de una sola vez.");
+Database.addText("en.cauldron.page11", "-Por último, el siguiente poema se suele citar junto a la poción X: / El primer día  dio a luz al Primer Caramelo, pero fuera hacía frío. / El segundo día le dio un padre al Caramelo, pero fuera hacía frío. / El tercer día le dio un hermano al Caramelo, pero fuera hacía frío. /  El cuarto día le dio un amigo al Caramelo, pero fuera hacía frío. / El quinto día le dio una amante al Caramelo, y puede sonar simple o tonto, pero el Caramelo ahora era feliz y hacía calor fuera.");
+Database.addText("es.cfgChooseLanguage", "Elige el idioma:");
+Database.addText("es.cfgInvertColors", "¿Invertir colores?");
 Database.addText("es.mapVillageComment", "El Pueblo");
 Database.addText("es.mapFortressComment", "La Fortaleza del desierto");
 Database.addText("es.mapATreeComment", "Un árbol");
@@ -28616,8 +28978,6 @@ Database.addText("es.candyBoxRequestStatusBarUnlockedCfgComment1", "Ahora puedes
 Database.addText("es.candyBoxRequestStatusBarUnlockedCfgComment2", "Si quieres, puedes cambiar el idioma.");
 Database.addText("es.candyBoxRequestStatusBarUnlockedSaveComment", "¡Una pestaña salvaje apareció!");
 Database.addText("es.candyBoxRequestStatusBarUnlockedHealthBarComment", "Has ganado 100 puntos de vida. Te serán útiles.");
-Database.addText("es.cfgChooseLanguage", "Elige el idioma:");
-Database.addText("es.cfgInvertColors", "¿Invertir colores?");
 Database.addText("es.gridItemMainMapName", "El Mapa");
 Database.addText("es.gridItemMainMapDescription", "Mapa del mundo");
 Database.addText("es.gridItemPogoStickName", "Pogo");
@@ -28764,12 +29124,6 @@ Database.addText("es.lonelyHouseKickBoxResult", "El pie te duele un poco, pero n
 Database.addText("es.lonelyHouseAskTheBoxToOpenItselfResult", "... sabes que estás hablando con una caja, ¿verdad?");
 Database.addText("es.lonelyHouseLureTheBoxWithACandyResult", "A la caja parece no importarle");
 Database.addText("es.lonelyHouseTakeTheBoxResult", "Probablemente hay algo interesante en esta Candy Box.");
-Database.addText("es.lollipopFarmConstructMill", "Construir un molino (10 000 piruletas)");
-Database.addText("es.lollipopFarmFeedMill", "Surtir al molino");
-Database.addText("es.lollipopFarmCurrentCandiesProduction", "Producción de caramelos actual");
-Database.addText("es.lollipopFarmDigPond", "Cavar un estanque (100 000 piruletas)");
-Database.addText("es.lollipopFarmBuyLolligator", "Comprar un piruledrilo (1200 caramelos)");
-Database.addText("es.lollipopFarmLolligatorsConversionText", "Conversión caramelos -> piruletas activada");
 Database.addText("es.lighthouseAskButton", "Preguntar");
 Database.addText("es.lighthouseQuestionWho", "¿Quién eres?");
 Database.addText("es.lighthouseQuestionWhoSpeech", "Soy un cíclope muy viejo.");
@@ -28901,6 +29255,51 @@ Database.addText("es.talkingCandySpeech1", "¡Ey! Soy el Caramelo parlante. Enho
 Database.addText("es.talkingCandySpeech2", "¡Hecho! Ahora puedes entrar en ella. Espero que el juego te haya gustado :)");
 Database.addText("es.talkingCandyButton", "¡¡Sí!!");
 Database.addText("es.lighthousePuzzleResetButton", "Reiniciar");
+Database.addText("es.lollipopFarmConstructMill", "Construir un molino (10 000 piruletas)");
+Database.addText("es.lollipopFarmFeedMill", "Surtir al molino");
+Database.addText("es.lollipopFarmCurrentCandiesProduction", "Producción de caramelos actual");
+Database.addText("es.lollipopFarmDigPond", "Cavar un estanque (100 000 piruletas)");
+Database.addText("es.lollipopFarmBuyLolligator", "Comprar un piruledrilo (1200 caramelos)");
+Database.addText("es.lollipopFarmLolligatorsConversionText", "Conversión caramelos -> piruletas activada");
+Database.addText("fr.beer.candySingular", "goutte");
+Database.addText("fr.beer.candyPlural", "gouttes");
+Database.addText("fr.beer.candyMini", "gt");
+Database.addText("fr.beer.lollipopSingular", "canette");
+Database.addText("fr.beer.lollipopPlural", "cannettes");
+Database.addText("fr.beer.lollipopMini", "cn");
+Database.addText("fr.beer.chocolateBarSingular", "pinte");
+Database.addText("fr.beer.chocolateBarPlural", "pintes");
+Database.addText("fr.beer.chocolateBarMini", "pi");
+Database.addText("fr.beer.painChocolatSingular", "fut");
+Database.addText("fr.beer.painChocolatPlural", "futs");
+Database.addText("fr.beer.painChocolatMini", "fu");
+Database.addText("fr.candy.candySingular", "bonbon");
+Database.addText("fr.candy.candyPlural", "bonbons");
+Database.addText("fr.candy.candyMini", "bn");
+Database.addText("fr.candy.lollipopSingular", "sucette");
+Database.addText("fr.candy.lollipopPlural", "sucette");
+Database.addText("fr.candy.lollipopMini", "sc");
+Database.addText("fr.candy.chocolateBarSingular", "tablette");
+Database.addText("fr.candy.chocolateBarPlural", "tablettes");
+Database.addText("fr.candy.chocolateBarMini", "tb");
+Database.addText("fr.candy.painChocolatSingular", "pain au chocolat");
+Database.addText("fr.candy.painChocolatPlural", "pains au chocolat");
+Database.addText("fr.candy.painChocolatMini", "pc");
+Database.addText("fr.cauldron.page0", "Manuel de préparation de potions");
+Database.addText("fr.cauldron.page1", "Sommaire / Page 2 : potion de vie / Page 3 : potion de tortue / Pages 4-5 : potion anti-gravité / Pages 6-7 : potion de berserker / Pages 8-9 : la potion P / Pages 10-11 : la potion X");
+Database.addText("fr.cauldron.page2", "Potion de vie / La potion de vie est l'une des plus faciles à préparer, vraiment. Il faut seulement des bonbons. Utilisée pendant les quêtes, elle vous soignera en vous redonnant 100 points de vie. / Instructions : - Mettez 100 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Mettez en bouteilles / Comme pour n'importe quelle potion, vous pouvez bien sûr multiplier les quantités. Par exemple, si vous utilisez 300 bonbons au lieu de 100, vous obtiendrez 3 potions de vie.");
+Database.addText("fr.cauldron.page3", "Potion de tortue / La potion de tortue est un peu plus difficile à préparer que la potion de vie. Vous aurez besoin de bonbons et de sucettes. / Si vous buvez cette potion pendant une quête, elle vous transformera en tortue. Vous vous déplacerez plus lentement, mais vous serez aussi plus résistant aux attaques de vos ennemis. / Instructions : - Mettez 50 bonbons dans votre chaudron. - Ajoutez 500 sucettes dans votre chaudron - Mélangez pendant plus ou moins 10 secondes - Arrêtez de mélanger - Ajoutez 50 bonbons - Mélangez encore pendant quelques secondes - Mettez en bouteilles / Et maintenant, la chose la plus importante que vous ne devriez jamais oublier : quand vous serez une tortue, SURTOUT ne vous retournez pas. Vous ne seriez pas capable de vous relever.");
+Database.addText("fr.cauldron.page4", "Potion anti-gravité / Cette potion, qui a été inventée par le renommé sorcier Isaac, vous permet de résister à la force gravitationnelle de la terre pour quelques secondes. / Elle est particulièrement utile après avoir sauté (si vous ne pouvez pas sauter, vous devriez sérieusement penser à obtenir un bâton sauteur). / Elle n'est pas très facile à préparer, vous aurez besoin de faire chauffer votre chaudron et de surveiller la température avec attention. / Instructions : - Mettez 1000 bonbons dans votre chaudron - Chauffez jusqu'à ce que l'eau soit tiède - Arrêtez de chauffer - Ajoutez 1000 bonbons - Chauffez jusqu'à ce que l'eau bout - Mettez en bouteilles");
+Database.addText("fr.cauldron.page5", "Potion anti-gravité : cas d'utilisation / \"Voler au-dessus d'un précipice\" / *boit la potion*");
+Database.addText("fr.cauldron.page6", "Potion de berserker / La potion de berserker vous transforme en un berserker. / L'inconvénient est que cela consomme la moitié de votre vie. / L'avantage est que cela double vos dégâts pendant quelques secondes ! / Préparer cette potion est très simple, mais vous aurez besoin de beaucoup de sucettes. / Voici les instructions : - Mettez 20 000 sucettes dans votre chaudron - Mélangez les jusqu'à ce que vos bras vous fassent mal - Mettez en bouteilles");
+Database.addText("fr.cauldron.page7", "Avertissement important concernant la potion de berserker / Ne PAS ajouter de bonbon pendant la préparation de cette potion. / Je veux dire, pas un seul. / Vraiment. / Le résultat serait innatendu.");
+Database.addText("fr.cauldron.page8", "La potion P / La potion P est une potion bizarre. Vous ne pouvez pas prédire ce qu'elle va faire. Elle pourrait vous soigner ou vous infliger des dommages, vous rendre plus fort ou plus faible, ou même vous transofmer en quelqu'un (quelque chose ?) d'autre. / Et en plus elle est dure à préparer ! / Instructions : - Mettez 500 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Arrêtez de mélanger - Ajoutez 100 fois plus de bonbons que le nombre de secondes pendant lesquelles vous avez mélangé. Par exemple si vous avez mélangé pendant 4 secondes, vous devrez ajouter 400 bonbons. Ne multipliez pas cette quantité, même si vous voulez faire plus d'une potion. - Faites chauffer jusqu'à ce que l'eau soit tiède - Arrêtez de faire chauffer - Ajoutez des sucettes - Mélangez - Mettez en bouteilles !");
+Database.addText("fr.cauldron.page9", "Faire bon usage de la potion P / Il y a certaines règles que vous pouvez suivre pour obtenir de meilleurs résultats en buvant la potion P. Bien que ces règles aient été établies de manière empirique, elles semblent assez bien fonctionner. / - Plus vous utilisez de potions P, plus elles semblent avoir des effets étranges. / - Si votre vie est très basse, vous devriez probablement utiliser une potion P. / - Les animaux qui boivent une potion P semblent très mal réagir.");
+Database.addText("fr.cauldron.page10", "La potion X / La potion X est une légende. Il est dit que quiconque parviendrait à la préparer et à la boire voyagerait jusqu'à un endroit où personne n'est encore jamais allé. / Je ne sais pas si cette potion est juste une légende ou pas, mais je vais lister dans ce livre tout ce que je sais à propos d'elle. / La potion X est mentionnée dans de nombreuses vieilles légendes et livres d'alchimie. Voici un résumé des informations qui pourraient vous aider à la préparer. Bonne chance ! / - Il est dit que 5 étapes sont nécessaires à la préparation de la potion X. / - Il est dit qu'aucune sucette n'est nécessaire, mis à part pour l'une des étapes. / - Il est dit que, contrairement aux autres potions, vous ne pouvez pas préparer plusieurs potions X à la fois.");
+Database.addText("fr.cauldron.page11", "- Enfin, le poème suivant est souvent cité quand on parle de la potion X : / Le premier jour, il donna naissance à la toute première Sucrerie. Mais il faisait froid dehors. / Le deuxième jour, il donna à la Sucrerie un père. Mais il faisait froid dehors. / Le troisième jour, il donna à la Sucrerie un frère. Mais il faisait froid dehors. / Le quatrième jour, il donna à la Sucrerie un ami. Mais il faisait froid dehors. / Le cinquième jour, il donna à la Sucrerie un amour, et cela peut paraître simple ou niais, mais maintenant la Sucrerie était heureuse, et il faisait chaud dehors.");
+Database.addText("fr.cfgVersion", "Choisissez la version :");
+Database.addText("fr.cfgChooseLanguage", "Choisissez la langue :");
+Database.addText("fr.cfgInvertColors", "Inverser les couleurs ?");
 Database.addText("fr.mapVillageComment", "Le Village");
 Database.addText("fr.mapFortressComment", "La forteresse du désert");
 Database.addText("fr.mapATreeComment", "Un arbre");
@@ -28961,8 +29360,6 @@ Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment1", "Vous avez ma
 Database.addText("fr.candyBoxRequestStatusBarUnlockedCfgComment2", "Vous pouvez changer la langue, si vous le voulez.");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedSaveComment", "Un onglet de sauvegarde sauvage apparait !");
 Database.addText("fr.candyBoxRequestStatusBarUnlockedHealthBarComment", "Voici 100 points de vie pour vous. Ils vont vous être utiles.");
-Database.addText("fr.cfgChooseLanguage", "Choisissez la langue :");
-Database.addText("fr.cfgInvertColors", "Inverser les couleurs ?");
 Database.addText("fr.gridItemMainMapName", "La Carte");
 Database.addText("fr.gridItemMainMapDescription", "Carte du monde");
 Database.addText("fr.gridItemPogoStickName", "Bâton sauteur");
@@ -29109,12 +29506,6 @@ Database.addText("fr.lonelyHouseKickBoxResult", "Votre pied vous fait un peu mal
 Database.addText("fr.lonelyHouseAskTheBoxToOpenItselfResult", "...vous parlez à une boîte, vous savez ?");
 Database.addText("fr.lonelyHouseLureTheBoxWithACandyResult", "La boîte n'a pas l'air d'y prêter attention");
 Database.addText("fr.lonelyHouseTakeTheBoxResult", "Il y a probablement quelque chose d'intéressant dans cette candy box.");
-Database.addText("fr.lollipopFarmConstructMill", "Construire un moulin (10 000 sucettes)");
-Database.addText("fr.lollipopFarmFeedMill", "Nourrir le moulin");
-Database.addText("fr.lollipopFarmCurrentCandiesProduction", "Production actuelle de bonbons");
-Database.addText("fr.lollipopFarmDigPond", "Creuser un bassin (100 000 sucettes)");
-Database.addText("fr.lollipopFarmBuyLolligator", "Acheter un lolligator (1200 bonbons)");
-Database.addText("fr.lollipopFarmLolligatorsConversionText", "Conversion bonbons -> sucettes activée");
 Database.addText("fr.lighthouseAskButton", "Demander");
 Database.addText("fr.lighthouseQuestionWho", "Qui êtes-vous ?");
 Database.addText("fr.lighthouseQuestionWhoSpeech", "Je suis un très vieux cyclope.");
@@ -29246,6 +29637,39 @@ Database.addText("fr.talkingCandySpeech1", "Hey ! Je suis le bonbon qui parle. B
 Database.addText("fr.talkingCandySpeech2", "C'est fait ! Tu peux y entrer maintenant. J'espère que tu as aimé le jeu :)");
 Database.addText("fr.talkingCandyButton", "Oui !!");
 Database.addText("fr.lighthousePuzzleResetButton", "Recommencer");
+Database.addText("fr.youhave", "Tu as");
+Database.addText("fr.healthy.candySingular", "radis");
+Database.addText("fr.healthy.candyPlural", "radis");
+Database.addText("fr.healthy.candyMini", "rd");
+Database.addText("fr.healthy.lollipopSingular", "carotte");
+Database.addText("fr.healthy.lollipopPlural", "carottes");
+Database.addText("fr.healthy.lollipopMini", "ct");
+Database.addText("fr.healthy.chocolateBarSingular", "navet");
+Database.addText("fr.healthy.chocolateBarPlural", "navets");
+Database.addText("fr.healthy.chocolateBarMini", "nv");
+Database.addText("fr.healthy.painChocolatSingular", "céleri");
+Database.addText("fr.healthy.painChocolatPlural", "céleris");
+Database.addText("fr.healthy.painChocolatMini", "cl");
+Database.addText("fr.lollipopFarmConstructMill", "Construire un moulin (10 000 sucettes)");
+Database.addText("fr.lollipopFarmFeedMill", "Nourrir le moulin");
+Database.addText("fr.lollipopFarmCurrentCandiesProduction", "Production actuelle de bonbons");
+Database.addText("fr.lollipopFarmDigPond", "Creuser un bassin (100 000 sucettes)");
+Database.addText("fr.lollipopFarmBuyLolligator", "Acheter un lolligator (1200 bonbons)");
+Database.addText("fr.lollipopFarmLolligatorsConversionText", "Conversion bonbons -> sucettes activée");
+Database.addText("hu.cauldron.page0", "Főzési útmutató");
+Database.addText("hu.cauldron.page1", "Összefoglaló / 2. oldal : Gyógyító ital / 3. oldal : Teknős ital / 4.-5. oldal : Anti-gravitációs ital / 6.-7. oldal : Őrjítő ital / 8.-9. oldal : A P ital / 10.-11. oldal : Az X ital");
+Database.addText("hu.cauldron.page2", "Gyógyító ital / A gyógyító italt a legkönnyebb kifőzni, de tényleg. Csak cukorka kell hozzá. A küldetések közben felgyógyít téged 100 életerő ponttal. / Elkészítés : - Rakj 100 cukorkát az üstbe - Keverd pár másodpercig - Rakd bele üvegekbe / Akárcsak a többi italnál, ennek mennyiségét is többszörözheted. Például ha 300 cukorkát használsz 100 helyett, akkor 3 életerő italt fogsz kapni.");
+Database.addText("hu.cauldron.page3", "Teknős ital / A teknős italt egy kicsit nehezebb elkészíteni, mint a gyógyító italt. Ehhez cukorkákra és nyalókákra is szükséged lesz. / Ha ezt megiszod egy küldetés közben, akkor teknőssé változol. Lassabban fogsz mozogni, de ugyanakkor jobban ellenállsz majd az ellenség támadásainak. / Elkészítés : - Rakj 50 cukorkát az üstbe - Adj hozzá 500 nyalókát - Keverd meg több vagy kevesebb mint 10 másodpercig - Hagyd abba a keverést - Adj hozzá 50 cukorkát - Keverd meg újra egy pár pillanatig - Rakd bele üvegekbe / És most jön a legfontosabb, amit nem feledhetsz el : Ha teknősbéka lettél, NEHOGY felfordulj. Nem fogsz tudni felkelni.");
+Database.addText("hu.cauldron.page4", "Anti-gravitációs ital / Ez az ital, amit a híres Isaac varázsló talált fel, ellenállóvá tesz téged pár másodpercre a Föld gravitációs erejének. / Nagyon hasznos lehet egy ugrás után (ha nem tudsz ugrani, akkor jobban teszed, ha sürgősen beszerzel egy pogo rudat). / Nem könnyű elkészíteni, mivel fel kell hevíteni az üstöt, és figyelemmel kell kísérni a hőmérsékletét. / Elkészítés : - Rakj 1000 cukorkát az üstbe - Hevítsd fel, amíg langyos nem lesz - Hagyd abba a melegítését - Adj hozzá 1000 cukorkát - Hevítsd addig az üstöt, amíg el nem kezd forrni benne a víz - Rakd bele üvegekbe");
+Database.addText("hu.cauldron.page5", "Anti-gravitációs ital : példa a használatra / \"Átrepül a szakadék felett\" / *megissza az italt*");
+Database.addText("hu.cauldron.page6", "Őrjítő ital / Az őrjítő ital egy őrült harcossá változtat téged. / A hátránya az, hogy elhasználja a fél életerődet. / Az előnye viszont, hogy kétszer többet fogsz sebezni pár másodpercig! / A kifőzése nagyon egyszerű, de rengeteg nyalókába kerül. / Itt az elkészítése : - Rakj 20 000 nyalókát az üstbe - Addig keverd őket, amíg bele nem fájdul a karod - Rakd bele üvegekbe");
+Database.addText("hu.cauldron.page7", "Fontos tudnivaló az őrjítő itallal kapcsolatban / NE adj hozzá cukorkát az ital kifőzése közben. / Komolyan, egyet se. / De tényleg. / Az eredmény váratlan lehet.");
+Database.addText("hu.cauldron.page8", "A P ital / A P ital eléggé fura. Sose tudhatod, hogy mit fog csinálni. Felgyógyíthat, vagy sebezhet is téged, erősebbé vagy gyengébbé válhatsz, vagy akár valakivé (valamivé?) változtathat. / És nehéz kifőzni! / Elkészítés : - Rakj 500 cukorkát az üstbe - Keverd pár másodpercig - Hagyd abba a keverést - Rakj százszor annyi cukorkát az üstbe, mint amennyi ideig keverted. Tehát ha 4 másodpercen át keverted, akkor 400 cukorkára lesz szükséged. Ezt a mennyiséget ne szorozd be, még akkor sem, ha több mint egy italt szeretnél kifőzni. - Hevítsd fel a vizet, amíg langyos nem lesz - Hagyd abba a melegítését - Adj hozzá pár nyalókát - Keverd meg - Rakd bele üvegekbe!");
+Database.addText("hu.cauldron.page9", "Hogy kihasználd a P italt / Sok szabály van, amit követhetsz, hogy jobb eredményt kapj a P ital elfogyasztásakor. Habár ezen szabályokat empirikusan kell értelmezni, úgy tűnik egész jól működnek. / - Minél töbhet fogyasztasz el a P italból, annál furább hatásokat kaphatsz. / - Ha kevés az életerőd, akkor talán meg kellene innod egy P italt. / - Azon állatok amik P italt fogyasztanak általában nagyon rosszul reagálnak rá.");
+Database.addText("hu.cauldron.page10", "Az X ital / Az X ital egy legenda. Állítólag bárkinek is sikerül kifőznie és meginnia ezt, az eljutna egy olyan helyre ahol még senki se járt azelőtt. / Nem tudom, hogy ez most tényleg legenda vagy sem, de leírok róla mindent ebbe a könyvbe, amit csak tudok róla. / Az X italt rengeteg régi legendában és alkímiai könyvben megemlítik. Itt egy összegzés az információkról, amik segítségével talán te magad is kifőzheted. Sok szerencsét! / - Állítólag 5 lépés kell az X ital elkészítéséhez. / - Állítólag nem kell nyalókát használni, kivéve az egyik lépéshez. / - Állítólag a többi itallal ellentétben az X italból nem lehet egyszerre többet készíteni.");
+Database.addText("hu.cauldron.page11", "- Végezetül ezt a mondókát szokták felhozni az X itallal kapcsolatban : / Az első napon egy nagyon Édes dolognak adott életet. De odakint hideg volt. / A második napon az Édeset odaadta egy apának. De odakint hideg volt. / A harmadik napon az Édeset odaadta egy testvérnek. De odakint hideg volt. / A negyedik napon az Édeset odaadta egy barátnak. De odakint hideg volt. / Az ötödik napon az Édeset odaadta egy szeretőnek, és egyszerűnek, vagy butának tűnhet, de az Édes most boldog volt, és odakint forróság volt.");
+Database.addText("hu.cfgChooseLanguage", "Válassz nyelvet :");
+Database.addText("hu.cfgInvertColors", "Megfordítod a színeket?");
 Database.addText("hu.mapVillageComment", "A falu");
 Database.addText("hu.mapFortressComment", "A sivatagi erőd");
 Database.addText("hu.mapATreeComment", "Egy fa");
@@ -29306,8 +29730,6 @@ Database.addText("hu.candyBoxRequestStatusBarUnlockedCfgComment1", "Mostantól e
 Database.addText("hu.candyBoxRequestStatusBarUnlockedCfgComment2", "Megváltoztathatod a játék nyelvét, ha akarod.");
 Database.addText("hu.candyBoxRequestStatusBarUnlockedSaveComment", "Hirtelen felbukkant egy mentés fül!");
 Database.addText("hu.candyBoxRequestStatusBarUnlockedHealthBarComment", "Itt van 100 életerő pont. Nagyon hasznosak lesznek.");
-Database.addText("hu.cfgChooseLanguage", "Válassz nyelvet :");
-Database.addText("hu.cfgInvertColors", "Megfordítod a színeket?");
 Database.addText("hu.gridItemMainMapName", "A térkép");
 Database.addText("hu.gridItemMainMapDescription", "Egy térkép a világról");
 Database.addText("hu.gridItemPogoStickName", "Pogo rúd");
@@ -29454,12 +29876,6 @@ Database.addText("hu.lonelyHouseKickBoxResult", "A lábad megfájdult egy kicsit
 Database.addText("hu.lonelyHouseAskTheBoxToOpenItselfResult", "...ugye tudod, hogy most egy ládához beszélsz?");
 Database.addText("hu.lonelyHouseLureTheBoxWithACandyResult", "Úgy tűnik, hogy ez a ládát nem érdekli");
 Database.addText("hu.lonelyHouseTakeTheBoxResult", "Úgy tűnik van valami érdekes ebben a candy box-ban.");
-Database.addText("hu.lollipopFarmConstructMill", "Építs egy malmot (10 000 nyalóka)");
-Database.addText("hu.lollipopFarmFeedMill", "Töltsd fel a malmot");
-Database.addText("hu.lollipopFarmCurrentCandiesProduction", "Jelenlegi cukorka gyártás");
-Database.addText("hu.lollipopFarmDigPond", "Áss egy tavat (100 000 nyalóka)");
-Database.addText("hu.lollipopFarmBuyLolligator", "Vegyél egy lolligátort (1200 cukorka)");
-Database.addText("hu.lollipopFarmLolligatorsConversionText", "Átalakítás cukorkából -> nyalókába aktiválva");
 Database.addText("hu.lighthouseAskButton", "Kérdezz");
 Database.addText("hu.lighthouseQuestionWho", "Te meg ki vagy?");
 Database.addText("hu.lighthouseQuestionWhoSpeech", "Én egy nagyon öreg küklopsz vagyok.");
@@ -29591,6 +30007,26 @@ Database.addText("hu.talkingCandySpeech1", "Hé! Én vagyok a beszélő cukorka.
 Database.addText("hu.talkingCandySpeech2", "Kész! Most már beléphetsz. Remélem tetszett a játék :)");
 Database.addText("hu.talkingCandyButton", "Igen!!");
 Database.addText("hu.lighthousePuzzleResetButton", "Újrakezd");
+Database.addText("hu.lollipopFarmConstructMill", "Építs egy malmot (10 000 nyalóka)");
+Database.addText("hu.lollipopFarmFeedMill", "Töltsd fel a malmot");
+Database.addText("hu.lollipopFarmCurrentCandiesProduction", "Jelenlegi cukorka gyártás");
+Database.addText("hu.lollipopFarmDigPond", "Áss egy tavat (100 000 nyalóka)");
+Database.addText("hu.lollipopFarmBuyLolligator", "Vegyél egy lolligátort (1200 cukorka)");
+Database.addText("hu.lollipopFarmLolligatorsConversionText", "Átalakítás cukorkából -> nyalókába aktiválva");
+Database.addText("id.cauldron.page0", "Buku petunjuk membuat obat (potion)");
+Database.addText("id.cauldron.page1", "Rangkuman / Halaman 2 : Obat kesehatan / Halaman 3 : Obat kura-kura / Halaman 4-5 : Obat anti-gravitasi / Halaman 6-7 : Obat pengamuk / Halaman 8-9 : Obat P / Halaman 10-11 : Obat X");
+Database.addText("id.cauldron.page2", "Obat kesehatan / Obat kesehatan ini adalah salah satu obat yang mudah untuk dibuat, sungguh. Obat ini hanya memerlukan permen. Digunakan di pencarian (quest), obat ini akan menyembuhkanmu dengan memberimu kembali 100 poin nyawa. / Petunjuk : - Taruh 100 permen di kualimu - Aduk selama beebrapa detik - Taruh di botol / Seperti oabt lainnya, kamu dapat melipatgandakan jumlahnya. Contohnya, jika kamu tidak menggunakan 100 permen, melainkan 300 permen, kamu akan mendapatkan 3 obat kesehatan.");
+Database.addText("id.cauldron.page3", "Obat kura-kura / Obat kura-kura sedikit lebih sulit untuk dibuat dibandingkan obat kesehatan. Kamu akan membutuhkan permen dan lollipop. / Jika kamu meminum obat ini dalam pencarian (quest), obat ini akan membuatmu menjadi kura-kura. Kamu akan bergerak lebih lambat, tapi kamu juga dapat lebih bertahan terhadap serangan musuhmu. / Petunjuk : - Taruh 50 permen dalam kuali - Tambahkan 500 lollipop kedalam kualimu - Aduk selama kurang lebih 10 detik - Berhenti mengaduk - Tambahkan 50 permen - Aduk lagi selama beberapa detik - Taruh ke botol / Dan sekarang hal paling penting yang seharusnya kamu tidak lupa : sekali kamu menjadi kura-kura, JANGAN membalik. Kamu tidak akan dapat bangun.");
+Database.addText("id.cauldron.page4", "Obat anti-gravitasi / Obat ini, yang ditemukan oleh tukang sihir terkenal Isaac, memungkinkan kamu bertahan dari tarikan gravitasi bumi selama beberapa detik. / Obat ini berguna khususnya setelah melompat (jika kamu tidak dapat melompat, kamu harus mempertimbangkan mendapatkan sebuah tongkat pogo). / Obat ini tidak mudah untuk dibuat, kamu butuh memanaskan kualimu dan memperhatikan suhunya dengan hati-hati. / Petunjuk : - Taruh 1000 permen di kualimu - Panaskan sampai airnya hangat-hangat kuku - Berhenti memanaskan - Tambahkan 1000 permen - Panaskan tinggal airnya mendidih - Taruh ke botol");
+Database.addText("id.cauldron.page5", "Obat anti-gravitasi : contoh penggunaan / \"Melayang diatas sebuah celah\" / *meminum obatnya*");
+Database.addText("id.cauldron.page6", "Obat pemberontak / Obat pemberontak ini mengubah kamu menjadi pemberontak. / Kekurangannya adalah obat ini menghabiskan setengah dari nyawamu. / Keuntungannya adalah obat ini melipatgandakan seranganmu selama beberapa detik! / Membuat obat ini sangat sederhana, tapi kamu akan membutuhkan banyak lollipop. / Ini adalah petunjuknya : - Taruh 20 000 lollipop di kualimu - Aduk sampai lenganmu kesakitan - Taruh ke botol");
+Database.addText("id.cauldron.page7", "Pemberitahuan penting seputar obat pemberontak / JANGAN menambahkan permen ketika membuat obat ini. / Maksud saya, sebuah pun. / Sungguh. / Hasilnya akan tidak terduga.");
+Database.addText("id.cauldron.page8", "Obat P / Obat P adalah obat yang aneh. Kamu tidak dapat memprediksikan apa yang akan dilakukan obat ini. Obat ini dapat menyembuhkan atau menyerangmu, membuatmu lebih kuat atau lebih lemah, atau bahkan mengubahmu menjadi seseorang (sesuatu?) yang lain. / Dan obat ini juga sulit untuk dibuat! / Petunjuk : - Taruh 500 permen di kualimu - Aduk selama beberapa detik - Berhenti mengaduk - Tambahkan 100 kali lebih banyak permen dari waktu kamu mengaduk. Contohnya jika kamu mengaduk selama 4 detik, kamu harus menambahkan 400 permen. Jangan melipatgandakan jumlah ini, bahkan jika kamu ingin membuat lebih dari satu obat. - Panaskan sampai airnya hangat-hangat kuku - Berhenti memanaskan - Tambahkan beberapa lollipop - Aduk - Taruh ke botol!");
+Database.addText("id.cauldron.page9", "Gunakan obat P sebaik-baiknya / Ada beberapa aturan yang dapat kamu ikuti untuk mendapatkan hasil yang lebih baik ketika meminum obat P. Walaupun aturan-aturan ini dijelaskan empirically, tampaknya mereka bekerja cukup baik. / - Semakin banyak kamu menggunakan obat P, mereka tampaknya mempunyai efek yang aneh. / - Jika nyawamu sangat rendah, mungkin kamu harus minum obat P. / - Binatang yang meminum obat P tampaknya bereaksi dengan cara yang sangat buruk.");
+Database.addText("id.cauldron.page10", "Obat X / Obat X adalah obat yang legendaris. Katanya siapapun yang dapat membuat dan meminum obat ini akan pergi ke suatu tempat yang belum pernah dikunjungi siapapun. / Saya tidak tahu kalau obat ini legendaris atau tidak, tapi saya akan menulis semua yang saya ketahui di buku ini. / Obat X sering disebut di banyak buku legenda tua dan buku alkimia. Ini adalah ringkasan dari informasi yang dapat membantumu membuatmu. Semoga sukses! / - Katanya ada 5 langkah yang perlu dilakukan untuk membuat obat X. / - Katanya tidak ada lollipop yang dibutuhkan, kecuali dalam salah satu lengkahnya. / - Katanya, tidak seperti obat-obat lain, kamu tidak dapat membuat lebih dari satu obat X dalam satu kali.");
+Database.addText("id.cauldron.page11", "- Akhirnya, puisi ini sering dikutip di bagian obat X : / Pada hari pertama, dia melahirkan Penganan yang paling pertama. Tapi diluar dingin. / Pada hari kedua, dia memberikan Penganan tersebut ayah. Tapi diluar dingin. / Pada hari ketiga, dia memberikan Penganan tersebut saudara. Tapi diluar dingin. / Pada hari keempat, dia memberikan Penganan tersebut teman. Tapi diluar dingin. / Pada hari kelima, dia memberikan Penganan tersebut pasangan, dan kedengarannya sederhana atau bodoh, tapi sekarang Penganan tersebut senang, dan diluar panas.");
+Database.addText("id.cfgChooseLanguage", "Pilih bahasa :");
+Database.addText("id.cfgInvertColors", "Balikkan warna?");
 Database.addText("id.mapVillageComment", "Desa");
 Database.addText("id.mapFortressComment", "Benteng gurun");
 Database.addText("id.mapATreeComment", "Sebuah pohon");
@@ -29651,8 +30087,6 @@ Database.addText("id.candyBoxRequestStatusBarUnlockedCfgComment1", "Kamu sekaran
 Database.addText("id.candyBoxRequestStatusBarUnlockedCfgComment2", "Kamu dapat mengubah bahasanya, jika kamu mau.");
 Database.addText("id.candyBoxRequestStatusBarUnlockedSaveComment", "Tab \"save\" yang liar muncul!");
 Database.addText("id.candyBoxRequestStatusBarUnlockedHealthBarComment", "100 poin nyawa ini untukmu. Mereka akan menjadi berguna.");
-Database.addText("id.cfgChooseLanguage", "Pilih bahasa :");
-Database.addText("id.cfgInvertColors", "Balikkan warna?");
 Database.addText("id.gridItemMainMapName", "Peta");
 Database.addText("id.gridItemMainMapDescription", "Peta dunia");
 Database.addText("id.gridItemPogoStickName", "Tongkat pogo");
@@ -29799,12 +30233,6 @@ Database.addText("id.lonelyHouseKickBoxResult", "Kakimu sedikit kesakitan, tapi 
 Database.addText("id.lonelyHouseAskTheBoxToOpenItselfResult", "...kamu berbicara kepada sebuah kotak, kamu tahu itu?");
 Database.addText("id.lonelyHouseLureTheBoxWithACandyResult", "Tampaknya kotaknya tidak peduli");
 Database.addText("id.lonelyHouseTakeTheBoxResult", "Mungkin ada sesuatu yang menarik di dalam candy box ini.");
-Database.addText("id.lollipopFarmConstructMill", "Banguan sebuah kincir angin (10 000 lollipop)");
-Database.addText("id.lollipopFarmFeedMill", "Sediakan makanan untuk kincir angin");
-Database.addText("id.lollipopFarmCurrentCandiesProduction", "Produksi permen saat ini");
-Database.addText("id.lollipopFarmDigPond", "Gali sebiah kolam (100 000 lollipop)");
-Database.addText("id.lollipopFarmBuyLolligator", "Beli sebuah lolligator (1200 permen)");
-Database.addText("id.lollipopFarmLolligatorsConversionText", "Pengubahan permen -> lollipop diaktifkan");
 Database.addText("id.lighthouseAskButton", "Tanya");
 Database.addText("id.lighthouseQuestionWho", "Siapakah kamu?");
 Database.addText("id.lighthouseQuestionWhoSpeech", "Saya adalah cyclops yang sangat tua.");
@@ -29936,6 +30364,26 @@ Database.addText("id.talkingCandySpeech1", "Hei! Saya adalah permen yang bisa bi
 Database.addText("id.talkingCandySpeech2", "Sudah! Sekarang kamu dapat memasukinya. Saya harap kamu menyukai permainannya :)");
 Database.addText("id.talkingCandyButton", "Iya!!");
 Database.addText("id.lighthousePuzzleResetButton", "Atur ulang");
+Database.addText("id.lollipopFarmConstructMill", "Banguan sebuah kincir angin (10 000 lollipop)");
+Database.addText("id.lollipopFarmFeedMill", "Sediakan makanan untuk kincir angin");
+Database.addText("id.lollipopFarmCurrentCandiesProduction", "Produksi permen saat ini");
+Database.addText("id.lollipopFarmDigPond", "Gali sebiah kolam (100 000 lollipop)");
+Database.addText("id.lollipopFarmBuyLolligator", "Beli sebuah lolligator (1200 permen)");
+Database.addText("id.lollipopFarmLolligatorsConversionText", "Pengubahan permen -> lollipop diaktifkan");
+Database.addText("﻿kr.cauldron.page0", "브루잉 매뉴얼");
+Database.addText("kr.cauldron.page1", "요약 / 2페이지 : 건강 물약 / 3페이지 : 거북 물약 / 4-5페이지 : 반중력 물약 / 6-7페이지 : 버서크 물약 / 8-9페이지 : 물약 / 10-11페이지 : X 물약");
+Database.addText("kr.cauldron.page2", "건강 물약 / 건강 물약은 사실 양조하기 가장 쉬운 것 중 하나야. 캔디만 있으면 돼. 퀘스트에 사용되면 건강포인트 100점을 돌려줌으로써 너를 치유할 수 있어. / 지침 : - 100개의 캔디를 가마솥에 넣고 몇 초 동안 섞는다. - 병에 담는다. / 어떤 물약이든 간에, 물론 그 양을 증식할 수 있어. 예를 들어, 100개 대신에 300개의 캔디를 사용한다면, 3개의 건강 화분을 얻게 될 거야.");
+Database.addText("kr.cauldron.page3", "거북이 물약 / 거북이 물약은 건강 물약보다 양조하기가 조금 어려워. 캔디와 롤리팝이 모두 필요할 거야. / 이 물약을 퀘스트에서 마시면 거북이가 될 거야. 너는 더 느리게 움직일 것이지만, 적들의 공격에 더 저항할 수 있을 거야. / 지침 : - 당신의 가마솥에 50개의 캔디를 넣으세요. - 500개의 롤리팝을 넣으세요. - 10초 이상 섞지 마세요. - 섞지 마세요. - 50개의 캔디를 다시 넣으세요. - 이제 너가 결코 잊지 말아야 할 가장 중요한 것은 : 한 번. 너는 거북이가 될 거야. 절대 뒤집지 마. 일어날 수 없을 거야.");
+Database.addText("kr.cauldron.page4", "반중력약 / 잘 알려진 마법사인 이삭이 발명한 이 물약은 몇 초 동안 지구 중력에 저항할 수 있게 해줘. / 점프 후 특히 유용해. (점프를 할 수 없다면, 포고 막대기를 얻는 것을 진지하게 고려해야 해). / 끓이기 쉽지 않아. 가마솥을 데우고 온도를 잘 지켜봐야 해. / 지침 : - 캔디 1000개를 가마솥에 넣어라. - 물이 미지근해질 때까지 데워라. - 그만 데워라. - 캔디 1000개를 넣고 물이 끓을 때까지 데워라. - 병에 담아라.");
+Database.addText("kr.cauldron.page5", "항중력약 : 사용사례 / \"격차 위로 날아간다\" / *약물 마시기*");
+Database.addText("kr.cauldron.page6", "흥분 물약 / 흥분 물약은 너를 흥분하게 만들어. / 단점은 삶의 절반을 소모한다는 거야. / 단점은 몇 초 동안 피해를 배가시킨다는 거야! / 이 약의 버팀목은 매우 간단하지만, 많은 막대 사탕이 필요할 거야. / 여기 지침이 있다 : - 20 000개의 롤리팝을 가마솥에 섞는다. 당신의 팔이 아프다. - 병에 담아라.");
+Database.addText("kr.cauldron.page7", "흥분 물약에 관한 중요 공지 / 이 물약을 끓일 때 캔디를 넣지 마십시오. / 단 한 개도 넣지 마십시오. / 정말. / 결과는 예상 밖일 겁니다.");
+Database.addText("kr.cauldron.page8", "P 물약 / P 물약은 이상한거야. 너는 그 물약이 무엇을 할 것인지 예측할 수 없어. 그건 너를 치유하거나 손상시킬 수도 있고, 너를 더 강해지거나 약하게 만들 수도 있고, 심지어 너를 누군가로 변화시킬 수도 있어. / 그리고 양조하기도 어려워! / 지침 : - 500개의 캔디를 가마솥에 넣고 - 몇 초 동안 섞고 - 섞지 말고 - 섞은 시간보다 100배 더 넣어라. 예를 들어 4초 동안 섞으면 캔디 400개를 넣어야 한다. 한 가지 이상의 물약을 만들고 싶어도 이 양을 곱하지 마라. - 물이 미지근해질 때까지 가열해라. - 가열하지 마라. - 롤리팝 추가 - 혼합 - 병에 넣어라!");
+Database.addText("kr.cauldron.page9", "P 물약을 잘 사용해. / P 물약을 마실 때 더 좋은 결과를 얻기 위해 따를 수 있는 몇 가지 규칙이 있어. 비록 이런 규칙들이 경험적으로 정의되었지만, 꽤 잘 작동하는 것 같아. / - P 물약을 사용하면 쓸수록 이상한 효과가 있는 것 같아. / - 만약 너의 건강이 매우 낮다면, 아마도 P 물약을 마시는 동물들은 아주 나쁜 방식으로 반응하는 것 같아.");
+Database.addText("kr.cauldron.page10", "X 물약 / X 물약은 전설이야. 가까스로 양조해서 마시는 사람은 아무도 없었던 곳으로 여행을 간다고 해. / 이 물약이 단지 전설인지 아닌지는 모르겠지만, 내가 알고 있는 모든 것을 이 책에 쓸게. / X 물약은 많은 옛 전설과 연금술 책들에서 언급돼. 여기 너가 그것을 끓이는 데 도움이 될 수 있는 정보들의 요약이 있어. 행운을 빌어! / - X 물약을 끓이기 위해서는 5단계가 필요하다고 해. / - 1단계를 제외하고는 롤리팝이 필요하지 않아. / - 다른 약과 달리 여러 개의 X 물약을 한꺼번에 양조할 수 없어.");
+Database.addText("kr.cauldron.page11", "- 마지막으로 X 물약 하면 다음과 같은 시가 인용되는 경우가 많아 : / 첫 날, 바로 첫 번째 단 것을 생성했다. 하지만 밖은 추웠다. / 둘째 날, 단 것에게 아버지를 선물했다. 하지만 밖은 추웠다. / 셋째 날, 단 것에게 형제를 주었다. 하지만 밖은 추웠다. / 나흘째 되던 날 단 것에게 친구를 선물했다. 하지만 밖은 추웠다. / 닷새째 되던 날, 단 것에게 애인을 주었고, 단순하거나 바보같이 들릴지 모르지만, 지금은 단 것은 행복했고, 밖은 더웠다.");
+Database.addText("kr.cfgChooseLanguage", "언어 선택:");
+Database.addText("kr.cfgInvertColors", "색 바꿀래?");
 Database.addText("﻿kr.mapVillageComment", "마을");
 Database.addText("kr.mapFortressComment", "사막의 요새");
 Database.addText("kr.mapATreeComment", "나무");
@@ -29996,8 +30444,6 @@ Database.addText("kr.candyBoxRequestStatusBarUnlockedCfgComment1", "이제 구�
 Database.addText("kr.candyBoxRequestStatusBarUnlockedCfgComment2", "원한다면 언어를 바꿀 수 있어.");
 Database.addText("kr.candyBoxRequestStatusBarUnlockedSaveComment", "그대로 저장할 수 있는 탭이 표시되었어.");
 Database.addText("kr.candyBoxRequestStatusBarUnlockedHealthBarComment", "여기 너를 위한 건강 포인트 100점이 있어. 유용하게 쓰일 거야.");
-Database.addText("kr.cfgChooseLanguage", "언어 선택:");
-Database.addText("kr.cfgInvertColors", "색 바꿀래?");
 Database.addText("kr.gridItemMainMapName", "더 맵");
 Database.addText("kr.gridItemMainMapDescription", "세계의 지도");
 Database.addText("kr.gridItemPogoStickName", "포고 스틱");
@@ -30143,12 +30589,6 @@ Database.addText("kr.lonelyhouseKickBoxResult.", "발은 조금 아프지만 아
 Database.addText("kr.lonelyhouseAskTheBoxToOpenItselfResult.", "...박스에 대고 얘기하는 거 알아?");
 Database.addText("kr.lonelyhouseLureTheBoxWithACandyResult", "그 상자는 신경 쓰지 않는 것 같다.");
 Database.addText("kr.lonelyhouseTakeTheBoxResult", "이 사탕 상자에는 아마 재미있는 것이 있을 것이다.");
-Database.addText("kr.lollipopFarmConstructMill", "제분소를 짓다 (롤리팝 10,000개)");
-Database.addText("kr.lollipopFarmFeedMill", "먹이를 주다");
-Database.addText("kr.lollipopFarmCurrentCandiesProduction", "현재 캔디 생산");
-Database.addText("kr.lollipopFarmDigPond", "연못을 파다 (롤리팝 100,000개)");
-Database.addText("kr.lollipopFarmBuyLoligator", "롤리게이터 구매 (캔디 1,200개)");
-Database.addText("kr.lollipopFarmLoligatorsConversionText", "캔디 변환 -> 롤리팝 활성화");
 Database.addText("kr.lighthouseAskButton", "물어본다");
 Database.addText("kr.lighthouseQuestionWho", "당신은 누구시죠?");
 Database.addText("kr.lighthouseQuestionWhoSpeech", "나는 아주 늙은 사이클로인이다.");
@@ -30279,6 +30719,32 @@ Database.addText("kr.talkingCandySpeech1", "내가 말하는 사탕이야 축하
 Database.addText("kr.talkingCandySpeech2", "완료. 이제 입력 가능해. 게임을 좋아했으면 좋겠어 :)");
 Database.addText("kr.talkingCandyButton", "응.");
 Database.addText("kr.lighthousePuzzleResetButton", "재설정");
+Database.addText("kr.lollipopFarmConstructMill", "제분소를 짓다 (롤리팝 10,000개)");
+Database.addText("kr.lollipopFarmFeedMill", "먹이를 주다");
+Database.addText("kr.lollipopFarmCurrentCandiesProduction", "현재 캔디 생산");
+Database.addText("kr.lollipopFarmDigPond", "연못을 파다 (롤리팝 100,000개)");
+Database.addText("kr.lollipopFarmBuyLoligator", "롤리게이터 구매 (캔디 1,200개)");
+Database.addText("kr.lollipopFarmLoligatorsConversionText", "캔디 변환 -> 롤리팝 활성화");
+Database.addText("﻿nl.cauldron.page0", "Handleiding voor brouwen");
+Database.addText("nl.cauldron.page1", "Overzicht / Pagina 2 : Levensdrankje / Pagina 3 : Schildpaddrankje / Pagina's 4-5 : Anti-zwaartekracht drankje/ Pagina's 6-7 : Dolzinnig drankje / Pagina's 8-9 : Het P drankje / Pagina's 10-11 : Het X drankje");
+Database.addText("nl.cauldron.page2", "Levensdrankje / Het levensdrankje is één van de makkelijkste te brouwen, echt. Het vereist alleen snoepjes. Bij gebruik in zoektochten herstelt het 100 levenspunten. / Instructies : - Plaats 100 snoepjes in je ketel - Mix voor een paar seconden - Stop het in flesjes / Net zoals voor elk ander drankje, kan je natuurlijk de aantallen vermenigvuldigen. Als je bijvoorbeeld 300 snoepjes in plaats van 100 gebruikt, krijg je 3 levensdrankjes.");
+Database.addText("nl.cauldron.page3", "Schildpaddrankje / Het schildpaddrankje is iets moeilijker te brouwen dan het levensdrankje. Je hebt snoepjes en lollies nodig. / Als je dit drankje drinkt tijdens een zoektocht, veranderd het je in een schildpad. Je loopt langzamer, maar je bent ook beter bestand tegen aanvallen van je vijanden. / Instructies : - Plaats 50 snoepjes in je ketel - Voeg 500 lollies toe - Mix voor ongeveer 10 seconden - Stop met mixen - Voeg 50 snoepjes toe - Mix weer voor een paar seconden - Stop in flesjes / En nu het meest belangrijke dat je niet moet vergeten : Draai niet op je rug wanneer je een schildpad bent. Je kunt dan niet meer overeind komen.");
+Database.addText("nl.cauldron.page4", "Anti-zwaartekracht drankje / Dit drankje, dat uitgevonden is door de beroemde tovenaar Isaac, maakt het mogelijk om de zwaartekracht van de aarde te negeren voor een paar seconden. / Het is vooral nuttig na het springen (als je niet kan springen moet je echt overwegen om een pogostick te halen). / Het is niet heel makkelijk om te brouwen, je moet je ketel opwarmen en goed de temperatuur in de gaten houden. / Instructies : - Stop 1000 snoepjes in je ketel - Warm op tot het water lauw is - Stop met opwarmen - Voeg 1000 snoepjes toe - Warm het water op tot het kookt - Stop het in flesjes");
+Database.addText("nl.cauldron.page5", "Anti-zwaartekracht drankje : Gebruikersvoorbeeld / \"Vlieg boven een gat\" / *Drinkt het drankje*");
+Database.addText("nl.cauldron.page6", "Dolzinnig drankje / Het dolzinnig drankje transformeert je in een berserker. / Het nadeel is dat het de helft van je levens punten opneemt. / Het voordeel is dat het je kracht verdubbelt voor een paar seconden! / Het brouwen van dit drankje is heel makkelijk, maar je hebt veel lollies nodig. / Hier zijn de instructies : - Stop 20 0000 lollies in je ketel - Mix ze tot je armen er pijn van doen -  Stop het in flesjes");
+Database.addText("nl.cauldron.page7", "Belangrijke notitie omtrent het dolzinnig drankje / Voeg GEEN snoepjes toe tijdens het brouwen van dit drankje / Ik bedoel, geen enkele. / Serieus / De resultaten zullen onverwacht zijn. en.cauldron.page8");
+Database.addText("nl.cauldron.page8", "Het P drankje / Het P drankje is een vreemd drankje. Je kan niet voorspellen wat het doet. Het kan je levenspunten geven of juist afnemen, het kan je sterker of zwakker maken, of het kan je veranderen in iemand (iets?) anders. / En het is ook nog eens moeilijk te brouwen! / Instructies : - Stop 500 snoepjes in je ketel - Mix voor een paar seconden - Stop met mixen - Voeg 100 keer zoveel snoepjes toe als het aantal seconden dat je hebt gemixt. Als je bijvoorbeeld 4 seconden hebt gemixt, moet je 400 snoepjes toevoegen. Verdubbel dit aantal niet, ook niet als je meer dan één drankje wil maken - Warm het water op tot het lauw is - Stop met opwarmen - Voeg wat lollies toe - Mix - Stop het in flesjes!");
+Database.addText("nl.cauldron.page9", "Maak goed gebruik van het P drankje / Er zijn een paar regels die je kunt volgen om betere resultaten te krijgen wanneer je het P drankje drinkt. Hoewel deze regels empirisch werden gedefinieerd, lijken ze vrij goed te werken. / - Hoe meer je het P drankje gebruikt, hoe meer het lijkt alsof ze vreemde effecten hebben. / - Als je levenspunten heel laag zijn, zou je waarschijnlijk een P drankje moeten drinken. / - Dieren die het P drankje drinken lijken er zeer slecht op te reageren.");
+Database.addText("nl.cauldron.page10", "Het X drankje / Het X drankje is een legende. Er wordt gezegd dat degene die dit drankje brouwt en drinkt zal reizen naar een plek waar nog nooit iemand is geweest. / Ik weet niet of dit drankje gewoon een legende is of niet, maar ik zal in dit boek alles schrijven wat ik er van weet. / Het X drankje wordt genoemd in veel oude legendes en alchemieboeken. Hier is een overzicht van die informatie die je misschien kan helpen bij het brouwen. Succes! / - Er wordt gezegd dat er 5 stappen nodig zijn voor het brouwen van het X drankje. / - Er wordt gezegd dat er geen lollies nodig zijn, behalve bij één van de stappen. / - Er wordt gezegd dat, in tegenstelling tot andere drankjes, je niet meerdere X drankjes tegelijk kan maken.");
+Database.addText("nl.cauldron.page11", "- Tenslotte wordt het volgende gedicht vaak geciteerd als het over het X drankje gaat : / Op de eerste dag, gaf het geboorte aan het eerste Zoet. Maar het was koud buiten. / Op de tweede dag, gaf het het Zoet een vader. Maar het was koud buiten. / Op de derde dag, gaf het het Zoet een broer. Maar het was koud buiten. / Op de vierde dag, gaf het het Zoet een vriend. Maar het was koud buiten. / Op de vijfde dag, gaf het het Zoet een geliefde, en het klinkt misschien simpel en dom, maar nu was het Zoet gelukkig, en was het warm buiten.");
+Database.addText("nl.cfgChooseLanguage", "Kies je taal:");
+Database.addText("nl.cfgInvertColors", "Kleuren omkeren?");
+Database.addText("nl.lollipopFarmConstructMill", "Bouw een molen(10 000 lollies)");
+Database.addText("nl.lollipopFarmFeedMill", "Voed de molen");
+Database.addText("nl.lollipopFarmCurrentCandiesProduction", "Huidige snoepjesproductie");
+Database.addText("nl.lollipopFarmDigPond", "Graaf een vijver (100 000 lollies)");
+Database.addText("nl.lollipopFarmBuyLolligator", "Koop een lolliegator (1200 snoepjes)");
+Database.addText("nl.lollipopFarmLolligatorsConversionText", "Snoepjes omkeer -> lollies geactiveerd");
 Database.addText("﻿nl.mapVillageComment", "Het Dorp");
 Database.addText("nl.mapFortressComment", "De woestijnvesting");
 Database.addText("nl.mapATreeComment", "Een boom");
@@ -30339,8 +30805,6 @@ Database.addText("nl.candyBoxRequestStatusBarUnlockedCfgComment1", "Je hebt nu t
 Database.addText("nl.candyBoxRequestStatusBarUnlockedCfgComment2", "Je kan de taal veranderen als je wilt.");
 Database.addText("nl.candyBoxRequestStatusBarUnlockedSaveComment", "Een wilde opslaan-tab verschijnt!");
 Database.addText("nl.candyBoxRequestStatusBarUnlockedHealthBarComment", "Hier zijn 100 levenspunten voor je. Ze zullen goed van pas komen.");
-Database.addText("nl.cfgChooseLanguage", "Kies je taal:");
-Database.addText("nl.cfgInvertColors", "Kleuren omkeren?");
 Database.addText("nl.gridItemMainMapName", "De kaart");
 Database.addText("nl.gridItemMainMapDescription", "Kaart van de wereld");
 Database.addText("nl.gridItemPogoStickName", "Pogostick");
@@ -30487,12 +30951,6 @@ Database.addText("nl.lonelyHouseKickBoxResult", "Je voet doet een beetje zeer, m
 Database.addText("nl.lonelyHouseAskTheBoxToOpenItselfResult", "...je praat tegen een doos, weet je dat?");
 Database.addText("nl.lonelyHouseLureTheBoxWithACandyResult", "Het lijkt alsof het de doos niks uitmaakt");
 Database.addText("nl.lonelyHouseTakeTheBoxResult", "Er zit waarschijnlijk iets interessants in deze candy box");
-Database.addText("nl.lollipopFarmConstructMill", "Bouw een molen(10 000 lollies)");
-Database.addText("nl.lollipopFarmFeedMill", "Voed de molen");
-Database.addText("nl.lollipopFarmCurrentCandiesProduction", "Huidige snoepjesproductie");
-Database.addText("nl.lollipopFarmDigPond", "Graaf een vijver (100 000 lollies)");
-Database.addText("nl.lollipopFarmBuyLolligator", "Koop een lolliegator (1200 snoepjes)");
-Database.addText("nl.lollipopFarmLolligatorsConversionText", "Snoepjes omkeer -> lollies geactiveerd");
 Database.addText("nl.lighthouseAskButton", "Vraag");
 Database.addText("nl.lighthouseQuestionWho", "Wie ben jij?");
 Database.addText("nl.lighthouseQuestionWhoSpeech", "Ik ben een hele oude cycloop.");
@@ -30624,6 +31082,26 @@ Database.addText("nl.talkingCandySpeech1", "He!, Ik ben het pratende snoepje. Je
 Database.addText("nl.talkingCandySpeech2", "Klaar! Je kunt er nu in. Ik hoop dat je het spel leuk vond :)");
 Database.addText("nl.talkingCandyButton", "Ja!!");
 Database.addText("nl.lighthousePuzzleResetButton", "Reset");
+Database.addText("pl.cauldron.page0", "Instrukcja warzenia mikstur");
+Database.addText("pl.cauldron.page1", "Spis treści / Strona 2 : Mikstura zdrowia / Strona 3 : Mikstura żółwia / Strony 4-5 : Mikstura anty-grawitacyjna / Strony 6-7 : Mikstura szału / Strony 8-9 : Mikstura P / Strony 10-11 : Mikstura X");
+Database.addText("pl.cauldron.page2", "Mikstura zdrowia / Mikstura zdrowia jest to najłatwiejsza mikstura do zrobienia. Do jej zrobienia potrzebujesz tylko cukierków. Użyta w zadaniach, uleczy cię, przywracając ci 100 punktów zdrowia. / Instrukcje : - Wrzuć 100 cukierków do kotła - Mieszaj przez parę sekund - Wlej do butelek / Tak jak w przypadku każdej mikstury, możesz pomnożyć ilość składników. Na przykład, jeśli wrzucisz 300 cukierków zamiast 100, uzyskasz 3 mikstury zdrowia.");
+Database.addText("pl.cauldron.page3", "Mikstura żółwia / Mikstura żółwia jest trochę trudniejsza do przygotowania niż mikstura zdrowia. Tym razem będziesz potrzebował i cukierków i lizaków. / Jeśli wypijesz tę miksturę w trakcie zadania, zamieni cię ona w żółwia. Będziesz poruszał się wolniej ale będziesz także o wiele bardziej odporny na ataki nieprzyjaciół. / Instrukcje : -  Wrzuć 50 cukierków do kotła - Dodaj 500 lizaków - mieszaj przez około 10 sekund - Przestań mieszać - Dodaj 50 cukierków - Pomieszaj jeszcze przez parę sekund - Wlej do butelek / I teraz najważniejsza rzecz o której nie możesz zapomnieć : gdy już zamienisz się w żółwia, NIE obracaj się na plecy. Nie będziesz w stanie się podnieść.");
+Database.addText("pl.cauldron.page4", "Mikstura anty-grawitacyjna / Ta mikstura, wynaleziona przez dobrze znanego czarodzieja Isaaca, pozwala ci oprzeć się przyciąganiu grawitacyjnemu Ziemi przez parę sekund / Jest  szczególnie użyteczny po skoku ( jeśli nie możesz skakać, powinieneś zastanowić się nad zdobyciem sprężynowego urządzenia do podskakiwania) / Nie jest łatwo go uwarzyć, będziesz musiał podgrzać swój kocioł i dokładnie obserwować jego temperaturę / Instrukcje : - Wrzuć 1000 cukierków do kotła - Podgrzewaj dopóki woda nie stanie się letnia (lukewarm) - Przestań podgrzewać - Dodaj 1000 cukierków - Podgrzewaj aż woda będzie wrzeć (BOILING) - Wlej do butelek");
+Database.addText("pl.cauldron.page5", "Mikstura Anty-grawitacyjna : przykład użycia / \"Przeleć nad dziurą\" / *wypija miksturę*");
+Database.addText("pl.cauldron.page6", "Mikstura szału / Mikstura szału zamieni cię w berserkera. / Wadą jest to, że zabierze to połowę twoich punktów zdrowia. / Zaletą jest to że podwoi ona zadawane przez ciebie obrażenia na parę sekund! / ugotowanie tej mikstury jest bardzo proste, ale będziesz potrzebował dużej ilości lizaków. / Oto instrukcje : - Wrzuć 20 000 lizaków do kotła - Mieszaj dopóki nie rozbolą cię ręce - Wlej do butelek");
+Database.addText("pl.cauldron.page7", "Ważna informacja dotycząca mikstury berserkera / NIE dodawaj ŻADNYCH cukierków w trakcie warzenia tej mikstury! / Nawet jednego. / Naprawdę. / Rezultaty mogły by być nieoczekiwane.");
+Database.addText("pl.cauldron.page8", "Mikstura P / Mikstura P jest dziwna. Nie jesteś w stanie przewidzieć co zrobi. Może cię uleczy, może cie skrzywdzi, może sprawi że będziesz silniejszy, albo słabszy. Może cię nawet zamienić w kogoś (coś?) innego. / Ciężko ją stworzyć! / Instrukcje : - Wrzuć 500 cukierków do kotła - Mieszaj przez parę sekund - Przestań mieszać - Dodaj 100 razy więcej cukierków niż ilość sekund przez którą mieszałeś. Na przykład, jeśli mieszałeś przez 4 sekundy, dodaj 400 cukierków. Nie zwiększaj tej ilości jeśli chcesz stworzyć więcej niż jedną miksturę. - Podgrzewaj dopóki woda nie stanie się letnia (lukewarm) - Przestań podgrzewać - Dodaj trochę lizaków - Pomieszaj - Wlej do butelek!");
+Database.addText("pl.cauldron.page9", "Zrób dobry użytek z mikstury P / Jest parę zasad których możesz przestrzegać aby uzyskać lepsze rezultaty kiedy pijesz tę miksturę. Pomimo tego że te zasady były określone doświadczalnie, wydają się działać całkiem dobrze. / - Im częściej będziesz używać mikstur P, tym częściej będzie ona miała dziwne efekty. / - Jeśli masz bardzo mało punktów życia, to wypicie mikstury P jest prawdopodobnie dobrym pomysłem. / - Zwierzęta które wypiją miksturę P zdają się reagować w bardzo zły sposób.");
+Database.addText("pl.cauldron.page10", "Mikstura X /  Mikstura X to legenda. Mówi się, że komukolwiek uda się ją stworzyć i wypić, ten przeniesie się do miejsca gdzie jeszcze nikt nie był / Nie wiem czy ta mikstura to tylko legenda czy nie, ale napiszę w tej książce wszystko co o niej wiem. / Mikstura X jest wspominana w wielu starych legendach i księgach alchemicznych. Oto podsumowanie informacji które mogą ci pomóc ją stworzyć. Powodzenia! / - Mówi się że trzeba ją stworzyć w pięciu krokach. / - Mówi się że nie potrzebne są żadne lizaki z wyjątkiem jednego z kroków. / - Mówi się że można stworzyć tylko jedną miksturę X na raz.");
+Database.addText("pl.cauldron.page11", "- Ten wiersz jest często cytowany jeśli chodzi o miksturę X : / Pierwszego dnia, urodził się pierwszy Cukierek. Ale na dworze było zimno. / Drugiego dnia, Cukierek dostał ojca. Ale na dworze było zimno. / Trzeciego dnia, Cukierek dostał brata. Ale na dworze było zimno. / Czwartego dnia, Cukierek dostał przyjaciela. Ale na dworze było zimno. / Piątego dnia, Cukierek dostał kochanka, i może brzmi to prymitywnie lub głupawo, ale Cukierek wreszcie był szczęśliwy, a na dworze było gorąco.");
+Database.addText("pl.cfgChooseLanguage", "Wybierz język :");
+Database.addText("pl.cfgInvertColors", "Odwrócić kolory?");
+Database.addText("pl.lollipopFarmConstructMill", "Zbuduj młyn (10 000 lizaków)");
+Database.addText("pl.lollipopFarmFeedMill", "Nakarm młyn");
+Database.addText("pl.lollipopFarmCurrentCandiesProduction", "Bieżąca produkcja cukierków");
+Database.addText("pl.lollipopFarmDigPond", "Wykop staw (100 000 lizaków)");
+Database.addText("pl.lollipopFarmBuyLolligator", "Kup lizakogotora (1200 cukierków)");
+Database.addText("pl.lollipopFarmLolligatorsConversionText", "Zamiana cukierki -> lizaki włączona");
 Database.addText("pl.mapVillageComment", "Wioska");
 Database.addText("pl.mapFortressComment", "Pustynna forteca");
 Database.addText("pl.mapATreeComment", "Drzewo");
@@ -30684,8 +31162,6 @@ Database.addText("pl.candyBoxRequestStatusBarUnlockedCfgComment1", "Masz teraz d
 Database.addText("pl.candyBoxRequestStatusBarUnlockedCfgComment2", "Możesz tam zmienić język jeśli chcesz.");
 Database.addText("pl.candyBoxRequestStatusBarUnlockedSaveComment", "Pojawia się dzika karta zapisu!");
 Database.addText("pl.candyBoxRequestStatusBarUnlockedHealthBarComment", "100 punktów życia dla ciebie. Przydadzą ci się!");
-Database.addText("pl.cfgChooseLanguage", "Wybierz język :");
-Database.addText("pl.cfgInvertColors", "Odwrócić kolory?");
 Database.addText("pl.gridItemMainMapName", "Mapa");
 Database.addText("pl.gridItemMainMapDescription", "Mapa świata");
 Database.addText("pl.gridItemPogoStickName", "Sprężynowe urządzenie do podskakiwania");
@@ -30832,12 +31308,6 @@ Database.addText("pl.lonelyHouseKickBoxResult", "Stopa cię trochę rozbolała, 
 Database.addText("pl.lonelyHouseAskTheBoxToOpenItselfResult", "...wiesz że gadasz do pudełka, prawda?");
 Database.addText("pl.lonelyHouseLureTheBoxWithACandyResult", "Pudełko się nie przejmuje");
 Database.addText("pl.lonelyHouseTakeTheBoxResult", "W tym candy box musi być coś ciekawego.");
-Database.addText("pl.lollipopFarmConstructMill", "Zbuduj młyn (10 000 lizaków)");
-Database.addText("pl.lollipopFarmFeedMill", "Nakarm młyn");
-Database.addText("pl.lollipopFarmCurrentCandiesProduction", "Bieżąca produkcja cukierków");
-Database.addText("pl.lollipopFarmDigPond", "Wykop staw (100 000 lizaków)");
-Database.addText("pl.lollipopFarmBuyLolligator", "Kup lizakogotora (1200 cukierków)");
-Database.addText("pl.lollipopFarmLolligatorsConversionText", "Zamiana cukierki -> lizaki włączona");
 Database.addText("pl.lighthouseAskButton", "Spytaj");
 Database.addText("pl.lighthouseQuestionWho", "Kim jesteś?");
 Database.addText("pl.lighthouseQuestionWhoSpeech", "Jestem bardzo starym cyklopem");
@@ -30969,6 +31439,26 @@ Database.addText("pl.talkingCandySpeech1", "Hej! Jestem Mówiący Cukierek. Grat
 Database.addText("pl.talkingCandySpeech2", "Gotowe! Możesz go otworzyć. Mam nadzieję że gra się podobała :)");
 Database.addText("pl.talkingCandyButton", "Tak!!");
 Database.addText("pl.lighthousePuzzleResetButton", "Resetuj");
+Database.addText("ru.cauldron.page0", "Мануал по зельеварению");
+Database.addText("ru.cauldron.page1", "Оглавление / Страница 2 : Зелья здоровья / Страница 3 : Черепашье зелье / Страницы 4-5 : Антигравитационное зелье / Страницы 6-7 : Зелье берсерка / Страницы 8-9 : Зелье P / Страницы 10-11 : Зелье X");
+Database.addText("ru.cauldron.page2", "Зелье здоровья / Зелье здоровья это одно из самых лёгких для варки. Для него нужны только конфеты. Если использовать его в квестах, то оно восстановит 100 очков здоровья. / Рецепт: - Положите 100 конфет в ваш котёл - Перемешивайте в течение нескольких секунд - Разлейте по бутылочкам / Так же, как и любое другое зелье, вы можете варьировать количество готового продукта. Например, если вы положите в котёл 300 конфет, то получите 3 зелья здоровья.");
+Database.addText("ru.cauldron.page3", "Черепашье зелье / Черепашье зелье варится чуть сложнее, чем зелье здоровья. Вам будут нужны и конфеты, и леденцы. / Если вы выпьете это зелье во время квеста, оно превратит вас в черепаху. Двигаться вы будете медленнее, но зато получите дополнительную защиту от атак противника. / Рецепт: - Положите 50 конфет в ваш котёл - Добавьте 500 леденцов в котёл - Перемешивайте около 10 секунд - Прекратите перемешивать - Добавьте ещё 50 конфет - Снова мешайте в течение нескольких секунд - Разлейте по бутылочкам / А теперь самая важная вещь, которую нельзя забывать: после превращения в черепаху, не переворачивайтесь на спину. Иначе не подниметесь.");
+Database.addText("ru.cauldron.page4", "Антигравитационное зелье / Изобретённое известным волшебником Айзеком, это зелье позволит вам сопротивляться притяжению Земли в течение нескольких секунд. / Оно особенно полезно во время прыжков (а если вы не можете прыгать, то вам следует задуматься о приобретении пого-стика). / Оно не такое уж и лёгкое в приготовлении, вам нужно будет нагреть котёл и внимательно следить за его температурой. / Рецепт: - Положите 1000 конфет в котёл - Грейте котёл, пока вода не станет тёплой - Прекращайте греть котёл - Добавьте ещё 1000 конфет - Грейте котёл, пока вода не закипит - Разлейте по бутылочкам");
+Database.addText("ru.cauldron.page5", "Антигравитационное зелье: использовать умение / \"Лететь над обрывом\" / *выпивает зелье*");
+Database.addText("ru.cauldron.page6", "Зелье берсерка / Зелье берсерка превращает вас в берсерка. / Побочный эффект: оно лишает вас половины здоровья. / Плюсы: увеличивает ваш урон на несколько секунд! / Сварить это зелье очень просто, но вам понадобятся очень много леденцов. / Вот рецепт: - Положите 20 000 леденцов в котёл - Перемешивайте, пока руки не заболят - Разлейте по бутылочкам.");
+Database.addText("ru.cauldron.page7", "Важное уточнение, касающееся зелья берсерка. / НЕ ДОБАВЛЯЙТЕ конфеты в котёл, когда варите это зелье. / Вообще ни одной. / Серьёзно. / Результат предсказать нельзя.");
+Database.addText("ru.cauldron.page8", "Р-зелье / Р-зелье очень странное. Вы не сможете предсказать, что именно оно сотворит. Оно может вас излечить или нанести вам урон, сделать вас сильнее или слабее, или даже превратить вас в кого-нибудь (что-нибудь?) ещё. / А ещё его сложно сварить! / Рецепт: - Положите 500 конфет в котёл - Мешайте несколько секунд - Прекратите мешать - Добавьте в 100 раз больше конфет, чем количество секунд, в течение которых вы мешали. Например, если вы мешали зелье в течение 4 секунд, то вам понадобится добавить 400 конфет. Никогда не увеличивайте это число, даже если вам нужно сварить больше одного зелья. - Подогревайте до тех пор, пока вода не станет тёплой - Прекратите подогревать - Добавьте несколько леденцов - Мешайте - Разливайте по бутылочкам!");
+Database.addText("ru.cauldron.page9", "Используйте Р-зелье с умом / Вот несколько правил, которыми вы можете воскользоваться, чтобы получить лучшие результаты от употребления зелья. Хотя эти правила были определены наугад, они, кажется, отлично работают. / - Чем больше Р-зелий вы пьёте, тем более странные эффекты получаете. / - Если ваше здоровье почти на нуле, вы, возможно, должны обязательно выпить Р-зелье. / - Животные, которые выпили Р-зелье, кажется, реагируют на это очень нехорошо.");
+Database.addText("ru.cauldron.page10", "Х-зелье / Х-зелье - это легенда. Говорят, что тот, кто будет способен приготовить и выпить его, попадёт в место, где до него ещё никто не был. / Я не знаю, на самом ли деле это зелье только лишь легенда, но я напишу в этой книге всё, что я знаю про него. / Х-зелье упомянуто в множестве старых легенд и алхимических книг. Вот краткая информация, которая поможет вам его сварить. Удачи! / - Говорят, что варка состоит из 5 шагов. / - Говорят, что только в одном шаге из процесса варки нужно добавлять леденцы. / - Говорят, что в отличии от остальных зелий, Х-зелье за раз сварить можно только одно.");
+Database.addText("ru.cauldron.page11", "- И последнее: следующая поэма часто цитируется в книгах при упоминании Х-зелья: / В первый день родилась самая первая Конфета. Но снаружи было холодно. / Во второй день, у Конфеты появился отец. Но снаружи было холодно. / На третий день у Конфеты появился брат. Но снаружи было холодно. / На пятый день у Конфеты появился любовник, и это может прозвучать глупо и просто, но теперь Конфета стала счастлива, и снаружи было горячо.");
+Database.addText("ru.cfgChooseLanguage", "Выберите язык:");
+Database.addText("ru.cfgInvertColors", "Инвертировать цвета?");
+Database.addText("ru.lollipopFarmConstructMill", "Построить мельницу (10 000 леденцов)");
+Database.addText("ru.lollipopFarmFeedMill", "Накормить мельницу");
+Database.addText("ru.lollipopFarmCurrentCandiesProduction", "Текущее производство конфет");
+Database.addText("ru.lollipopFarmDigPond", "Выкопать пруд (100 000 леденцов)");
+Database.addText("ru.lollipopFarmBuyLolligator", "Купить конфетодила (1200 конфет)");
+Database.addText("ru.lollipopFarmLolligatorsConversionText", "Превращение конфеты -> леденцы активировано");
 Database.addText("ru.mapVillageComment", "Деревня");
 Database.addText("ru.mapFortressComment", "Пустынная крепость");
 Database.addText("ru.mapATreeComment", "Дерево");
@@ -31029,8 +31519,6 @@ Database.addText("ru.candyBoxRequestStatusBarUnlockedCfgComment1", "Сейчас
 Database.addText("ru.candyBoxRequestStatusBarUnlockedCfgComment2", "Вы можете сменить язык игры, если хотите.");
 Database.addText("ru.candyBoxRequestStatusBarUnlockedSaveComment", "Появилась дикая панель сохранения!");
 Database.addText("ru.candyBoxRequestStatusBarUnlockedHealthBarComment", "Вот 100 очков здоровья. Они будут вам полезны.");
-Database.addText("ru.cfgChooseLanguage", "Выберите язык:");
-Database.addText("ru.cfgInvertColors", "Инвертировать цвета?");
 Database.addText("ru.gridItemMainMapName", "Карта");
 Database.addText("ru.gridItemMainMapDescription", "Карта мира");
 Database.addText("ru.gridItemPogoStickName", "Пого-стик");
@@ -31178,12 +31666,6 @@ Database.addText("ru.lonelyHouseKickBoxResult", "Ваша нога немног�
 Database.addText("ru.lonelyHouseAskTheBoxToOpenItselfResult", "...вы разговариваете с коробкой, вы в курсе, да?");
 Database.addText("ru.lonelyHouseLureTheBoxWithACandyResult", "Коробке, по-видимому, пофиг");
 Database.addText("ru.lonelyHouseTakeTheBoxResult", "Возможно, в этом candy box есть что-то интересное.");
-Database.addText("ru.lollipopFarmConstructMill", "Построить мельницу (10 000 леденцов)");
-Database.addText("ru.lollipopFarmFeedMill", "Накормить мельницу");
-Database.addText("ru.lollipopFarmCurrentCandiesProduction", "Текущее производство конфет");
-Database.addText("ru.lollipopFarmDigPond", "Выкопать пруд (100 000 леденцов)");
-Database.addText("ru.lollipopFarmBuyLolligator", "Купить конфетодила (1200 конфет)");
-Database.addText("ru.lollipopFarmLolligatorsConversionText", "Превращение конфеты -> леденцы активировано");
 Database.addText("ru.lighthouseAskButton", "Спросить");
 Database.addText("ru.lighthouseQuestionWho", "Вы кто?");
 Database.addText("ru.lighthouseQuestionWhoSpeech", "Я очень старый циклоп.");
@@ -31315,6 +31797,26 @@ Database.addText("ru.talkingCandySpeech1", "Привет! Я - говоряща�
 Database.addText("ru.talkingCandySpeech2", "Готово! Теперь ты можешь в неё войти. Надеюсь, тебе понравилась игра :)");
 Database.addText("ru.talkingCandyButton", "Да!!!");
 Database.addText("ru.lighthousePuzzleResetButton", "Сбросить игру");
+Database.addText("se.cauldron.page0", "Ölbryggning manual");
+Database.addText("se.cauldron.page1", "Sammanfattning / sida 2 : Hälsa dryck / sida 3 : Sköldpadda dryck / Sida 4-5 : Anti-gravitation dryck / Sida 6-7 : Galen dryck / Pages 8-9 : Den P dryck / Pages 10-11 : Den X dryck");
+Database.addText("se.cauldron.page2", "Hälsa dryck / Det hälsa dryck är någon av det enkel till brygga, verkligen. Den endast behov konfekt. Används i mål, den skall bota du av givande du tillbaka 100 hälsa poäng. / Instruktioner : - Sätta 100 konfekt i er kittel - Blanda för en få sekunder - Sätta inåt flaskor / Strax som för några dryck, du kan naturligtvis föröka det kvantiteter. Till exempel, om du utnyttja 300 konfekt istället för 100, kommer du få 3 hälsa dryck.");
+Database.addText("se.cauldron.page3", "Turtle potion / Det sköldpadda dryck är en skärva hårdare till brygd än det hälsa dryck. Du skall behöver både konfekt samt sötsaker. / Om du dricka detta dryck i en mål, den skall förändring du in i en sköldpadda. Du skall gå trög, men du skall också må vidare motståndskraftig till du fiender attacker. / Instruktioner : - Sätta 50 konfekt i din kittel - Foga 500 sötsaker i din kittel - Blanda under mer eller mindre 10 sekunder - Sluta blanda - Foga 50 konfekt - Blanda igen för några sekunder - Sätta till flaskor / Och nu den mest viktig sak du skall aldrig glömma : när du skall bli en sköldpadda, INTE vända. Du skulle inte kunna stiga upp.");
+Database.addText("se.cauldron.page4", "Anti-gravitation dryck / Detta dryck, vilket var uppfann av välkänt trollkarl Isaac, tillåter du till motstå till jordens gravitation kraft för en några sekunder. / Det är särskilt användbart efter att hoppa ( om du inte kan hoppa , bör du allvarligt överväga att skaffa en pogo stick ) . / Det är inte lätt att brygga , måste du värma upp din kittel och titta på temperaturen noggrant . / Instruktioner : - Put 1000 godisar i din kittel - Hetta upp tills vattnet är ljummet - Sluta uppvärmning - Lägg 1000 godisar - Värm upp tills vattnet kokar - tappas på flaskor");
+Database.addText("se.cauldron.page5", "Anti - gravitation drycken : användningsfall / \" flyga över ett gap \" / * dricker drycken *");
+Database.addText("se.cauldron.page6", "Berserk potion / The bärsärkagång trolldryck förvandlar dig till en berserker . / Nackdelen är att den förbrukar hälften av ditt liv . / Fördelen är att det fördubblar dina skador under några sekunder ! / Brygga detta trolldrycker är mycket enkelt , men du kommer att behöva en hel del klubbor . / Här är instruktionerna : - Put 20 000 klubbor i din kittel - blanda dem tills armarna är ont - tappas på flaskor");
+Database.addText("se.cauldron.page7", "Viktigt meddelande angående bärsärkagång potion / INTE lägga något godis vid bryggning denna dryck . / Jag menar , inte en enda. / Verkligen . / Resultat vore oväntat .");
+Database.addText("se.cauldron.page8", "P potion / P potion är en konstig en . Du kan inte förutsäga vad det kommer att göra . Det kan bota dig eller skada dig , gör dig starkare eller svagare , eller ens vända dig till någon ( något ? ) Annat . / Och det är också svårt att brygga ! / Instruktioner : - Put 500 godisar i din kittel - Mix i några sekunder - Stoppa mixning - Lägg 100 gånger mer godis än det antal sekunder som du blandat . Till exempel om du blandat under 4 sekunder , måste du lägga 400 godisar . Inte multiplicera inte denna mängd , även om du vill göra mer än en dryck . - Värm upp tills vattnet är ljummet - Sluta uppvärmning - Lägg några klubbor - Mix - tappas på flaskor !");
+Database.addText("se.cauldron.page9", "Gör en bra användning av P potion / Det finns vissa regler som du kan följa för att få bättre resultat när man dricker P drycken . Även om dessa regler definierades empiriskt , de verkar fungera ganska bra . / - Ju mer du använder P potions , ju mer de verkar ha konstiga effekter . / - Om din hälsa är mycket låg , bör du dricka antagligen en P dryck . / - Djur som dricker P potions verkar reagera på ett mycket dåligt sätt .");
+Database.addText("se.cauldron.page10", "X potion / X potion är en legend . Det sägs att den som lyckas brygga det och dricka det skulle resa till en plats där ingen har varit förut . / Jag vet inte om denna dryck är bara en legend eller inte , men jag kommer att skriva i denna bok allt jag vet om det . / X potion nämns i många gamla legender och böcker alkemi . Här är en sammanfattning av information som kan hjälpa dig att brygga det . Lycka till ! / - Det är sagt att 5 steg är nödvändigt för att brygga X drycken . / - Det sägs att inga klubbor krävs , utom för ett av stegen . / - Det är sagt att , till skillnad för andra drycker , kan du inte brygga flera X potions på en gång .");
+Database.addText("se.cauldron.page11", "- Slutligen är följande dikt ofta citeras när det kommer till X potion : / På den första dagen , gav det upphov till den allra första Sweet. Men det var kallt utanför . / Den andra dagen , gav det söta en far . Men det var kallt utanför . / På den tredje dagen , gav det söta en bror . Men det var kallt utanför . / På den fjärde dagen , gav det söta en vän . Men det var kallt utanför . / På den femte dagen , gav det söta en älskare , och det kan låta enkelt och dumt , men nu Sweet var glad , och det var varmt utanför .");
+Database.addText("se.cfgChooseLanguage", "Välj språk :");
+Database.addText("se.cfgInvertColors", "Invertera färger ?");
+Database.addText("se.lollipopFarmConstructMill", "Bygg en kvarn ( 10 000 klubbor )");
+Database.addText("se.lollipopFarmFeedMill", "Mata bruket");
+Database.addText("se.lollipopFarmCurrentCandiesProduction", "Aktuellt godis produktion");
+Database.addText("se.lollipopFarmDigPond", "Gräv en damm ( 100 000 klubbor )");
+Database.addText("se.lollipopFarmBuyLolligator", "Köp en lolligator ( 1200 godisar )");
+Database.addText("se.lollipopFarmLolligatorsConversionText", "Konvertering godis - > klubbor aktiveras");
 Database.addText("se.mapVillageComment", "The Village");
 Database.addText("se.mapFortressComment", "Den ökenfortet");
 Database.addText("se.mapATreeComment", "Ett träd");
@@ -31375,8 +31877,6 @@ Database.addText("se.candyBoxRequestStatusBarUnlockedCfgComment1", "Du har nu ti
 Database.addText("se.candyBoxRequestStatusBarUnlockedCfgComment2", "Du kan ändra språk , om du vill .");
 Database.addText("se.candyBoxRequestStatusBarUnlockedSaveComment", "se.vild besparing flik visas !");
 Database.addText("se.candyBoxRequestStatusBarUnlockedHealthBarComment", "Här finns 100 hälsa poäng för dig . De kommer att vara användbar .");
-Database.addText("se.cfgChooseLanguage", "Välj språk :");
-Database.addText("se.cfgInvertColors", "Invertera färger ?");
 Database.addText("se.gridItemMainMapName", "The Map");
 Database.addText("se.gridItemMainMapDescription", "Karta över världen");
 Database.addText("se.gridItemPogoStickName", "Hoppstylta");
@@ -31523,12 +32023,6 @@ Database.addText("se.lonelyHouseKickBoxResult", "Din fot gör ont lite , men ing
 Database.addText("se.lonelyHouseAskTheBoxToOpenItselfResult", "... du pratar med en låda , vet du det ?");
 Database.addText("se.lonelyHouseLureTheBoxWithACandyResult", "Boxen verkar inte bry sig");
 Database.addText("se.lonelyHouseTakeTheBoxResult", "Det finns nog något intressant i detta godis låda .");
-Database.addText("se.lollipopFarmConstructMill", "Bygg en kvarn ( 10 000 klubbor )");
-Database.addText("se.lollipopFarmFeedMill", "Mata bruket");
-Database.addText("se.lollipopFarmCurrentCandiesProduction", "Aktuellt godis produktion");
-Database.addText("se.lollipopFarmDigPond", "Gräv en damm ( 100 000 klubbor )");
-Database.addText("se.lollipopFarmBuyLolligator", "Köp en lolligator ( 1200 godisar )");
-Database.addText("se.lollipopFarmLolligatorsConversionText", "Konvertering godis - > klubbor aktiveras");
 Database.addText("se.lighthouseAskButton", "Fråga");
 Database.addText("se.lighthouseQuestionWho", "Vem är du ?");
 Database.addText("se.lighthouseQuestionWhoSpeech", "Jag är en mycket gammal cyklop .");
@@ -31660,6 +32154,26 @@ Database.addText("se.talkingCandySpeech1", "Hey ! Jag är talande godis . Gratti
 Database.addText("se.talkingCandySpeech2", "Done ! Du kan nu skriva in det . Jag hoppas att du gillade spelet :)");
 Database.addText("se.talkingCandyButton", "Yes !");
 Database.addText("se.lighthousePuzzleResetButton", "Återställ");
+Database.addText("tr.cauldron.page0", "İksir rehberi");
+Database.addText("tr.cauldron.page1", "Özet / Sayfa 2 : Can iksiri / Sayfa 3 : Kaplumbağa iksiri / Sayfa 4-5 : Yer çekimini yenme iksiri / Sayfa 6-7: Kudurma iksiri / Sayfa 8-9 : P iksiri / Sayfa 10-11 : X iksiri");
+Database.addText("tr.cauldron.page2", "Can iksiri / Can iksiri yapması en kolaylarından biri, gerçekten. Sadece şeker kullanıyorsun. Görevlerde kullanıldığında sana 100 can puanı vererek iyileştirir. / Açıklama: - Kazana 100 tane şeker koy - Bir kaç saniyeliğine karıştır.  -Şişeye koy / Herhangi bir iksir gibi, miktarları tabii ki katlayabilirsin. Örneğin 100 şeker yerine 300 şeker kullanırsan 3 tane can iksiri elde edersin.");
+Database.addText("tr.cauldron.page3", "Kaplumbağa iksiri / Kaplumbağa iksirini yapmak can iksirini yapmaktan bir tık daha zor. Hem şekere hem lolipopa ihtiyacın var. / Bu iksiri görevlerde içersen, seni bir kaplumbağaya çevirir. Daha yavaş hareket edersin ama düşmanlarının saldırılarına daha dayanıklı olursun. / Açıklama: -Kazana 50 şeker koy. -Kazana 500 lolipop ekle -Aşağı yukarı 10 saniye karıştır -Karıştırmayı durdur -50 şeker ekle -Bir kaç saniye tekrar karıştır -Şişelere koy. / Ve şimdi unutmaman gereken en önemli şey: kaplumbağa olduğun zaman ters dönME. Bir daha kalkamayabilirsin.");
+Database.addText("tr.cauldron.page4", "Yer çekimini yenme iksiri / Bu iksir, meşhur sihirbaz Isaac tarafından icat edilmiş, bir kaç saniyeliğine Dünyanın yer çekimine karşı direnmeni sağlar. / Özellikle zıpladıktan sonra kullanışlıdır (eğer zıplayamıyorsan, cidden bir pogo çubuğu bulmayı düşünmelisin). / Yapması çok kolay değil, kazanını ısıtmalı ve sıcaklığa dikkatlice bakmalısın. / Açıklama :-Kazana 1000 şeker koy -Su ılık olana kadar ısıt -Isıtmayı durdur -1000 şeker ekle -Su kaynayana kadar ısıt -Şişelere koy");
+Database.addText("tr.cauldron.page5", "Yer çekimini yenme iksiri : kullanma durumları / \"Boşluğun üzerinden uçarken\" / *iksiri içer*");
+Database.addText("tr.cauldron.page6", "Kudurma iksiri / Kudurma iksiri seni vahşi bir savaşçıya çevirir. / Dezavantajları, canının yarısını tüketir. / Avantajları, hasarını birkaç saniyeliğine iki katına çıkarır! / Bu iksiri yapmak çok basit, fakat çok miktarda lolipopa ihtiyacın olacak. / Açıklamalar şöyle: -20 000 lolipopu kazana koy -Kolların acıyana kadar karıştır -Şişelere koy");
+Database.addText("tr.cauldron.page7", "Kudurma iksiriyle ilgili önemli bir bildiri / Bu iksiri yaparken SAKIN şeker eklemeyin. / Yani, tek bir tane bile. / Gerçekten / Sonuçlar beklenmedik olacaktır.");
+Database.addText("tr.cauldron.page8", "P iksiri /P iksiri ilginçtir. Ne yapacağını tahmin edemezsin. Seni iyileştirebilir ya da hasar verebilir, seni güçlendirir ya da zayıflatabilir, hatta seni başka birine (bişeye?) çevirebilir. / Yapması da zordur! / Açıklamalar: -Kazana 500 şeker koy -Bir kaç saniye karıştır -Karıştırmayı durdur -Kaç saniye karıştırdıysan onun 100 katı şeker ekle. Örneğin 4 saniye karıştırdıysan 40 şeker eklemelisin. Bu miktarı katlama, eğer birden fazla iksir yapmak istiyorsan bile değiştirme. Suyu ılık olana kadar ısıt -Isıtmayı durdur -Biraz lolipop ekle -Karıştır -Şişelere koy!");
+Database.addText("tr.cauldron.page9", "P iksirini kullanma durumları / P iksirini kullanırken daha iyi sonuçlar alman için uygulaman gereken bir kaç kural var. Bu kurallar deneysel olarak tanımlansa da, gayet iyi işliyor gibi görünüyor. / -Ne kadar P iksiri kullanırsan, o kadar ilginç etkileri olurmuş. / -Eğer canın azsa muhtemelen P iksiri içmelisin. / -P iksirini içen hayvanlar çok kötü bir şekilde etkileniyormuş.");
+Database.addText("tr.cauldron.page10", "X iksiri / X iksiri bir efsanedir. Derler ki, iksiri yapıp içmeye mazhar olan kişi kimsenin daha önce gitmediği bir yere seyahat eder. / Bu iksirin efsane olup olmadığını bilmiyorum ama hakkında bildiğin her şeyi buraya yazacağım. / X iksirinden eski alşimi kitaplarında çokça bahsedilmektedir. Burada yapmana yardım edebilecek bilgilerin özeti var. İyi şanslar! / Bu iksiri yapmak için gerekli 5 temel aşama vardır. / -Denir ki, hiç lolipop gerekmez, bir aşama hariç. / -Denir ki, diğer iksirler gibi tek seferde birden çok X iksiri yapamazsın.");
+Database.addText("tr.cauldron.page11", "-Son olarak, konu X iksiri olduğunda sıradaki şiir anılır: / Günlerden birincisinde,O, ilk Tatlıyı doğurdu. Ama dışarısı soğuktu. / Günlerden ikincisinde, O, tatlıya bir baba verdi. Ama dışarısı soğuktu. / Günlerden üçüncüsünde, O, tatlıya bir kardeş verdi. Ama dışarısı soğuktu. / Günlerden dördüncüsünde, O, şekere bir arkadaş verdi. Ama dışarısı soğuktu. / Günlerden beşincisinde, O, şekere bir sevgili verdi, ve belki basit veya saçma görünse de, Tatlı artık mutluydu, ve dışarısı sıcaktı.");
+Database.addText("tr.cfgChooseLanguage", "Dili seç :");
+Database.addText("tr.cfgInvertColors", "Zıt renkler?");
+Database.addText("tr.lollipopFarmConstructMill", "Değirmen inşa et (10 000 lolipop)");
+Database.addText("tr.lollipopFarmFeedMill", "Değirmeni besle");
+Database.addText("tr.lollipopFarmCurrentCandiesProduction", "Anlık şeker üretimi");
+Database.addText("tr.lollipopFarmDigPond", "Yapay göl kaz (100 000 lolipop)");
+Database.addText("tr.lollipopFarmBuyLolligator", "Bir lolimsah al (1200 şeker)");
+Database.addText("tr.lollipopFarmLolligatorsConversionText", "Şeker -> Lolipop dönüşümü aktif");
 Database.addText("tr.mapVillageComment", "Köy");
 Database.addText("tr.mapFortressComment", "Çöl hisarı");
 Database.addText("tr.mapATreeComment", "Bir ağaç");
@@ -31720,8 +32234,6 @@ Database.addText("tr.candyBoxRequestStatusBarUnlockedCfgComment1", "Artık ayarl
 Database.addText("tr.candyBoxRequestStatusBarUnlockedCfgComment2", "Eğer istersen, dili değiştirebilirsin.");
 Database.addText("tr.candyBoxRequestStatusBarUnlockedSaveComment", "Vahşi bir kayıt sekmesi belirdi!");
 Database.addText("tr.candyBoxRequestStatusBarUnlockedHealthBarComment", "Bu 100 sağlık puanı senin. Bunlar işine yarayacak.");
-Database.addText("tr.cfgChooseLanguage", "Dili seç :");
-Database.addText("tr.cfgInvertColors", "Zıt renkler?");
 Database.addText("tr.gridItemMainMapName", "Harita");
 Database.addText("tr.gridItemMainMapDescription", "Dünyanın haritası");
 Database.addText("tr.gridItemPogoStickName", "Pogo çubuğu");
@@ -31868,12 +32380,6 @@ Database.addText("tr.lonelyHouseKickBoxResult", "Ayağın biraz acıdı fakat hi
 Database.addText("tr.lonelyHouseAskTheBoxToOpenItselfResult", "...kutuyla konuştuğunun farkında mısın?");
 Database.addText("tr.lonelyHouseLureTheBoxWithACandyResult", "Kutunun umrunda değil");
 Database.addText("tr.lonelyHouseTakeTheBoxResult", "Candy box muhtemelen içinde çok ilginç şeyler barındırıyor.");
-Database.addText("tr.lollipopFarmConstructMill", "Değirmen inşa et (10 000 lolipop)");
-Database.addText("tr.lollipopFarmFeedMill", "Değirmeni besle");
-Database.addText("tr.lollipopFarmCurrentCandiesProduction", "Anlık şeker üretimi");
-Database.addText("tr.lollipopFarmDigPond", "Yapay göl kaz (100 000 lolipop)");
-Database.addText("tr.lollipopFarmBuyLolligator", "Bir lolimsah al (1200 şeker)");
-Database.addText("tr.lollipopFarmLolligatorsConversionText", "Şeker -> Lolipop dönüşümü aktif");
 Database.addText("tr.lighthouseAskButton", "Sor");
 Database.addText("tr.lighthouseQuestionWho", "Siz kimsiniz?");
 Database.addText("tr.lighthouseQuestionWhoSpeech", "Ben çok yaşlı bir tek gözlü devim.");
@@ -32005,6 +32511,26 @@ Database.addText("tr.talkingCandySpeech1", "Hey! Ben konuşan şeker. Tebrikler,
 Database.addText("tr.talkingCandySpeech2", "Tamamdır! Artık girebilirsin. Umarım oyunu sevmişsindir :)");
 Database.addText("tr.talkingCandyButton", "Evet!!");
 Database.addText("tr.lighthousePuzzleResetButton", "Reset");
+Database.addText("uk.cauldron.page0", "Книга зіллєваріння");
+Database.addText("uk.cauldron.page1", "Зміст / Сторінка 2 : Зілля здоров’я / Сторінка 3 : Черепашаче зілля / Сторінки 4-5 : Зілля антигравітації / Сторінки 6-7 : Берсеркове зілля / Сторінки 8-9 : Зілля P / Сторінки 10-11 : Зілля X");
+Database.addText("uk.cauldron.page2", "Зілля здоров’я / Зілля здоров’я є одним із найпростіших для приготування, насправді. Для нього потрібні лише цукерки. Використане у пригоді, воно вилікує тебе, повернувши 100 пунктів здоров'я. / Рецепт : - Покласти 100 цукерок у казан - Розмішувати декілька секунд - Розлити у пляшки / Як і для будь-якого іншого зілля, ти можеш, звичайно, перемножити цю кількість. Наприклад, якщо ти використаєш 300 цукерок замість 100, ти отримаєш 3 зілля здоров’я.");
+Database.addText("uk.cauldron.page3", "Черепашаче зілля / Черепашаче зілля трохи більш складне для приготування, ніж зілля здоров’я. Тобі будуть потрібні і цукерки, і льодяники. / Якщо ти вип’єш це зілля під час пригоди, воно перетворить тебе на черепаху. Ти станеш більш повільним, але також і менш вразливим до атак твоїх ворогів. / Рецепт : - Покласти 50 цукерок у казан - Додати 500 льодяників - Розмішувати приблизно 10 секунд - Перестати розмішувати - Додати 50 цукерок - Знову розмішувати кілька секунд - Розлити у пляшки / А тепер найбільш важлива річ, яку тобі ніколи не варто забувати: коли ти станеш черепахою, НЕ перевертайся. Ти уже не зможеш піднятись.");
+Database.addText("uk.cauldron.page4", "Зілля антигравітації / Це зілля, винайдене широко відомим чарівником Ісааком, дозволяє тобі опиратись силам земного тяжіння декілька секунд. / Воно особливо корисне після підстрибування (якщо ти не можеш стрибати, тобі слід серйозно поміркувати над здобуттям ціпка-стрибунка). / Воно не дуже просте для приготування, тобі необхідно буде розігріти свій казан і уважно спостерігати за температурою. / Рецепт : - Покласти 1000 цукерок у казан - Гріти, доки вода не стане тепленькою - Зупинити нагрівання  - Додати 1000 цукерок - Гріти, доки вода не закипить - Розлити у пляшки");
+Database.addText("uk.cauldron.page5", "Зілля антигравітації : використання / \"Перелетіти провалля\" / *п’є зілля*");
+Database.addText("uk.cauldron.page6", "Берсеркове зілля / Берсеркове зілля перетворює тебе на берсерка. / Недолік у тому, що воно поглинає половину твого життя. / Перевага в тому, що на кілька секунд воно подвоює пошкодження від твоїх атак! / Приготування цього зілля дуже просте, але тобі буде потрібно багато льодяників. / Ось рецепт : - Покласти 20 000 льодяників у казан - Розмішувати, доки твої руки не почнуть боліти - Розлити у пляшки");
+Database.addText("uk.cauldron.page7", "Важливе зауваження щодо берсеркового зілля / НЕ додавай жодних цукерок під час приготування цього зілля. / Я маю на увазі жоднісінької. / Справді. / Наслідки будуть неочікуваними.");
+Database.addText("uk.cauldron.page8", "Зілля P / Зілля P є досить дивним. Ти не можеш передбачити, як воно подіє. Воно може вилікувати або завдати тобі шкоди, зробити тебе сильнішим або слабшим, або навіть перетворити тебе на когось (щось?) іншого. / І його також важко зварити! / Рецепт : - Покласти 500 цукерок у казан - Розмішувати декілька секунд - Перестати розмішувати - Додати у 100 разів більше цукерок, ніж секунд, що ти розмішував. Наприклад, якщо ти розмішував 4 секунди, тобі потрібно буде додати 400 цукерок. Не збільшуй цю кількість, навіть якщо ти хочеш приготувати більше одного зілля. - Підігрівати, доки вода не стане тепленькою - Зупинити нагрівання - Додати трохи льодяників - Розмішати - Розлити у пляшки!");
+Database.addText("uk.cauldron.page9", "Вдале використання зілля P / Є кілька правил, яким ти можеш слідувати, щоб добитися кращих результатів від уживання зілля P. Хоча ці правила було визначено дослідним шляхом, здається, що вони працюють досить добре. / - Що більше ти вживаєш зілля P, тим більш дивними видаються його ефекти. / - Якщо у тебе дуже мало здоров’я, тобі, ймовірно, слід випити зілля P. / - Тварини, що п’ють зілля P, здається, реагують дуже погано.");
+Database.addText("uk.cauldron.page10", "Зілля X / Зілля X — це легенда. Мовиться, що той, кому вдасться приготувати і випити його, помандрує у місце, де ще ніхто не бував. / Я не знаю, чи це зілля є лише легендою, чи ні, але я запишу у цю книгу усе, що я знаю про нього. / Зілля X згадується у багатьох старих легендах і книгах з алхімії. Ось зведення інформації, що може допомогти тобі приготувати його. Удачі! / - Сказано, що 5 кроків необхідні для приготування зілля X. / - Сказано, що не потрібно льодяників, окрім як для одного кроку. / - Сказано, що, на відміну від іншого варива, ти не можеш приготувати багато порцій зілля X за раз.");
+Database.addText("uk.cauldron.page11", "- Нарешті, наступна поема часто цитується, коли йдеться про зілля X: / Першого дня, найпершу Солодку породжено було. Але холодна була вона. / Другого дня, матір Солодкій даровано було. Але холодна була вона. / Третього дня, сестру Солодкій даровано було. Але холодна була вона. / Четвертого дня, подругу Солодкій даровано було. Але холодна була вона. / Четвертого дня, коханця Солодкій даровано було, і може це звучати просто та банально, але щасливою тепер Солодка стала, і гарячою була вона.");
+Database.addText("uk.cfgChooseLanguage", "Обери мову :");
+Database.addText("uk.cfgInvertColors", "Інвертувати кольори?");
+Database.addText("uk.lollipopFarmConstructMill", "Збудувати млин (10 000 льодяників)");
+Database.addText("uk.lollipopFarmFeedMill", "Подати воду на млин");
+Database.addText("uk.lollipopFarmCurrentCandiesProduction", "Поточне виробництво цукерок");
+Database.addText("uk.lollipopFarmDigPond", "Викопати ставок (100 000 льодяників)");
+Database.addText("uk.lollipopFarmBuyLolligator", "Купити льодяникодила (1200 candies)");
+Database.addText("uk.lollipopFarmLolligatorsConversionText", "Перетворення цукерки -> льодяники активовано");
 Database.addText("uk.mapVillageComment", "Селище");
 Database.addText("uk.mapFortressComment", "Пустельна фортеця");
 Database.addText("uk.mapATreeComment", "Дерево");
@@ -32065,8 +32591,6 @@ Database.addText("uk.candyBoxRequestStatusBarUnlockedCfgComment1", "Тепер �
 Database.addText("uk.candyBoxRequestStatusBarUnlockedCfgComment2", "Ти можеш змінити мову, якщо хочеш.");
 Database.addText("uk.candyBoxRequestStatusBarUnlockedSaveComment", "З'явилась панель пришелепкуватого збереження!");
 Database.addText("uk.candyBoxRequestStatusBarUnlockedHealthBarComment", "Ось тобі 100 пунктів здоров'я. Вони будуть корисними.");
-Database.addText("uk.cfgChooseLanguage", "Обери мову :");
-Database.addText("uk.cfgInvertColors", "Інвертувати кольори?");
 Database.addText("uk.gridItemMainMapName", "Мапа");
 Database.addText("uk.gridItemMainMapDescription", "Мапа світу");
 Database.addText("uk.gridItemPogoStickName", "Ціпок-стрибунок");
@@ -32213,12 +32737,6 @@ Database.addText("uk.lonelyHouseKickBoxResult", "Твоя нога трохи б
 Database.addText("uk.lonelyHouseAskTheBoxToOpenItselfResult", "...ти говориш зі скринькою, ти усвідомлюєш це?");
 Database.addText("uk.lonelyHouseLureTheBoxWithACandyResult", "Не схоже, щоб скриньку це хвилювало");
 Database.addText("uk.lonelyHouseTakeTheBoxResult", "Напевне, там щось цікаве у цій candy box.");
-Database.addText("uk.lollipopFarmConstructMill", "Збудувати млин (10 000 льодяників)");
-Database.addText("uk.lollipopFarmFeedMill", "Подати воду на млин");
-Database.addText("uk.lollipopFarmCurrentCandiesProduction", "Поточне виробництво цукерок");
-Database.addText("uk.lollipopFarmDigPond", "Викопати ставок (100 000 льодяників)");
-Database.addText("uk.lollipopFarmBuyLolligator", "Купити льодяникодила (1200 candies)");
-Database.addText("uk.lollipopFarmLolligatorsConversionText", "Перетворення цукерки -> льодяники активовано");
 Database.addText("uk.lighthouseAskButton", "Запитати");
 Database.addText("uk.lighthouseQuestionWho", "Хто ти?");
 Database.addText("uk.lighthouseQuestionWhoSpeech", "Я дуже старий циклоп.");
@@ -32350,6 +32868,26 @@ Database.addText("uk.talkingCandySpeech1", "Агов! Я цукерик, що г
 Database.addText("uk.talkingCandySpeech2", "Готово! Тепер ти можеш увійти в неї. Я сподіваюсь, тобі сподобалася гра :)");
 Database.addText("uk.talkingCandyButton", "Так!!");
 Database.addText("uk.lighthousePuzzleResetButton", "Спробувати ще раз");
+Database.addText("zh.cauldron.page0", "炼药手册");
+Database.addText("zh.cauldron.page1", "目录 / 第2页：生命药剂 / 第3页：乌龟药剂 / 第4-5页：反重力药剂 / 第6-7页：狂暴药剂 / 第8-9页：P药剂 / 第10-11页：X药剂");
+Database.addText("zh.cauldron.page2", "生命药剂 / 生命药剂是最容易炼制的药剂之一。它所需要的素材只有糖果。在探索中使用生命药剂可为你恢复100点生命值。 / 炼药指南： - 将100颗糖果放入炼药釜 ꆼ 搅拌数秒 ꆼ 将药剂装入瓶中 / 与其他药剂相同，你可以在一次炼制过程中产出多瓶药剂。举例来说，如果你放入炼药釜中的是300颗糖果而不是100颗，你就能够得到3瓶生命药剂。");
+Database.addText("zh.cauldron.page3", "乌龟药剂 / 与生命药剂相比，乌龟药剂的炼制难度要稍微高一些。你需要准备好糖果和棒棒糖。 / 在探索中喝下这种药剂可以把你变成一只乌龟。你的移动速度会更加缓慢，但对于敌人攻击的抵抗力会得到提升。 / 炼药指南： - 将50颗糖果放入炼药釜 ꆼ 将500根棒棒糖放入炼药釜 ꆼ 搅拌10秒左右 ꆼ 停止搅拌 ꆼ 向釜中加入50颗糖果 ꆼ 搅拌数秒 ꆼ将药剂装入瓶中 / 最后，千万别忘了最重要的事：当你变成一只乌龟之后，请不要转身。你会底朝天爬不起来的。");
+Database.addText("zh.cauldron.page4", "反重力药剂 / 这种药剂是由著名的巫师艾萨克所发明的，它能够让使用者在数秒内抗拒地心引力。 / 在跳跃后饮用的效果拔群（如果你还不能跳跃的话，你应该认真考虑去搞一根弹跳棒了）。 / 这种药剂的炼制方法并不简单，你需要加热炼药釜并细心把握温度。 / 炼药指南： - 将1000颗糖果放入炼药釜 ꆼ 加热，直到水微温 ꆼ 停止加热 ꆼ 向釜中加入1000颗糖果 ꆼ 加热，直到水沸腾 ꆼ将药剂装入瓶中");
+Database.addText("zh.cauldron.page5", "反重力药剂：使用实例 / “飞跃深渊” / *喝下药剂*");
+Database.addText("zh.cauldron.page6", "狂暴药剂 / 狂暴药剂可以将使用者变成一位狂战士。 / 其副作用是耗掉你的一半生命值。 / 而增益效果是在数秒内令你的伤害加倍！ / 炼制这一药剂的方法非常简单，但会消耗掉大量的棒棒糖。 / 这里是炼药指南： - 将20 000根棒棒糖放入炼药釜 ꆼ 搅拌，直到你的胳膊酸痛 ꆼ 将药剂装入瓶中");
+Database.addText("zh.cauldron.page7", "关于狂暴药剂的重要注释 / 不要在炼制该药剂的过程中向釜中加入任何糖果。 / 我是认真的，连一颗糖果都不要放 / 我建议发自真心 / 放了的话，会发生出人意料的事");
+Database.addText("zh.cauldron.page8", "P药剂 / P药剂是相当奇怪的药剂。没人能预测它能起到什么作用。它也许会治愈你，也许会对你造成伤害，它可能会让你变强，也可能会让你变弱，甚至还有几率将你变成其他人（或其他东西？） / 而且它的炼制方法也相当复杂！ / 炼药指南: - 将500颗糖果放入炼药釜 ꆼ 搅拌数秒 ꆼ 停止搅拌 ꆼ向釜中加入100倍于你搅拌秒数的糖果。举例来说，如果你搅拌了4秒钟，就需要加入400颗糖果。如果你要一次炼制多瓶药剂，不要再倍增这一数字。 - 加热，直到水微温 ꆼ 停止加热 ꆼ 加入一些棒棒糖 ꆼ 搅拌 ꆼ 将药剂装入瓶中！");
+Database.addText("zh.cauldron.page9", "妥善利用P药剂 / 如果你想让喝下的P药剂发挥更好的效果，应当遵守以下规则。尽管这些规则都是根据经验总结出来的，但它们似乎相当有效。 / -你喝过的P药剂越多，P药剂的奇怪功效就越多。 / -当你性命垂危时，喝下P药剂似乎是明智的选择。 / - 喝下P药剂的动物似乎会有非常不良的反应。");
+Database.addText("zh.cauldron.page10", "X药剂 / X药剂是一个传说。据说设法炼制并饮用过该药剂的人都会被送往一处人迹未至之地。 / 我不知道这种药剂是否仅仅是一个传说，但我会在这本书中写下我所了解到的关于它的一切。 / 诸多古老的传说和炼金书皆曾提及X药剂。我从中总结了一些可能有助于你炼制该药剂的信息。祝你好运！ / - 据说炼制X药剂共需5个步骤。 / - 据说除其中一个步骤之外，其他步骤并不需要用到棒棒糖。 / - 据说与其他药剂不同，你不能在一次炼制过程中产出多瓶X药剂。");
+Database.addText("zh.cauldron.page11", "- 当提到X药剂时，人们经常会引述下面这首诗：/ 在头一日，就有了第一颗糖果。但外面是冷的。 / 在第二日，糖果有了父亲。但外面是冷的。 / 在第三日，糖果有了兄弟，但外面是冷的。 / 在第四日，糖果有了朋友，但外面是冷的。 / 在第五日，糖果有了爱人，或许出于单纯，或许出于幼稚，但糖果非常开心，而外面终于热起来了。");
+Database.addText("zh.cfgChooseLanguage", "选择语言：");
+Database.addText("zh.cfgInvertColors", "反色显示？");
+Database.addText("zh.lollipopFarmConstructMill", "建一座磨坊（10 000根棒棒糖）");
+Database.addText("zh.lollipopFarmFeedMill", "扩建磨坊");
+Database.addText("zh.lollipopFarmCurrentCandiesProduction", "当前糖果产量");
+Database.addText("zh.lollipopFarmDigPond", "挖一个池塘（100 000根棒棒糖）");
+Database.addText("zh.lollipopFarmBuyLolligator", "买一条棒棒糖鳄（1200颗糖果）");
+Database.addText("zh.lollipopFarmLolligatorsConversionText", "糖果->棒棒糖转换已被激活");
 Database.addText("zh.mapVillageComment", "村庄");
 Database.addText("zh.mapFortressComment", "沙漠要塞");
 Database.addText("zh.mapATreeComment", "一棵树");
@@ -32410,8 +32948,6 @@ Database.addText("zh.candyBoxRequestStatusBarUnlockedCfgComment1", "现在你可
 Database.addText("zh.candyBoxRequestStatusBarUnlockedCfgComment2", "你可以在控制面板中切换语言。");
 Database.addText("zh.candyBoxRequestStatusBarUnlockedSaveComment", "一只野生的存储标签出现了！（SAVE）");
 Database.addText("zh.candyBoxRequestStatusBarUnlockedHealthBarComment", "这是为你准备的100点生命值，他们会非常有用的。");
-Database.addText("zh.cfgChooseLanguage", "选择语言：");
-Database.addText("zh.cfgInvertColors", "反色显示？");
 Database.addText("zh.gridItemMainMapName", "地图");
 Database.addText("zh.gridItemMainMapDescription", "这个世界的地图");
 Database.addText("zh.gridItemPogoStickName", "弹跳棒");
@@ -32558,12 +33094,6 @@ Database.addText("zh.lonelyHouseKickBoxResult", "你的脚受了轻伤，但盒�
 Database.addText("zh.lonelyHouseAskTheBoxToOpenItselfResult", "……你是在对一个盒子说话，你晓得吗？");
 Database.addText("zh.lonelyHouseLureTheBoxWithACandyResult", "盒子似乎并不在乎");
 Database.addText("zh.lonelyHouseTakeTheBoxResult", "candy box中可能会有什么有趣的东西。");
-Database.addText("zh.lollipopFarmConstructMill", "建一座磨坊（10 000根棒棒糖）");
-Database.addText("zh.lollipopFarmFeedMill", "扩建磨坊");
-Database.addText("zh.lollipopFarmCurrentCandiesProduction", "当前糖果产量");
-Database.addText("zh.lollipopFarmDigPond", "挖一个池塘（100 000根棒棒糖）");
-Database.addText("zh.lollipopFarmBuyLolligator", "买一条棒棒糖鳄（1200颗糖果）");
-Database.addText("zh.lollipopFarmLolligatorsConversionText", "糖果->棒棒糖转换已被激活");
 Database.addText("zh.lighthouseAskButton", "询问");
 Database.addText("zh.lighthouseQuestionWho", "你是谁？");
 Database.addText("zh.lighthouseQuestionWhoSpeech", "我是非常古老的独眼巨人。");
@@ -32695,210 +33225,6 @@ Database.addText("zh.talkingCandySpeech1", "嘿！我是会说话的糖果。祝
 Database.addText("zh.talkingCandySpeech2", "开启！现在你可以进入其中了。希望你喜欢这款游戏 ：）");
 Database.addText("zh.talkingCandyButton", "当然！！");
 Database.addText("zh.lighthousePuzzleResetButton", "重置谜题");
-Database.addText("br.cauldron.page0", "Receita de poções");
-Database.addText("br.cauldron.page1", "Índice / Pág. 2 : Poção de cura / Pág. 3 : Poção Tartaruga / Pág. 4-5 : Poção Antigravidade / Pág. 6-7 : Poção Berserk / Pág. 8-9 : Poção P / Pág. 10-11 : Poção X");
-Database.addText("br.cauldron.page2", "Poção de cura / A poção de cura é uma das mais fáceis de ser preparada. Só precisa de doces. Quando usada em missões, ela recuperará 100 pontos de vida. / Instruções : - Coloque 100 doces no caldeirão - Misture por alguns segundos - Coloque em garrafas / Assim como toda poção, você pode preparar várias de uma só vez. Exemplo: se você usar 300 doces em vez de 100, 3 poções de cura serão preparadas.");
-Database.addText("br.cauldron.page3", "Poção Tartaruga / A poção Tartaruga é um pouco mais difícil do que a de vida. Você precisará de doces e pirulitos. / Você será transformado em uma tartaruga se bebê-la em uma missão. Você ficará mais lento, mas também muito mais resistente a ataques. / Instruções : - Coloque 50 doces no caldeirão - Adicione 500 pirulitos - Misture por cerca de 10 segundos - Pare de mexer - Adicione 50 doces - Misture novamente por alguns segundos - Coloque em garrafas / E agora, a coisa mais importante que você não pode esquecer: NUNCA vire de costas! Ou você nunca mais vai conseguir ficar de pé.");
-Database.addText("br.cauldron.page4", "Poção Antigravidade / Essa poção, inventada pelo ilustre feiticeiro Isaac, permite que você resista à força gravitacional da Terra por alguns segundos. / Ela é extremamente útil depois de um pulo (se você não sabe pular, devia pensar em obter um pula-pula). / Não é muito fácil de ser preparada. Você terá que controlar cuidadosamente a temperatura do caldeirão. / Instruções : - Coloque 1000 doces no caldeirão - Aqueça a água até ficar morna - Pare de aquecer - Adicione 1000 doces - Aqueça a água até ferver - Coloque em garrafas");
-Database.addText("br.cauldron.page5", "Poção Antigravidade : exemplo de uso / \"Voar por um buraco\" / *beba a poção*");
-Database.addText("br.cauldron.page6", "Poção Berserker / A poção Berserker transforma você em um berserker. / O problema é que metade da sua saúde é consumida. / O bom é que ela dobra o dano causado por alguns segundos! / É muito fácil preparar essa poção, mas são precisos muitos pirulitos. / Instruções : - Coloque 20.000 pirulitos no caldeirão - Misture até que seus braços comecem a doer - Coloque em garrafas");
-Database.addText("br.cauldron.page7", "Aviso importante sobre a poção Berserker / NÃO use doces durante o preparo dessa poção. / É sério, nem um sequer. / É sério. / Os resultados são imprevisíveis.");
-Database.addText("br.cauldron.page8", "Poção P / A poção P é bem estranha. Não dá para saber qual será o efeito. Ela pode curar ou causar dano a você, aumentar ou reduzir sua força, e até mesmo transformá-lo em outra pessoa (ou coisa). / E é muito difícil de ser preparada! / Instruções : - Coloque 500 doces no caldeirão - Misture por alguns segundos - Pare de mexer - Adicione 100 vezes mais doces que o número de segundos que você mexeu. Exemplo: se mexeu por 4 segundos, adicione 400 doces. Não multiplique essa quantidade, mesmo se quiser preparar mais de uma poção. - Aqueça a água até ficar morna - Pare de aquecer - Adicione alguns pirulitos - Misture- Coloque em garrafas!");
-Database.addText("br.cauldron.page9", "Saiba como usar a poção P / Existem algumas regras a serem seguidas para se obter os melhores resultados com a poção P. Embora elas tenham sido definidas empiricamente, parecem funcionar muito bem. / - Quanto mais você usar poções P, mais efeitos estranhos elas terão. / - Se a sua saúde estiver baixa, recomenda-se beber uma poção P. / - A poção P costuma ter reações bem estranhas quando ingeridas por animais.");
-Database.addText("br.cauldron.page10", "Poção X / A poção X não passa de uma lenda. Dizem que quem prepará-la e bebê-la, será levado a um lugar onde ninguém jamais esteve. / Seja uma lenda ou não, escreverei nesse livro tudo que sei sobre ela. / A poção X é citada em diversas histórias e livros de alquimia. Eis um apanhado de todas as informações sobre como prepará-la. Boa sorte! / - Dizem que são precisos 5 passos para preparar a poção X. / - Dizem que não são precisos pirulitos, exceto em um dos passos. / - Dizem que, diferente das outras poções, não é possível preparar mais de uma poção X de uma só vez.");
-Database.addText("br.cauldron.page11", "- Por fim, há poema que dizem ter relação com a poção X : / No primeiro dia, ele deu vida ao primeiro dos doces. Mas estava frio lá fora. / No segundo dia, ele deu um pai ao doce. Mas estava frio lá fora. / No terceiro dia, ele deu um irmão ao doce. Mas estava frio lá fora. / No quarto dia, ele deu um amigo ao doce. Mas estava frio lá fora. / No quinto dia, ele deu uma amante ao doce. Isso pode parecer bobo, mas o doce estava feliz agora. E estava quente lá fora.");
-Database.addText("cz.cauldron.page0", "Návod na vaření");
-Database.addText("cz.cauldron.page1", "Přehled / Strana 2: Léčivý lektvar / Strana 3: Želví lektvar / Strana 4-5: Lektvar létání / Strana 6-7: Lektvar zběsilosti / Strana 8-9: Lektvar P / Strana 10-11: Lektvar X");
-Database.addText("cz.cauldron.page2", "Léčivý lektvar / Tento lektvar je ze všech asi nejjednodušší na uvaření. Jsou k němu zapotřebí pouze bonbóny. Na výpravách ti jednorázově vyléčí 100 bodů zdraví. / Instrukce: - Dej do kotlíku 100 bonbónů - Chvíli míchej - Výslednou směs opatrně nalij do lahviček / stejně jako u každého lektvaru, i tady můžeš znásobit množství. Pokud například použiješ 300 bonbónů, výsledkem budou tři léčivé lektvary.");
-Database.addText("cz.cauldron.page3", "Želví lektvar / Želví lektvar už je o trochu složitější, než léčivý lektvar. Budeš potřebovat bonbóny a lízátka. / Pokud tento lektvar vypiješ během výpravy, proměníš se na želvu. Budeš se hýbat pomaleji, zato ale budeš odolnější proti nepřátelským útokům. / Instrukce: - Dej do kotlíku 50 bonbónů - Přidej 500 lízátek - Míchej zhruba 10 vteřin - Přestaň míchat - Přidej 50 bonbónů - Promíchej - Nalij směs do lahviček / POZOR! V želvím stavu se nepřevracej na krunýř, nebudeš se moci zvednout!");
-Database.addText("cz.cauldron.page4", "Lektvar létání / Tento lektvar, vynalezený slavným čarodějem Isaacem, ti umožní na několik vteřin odolávat zemské přitažlivosti. / Největší efekt má hned po skoku (pokud neumíš skákat, měl by sis sehnat nějakou skákací tyč). / Není jednoduchý na uvaření, budeš muset pečlivě kontrolovat teplotu kotlíku. / Instrukce: - Do kotlíku nasyp 1000 bonbónů - Zahřej vodu, ať je vlažná - Přestaň zahřívat - Přidej dalších 1000 bonbónů - Zahřívej kotlík až do chvíle, kdy voda začne vřít - nalij do skleniček");
-Database.addText("cz.cauldron.page5", "Příklad užití lektvaru létání / \"Přeletí přes díru\" / *napije se lektvaru*");
-Database.addText("cz.cauldron.page6", "Lektvar zběsilosti / Lektvar zběsilosti tě změní na zuřivého berserka. / Nevýhodou je, že sníží tvé zdraví na polovinu. / Výhodou je, že na několik vteřin budeš způsobovat dvojnásobné zranění! / Recept je jednoduchý, ale budeš potřebovat hodně lízátek. / Tady jsou instrukce: Nasyp do kotlíku 20 000 lízátek - Míchej je, dokud tě nezačnou bolet ruce - Nalij směs do skleniček");
-Database.addText("cz.cauldron.page7", "Důležité upozornění / Nepřidávej do kotlíku žádné bonbóny. / Myslím to vážně, ani jeden. / Opravdu ne. / Následky by byly nepředvídatelné.");
-Database.addText("cz.cauldron.page8", "Lektvar P / Lektvar P je poměrně zvláštní. Nedá se předem odhadnout, co udělá. Může tě vyléčit nebo zranit, může tě posílit nebo oslabit, dokonce tě může změnit v někoho (nebo něco) jiného. / A navíc je velmi složitý na uvaření! / Instrukce: Do kotlíku nasyp 500 bonbónů - Chvíli míchej - Přestaň míchat - Přidej množství bonbónů odpovídající počtu vteřin, po které jsi míchal, krát 100. Pokud jsi například míchal 4 vteřiny, budeš muset přidat 400 bonbónů. Toto množství zůstane stejné, i pokud vaříš několik lektvarů naráz. - Zahřívej kotlík, dokud voda nebude vlažná - Přestaň ohřívat - Přidej pár lízátek Zamíchej - Nalij do skleniček!");
-Database.addText("cz.cauldron.page9", "Užívej lektvar P dobře. / Existuje několik pravidel, kterými by ses měl řídit, abys dosáhl co nejlepších účinků. Tyto zákonitosti byly vypozorovány empiricky, ale fungují celkem spolehlivě. / - Čím více používáš lektvar P, tím podivnější účinky má. / - Pokud jsi hodně zraněný, lektvar P bude pravděpodobně mít pozitivní účinek. / - Zvířata tento lektvar snášejí velmi špatně.");
-Database.addText("cz.cauldron.page10", "Lektvar X / Lektvar X je legenda. Říká se, že kdokoliv ho dokáže uvařit a vypít, se ocitne v zemi neznámé, kam předtím ještě nikdo nezavítal. / Nevím, jestli je tento lektvar pouze legenda nebo ne, ale napíšu sem všechno, co o něm vím. / Lektvar X je zmíněný ve mnoha starých legendách a alchymistických knihách. Zde je souhrn informací, které by ti mohly pomoct uvařit lektvar X. Hodně štěstí! / - Říká se, že k uvaření lektvaru X je potřeba 5 kroků. / - Na všechny kroky kromě jednoho jsou prý potřeba lízátka. / - Jedna z pověstí se zmiňuje o tom, že nelze uvařit více lektvarů X naráz.");
-Database.addText("cz.cauldron.page11", "- A nakonec říkanka, která se často uvádí, když dojde na lektvar X: / První den byl dán život první Sladkosti. Ale venku bylo chladno. / Druhý den byl Sladkosti dán Otec. Ale venku bylo chladno. / Třetí den byla Sladkosti dán bratr. Ale venku bylo chladno. / Čtvrtý den byl Sladkosti dán kamarád. Ale venku bylo chladno. / Pátý den byl Sladkosti dán milenec. A byť to zní naivně nebo hloupě, Sladkost teď byla šťastná, a venku bylo horko.");
-Database.addText("de.cauldron.page0", "Brauhandbuch");
-Database.addText("de.cauldron.page1", "Inhaltsverzeichnis / Seite 2 : Heiltrank / Seite 3 : Schildkröten-Trank / Seiten 4-5 : Schwebetrank / Seiten 6-7 : Berserker-Trank / Seiten 8-9 : Der P-Trank / Seiten 10-11 : Der X-Trank");
-Database.addText("de.cauldron.page2", "Heiltrank / Der Heiltrank gehört zu denen, die sich am einfachsten brauen lassen. In Quests wird er dich mit 100 Lebenspunkten heilen. / Zubereitung : - 100 Bonbons in den Kessel geben - Für einige Sekunden umrühren - In Flaschen abfüllen / Wie bei jedem Trank kannst du die Mengen anheben. Für 300 Bonbons bekommst du beispielsweise 3 Heiltränke.");
-Database.addText("de.cauldron.page3", "Schildkröten-Trank / Der Schildkröten-Trank ist ein wenig komplizierter zu brauen als der Heiltrank. Du wirst Bonbons und Lutscher benötigen. / In einem Quest verwandelt er dich in eine Schildkröte. Du wirst dich langsamer bewegen, aber dafür widerstandsfähiger sein. / Zubereitung : - 50 Bonbons in den Kessel geben - 500 Lutscher in den Kessel geben - Etwa 10 Sekunden umrühren - Aufhören, umzurühren - 50 Bonbons hinzugeben - Für einige Sekunden umrühren - In Flaschen abfüllen / Was du nie vergessen solltest : Drehe dich als Schildkröte NIE auf den Rücken. Du würdest nicht wieder aufstehen können.");
-Database.addText("de.cauldron.page4", "Schwebetrank / Dieser Trank, erfunden vom bekannten Hexenmeister Isaac, erlaubt es dir, die Gravitationsgesetze für einige Sekunden außer Kraft zu setzen. / Er ist besonders nach dem Springen hilfreich (und falls du nicht springen kannst, solltest du erwägen, dir einen Springstock anzuschaffen). / Er ist nicht einfach zu brauen, du wirst die Temperatur deines Kessels ganz genau überwachen müssen. / Zubereitung : - 1000 Bonbons in den Kessel geben - Wasser erhitzen, bis es lauwarm ist - Aufhören, zu erhitzen - 1000 Bonbons hinzugeben - Wasser erhitzen, bis es lauwarm ist - In Flaschen abfüllen");
-Database.addText("de.cauldron.page5", "Schwebetrank : Fallbeispiel / \"Über die Schlucht fliegen\" / *trinkt den Trank*");
-Database.addText("de.cauldron.page6", "Berserker-Trank / Der Berserker-Trank verwandelt dich in einen Berserker. / Der Nachteil ist, dass du die Hälfte deiner Lebenspunkte verlierst. / Der Vorteil ist, dass du für einige Sekunden doppelten Schaden austeilst! / Diesen Trank zu brauen ist sehr einfach, aber du wirst eine Menge Lutscher benötigen. / Zubereitung : - 20 000 Lutscher in den Kessel geben - Umrühren, bis die Arme schmerzen - In Flaschen abfüllen");
-Database.addText("de.cauldron.page7", "Wichtiger Hinweis bezüglich des Berserker-Tranks / Gib während des Brauvorgangs KEINE Bonbons hinzu. / Kein einziges. / Wirklich. / Die Folgen wären von ungeahntem Ausmaß.");
-Database.addText("de.cauldron.page8", "Der P-Trank / Der P-Trank ist seltsam. Du kannst nicht voraussagen, was er auslösen wird. Er könnte dich heilen, oder die Schaden zufügen, dich stärker oder schwächer machen, oder dich sogar in etwas anderes verwandeln. / Außerdem ist es schwierig, ihn zu brauen! / Zubereitung : - 500 Bonbons in den Kessel geben - Für einige Sekunden umrühren - Aufhören, umzurühren - 100 Bonbons für jede Sekunde, in der du umgerührt hast, hinzugeben. Bei 4 Sekunden umrühren wären das 400 Bonbons. Die Mengen hier nicht abändern. - Wasser erhitzen, bis es lauwarm ist - Aufhören, zu erhitzen - Einige Lutscher hinzugeben - Umrühren - In Flaschen abfüllen!");
-Database.addText("de.cauldron.page9", "Nutze den P-Trank weise / Es gibt einige Regeln, denen du folgen kannst, um alles aus P-Tränken herauszuholen. Diese Regeln scheinen gut zu funktionieren, obgleich sie nur auf Erfahrungswerten beruhen. / - Je mehr P-Tränke du trinkst, desto merkwürdigere Auswirkungen scheinen sie zu haben. / - Wenn deine Gesundheit sehr niedrig ist, solltest du am besten einen P-Trank trinken. / - Tiere scheinen auf P-Tränke sehr negativ zu reagieren.");
-Database.addText("de.cauldron.page10", "Der X-Trank / Um den X-Trank rankt sich eine Legende. Es wird gesagt, dass ein jeder, der imstande ist, ihn zu brauen, an einen Ort reisen würde, den noch keiner zuvor gesehen hätte. / Ich weiß nicht, ob dieser Trank wirklich nur eine Legende ist oder nicht, aber ich werde in dieses Buch alles schreiben, was ich über ihn weiß. / Der X-Trank wird vielen alten Legenden und Alchemiebüchern erwähnt. Es folgt eine Zusammenfassung über den Brauvorgang. Viel Glück! / - Für das Brauen des X-Tranks scheinen 5 Schritte notwendig zu sein. / - Bis auf einen Schritt sollen keine Lutscher verwendet werden. / - Angeblich ist es unmöglich, mehrere X-Tränke gleichzeitig zu brauen.");
-Database.addText("de.cauldron.page11", "- Das folgende Gedicht wird häufig zitiert, wenn es um den X-Trank geht: / Am ersten Tag wurde das allererste Bonbon geboren. Aber draußen war es kalt. / Am zweiten Tag bekam das Bonbon einen Vater. Aber draußen war es kalt. / Am dritten Tag bekam das Bonbon einen Bruder. Aber draußen war es kalt. / Am vierten Tag bekam das Bonbon einen Freund. Aber draußen war es kalt. / Am fünften Tag bekam das Bonbon einen Liebhaber, und das mag schlicht oder naiv klingen, aber jetzt war das Bonbon glücklich. Und draußen war es warm.");
-Database.addText("el.cauldron.page0", "Οδηγός παρασκευής φίλτρων");
-Database.addText("el.cauldron.page1", "Περίληψη / 2η Σελίδα : Φίλτρο Ζωής / 3η Σελίδα : Φίλτρο Χελώνας / 4η-5η Σελίδα : Φίλτρο Αντί-βαρύτητας / 6η-7η Σελίδα : Φίλτρο Έξω-Φρενών / 8η-9η Σελίδα : Το Φίλτρο Π/ 10η-11η Σελίδα : Το Φίλτρο Χ");
-Database.addText("el.cauldron.page2", "Φίλτρο ζωής / Το φίλτρο ζωής είναι ένα από τα πιο εύκολα σε παρασκευή, σοβαρά. Χρειάζεται μόνο ζαχαρωτά. Όταν χρησιμοποιήται σε αποστολές, σου επιστρέφει 100 πόντους ζωής. / Οδηγίες : -Βάλτε 100 ζαχαρωτά στο καζάνι σας - Ανακατέψτε για μερικά δευτερόλεπτα - Βάλτε το σε μπουκάλια / Όπως κάθε φίλτρο, μπορείτε να πολλαπλασιάσετε τις ποσότητες. Για παράδειγμα, αν χρησιμοποιήσετε 300 ζαχαρωτά αντί για 100, θα πάρετε 3 φίλτρα ζωής.");
-Database.addText("el.cauldron.page3", "Φίλτρο χελώνας / Το φίλτρο χελώνας είναι λίγο πιο δύσκολο να παρασκευαστεί από το φίλτρο ζωής. Θα χρειαστείτε ζαχαρωτά και γλειφυτζούρια.  / Αν πιείτε αυτό το φίλτρο σε μία αποστολή, θα σας μετατρέψει σε χελώνα. Θα κινείστε πιο αργά, αλλά θα είστε και πιο ανθεκτικοί σε επιθέσεις των αντιπάλων σας. / Οδηγίες : - Βάλτε 50 ζαχαρωτά στο καζάνι σας - Βάλτε 500 γλειφυτζούρια στο καζάνι σας - Αναμείξτε για περίπου 10 δευτερόλεπτα - Σταματήστε να ανακατέβετε - Προσθέστε 50 ζαχαρωτά - Ανακατέψτε πάλι για μερικά δευτερόλεπτα - Βάλτε το σε μπουκάλια / Και τώρα το πιο σημαντικό πράγμα που δεν πρέπει ποτέ να ξεχάσετε : όταν μετατραπείτε σε χελώνα, ΜΗΝ αναποδογυρίσετε. Δεν θα μπορείτε να σηκωθείτε ξανά πάνω.");
-Database.addText("el.cauldron.page4", "Φίλτρο αντι-βαρύτητας / Αυτό το φίλτρο, το οποίο ανακαλύφτηκε από τον γνωστό μάγο Isaac, σας επιτρέπει να αντιστέκεστε τη βαρύτητα της Γης για μερικά δευτερόλεπτα. / Είναι ιδιαίτερα χρήσιμο αφού έχετε πηδήξει (αν δεν μπορείτε να πηδήξετε θα ήταν πολύ καλή ιδέα να αποκτήσετε ένα καλάμι πηδήματος). / Δεν είναι εύκολη η παρασκευή του, θα χρειαστεί να ζεστάνεται το καζάνι σας και να ελέγχετε τη θερμοκρασία προσεκτικά.  / Οδηγίες : - Βάλτε 1000 ζαχαρωτά στο καζάνι - Ζεστάνεται το μέχρι το νερό να είναι χλιαρό - Σταματήστε να ζεστένετε - Προσθέστε 1000 ζαχαρωτά - Ζεστάνετε το καζάνι μέχρι το νερό να βράζει- Βάλτε το σε μπουκάλια");
-Database.addText("el.cauldron.page5", "Φίλτρο αντι-βαρύτητας : περίπτωση χρήσης/ \"Πετάτε πάνω από κενό\" / *πίνεις το φίλτρο*");
-Database.addText("el.cauldron.page6", "Φίλτρο Έξω-Φρενών / Το φίλτρο έξω-φρενών σας μετατρέπει σε έναν εξώ-φρενών μαχητή. / Το μειωνέκτημα είναι το ότι καταναλώνει τη μισή ζωή σας. / Το πλεωνέκτημα είναι το ότι διπλασιάζει την επίθεση σας για μερικά δευτερόλεπτα!/ Η παρασκευή αυτού του φίλτρου είναι πολύ απλή, αλλά θα χρειαστείτε πολλά γλειφυτζούρια. / Εδώ είναι οι οδηγίες : - Βάλτε 20 000 γλειφυτζούρια στο καζάνι σας - Ανακατέψτε τα μέχρι να πονάνε τα χέρια σας - Βάλτε το σε μπουκάλια");
-Database.addText("el.cauldron.page7", "Σημαντική σημείωση σχετικά με το φίλτρο έξω-φρενών / ΜΗΝ προσθέσετε καθόλου ζαχαρωτά ενώ παρασκευάζετε αυτό το φίλτρο / Εννοώ, κανένα. / Σοβαρά. / Τα αποτελέσματα θα ήραν απρόβλεπτα.");
-Database.addText("el.cauldron.page8", "Το Φίλτρο Π / Το φίλτρο Π είναι περίεργο. Δεν μπορείς να προβλέψεις τι θα κάνει. Θα μπορούσε να σε γιατρέψει ή να σε βλάψει, να σε κάνει πιο δυνατό ή πιο αδύναμο, ακόμα και να σε μεταμορφώσει σε κάποιν (κάτι;) διαφορετικό. / Και είναι ακόμα δύσκολο στην παρασκευή! / Οδηγίες : - Βάλτε 500 ζαχαρωτά στο καζάνι σας - Ανακατέψτε για μερικά δευτερόλεπτα - Σταματήστε να ανακατέβετε - Προσθέστε 100 φορές πιο πολλά ζαχαρωτά από τα δευτερόλεπτα που ανακατέψατε. Για παράδειγμα, αν ανακατέψετα για 4 δευτερόλεπτα, θα χρειαστεί να προσθέσετε 400 ζαχαρωτά. Μην πολλαπλασιάσετε αυτήν την ποσότητα, ακόμα και αν θέλετε να παρασκευάσετε παραπάνω από ένα φίλτρο. - Ζεστάνεται μέχρι το νερό να είναι χλιαρό - Σταματήστε να ζεσταίνεται - Προσθέστε λίγα γλειφυτζούρια - Ανακατέψτε - Βάλτε το σε μπουκάλια!");
-Database.addText("el.cauldron.page9", "Κάντε καλή χρήση του φίλτρου Π / Υπάρχουν μερικοί κανόνες του οποίους μπορείτε να ακολουθήσετε έτσι ώστε να πάρετε καλύτερα αποτελέσματα όταν πίνετε το φίλτρο Π. Αν και αυτοί οι κανόνες ορίστηκαν εμπερικά, φαίνονται να λειτουργούν αρκετά καλά. / - Όσο πιο πολύ χρησιμοποιήτε φίλτρα Π, τόσο πιο περίεργα αποτελέσματα έχουν. / - Αν η ζωή σας είναι πολύ χαμηλή, θα έπρεπε να πιείτε ένα φίλτρο Π. / - Ζώα τα οποία καταναλώνουν το φίλτρο Π φαίνεται να αντιδρούν με πολύ άσχημο τρόπο.");
-Database.addText("el.cauldron.page10", "Το Φίλτρο Χ / Το φίλτρο Χ είναι ένας θρύλος. Λέγεται ότι όποιος καταφέρει να το παρασκευάσει και να το πιει θα ταξιδέψει σε ένα μέρος που κανένας δεν έχει πάει ποτέ. / Δεν ξέρω αν αυτό το φίλτρο είναι απλώς ένας θρύλος ή όχι, αλλά θα γράψω σε αυτό το βιβλίο ό'τι ξέρω για αυτό. / Το φίλτρο Χ αναφέρεται σε πολλούς παλιούς θρύλους και βιβλία για φίλτρα. Εδώ είναι μία περίληψη των πληροφοριών οι οποίες μπορεί να σας βοηθήσουν να το παρασκευάσετε. Καλη τύχη! / - Λέγεται ότι 5 βήματα είναι απραίτητα για να παρασκευάσεις το φίλτρο Χ. / - Λέγεται ότι καθόλου γελιφυτζούρια δε χρειάζονται, εκτός από σε ένα από τα βήματα. / - Λέγεται ότι, σε αντίθεση με τα άλλα φίλτρα, δεν μπορείς να παρασκευάσεις παραπάνω από ένα φίλτρο Χ τη φορά.");
-Database.addText("el.cauldron.page11", "- Τέλος, το ακόλουθο ποίημα παραθέτεται σχετικά με το φίλτρο Χ : / Την πρώτη μέρα, γέννησε το πρώτο Ζαχαρωτό. Αλλά έκανε κρύο έξω. / Τη δεύτερη μέρα, έδωσε στο Ζαχαρωτό έναν πατέρα. Αλλά έκανε κρύο έξω. / Την τρίτη μέρα, έδωσε στο Ζαχαρωτό έναν αδερφό. Αλλά έκανε κρύο έξω. / Την τέταρτη μέρα έδωσε στο Ζαχαρωτό ένα φίλο. Αλλά έκανε κρύο έξω. / Την πέμπτη μέρα, έδωσε στο Ζαχαρωτό έναν εραστή, και μπορεί να ακουστεί απλό ή χαζό, αλλά τώρα το Ζαχαρωτό ήταν χαρούμενο, και είχε ζέστη έξω.");
-Database.addText("en.cauldron.page0", "Brewing manual");
-Database.addText("en.cauldron.page1", "Summary / Page 2 : Health potion / Page 3 : Turtle potion / Pages 4-5 : Anti-gravity potion / Pages 6-7 : Berserk potion / Pages 8-9 : The P potion / Pages 10-11 : The X potion");
-Database.addText("en.cauldron.page2", "Health potion / The health potion is one of the easiest to brew, really. It only requires candies. Used in quests, it will heal you by giving you back 100 health points. / Instructions : - Put 100 candies in your cauldron - Mix for a few seconds - Put into bottles / Just like for any potion, you can of course multiply the quantities. For example, if you use 300 candies instead of 100, you will get 3 health potions.");
-Database.addText("en.cauldron.page3", "Turtle potion / The turtle potion is a bit harder to brew than the health potion. You will need both candies and lollipops. / If you drink this potion in a quest, it will turn you into a turtle. You will move slower, but you will also be more resistant to you enemies attacks. / Instructions : - Put 50 candies in your cauldron - Add 500 lollipops in your cauldron - Mix for more or less 10 seconds - Stop mixing - Add 50 candies - Mix again for a few seconds - Put into bottles / And now the most important thing you should never forget : once you will be a turtle, do NOT turn over. You wouldn't be able to get up.");
-Database.addText("en.cauldron.page4", "Anti-gravity potion / This potion, which was invented by the well-known sorcerer Isaac, allows you to resist to the earth's gravitation force for a few seconds. / It is especially useful after jumping (if you can't jump, you should seriously consider obtaining a pogo stick). / It isn't very easy to brew, you will need to heat up your cauldron and watch the temperature carefully. / Instructions : - Put 1000 candies in your cauldron - Heat up until the water is lukewarm - Stop heating up - Add 1000 candies - Heat up until the water is boiling - Put into bottles");
-Database.addText("en.cauldron.page5", "Anti-gravity potion : use case / \"Fly above a gap\" / *drinks the potion*");
-Database.addText("en.cauldron.page6", "Berserk potion / The berserk potion transforms you into a berserker. / The drawback is that it consumes half of your life. / The benefit is that it doubles your damage for a few seconds! / Brewing this potions is very simple, but you will need a lot of lollipops. / Here are the instructions : - Put 20 000 lollipops in your cauldron - Mix them until your arms are hurting - Put into bottles");
-Database.addText("en.cauldron.page7", "Important notice concerning the berserk potion / Do NOT add any candy when brewing this potion. / I mean, not a single one. / Really. / Results would be unexpected.");
-Database.addText("en.cauldron.page8", "The P potion / The P potion is a strange one. You cannot predict what it is going to do. It could heal you or damage you, make you stronger or weaker, or even turn you into someone (something?) else. / And it's also hard to brew! / Instructions : - Put 500 candies in your cauldron - Mix for a few seconds - Stop mixing - Add 100 times more candies than the number of seconds you mixed. For example if you mixed during 4 seconds, you'll need to add 400 candies. Do not multiply this quantity, even if you want to make more than one potion. - Heat up until the water is lukewarm - Stop heating up - Add some lollipops - Mix - Put into bottles!");
-Database.addText("en.cauldron.page9", "Make a good use of the P potion / There are some rules which you can follow in order to get better results when drinking the P potion. Although these rules were defined empirically, they seem to work pretty well. / - The more you use P potions, the more they seem to have strange effects. / - If your health is very low, you should probably drink a P potion. / - Animals drinking P potions seem to react in a very bad way.");
-Database.addText("en.cauldron.page10", "The X potion / The X potion is a legend. It is said that whoever manage to brew it and drink it would travel to a place where no one have been before. / I don't know if this potion is just a legend or not, but I will write in this book everything I know about it. / The X potion is mentioned in many old legends and alchemy books. Here's a summary of the informations which may help you to brew it. Good luck! / - It is said that 5 steps are necessary to brew the X potion. / - It is said that no lollipops are required, except for one of the steps. / - It is said that, unlike for other potions, you can't brew multiple X potions at once.");
-Database.addText("en.cauldron.page11", "- Finally, the following poem is often quoted when it comes to the X potion : / On the first day, it gave birth to the very first Sweet. But it was cold outside. / On the second day, it gave the Sweet a father. But it was cold outside. / On the third day, it gave the Sweet a brother. But it was cold outside. / On the fourth day, it gave the Sweet a friend. But it was cold outside. / On the fifth day, it gave the Sweet a lover, and it may sound simple or silly, but now the Sweet was happy, and it was hot outside.");
-Database.addText("en.cauldron.page0", "Brewing manual");
-Database.addText("en.cauldron.page1", "Índice / Pág. 2: Poción de salud / Pág. 3 : Poción tortuga / Págs. 4-5 : Poción antigravedad / Págs. 6-7 : Poción berserk / Págs. 8-9 : La poción P / Págs. 10-11 : La poción X");
-Database.addText("en.cauldron.page2", "Poción de salud / La poción de salud es una de las más fáciles de realizar, en serio. Solo hacen falta caramelos. En las misiones, te curará devolviéndote 100 puntos de salud. / Instrucciones: -Pon 100 caramelos en el caldero -Mezcla durante unos segundos -Embotéllalo / Igual que con cualquier poción, puedes multiplicar las cantidades, por supuesto. Por ejemplo, si usas 300 caramelos en lugar de 100, obtendrás 3 pociones de salud.");
-Database.addText("en.cauldron.page3", "Poción tortuga / La poción tortuga es un poco más difícil que la poción de salud. Necesitarás caramelos y piruletas. / Si bebes esta poción en una misión, te convertirá en una tortuga. Te moverás más despacio, pero también serás más resistente a los ataques enemigos. / Instrucciones: -Pon 50 caramelos en el caldero -Añade 500 piruletas al caldero -Mezcla durante unos 10 segundos -Deja de mezclar -Añade 50 caramelos -Vuelve a mezclar durante unos seg. -Embotéllalo / Y ahora lo más importante, algo que no debes olvidar nunca: una vez te conviertas en tortuga, NO vuelques. No podrás volver a levantarte.");
-Database.addText("en.cauldron.page4", "Poción antigravedad / Esta poción, que fue inventada por el conocido hechicero Isaac, te permite evitar la fuerza gravitatoria de la Tierra durante unos segundos. / Es especialmente útil despues de saltar (si no puedes saltar, deberías plantearte conseguir un pogo). / No es muy fácil de hacer: necesitarás calentar el caldero y tener cuidado con la temperatura. / Instrucciones: -Pon 1000 caramelos en el caldero -Caliéntalo hasta que esté tibio -Deja de calentar -Añade 1000 caramelos -Calienta el agua hasta que hierva -Embotéllalo");
-Database.addText("en.cauldron.page5", "Poción antigravedad: ejemplo / \"Sobrevolar el hueco\" / *se bebe la poción*");
-Database.addText("en.cauldron.page6", "Poción berserk / La poción berserk te transforma en un berserker. / El inconveniente es que consume la mitad de tu vida. / ¡La ventaja es que duplica el daño durante unos segundos! / Hacer esta poción es muy sencillo, pero necesitarás un montón de piruletas. / Estas son las instrucciones: -Pon 20 000 piruletas en el caldero -Mezcla hasta que te duelan los brazos -Embotéllalo");
-Database.addText("en.cauldron.page7", "Aviso importante sobre la poción berserk / NO añadas caramelos mientras haces esta poción. / En serio, ni uno. / De verdad. / No se conocen los posibles resultados.");
-Database.addText("en.cauldron.page8", "Poción P / La poción P es muy rara. No puedes predecir qué efecto tendrá. Podría curarte o herirte, hacerte más fuerte o más débil, o incluso convertirte en otra persona (¿o cosa?). / ¡Y hacerla es difícil! /  Instrucciones : -Pon 500 caramelos en el caldero -Mezcla unos segundos -Para de mezclar -Añade 100 caramelos por cada segundo que hayas mezclado. Por ejemplo, si mezclaste durante 4 segundos, tendrás que añadir 400 caramelos. Si quieres hacer más de una poción, no tienes que multiplicar esta cantidad. -Calienta el agua hasta que esté tibia -Deja de calentar -Añade algunas piruletas -Mezcla -¡Embotéllalo!");
-Database.addText("en.cauldron.page9", "Usa la poción P con responsabilidad / Hay ciertas reglas que puedes seguir para tener mejores resultados cuando bebas la poción P. Aunque estas reglas se definieron empíricamente, parece que funcionan bastante bien. / -Cuantas más pociones P uses, los efectos parecen ser más raros. / -Si tu salud está baja, es buena idea que bebas una poción P. / -Los animales parecen reaccionar muy mal cuando beben pociones P.");
-Database.addText("en.cauldron.page10", "Poción X / La poción X es una leyenda. Se dice que quien consiga hacerla y bebérsela viajará a un lugar donde nunca ha estado nadie. / No sé si esta poción es una leyenda o no, pero escribiré todo lo que sé sobre ella en este libro. / La poción X se menciona en muchas leyendas y libros de alquimia antiguos. Aquí tienes algunos datos que pueden ayudarte. ¡Buena suerte! / -Dicen que se necesitan 5 pasos para preparar la poción X. / -Dicen que no hacen falta piruletas, excepto para uno de los pasos. / -Dicen que, a diferencia de otras pociones, no puedes hacer varias pociones X de una sola vez.");
-Database.addText("en.cauldron.page11", "-Por último, el siguiente poema se suele citar junto a la poción X: / El primer día  dio a luz al Primer Caramelo, pero fuera hacía frío. / El segundo día le dio un padre al Caramelo, pero fuera hacía frío. / El tercer día le dio un hermano al Caramelo, pero fuera hacía frío. /  El cuarto día le dio un amigo al Caramelo, pero fuera hacía frío. / El quinto día le dio una amante al Caramelo, y puede sonar simple o tonto, pero el Caramelo ahora era feliz y hacía calor fuera.");
-Database.addText("fr.cauldron.page0", "Manuel de préparation de potions");
-Database.addText("fr.cauldron.page1", "Sommaire / Page 2 : potion de vie / Page 3 : potion de tortue / Pages 4-5 : potion anti-gravité / Pages 6-7 : potion de berserker / Pages 8-9 : la potion P / Pages 10-11 : la potion X");
-Database.addText("fr.cauldron.page2", "Potion de vie / La potion de vie est l'une des plus faciles à préparer, vraiment. Il faut seulement des bonbons. Utilisée pendant les quêtes, elle vous soignera en vous redonnant 100 points de vie. / Instructions : - Mettez 100 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Mettez en bouteilles / Comme pour n'importe quelle potion, vous pouvez bien sûr multiplier les quantités. Par exemple, si vous utilisez 300 bonbons au lieu de 100, vous obtiendrez 3 potions de vie.");
-Database.addText("fr.cauldron.page3", "Potion de tortue / La potion de tortue est un peu plus difficile à préparer que la potion de vie. Vous aurez besoin de bonbons et de sucettes. / Si vous buvez cette potion pendant une quête, elle vous transformera en tortue. Vous vous déplacerez plus lentement, mais vous serez aussi plus résistant aux attaques de vos ennemis. / Instructions : - Mettez 50 bonbons dans votre chaudron. - Ajoutez 500 sucettes dans votre chaudron - Mélangez pendant plus ou moins 10 secondes - Arrêtez de mélanger - Ajoutez 50 bonbons - Mélangez encore pendant quelques secondes - Mettez en bouteilles / Et maintenant, la chose la plus importante que vous ne devriez jamais oublier : quand vous serez une tortue, SURTOUT ne vous retournez pas. Vous ne seriez pas capable de vous relever.");
-Database.addText("fr.cauldron.page4", "Potion anti-gravité / Cette potion, qui a été inventée par le renommé sorcier Isaac, vous permet de résister à la force gravitationnelle de la terre pour quelques secondes. / Elle est particulièrement utile après avoir sauté (si vous ne pouvez pas sauter, vous devriez sérieusement penser à obtenir un bâton sauteur). / Elle n'est pas très facile à préparer, vous aurez besoin de faire chauffer votre chaudron et de surveiller la température avec attention. / Instructions : - Mettez 1000 bonbons dans votre chaudron - Chauffez jusqu'à ce que l'eau soit tiède - Arrêtez de chauffer - Ajoutez 1000 bonbons - Chauffez jusqu'à ce que l'eau bout - Mettez en bouteilles");
-Database.addText("fr.cauldron.page5", "Potion anti-gravité : cas d'utilisation / \"Voler au-dessus d'un précipice\" / *boit la potion*");
-Database.addText("fr.cauldron.page6", "Potion de berserker / La potion de berserker vous transforme en un berserker. / L'inconvénient est que cela consomme la moitié de votre vie. / L'avantage est que cela double vos dégâts pendant quelques secondes ! / Préparer cette potion est très simple, mais vous aurez besoin de beaucoup de sucettes. / Voici les instructions : - Mettez 20 000 sucettes dans votre chaudron - Mélangez les jusqu'à ce que vos bras vous fassent mal - Mettez en bouteilles");
-Database.addText("fr.cauldron.page7", "Avertissement important concernant la potion de berserker / Ne PAS ajouter de bonbon pendant la préparation de cette potion. / Je veux dire, pas un seul. / Vraiment. / Le résultat serait innatendu.");
-Database.addText("fr.cauldron.page8", "La potion P / La potion P est une potion bizarre. Vous ne pouvez pas prédire ce qu'elle va faire. Elle pourrait vous soigner ou vous infliger des dommages, vous rendre plus fort ou plus faible, ou même vous transofmer en quelqu'un (quelque chose ?) d'autre. / Et en plus elle est dure à préparer ! / Instructions : - Mettez 500 bonbons dans votre chaudron - Mélangez pendant quelques secondes - Arrêtez de mélanger - Ajoutez 100 fois plus de bonbons que le nombre de secondes pendant lesquelles vous avez mélangé. Par exemple si vous avez mélangé pendant 4 secondes, vous devrez ajouter 400 bonbons. Ne multipliez pas cette quantité, même si vous voulez faire plus d'une potion. - Faites chauffer jusqu'à ce que l'eau soit tiède - Arrêtez de faire chauffer - Ajoutez des sucettes - Mélangez - Mettez en bouteilles !");
-Database.addText("fr.cauldron.page9", "Faire bon usage de la potion P / Il y a certaines règles que vous pouvez suivre pour obtenir de meilleurs résultats en buvant la potion P. Bien que ces règles aient été établies de manière empirique, elles semblent assez bien fonctionner. / - Plus vous utilisez de potions P, plus elles semblent avoir des effets étranges. / - Si votre vie est très basse, vous devriez probablement utiliser une potion P. / - Les animaux qui boivent une potion P semblent très mal réagir.");
-Database.addText("fr.cauldron.page10", "La potion X / La potion X est une légende. Il est dit que quiconque parviendrait à la préparer et à la boire voyagerait jusqu'à un endroit où personne n'est encore jamais allé. / Je ne sais pas si cette potion est juste une légende ou pas, mais je vais lister dans ce livre tout ce que je sais à propos d'elle. / La potion X est mentionnée dans de nombreuses vieilles légendes et livres d'alchimie. Voici un résumé des informations qui pourraient vous aider à la préparer. Bonne chance ! / - Il est dit que 5 étapes sont nécessaires à la préparation de la potion X. / - Il est dit qu'aucune sucette n'est nécessaire, mis à part pour l'une des étapes. / - Il est dit que, contrairement aux autres potions, vous ne pouvez pas préparer plusieurs potions X à la fois.");
-Database.addText("fr.cauldron.page11", "- Enfin, le poème suivant est souvent cité quand on parle de la potion X : / Le premier jour, il donna naissance à la toute première Sucrerie. Mais il faisait froid dehors. / Le deuxième jour, il donna à la Sucrerie un père. Mais il faisait froid dehors. / Le troisième jour, il donna à la Sucrerie un frère. Mais il faisait froid dehors. / Le quatrième jour, il donna à la Sucrerie un ami. Mais il faisait froid dehors. / Le cinquième jour, il donna à la Sucrerie un amour, et cela peut paraître simple ou niais, mais maintenant la Sucrerie était heureuse, et il faisait chaud dehors.");
-Database.addText("hu.cauldron.page0", "Főzési útmutató");
-Database.addText("hu.cauldron.page1", "Összefoglaló / 2. oldal : Gyógyító ital / 3. oldal : Teknős ital / 4.-5. oldal : Anti-gravitációs ital / 6.-7. oldal : Őrjítő ital / 8.-9. oldal : A P ital / 10.-11. oldal : Az X ital");
-Database.addText("hu.cauldron.page2", "Gyógyító ital / A gyógyító italt a legkönnyebb kifőzni, de tényleg. Csak cukorka kell hozzá. A küldetések közben felgyógyít téged 100 életerő ponttal. / Elkészítés : - Rakj 100 cukorkát az üstbe - Keverd pár másodpercig - Rakd bele üvegekbe / Akárcsak a többi italnál, ennek mennyiségét is többszörözheted. Például ha 300 cukorkát használsz 100 helyett, akkor 3 életerő italt fogsz kapni.");
-Database.addText("hu.cauldron.page3", "Teknős ital / A teknős italt egy kicsit nehezebb elkészíteni, mint a gyógyító italt. Ehhez cukorkákra és nyalókákra is szükséged lesz. / Ha ezt megiszod egy küldetés közben, akkor teknőssé változol. Lassabban fogsz mozogni, de ugyanakkor jobban ellenállsz majd az ellenség támadásainak. / Elkészítés : - Rakj 50 cukorkát az üstbe - Adj hozzá 500 nyalókát - Keverd meg több vagy kevesebb mint 10 másodpercig - Hagyd abba a keverést - Adj hozzá 50 cukorkát - Keverd meg újra egy pár pillanatig - Rakd bele üvegekbe / És most jön a legfontosabb, amit nem feledhetsz el : Ha teknősbéka lettél, NEHOGY felfordulj. Nem fogsz tudni felkelni.");
-Database.addText("hu.cauldron.page4", "Anti-gravitációs ital / Ez az ital, amit a híres Isaac varázsló talált fel, ellenállóvá tesz téged pár másodpercre a Föld gravitációs erejének. / Nagyon hasznos lehet egy ugrás után (ha nem tudsz ugrani, akkor jobban teszed, ha sürgősen beszerzel egy pogo rudat). / Nem könnyű elkészíteni, mivel fel kell hevíteni az üstöt, és figyelemmel kell kísérni a hőmérsékletét. / Elkészítés : - Rakj 1000 cukorkát az üstbe - Hevítsd fel, amíg langyos nem lesz - Hagyd abba a melegítését - Adj hozzá 1000 cukorkát - Hevítsd addig az üstöt, amíg el nem kezd forrni benne a víz - Rakd bele üvegekbe");
-Database.addText("hu.cauldron.page5", "Anti-gravitációs ital : példa a használatra / \"Átrepül a szakadék felett\" / *megissza az italt*");
-Database.addText("hu.cauldron.page6", "Őrjítő ital / Az őrjítő ital egy őrült harcossá változtat téged. / A hátránya az, hogy elhasználja a fél életerődet. / Az előnye viszont, hogy kétszer többet fogsz sebezni pár másodpercig! / A kifőzése nagyon egyszerű, de rengeteg nyalókába kerül. / Itt az elkészítése : - Rakj 20 000 nyalókát az üstbe - Addig keverd őket, amíg bele nem fájdul a karod - Rakd bele üvegekbe");
-Database.addText("hu.cauldron.page7", "Fontos tudnivaló az őrjítő itallal kapcsolatban / NE adj hozzá cukorkát az ital kifőzése közben. / Komolyan, egyet se. / De tényleg. / Az eredmény váratlan lehet.");
-Database.addText("hu.cauldron.page8", "A P ital / A P ital eléggé fura. Sose tudhatod, hogy mit fog csinálni. Felgyógyíthat, vagy sebezhet is téged, erősebbé vagy gyengébbé válhatsz, vagy akár valakivé (valamivé?) változtathat. / És nehéz kifőzni! / Elkészítés : - Rakj 500 cukorkát az üstbe - Keverd pár másodpercig - Hagyd abba a keverést - Rakj százszor annyi cukorkát az üstbe, mint amennyi ideig keverted. Tehát ha 4 másodpercen át keverted, akkor 400 cukorkára lesz szükséged. Ezt a mennyiséget ne szorozd be, még akkor sem, ha több mint egy italt szeretnél kifőzni. - Hevítsd fel a vizet, amíg langyos nem lesz - Hagyd abba a melegítését - Adj hozzá pár nyalókát - Keverd meg - Rakd bele üvegekbe!");
-Database.addText("hu.cauldron.page9", "Hogy kihasználd a P italt / Sok szabály van, amit követhetsz, hogy jobb eredményt kapj a P ital elfogyasztásakor. Habár ezen szabályokat empirikusan kell értelmezni, úgy tűnik egész jól működnek. / - Minél töbhet fogyasztasz el a P italból, annál furább hatásokat kaphatsz. / - Ha kevés az életerőd, akkor talán meg kellene innod egy P italt. / - Azon állatok amik P italt fogyasztanak általában nagyon rosszul reagálnak rá.");
-Database.addText("hu.cauldron.page10", "Az X ital / Az X ital egy legenda. Állítólag bárkinek is sikerül kifőznie és meginnia ezt, az eljutna egy olyan helyre ahol még senki se járt azelőtt. / Nem tudom, hogy ez most tényleg legenda vagy sem, de leírok róla mindent ebbe a könyvbe, amit csak tudok róla. / Az X italt rengeteg régi legendában és alkímiai könyvben megemlítik. Itt egy összegzés az információkról, amik segítségével talán te magad is kifőzheted. Sok szerencsét! / - Állítólag 5 lépés kell az X ital elkészítéséhez. / - Állítólag nem kell nyalókát használni, kivéve az egyik lépéshez. / - Állítólag a többi itallal ellentétben az X italból nem lehet egyszerre többet készíteni.");
-Database.addText("hu.cauldron.page11", "- Végezetül ezt a mondókát szokták felhozni az X itallal kapcsolatban : / Az első napon egy nagyon Édes dolognak adott életet. De odakint hideg volt. / A második napon az Édeset odaadta egy apának. De odakint hideg volt. / A harmadik napon az Édeset odaadta egy testvérnek. De odakint hideg volt. / A negyedik napon az Édeset odaadta egy barátnak. De odakint hideg volt. / Az ötödik napon az Édeset odaadta egy szeretőnek, és egyszerűnek, vagy butának tűnhet, de az Édes most boldog volt, és odakint forróság volt.");
-Database.addText("id.cauldron.page0", "Buku petunjuk membuat obat (potion)");
-Database.addText("id.cauldron.page1", "Rangkuman / Halaman 2 : Obat kesehatan / Halaman 3 : Obat kura-kura / Halaman 4-5 : Obat anti-gravitasi / Halaman 6-7 : Obat pengamuk / Halaman 8-9 : Obat P / Halaman 10-11 : Obat X");
-Database.addText("id.cauldron.page2", "Obat kesehatan / Obat kesehatan ini adalah salah satu obat yang mudah untuk dibuat, sungguh. Obat ini hanya memerlukan permen. Digunakan di pencarian (quest), obat ini akan menyembuhkanmu dengan memberimu kembali 100 poin nyawa. / Petunjuk : - Taruh 100 permen di kualimu - Aduk selama beebrapa detik - Taruh di botol / Seperti oabt lainnya, kamu dapat melipatgandakan jumlahnya. Contohnya, jika kamu tidak menggunakan 100 permen, melainkan 300 permen, kamu akan mendapatkan 3 obat kesehatan.");
-Database.addText("id.cauldron.page3", "Obat kura-kura / Obat kura-kura sedikit lebih sulit untuk dibuat dibandingkan obat kesehatan. Kamu akan membutuhkan permen dan lollipop. / Jika kamu meminum obat ini dalam pencarian (quest), obat ini akan membuatmu menjadi kura-kura. Kamu akan bergerak lebih lambat, tapi kamu juga dapat lebih bertahan terhadap serangan musuhmu. / Petunjuk : - Taruh 50 permen dalam kuali - Tambahkan 500 lollipop kedalam kualimu - Aduk selama kurang lebih 10 detik - Berhenti mengaduk - Tambahkan 50 permen - Aduk lagi selama beberapa detik - Taruh ke botol / Dan sekarang hal paling penting yang seharusnya kamu tidak lupa : sekali kamu menjadi kura-kura, JANGAN membalik. Kamu tidak akan dapat bangun.");
-Database.addText("id.cauldron.page4", "Obat anti-gravitasi / Obat ini, yang ditemukan oleh tukang sihir terkenal Isaac, memungkinkan kamu bertahan dari tarikan gravitasi bumi selama beberapa detik. / Obat ini berguna khususnya setelah melompat (jika kamu tidak dapat melompat, kamu harus mempertimbangkan mendapatkan sebuah tongkat pogo). / Obat ini tidak mudah untuk dibuat, kamu butuh memanaskan kualimu dan memperhatikan suhunya dengan hati-hati. / Petunjuk : - Taruh 1000 permen di kualimu - Panaskan sampai airnya hangat-hangat kuku - Berhenti memanaskan - Tambahkan 1000 permen - Panaskan tinggal airnya mendidih - Taruh ke botol");
-Database.addText("id.cauldron.page5", "Obat anti-gravitasi : contoh penggunaan / \"Melayang diatas sebuah celah\" / *meminum obatnya*");
-Database.addText("id.cauldron.page6", "Obat pemberontak / Obat pemberontak ini mengubah kamu menjadi pemberontak. / Kekurangannya adalah obat ini menghabiskan setengah dari nyawamu. / Keuntungannya adalah obat ini melipatgandakan seranganmu selama beberapa detik! / Membuat obat ini sangat sederhana, tapi kamu akan membutuhkan banyak lollipop. / Ini adalah petunjuknya : - Taruh 20 000 lollipop di kualimu - Aduk sampai lenganmu kesakitan - Taruh ke botol");
-Database.addText("id.cauldron.page7", "Pemberitahuan penting seputar obat pemberontak / JANGAN menambahkan permen ketika membuat obat ini. / Maksud saya, sebuah pun. / Sungguh. / Hasilnya akan tidak terduga.");
-Database.addText("id.cauldron.page8", "Obat P / Obat P adalah obat yang aneh. Kamu tidak dapat memprediksikan apa yang akan dilakukan obat ini. Obat ini dapat menyembuhkan atau menyerangmu, membuatmu lebih kuat atau lebih lemah, atau bahkan mengubahmu menjadi seseorang (sesuatu?) yang lain. / Dan obat ini juga sulit untuk dibuat! / Petunjuk : - Taruh 500 permen di kualimu - Aduk selama beberapa detik - Berhenti mengaduk - Tambahkan 100 kali lebih banyak permen dari waktu kamu mengaduk. Contohnya jika kamu mengaduk selama 4 detik, kamu harus menambahkan 400 permen. Jangan melipatgandakan jumlah ini, bahkan jika kamu ingin membuat lebih dari satu obat. - Panaskan sampai airnya hangat-hangat kuku - Berhenti memanaskan - Tambahkan beberapa lollipop - Aduk - Taruh ke botol!");
-Database.addText("id.cauldron.page9", "Gunakan obat P sebaik-baiknya / Ada beberapa aturan yang dapat kamu ikuti untuk mendapatkan hasil yang lebih baik ketika meminum obat P. Walaupun aturan-aturan ini dijelaskan empirically, tampaknya mereka bekerja cukup baik. / - Semakin banyak kamu menggunakan obat P, mereka tampaknya mempunyai efek yang aneh. / - Jika nyawamu sangat rendah, mungkin kamu harus minum obat P. / - Binatang yang meminum obat P tampaknya bereaksi dengan cara yang sangat buruk.");
-Database.addText("id.cauldron.page10", "Obat X / Obat X adalah obat yang legendaris. Katanya siapapun yang dapat membuat dan meminum obat ini akan pergi ke suatu tempat yang belum pernah dikunjungi siapapun. / Saya tidak tahu kalau obat ini legendaris atau tidak, tapi saya akan menulis semua yang saya ketahui di buku ini. / Obat X sering disebut di banyak buku legenda tua dan buku alkimia. Ini adalah ringkasan dari informasi yang dapat membantumu membuatmu. Semoga sukses! / - Katanya ada 5 langkah yang perlu dilakukan untuk membuat obat X. / - Katanya tidak ada lollipop yang dibutuhkan, kecuali dalam salah satu lengkahnya. / - Katanya, tidak seperti obat-obat lain, kamu tidak dapat membuat lebih dari satu obat X dalam satu kali.");
-Database.addText("id.cauldron.page11", "- Akhirnya, puisi ini sering dikutip di bagian obat X : / Pada hari pertama, dia melahirkan Penganan yang paling pertama. Tapi diluar dingin. / Pada hari kedua, dia memberikan Penganan tersebut ayah. Tapi diluar dingin. / Pada hari ketiga, dia memberikan Penganan tersebut saudara. Tapi diluar dingin. / Pada hari keempat, dia memberikan Penganan tersebut teman. Tapi diluar dingin. / Pada hari kelima, dia memberikan Penganan tersebut pasangan, dan kedengarannya sederhana atau bodoh, tapi sekarang Penganan tersebut senang, dan diluar panas.");
-Database.addText("﻿kr.cauldron.page0", "브루잉 매뉴얼");
-Database.addText("kr.cauldron.page1", "요약 / 2페이지 : 건강 물약 / 3페이지 : 거북 물약 / 4-5페이지 : 반중력 물약 / 6-7페이지 : 버서크 물약 / 8-9페이지 : 물약 / 10-11페이지 : X 물약");
-Database.addText("kr.cauldron.page2", "건강 물약 / 건강 물약은 사실 양조하기 가장 쉬운 것 중 하나야. 캔디만 있으면 돼. 퀘스트에 사용되면 건강포인트 100점을 돌려줌으로써 너를 치유할 수 있어. / 지침 : - 100개의 캔디를 가마솥에 넣고 몇 초 동안 섞는다. - 병에 담는다. / 어떤 물약이든 간에, 물론 그 양을 증식할 수 있어. 예를 들어, 100개 대신에 300개의 캔디를 사용한다면, 3개의 건강 화분을 얻게 될 거야.");
-Database.addText("kr.cauldron.page3", "거북이 물약 / 거북이 물약은 건강 물약보다 양조하기가 조금 어려워. 캔디와 롤리팝이 모두 필요할 거야. / 이 물약을 퀘스트에서 마시면 거북이가 될 거야. 너는 더 느리게 움직일 것이지만, 적들의 공격에 더 저항할 수 있을 거야. / 지침 : - 당신의 가마솥에 50개의 캔디를 넣으세요. - 500개의 롤리팝을 넣으세요. - 10초 이상 섞지 마세요. - 섞지 마세요. - 50개의 캔디를 다시 넣으세요. - 이제 너가 결코 잊지 말아야 할 가장 중요한 것은 : 한 번. 너는 거북이가 될 거야. 절대 뒤집지 마. 일어날 수 없을 거야.");
-Database.addText("kr.cauldron.page4", "반중력약 / 잘 알려진 마법사인 이삭이 발명한 이 물약은 몇 초 동안 지구 중력에 저항할 수 있게 해줘. / 점프 후 특히 유용해. (점프를 할 수 없다면, 포고 막대기를 얻는 것을 진지하게 고려해야 해). / 끓이기 쉽지 않아. 가마솥을 데우고 온도를 잘 지켜봐야 해. / 지침 : - 캔디 1000개를 가마솥에 넣어라. - 물이 미지근해질 때까지 데워라. - 그만 데워라. - 캔디 1000개를 넣고 물이 끓을 때까지 데워라. - 병에 담아라.");
-Database.addText("kr.cauldron.page5", "항중력약 : 사용사례 / \"격차 위로 날아간다\" / *약물 마시기*");
-Database.addText("kr.cauldron.page6", "흥분 물약 / 흥분 물약은 너를 흥분하게 만들어. / 단점은 삶의 절반을 소모한다는 거야. / 단점은 몇 초 동안 피해를 배가시킨다는 거야! / 이 약의 버팀목은 매우 간단하지만, 많은 막대 사탕이 필요할 거야. / 여기 지침이 있다 : - 20 000개의 롤리팝을 가마솥에 섞는다. 당신의 팔이 아프다. - 병에 담아라.");
-Database.addText("kr.cauldron.page7", "흥분 물약에 관한 중요 공지 / 이 물약을 끓일 때 캔디를 넣지 마십시오. / 단 한 개도 넣지 마십시오. / 정말. / 결과는 예상 밖일 겁니다.");
-Database.addText("kr.cauldron.page8", "P 물약 / P 물약은 이상한거야. 너는 그 물약이 무엇을 할 것인지 예측할 수 없어. 그건 너를 치유하거나 손상시킬 수도 있고, 너를 더 강해지거나 약하게 만들 수도 있고, 심지어 너를 누군가로 변화시킬 수도 있어. / 그리고 양조하기도 어려워! / 지침 : - 500개의 캔디를 가마솥에 넣고 - 몇 초 동안 섞고 - 섞지 말고 - 섞은 시간보다 100배 더 넣어라. 예를 들어 4초 동안 섞으면 캔디 400개를 넣어야 한다. 한 가지 이상의 물약을 만들고 싶어도 이 양을 곱하지 마라. - 물이 미지근해질 때까지 가열해라. - 가열하지 마라. - 롤리팝 추가 - 혼합 - 병에 넣어라!");
-Database.addText("kr.cauldron.page9", "P 물약을 잘 사용해. / P 물약을 마실 때 더 좋은 결과를 얻기 위해 따를 수 있는 몇 가지 규칙이 있어. 비록 이런 규칙들이 경험적으로 정의되었지만, 꽤 잘 작동하는 것 같아. / - P 물약을 사용하면 쓸수록 이상한 효과가 있는 것 같아. / - 만약 너의 건강이 매우 낮다면, 아마도 P 물약을 마시는 동물들은 아주 나쁜 방식으로 반응하는 것 같아.");
-Database.addText("kr.cauldron.page10", "X 물약 / X 물약은 전설이야. 가까스로 양조해서 마시는 사람은 아무도 없었던 곳으로 여행을 간다고 해. / 이 물약이 단지 전설인지 아닌지는 모르겠지만, 내가 알고 있는 모든 것을 이 책에 쓸게. / X 물약은 많은 옛 전설과 연금술 책들에서 언급돼. 여기 너가 그것을 끓이는 데 도움이 될 수 있는 정보들의 요약이 있어. 행운을 빌어! / - X 물약을 끓이기 위해서는 5단계가 필요하다고 해. / - 1단계를 제외하고는 롤리팝이 필요하지 않아. / - 다른 약과 달리 여러 개의 X 물약을 한꺼번에 양조할 수 없어.");
-Database.addText("kr.cauldron.page11", "- 마지막으로 X 물약 하면 다음과 같은 시가 인용되는 경우가 많아 : / 첫 날, 바로 첫 번째 단 것을 생성했다. 하지만 밖은 추웠다. / 둘째 날, 단 것에게 아버지를 선물했다. 하지만 밖은 추웠다. / 셋째 날, 단 것에게 형제를 주었다. 하지만 밖은 추웠다. / 나흘째 되던 날 단 것에게 친구를 선물했다. 하지만 밖은 추웠다. / 닷새째 되던 날, 단 것에게 애인을 주었고, 단순하거나 바보같이 들릴지 모르지만, 지금은 단 것은 행복했고, 밖은 더웠다.");
-Database.addText("﻿nl.cauldron.page0", "Handleiding voor brouwen");
-Database.addText("nl.cauldron.page1", "Overzicht / Pagina 2 : Levensdrankje / Pagina 3 : Schildpaddrankje / Pagina's 4-5 : Anti-zwaartekracht drankje/ Pagina's 6-7 : Dolzinnig drankje / Pagina's 8-9 : Het P drankje / Pagina's 10-11 : Het X drankje");
-Database.addText("nl.cauldron.page2", "Levensdrankje / Het levensdrankje is één van de makkelijkste te brouwen, echt. Het vereist alleen snoepjes. Bij gebruik in zoektochten herstelt het 100 levenspunten. / Instructies : - Plaats 100 snoepjes in je ketel - Mix voor een paar seconden - Stop het in flesjes / Net zoals voor elk ander drankje, kan je natuurlijk de aantallen vermenigvuldigen. Als je bijvoorbeeld 300 snoepjes in plaats van 100 gebruikt, krijg je 3 levensdrankjes.");
-Database.addText("nl.cauldron.page3", "Schildpaddrankje / Het schildpaddrankje is iets moeilijker te brouwen dan het levensdrankje. Je hebt snoepjes en lollies nodig. / Als je dit drankje drinkt tijdens een zoektocht, veranderd het je in een schildpad. Je loopt langzamer, maar je bent ook beter bestand tegen aanvallen van je vijanden. / Instructies : - Plaats 50 snoepjes in je ketel - Voeg 500 lollies toe - Mix voor ongeveer 10 seconden - Stop met mixen - Voeg 50 snoepjes toe - Mix weer voor een paar seconden - Stop in flesjes / En nu het meest belangrijke dat je niet moet vergeten : Draai niet op je rug wanneer je een schildpad bent. Je kunt dan niet meer overeind komen.");
-Database.addText("nl.cauldron.page4", "Anti-zwaartekracht drankje / Dit drankje, dat uitgevonden is door de beroemde tovenaar Isaac, maakt het mogelijk om de zwaartekracht van de aarde te negeren voor een paar seconden. / Het is vooral nuttig na het springen (als je niet kan springen moet je echt overwegen om een pogostick te halen). / Het is niet heel makkelijk om te brouwen, je moet je ketel opwarmen en goed de temperatuur in de gaten houden. / Instructies : - Stop 1000 snoepjes in je ketel - Warm op tot het water lauw is - Stop met opwarmen - Voeg 1000 snoepjes toe - Warm het water op tot het kookt - Stop het in flesjes");
-Database.addText("nl.cauldron.page5", "Anti-zwaartekracht drankje : Gebruikersvoorbeeld / \"Vlieg boven een gat\" / *Drinkt het drankje*");
-Database.addText("nl.cauldron.page6", "Dolzinnig drankje / Het dolzinnig drankje transformeert je in een berserker. / Het nadeel is dat het de helft van je levens punten opneemt. / Het voordeel is dat het je kracht verdubbelt voor een paar seconden! / Het brouwen van dit drankje is heel makkelijk, maar je hebt veel lollies nodig. / Hier zijn de instructies : - Stop 20 0000 lollies in je ketel - Mix ze tot je armen er pijn van doen -  Stop het in flesjes");
-Database.addText("nl.cauldron.page7", "Belangrijke notitie omtrent het dolzinnig drankje / Voeg GEEN snoepjes toe tijdens het brouwen van dit drankje / Ik bedoel, geen enkele. / Serieus / De resultaten zullen onverwacht zijn. en.cauldron.page8");
-Database.addText("nl.cauldron.page8", "Het P drankje / Het P drankje is een vreemd drankje. Je kan niet voorspellen wat het doet. Het kan je levenspunten geven of juist afnemen, het kan je sterker of zwakker maken, of het kan je veranderen in iemand (iets?) anders. / En het is ook nog eens moeilijk te brouwen! / Instructies : - Stop 500 snoepjes in je ketel - Mix voor een paar seconden - Stop met mixen - Voeg 100 keer zoveel snoepjes toe als het aantal seconden dat je hebt gemixt. Als je bijvoorbeeld 4 seconden hebt gemixt, moet je 400 snoepjes toevoegen. Verdubbel dit aantal niet, ook niet als je meer dan één drankje wil maken - Warm het water op tot het lauw is - Stop met opwarmen - Voeg wat lollies toe - Mix - Stop het in flesjes!");
-Database.addText("nl.cauldron.page9", "Maak goed gebruik van het P drankje / Er zijn een paar regels die je kunt volgen om betere resultaten te krijgen wanneer je het P drankje drinkt. Hoewel deze regels empirisch werden gedefinieerd, lijken ze vrij goed te werken. / - Hoe meer je het P drankje gebruikt, hoe meer het lijkt alsof ze vreemde effecten hebben. / - Als je levenspunten heel laag zijn, zou je waarschijnlijk een P drankje moeten drinken. / - Dieren die het P drankje drinken lijken er zeer slecht op te reageren.");
-Database.addText("nl.cauldron.page10", "Het X drankje / Het X drankje is een legende. Er wordt gezegd dat degene die dit drankje brouwt en drinkt zal reizen naar een plek waar nog nooit iemand is geweest. / Ik weet niet of dit drankje gewoon een legende is of niet, maar ik zal in dit boek alles schrijven wat ik er van weet. / Het X drankje wordt genoemd in veel oude legendes en alchemieboeken. Hier is een overzicht van die informatie die je misschien kan helpen bij het brouwen. Succes! / - Er wordt gezegd dat er 5 stappen nodig zijn voor het brouwen van het X drankje. / - Er wordt gezegd dat er geen lollies nodig zijn, behalve bij één van de stappen. / - Er wordt gezegd dat, in tegenstelling tot andere drankjes, je niet meerdere X drankjes tegelijk kan maken.");
-Database.addText("nl.cauldron.page11", "- Tenslotte wordt het volgende gedicht vaak geciteerd als het over het X drankje gaat : / Op de eerste dag, gaf het geboorte aan het eerste Zoet. Maar het was koud buiten. / Op de tweede dag, gaf het het Zoet een vader. Maar het was koud buiten. / Op de derde dag, gaf het het Zoet een broer. Maar het was koud buiten. / Op de vierde dag, gaf het het Zoet een vriend. Maar het was koud buiten. / Op de vijfde dag, gaf het het Zoet een geliefde, en het klinkt misschien simpel en dom, maar nu was het Zoet gelukkig, en was het warm buiten.");
-Database.addText("pl.cauldron.page0", "Instrukcja warzenia mikstur");
-Database.addText("pl.cauldron.page1", "Spis treści / Strona 2 : Mikstura zdrowia / Strona 3 : Mikstura żółwia / Strony 4-5 : Mikstura anty-grawitacyjna / Strony 6-7 : Mikstura szału / Strony 8-9 : Mikstura P / Strony 10-11 : Mikstura X");
-Database.addText("pl.cauldron.page2", "Mikstura zdrowia / Mikstura zdrowia jest to najłatwiejsza mikstura do zrobienia. Do jej zrobienia potrzebujesz tylko cukierków. Użyta w zadaniach, uleczy cię, przywracając ci 100 punktów zdrowia. / Instrukcje : - Wrzuć 100 cukierków do kotła - Mieszaj przez parę sekund - Wlej do butelek / Tak jak w przypadku każdej mikstury, możesz pomnożyć ilość składników. Na przykład, jeśli wrzucisz 300 cukierków zamiast 100, uzyskasz 3 mikstury zdrowia.");
-Database.addText("pl.cauldron.page3", "Mikstura żółwia / Mikstura żółwia jest trochę trudniejsza do przygotowania niż mikstura zdrowia. Tym razem będziesz potrzebował i cukierków i lizaków. / Jeśli wypijesz tę miksturę w trakcie zadania, zamieni cię ona w żółwia. Będziesz poruszał się wolniej ale będziesz także o wiele bardziej odporny na ataki nieprzyjaciół. / Instrukcje : -  Wrzuć 50 cukierków do kotła - Dodaj 500 lizaków - mieszaj przez około 10 sekund - Przestań mieszać - Dodaj 50 cukierków - Pomieszaj jeszcze przez parę sekund - Wlej do butelek / I teraz najważniejsza rzecz o której nie możesz zapomnieć : gdy już zamienisz się w żółwia, NIE obracaj się na plecy. Nie będziesz w stanie się podnieść.");
-Database.addText("pl.cauldron.page4", "Mikstura anty-grawitacyjna / Ta mikstura, wynaleziona przez dobrze znanego czarodzieja Isaaca, pozwala ci oprzeć się przyciąganiu grawitacyjnemu Ziemi przez parę sekund / Jest  szczególnie użyteczny po skoku ( jeśli nie możesz skakać, powinieneś zastanowić się nad zdobyciem sprężynowego urządzenia do podskakiwania) / Nie jest łatwo go uwarzyć, będziesz musiał podgrzać swój kocioł i dokładnie obserwować jego temperaturę / Instrukcje : - Wrzuć 1000 cukierków do kotła - Podgrzewaj dopóki woda nie stanie się letnia (lukewarm) - Przestań podgrzewać - Dodaj 1000 cukierków - Podgrzewaj aż woda będzie wrzeć (BOILING) - Wlej do butelek");
-Database.addText("pl.cauldron.page5", "Mikstura Anty-grawitacyjna : przykład użycia / \"Przeleć nad dziurą\" / *wypija miksturę*");
-Database.addText("pl.cauldron.page6", "Mikstura szału / Mikstura szału zamieni cię w berserkera. / Wadą jest to, że zabierze to połowę twoich punktów zdrowia. / Zaletą jest to że podwoi ona zadawane przez ciebie obrażenia na parę sekund! / ugotowanie tej mikstury jest bardzo proste, ale będziesz potrzebował dużej ilości lizaków. / Oto instrukcje : - Wrzuć 20 000 lizaków do kotła - Mieszaj dopóki nie rozbolą cię ręce - Wlej do butelek");
-Database.addText("pl.cauldron.page7", "Ważna informacja dotycząca mikstury berserkera / NIE dodawaj ŻADNYCH cukierków w trakcie warzenia tej mikstury! / Nawet jednego. / Naprawdę. / Rezultaty mogły by być nieoczekiwane.");
-Database.addText("pl.cauldron.page8", "Mikstura P / Mikstura P jest dziwna. Nie jesteś w stanie przewidzieć co zrobi. Może cię uleczy, może cie skrzywdzi, może sprawi że będziesz silniejszy, albo słabszy. Może cię nawet zamienić w kogoś (coś?) innego. / Ciężko ją stworzyć! / Instrukcje : - Wrzuć 500 cukierków do kotła - Mieszaj przez parę sekund - Przestań mieszać - Dodaj 100 razy więcej cukierków niż ilość sekund przez którą mieszałeś. Na przykład, jeśli mieszałeś przez 4 sekundy, dodaj 400 cukierków. Nie zwiększaj tej ilości jeśli chcesz stworzyć więcej niż jedną miksturę. - Podgrzewaj dopóki woda nie stanie się letnia (lukewarm) - Przestań podgrzewać - Dodaj trochę lizaków - Pomieszaj - Wlej do butelek!");
-Database.addText("pl.cauldron.page9", "Zrób dobry użytek z mikstury P / Jest parę zasad których możesz przestrzegać aby uzyskać lepsze rezultaty kiedy pijesz tę miksturę. Pomimo tego że te zasady były określone doświadczalnie, wydają się działać całkiem dobrze. / - Im częściej będziesz używać mikstur P, tym częściej będzie ona miała dziwne efekty. / - Jeśli masz bardzo mało punktów życia, to wypicie mikstury P jest prawdopodobnie dobrym pomysłem. / - Zwierzęta które wypiją miksturę P zdają się reagować w bardzo zły sposób.");
-Database.addText("pl.cauldron.page10", "Mikstura X /  Mikstura X to legenda. Mówi się, że komukolwiek uda się ją stworzyć i wypić, ten przeniesie się do miejsca gdzie jeszcze nikt nie był / Nie wiem czy ta mikstura to tylko legenda czy nie, ale napiszę w tej książce wszystko co o niej wiem. / Mikstura X jest wspominana w wielu starych legendach i księgach alchemicznych. Oto podsumowanie informacji które mogą ci pomóc ją stworzyć. Powodzenia! / - Mówi się że trzeba ją stworzyć w pięciu krokach. / - Mówi się że nie potrzebne są żadne lizaki z wyjątkiem jednego z kroków. / - Mówi się że można stworzyć tylko jedną miksturę X na raz.");
-Database.addText("pl.cauldron.page11", "- Ten wiersz jest często cytowany jeśli chodzi o miksturę X : / Pierwszego dnia, urodził się pierwszy Cukierek. Ale na dworze było zimno. / Drugiego dnia, Cukierek dostał ojca. Ale na dworze było zimno. / Trzeciego dnia, Cukierek dostał brata. Ale na dworze było zimno. / Czwartego dnia, Cukierek dostał przyjaciela. Ale na dworze było zimno. / Piątego dnia, Cukierek dostał kochanka, i może brzmi to prymitywnie lub głupawo, ale Cukierek wreszcie był szczęśliwy, a na dworze było gorąco.");
-Database.addText("ru.cauldron.page0", "Мануал по зельеварению");
-Database.addText("ru.cauldron.page1", "Оглавление / Страница 2 : Зелья здоровья / Страница 3 : Черепашье зелье / Страницы 4-5 : Антигравитационное зелье / Страницы 6-7 : Зелье берсерка / Страницы 8-9 : Зелье P / Страницы 10-11 : Зелье X");
-Database.addText("ru.cauldron.page2", "Зелье здоровья / Зелье здоровья это одно из самых лёгких для варки. Для него нужны только конфеты. Если использовать его в квестах, то оно восстановит 100 очков здоровья. / Рецепт: - Положите 100 конфет в ваш котёл - Перемешивайте в течение нескольких секунд - Разлейте по бутылочкам / Так же, как и любое другое зелье, вы можете варьировать количество готового продукта. Например, если вы положите в котёл 300 конфет, то получите 3 зелья здоровья.");
-Database.addText("ru.cauldron.page3", "Черепашье зелье / Черепашье зелье варится чуть сложнее, чем зелье здоровья. Вам будут нужны и конфеты, и леденцы. / Если вы выпьете это зелье во время квеста, оно превратит вас в черепаху. Двигаться вы будете медленнее, но зато получите дополнительную защиту от атак противника. / Рецепт: - Положите 50 конфет в ваш котёл - Добавьте 500 леденцов в котёл - Перемешивайте около 10 секунд - Прекратите перемешивать - Добавьте ещё 50 конфет - Снова мешайте в течение нескольких секунд - Разлейте по бутылочкам / А теперь самая важная вещь, которую нельзя забывать: после превращения в черепаху, не переворачивайтесь на спину. Иначе не подниметесь.");
-Database.addText("ru.cauldron.page4", "Антигравитационное зелье / Изобретённое известным волшебником Айзеком, это зелье позволит вам сопротивляться притяжению Земли в течение нескольких секунд. / Оно особенно полезно во время прыжков (а если вы не можете прыгать, то вам следует задуматься о приобретении пого-стика). / Оно не такое уж и лёгкое в приготовлении, вам нужно будет нагреть котёл и внимательно следить за его температурой. / Рецепт: - Положите 1000 конфет в котёл - Грейте котёл, пока вода не станет тёплой - Прекращайте греть котёл - Добавьте ещё 1000 конфет - Грейте котёл, пока вода не закипит - Разлейте по бутылочкам");
-Database.addText("ru.cauldron.page5", "Антигравитационное зелье: использовать умение / \"Лететь над обрывом\" / *выпивает зелье*");
-Database.addText("ru.cauldron.page6", "Зелье берсерка / Зелье берсерка превращает вас в берсерка. / Побочный эффект: оно лишает вас половины здоровья. / Плюсы: увеличивает ваш урон на несколько секунд! / Сварить это зелье очень просто, но вам понадобятся очень много леденцов. / Вот рецепт: - Положите 20 000 леденцов в котёл - Перемешивайте, пока руки не заболят - Разлейте по бутылочкам.");
-Database.addText("ru.cauldron.page7", "Важное уточнение, касающееся зелья берсерка. / НЕ ДОБАВЛЯЙТЕ конфеты в котёл, когда варите это зелье. / Вообще ни одной. / Серьёзно. / Результат предсказать нельзя.");
-Database.addText("ru.cauldron.page8", "Р-зелье / Р-зелье очень странное. Вы не сможете предсказать, что именно оно сотворит. Оно может вас излечить или нанести вам урон, сделать вас сильнее или слабее, или даже превратить вас в кого-нибудь (что-нибудь?) ещё. / А ещё его сложно сварить! / Рецепт: - Положите 500 конфет в котёл - Мешайте несколько секунд - Прекратите мешать - Добавьте в 100 раз больше конфет, чем количество секунд, в течение которых вы мешали. Например, если вы мешали зелье в течение 4 секунд, то вам понадобится добавить 400 конфет. Никогда не увеличивайте это число, даже если вам нужно сварить больше одного зелья. - Подогревайте до тех пор, пока вода не станет тёплой - Прекратите подогревать - Добавьте несколько леденцов - Мешайте - Разливайте по бутылочкам!");
-Database.addText("ru.cauldron.page9", "Используйте Р-зелье с умом / Вот несколько правил, которыми вы можете воскользоваться, чтобы получить лучшие результаты от употребления зелья. Хотя эти правила были определены наугад, они, кажется, отлично работают. / - Чем больше Р-зелий вы пьёте, тем более странные эффекты получаете. / - Если ваше здоровье почти на нуле, вы, возможно, должны обязательно выпить Р-зелье. / - Животные, которые выпили Р-зелье, кажется, реагируют на это очень нехорошо.");
-Database.addText("ru.cauldron.page10", "Х-зелье / Х-зелье - это легенда. Говорят, что тот, кто будет способен приготовить и выпить его, попадёт в место, где до него ещё никто не был. / Я не знаю, на самом ли деле это зелье только лишь легенда, но я напишу в этой книге всё, что я знаю про него. / Х-зелье упомянуто в множестве старых легенд и алхимических книг. Вот краткая информация, которая поможет вам его сварить. Удачи! / - Говорят, что варка состоит из 5 шагов. / - Говорят, что только в одном шаге из процесса варки нужно добавлять леденцы. / - Говорят, что в отличии от остальных зелий, Х-зелье за раз сварить можно только одно.");
-Database.addText("ru.cauldron.page11", "- И последнее: следующая поэма часто цитируется в книгах при упоминании Х-зелья: / В первый день родилась самая первая Конфета. Но снаружи было холодно. / Во второй день, у Конфеты появился отец. Но снаружи было холодно. / На третий день у Конфеты появился брат. Но снаружи было холодно. / На пятый день у Конфеты появился любовник, и это может прозвучать глупо и просто, но теперь Конфета стала счастлива, и снаружи было горячо.");
-Database.addText("se.cauldron.page0", "Ölbryggning manual");
-Database.addText("se.cauldron.page1", "Sammanfattning / sida 2 : Hälsa dryck / sida 3 : Sköldpadda dryck / Sida 4-5 : Anti-gravitation dryck / Sida 6-7 : Galen dryck / Pages 8-9 : Den P dryck / Pages 10-11 : Den X dryck");
-Database.addText("se.cauldron.page2", "Hälsa dryck / Det hälsa dryck är någon av det enkel till brygga, verkligen. Den endast behov konfekt. Används i mål, den skall bota du av givande du tillbaka 100 hälsa poäng. / Instruktioner : - Sätta 100 konfekt i er kittel - Blanda för en få sekunder - Sätta inåt flaskor / Strax som för några dryck, du kan naturligtvis föröka det kvantiteter. Till exempel, om du utnyttja 300 konfekt istället för 100, kommer du få 3 hälsa dryck.");
-Database.addText("se.cauldron.page3", "Turtle potion / Det sköldpadda dryck är en skärva hårdare till brygd än det hälsa dryck. Du skall behöver både konfekt samt sötsaker. / Om du dricka detta dryck i en mål, den skall förändring du in i en sköldpadda. Du skall gå trög, men du skall också må vidare motståndskraftig till du fiender attacker. / Instruktioner : - Sätta 50 konfekt i din kittel - Foga 500 sötsaker i din kittel - Blanda under mer eller mindre 10 sekunder - Sluta blanda - Foga 50 konfekt - Blanda igen för några sekunder - Sätta till flaskor / Och nu den mest viktig sak du skall aldrig glömma : när du skall bli en sköldpadda, INTE vända. Du skulle inte kunna stiga upp.");
-Database.addText("se.cauldron.page4", "Anti-gravitation dryck / Detta dryck, vilket var uppfann av välkänt trollkarl Isaac, tillåter du till motstå till jordens gravitation kraft för en några sekunder. / Det är särskilt användbart efter att hoppa ( om du inte kan hoppa , bör du allvarligt överväga att skaffa en pogo stick ) . / Det är inte lätt att brygga , måste du värma upp din kittel och titta på temperaturen noggrant . / Instruktioner : - Put 1000 godisar i din kittel - Hetta upp tills vattnet är ljummet - Sluta uppvärmning - Lägg 1000 godisar - Värm upp tills vattnet kokar - tappas på flaskor");
-Database.addText("se.cauldron.page5", "Anti - gravitation drycken : användningsfall / \" flyga över ett gap \" / * dricker drycken *");
-Database.addText("se.cauldron.page6", "Berserk potion / The bärsärkagång trolldryck förvandlar dig till en berserker . / Nackdelen är att den förbrukar hälften av ditt liv . / Fördelen är att det fördubblar dina skador under några sekunder ! / Brygga detta trolldrycker är mycket enkelt , men du kommer att behöva en hel del klubbor . / Här är instruktionerna : - Put 20 000 klubbor i din kittel - blanda dem tills armarna är ont - tappas på flaskor");
-Database.addText("se.cauldron.page7", "Viktigt meddelande angående bärsärkagång potion / INTE lägga något godis vid bryggning denna dryck . / Jag menar , inte en enda. / Verkligen . / Resultat vore oväntat .");
-Database.addText("se.cauldron.page8", "P potion / P potion är en konstig en . Du kan inte förutsäga vad det kommer att göra . Det kan bota dig eller skada dig , gör dig starkare eller svagare , eller ens vända dig till någon ( något ? ) Annat . / Och det är också svårt att brygga ! / Instruktioner : - Put 500 godisar i din kittel - Mix i några sekunder - Stoppa mixning - Lägg 100 gånger mer godis än det antal sekunder som du blandat . Till exempel om du blandat under 4 sekunder , måste du lägga 400 godisar . Inte multiplicera inte denna mängd , även om du vill göra mer än en dryck . - Värm upp tills vattnet är ljummet - Sluta uppvärmning - Lägg några klubbor - Mix - tappas på flaskor !");
-Database.addText("se.cauldron.page9", "Gör en bra användning av P potion / Det finns vissa regler som du kan följa för att få bättre resultat när man dricker P drycken . Även om dessa regler definierades empiriskt , de verkar fungera ganska bra . / - Ju mer du använder P potions , ju mer de verkar ha konstiga effekter . / - Om din hälsa är mycket låg , bör du dricka antagligen en P dryck . / - Djur som dricker P potions verkar reagera på ett mycket dåligt sätt .");
-Database.addText("se.cauldron.page10", "X potion / X potion är en legend . Det sägs att den som lyckas brygga det och dricka det skulle resa till en plats där ingen har varit förut . / Jag vet inte om denna dryck är bara en legend eller inte , men jag kommer att skriva i denna bok allt jag vet om det . / X potion nämns i många gamla legender och böcker alkemi . Här är en sammanfattning av information som kan hjälpa dig att brygga det . Lycka till ! / - Det är sagt att 5 steg är nödvändigt för att brygga X drycken . / - Det sägs att inga klubbor krävs , utom för ett av stegen . / - Det är sagt att , till skillnad för andra drycker , kan du inte brygga flera X potions på en gång .");
-Database.addText("se.cauldron.page11", "- Slutligen är följande dikt ofta citeras när det kommer till X potion : / På den första dagen , gav det upphov till den allra första Sweet. Men det var kallt utanför . / Den andra dagen , gav det söta en far . Men det var kallt utanför . / På den tredje dagen , gav det söta en bror . Men det var kallt utanför . / På den fjärde dagen , gav det söta en vän . Men det var kallt utanför . / På den femte dagen , gav det söta en älskare , och det kan låta enkelt och dumt , men nu Sweet var glad , och det var varmt utanför .");
-Database.addText("tr.cauldron.page0", "İksir rehberi");
-Database.addText("tr.cauldron.page1", "Özet / Sayfa 2 : Can iksiri / Sayfa 3 : Kaplumbağa iksiri / Sayfa 4-5 : Yer çekimini yenme iksiri / Sayfa 6-7: Kudurma iksiri / Sayfa 8-9 : P iksiri / Sayfa 10-11 : X iksiri");
-Database.addText("tr.cauldron.page2", "Can iksiri / Can iksiri yapması en kolaylarından biri, gerçekten. Sadece şeker kullanıyorsun. Görevlerde kullanıldığında sana 100 can puanı vererek iyileştirir. / Açıklama: - Kazana 100 tane şeker koy - Bir kaç saniyeliğine karıştır.  -Şişeye koy / Herhangi bir iksir gibi, miktarları tabii ki katlayabilirsin. Örneğin 100 şeker yerine 300 şeker kullanırsan 3 tane can iksiri elde edersin.");
-Database.addText("tr.cauldron.page3", "Kaplumbağa iksiri / Kaplumbağa iksirini yapmak can iksirini yapmaktan bir tık daha zor. Hem şekere hem lolipopa ihtiyacın var. / Bu iksiri görevlerde içersen, seni bir kaplumbağaya çevirir. Daha yavaş hareket edersin ama düşmanlarının saldırılarına daha dayanıklı olursun. / Açıklama: -Kazana 50 şeker koy. -Kazana 500 lolipop ekle -Aşağı yukarı 10 saniye karıştır -Karıştırmayı durdur -50 şeker ekle -Bir kaç saniye tekrar karıştır -Şişelere koy. / Ve şimdi unutmaman gereken en önemli şey: kaplumbağa olduğun zaman ters dönME. Bir daha kalkamayabilirsin.");
-Database.addText("tr.cauldron.page4", "Yer çekimini yenme iksiri / Bu iksir, meşhur sihirbaz Isaac tarafından icat edilmiş, bir kaç saniyeliğine Dünyanın yer çekimine karşı direnmeni sağlar. / Özellikle zıpladıktan sonra kullanışlıdır (eğer zıplayamıyorsan, cidden bir pogo çubuğu bulmayı düşünmelisin). / Yapması çok kolay değil, kazanını ısıtmalı ve sıcaklığa dikkatlice bakmalısın. / Açıklama :-Kazana 1000 şeker koy -Su ılık olana kadar ısıt -Isıtmayı durdur -1000 şeker ekle -Su kaynayana kadar ısıt -Şişelere koy");
-Database.addText("tr.cauldron.page5", "Yer çekimini yenme iksiri : kullanma durumları / \"Boşluğun üzerinden uçarken\" / *iksiri içer*");
-Database.addText("tr.cauldron.page6", "Kudurma iksiri / Kudurma iksiri seni vahşi bir savaşçıya çevirir. / Dezavantajları, canının yarısını tüketir. / Avantajları, hasarını birkaç saniyeliğine iki katına çıkarır! / Bu iksiri yapmak çok basit, fakat çok miktarda lolipopa ihtiyacın olacak. / Açıklamalar şöyle: -20 000 lolipopu kazana koy -Kolların acıyana kadar karıştır -Şişelere koy");
-Database.addText("tr.cauldron.page7", "Kudurma iksiriyle ilgili önemli bir bildiri / Bu iksiri yaparken SAKIN şeker eklemeyin. / Yani, tek bir tane bile. / Gerçekten / Sonuçlar beklenmedik olacaktır.");
-Database.addText("tr.cauldron.page8", "P iksiri /P iksiri ilginçtir. Ne yapacağını tahmin edemezsin. Seni iyileştirebilir ya da hasar verebilir, seni güçlendirir ya da zayıflatabilir, hatta seni başka birine (bişeye?) çevirebilir. / Yapması da zordur! / Açıklamalar: -Kazana 500 şeker koy -Bir kaç saniye karıştır -Karıştırmayı durdur -Kaç saniye karıştırdıysan onun 100 katı şeker ekle. Örneğin 4 saniye karıştırdıysan 40 şeker eklemelisin. Bu miktarı katlama, eğer birden fazla iksir yapmak istiyorsan bile değiştirme. Suyu ılık olana kadar ısıt -Isıtmayı durdur -Biraz lolipop ekle -Karıştır -Şişelere koy!");
-Database.addText("tr.cauldron.page9", "P iksirini kullanma durumları / P iksirini kullanırken daha iyi sonuçlar alman için uygulaman gereken bir kaç kural var. Bu kurallar deneysel olarak tanımlansa da, gayet iyi işliyor gibi görünüyor. / -Ne kadar P iksiri kullanırsan, o kadar ilginç etkileri olurmuş. / -Eğer canın azsa muhtemelen P iksiri içmelisin. / -P iksirini içen hayvanlar çok kötü bir şekilde etkileniyormuş.");
-Database.addText("tr.cauldron.page10", "X iksiri / X iksiri bir efsanedir. Derler ki, iksiri yapıp içmeye mazhar olan kişi kimsenin daha önce gitmediği bir yere seyahat eder. / Bu iksirin efsane olup olmadığını bilmiyorum ama hakkında bildiğin her şeyi buraya yazacağım. / X iksirinden eski alşimi kitaplarında çokça bahsedilmektedir. Burada yapmana yardım edebilecek bilgilerin özeti var. İyi şanslar! / Bu iksiri yapmak için gerekli 5 temel aşama vardır. / -Denir ki, hiç lolipop gerekmez, bir aşama hariç. / -Denir ki, diğer iksirler gibi tek seferde birden çok X iksiri yapamazsın.");
-Database.addText("tr.cauldron.page11", "-Son olarak, konu X iksiri olduğunda sıradaki şiir anılır: / Günlerden birincisinde,O, ilk Tatlıyı doğurdu. Ama dışarısı soğuktu. / Günlerden ikincisinde, O, tatlıya bir baba verdi. Ama dışarısı soğuktu. / Günlerden üçüncüsünde, O, tatlıya bir kardeş verdi. Ama dışarısı soğuktu. / Günlerden dördüncüsünde, O, şekere bir arkadaş verdi. Ama dışarısı soğuktu. / Günlerden beşincisinde, O, şekere bir sevgili verdi, ve belki basit veya saçma görünse de, Tatlı artık mutluydu, ve dışarısı sıcaktı.");
-Database.addText("uk.cauldron.page0", "Книга зіллєваріння");
-Database.addText("uk.cauldron.page1", "Зміст / Сторінка 2 : Зілля здоров’я / Сторінка 3 : Черепашаче зілля / Сторінки 4-5 : Зілля антигравітації / Сторінки 6-7 : Берсеркове зілля / Сторінки 8-9 : Зілля P / Сторінки 10-11 : Зілля X");
-Database.addText("uk.cauldron.page2", "Зілля здоров’я / Зілля здоров’я є одним із найпростіших для приготування, насправді. Для нього потрібні лише цукерки. Використане у пригоді, воно вилікує тебе, повернувши 100 пунктів здоров'я. / Рецепт : - Покласти 100 цукерок у казан - Розмішувати декілька секунд - Розлити у пляшки / Як і для будь-якого іншого зілля, ти можеш, звичайно, перемножити цю кількість. Наприклад, якщо ти використаєш 300 цукерок замість 100, ти отримаєш 3 зілля здоров’я.");
-Database.addText("uk.cauldron.page3", "Черепашаче зілля / Черепашаче зілля трохи більш складне для приготування, ніж зілля здоров’я. Тобі будуть потрібні і цукерки, і льодяники. / Якщо ти вип’єш це зілля під час пригоди, воно перетворить тебе на черепаху. Ти станеш більш повільним, але також і менш вразливим до атак твоїх ворогів. / Рецепт : - Покласти 50 цукерок у казан - Додати 500 льодяників - Розмішувати приблизно 10 секунд - Перестати розмішувати - Додати 50 цукерок - Знову розмішувати кілька секунд - Розлити у пляшки / А тепер найбільш важлива річ, яку тобі ніколи не варто забувати: коли ти станеш черепахою, НЕ перевертайся. Ти уже не зможеш піднятись.");
-Database.addText("uk.cauldron.page4", "Зілля антигравітації / Це зілля, винайдене широко відомим чарівником Ісааком, дозволяє тобі опиратись силам земного тяжіння декілька секунд. / Воно особливо корисне після підстрибування (якщо ти не можеш стрибати, тобі слід серйозно поміркувати над здобуттям ціпка-стрибунка). / Воно не дуже просте для приготування, тобі необхідно буде розігріти свій казан і уважно спостерігати за температурою. / Рецепт : - Покласти 1000 цукерок у казан - Гріти, доки вода не стане тепленькою - Зупинити нагрівання  - Додати 1000 цукерок - Гріти, доки вода не закипить - Розлити у пляшки");
-Database.addText("uk.cauldron.page5", "Зілля антигравітації : використання / \"Перелетіти провалля\" / *п’є зілля*");
-Database.addText("uk.cauldron.page6", "Берсеркове зілля / Берсеркове зілля перетворює тебе на берсерка. / Недолік у тому, що воно поглинає половину твого життя. / Перевага в тому, що на кілька секунд воно подвоює пошкодження від твоїх атак! / Приготування цього зілля дуже просте, але тобі буде потрібно багато льодяників. / Ось рецепт : - Покласти 20 000 льодяників у казан - Розмішувати, доки твої руки не почнуть боліти - Розлити у пляшки");
-Database.addText("uk.cauldron.page7", "Важливе зауваження щодо берсеркового зілля / НЕ додавай жодних цукерок під час приготування цього зілля. / Я маю на увазі жоднісінької. / Справді. / Наслідки будуть неочікуваними.");
-Database.addText("uk.cauldron.page8", "Зілля P / Зілля P є досить дивним. Ти не можеш передбачити, як воно подіє. Воно може вилікувати або завдати тобі шкоди, зробити тебе сильнішим або слабшим, або навіть перетворити тебе на когось (щось?) іншого. / І його також важко зварити! / Рецепт : - Покласти 500 цукерок у казан - Розмішувати декілька секунд - Перестати розмішувати - Додати у 100 разів більше цукерок, ніж секунд, що ти розмішував. Наприклад, якщо ти розмішував 4 секунди, тобі потрібно буде додати 400 цукерок. Не збільшуй цю кількість, навіть якщо ти хочеш приготувати більше одного зілля. - Підігрівати, доки вода не стане тепленькою - Зупинити нагрівання - Додати трохи льодяників - Розмішати - Розлити у пляшки!");
-Database.addText("uk.cauldron.page9", "Вдале використання зілля P / Є кілька правил, яким ти можеш слідувати, щоб добитися кращих результатів від уживання зілля P. Хоча ці правила було визначено дослідним шляхом, здається, що вони працюють досить добре. / - Що більше ти вживаєш зілля P, тим більш дивними видаються його ефекти. / - Якщо у тебе дуже мало здоров’я, тобі, ймовірно, слід випити зілля P. / - Тварини, що п’ють зілля P, здається, реагують дуже погано.");
-Database.addText("uk.cauldron.page10", "Зілля X / Зілля X — це легенда. Мовиться, що той, кому вдасться приготувати і випити його, помандрує у місце, де ще ніхто не бував. / Я не знаю, чи це зілля є лише легендою, чи ні, але я запишу у цю книгу усе, що я знаю про нього. / Зілля X згадується у багатьох старих легендах і книгах з алхімії. Ось зведення інформації, що може допомогти тобі приготувати його. Удачі! / - Сказано, що 5 кроків необхідні для приготування зілля X. / - Сказано, що не потрібно льодяників, окрім як для одного кроку. / - Сказано, що, на відміну від іншого варива, ти не можеш приготувати багато порцій зілля X за раз.");
-Database.addText("uk.cauldron.page11", "- Нарешті, наступна поема часто цитується, коли йдеться про зілля X: / Першого дня, найпершу Солодку породжено було. Але холодна була вона. / Другого дня, матір Солодкій даровано було. Але холодна була вона. / Третього дня, сестру Солодкій даровано було. Але холодна була вона. / Четвертого дня, подругу Солодкій даровано було. Але холодна була вона. / Четвертого дня, коханця Солодкій даровано було, і може це звучати просто та банально, але щасливою тепер Солодка стала, і гарячою була вона.");
-Database.addText("zh.cauldron.page0", "炼药手册");
-Database.addText("zh.cauldron.page1", "目录 / 第2页：生命药剂 / 第3页：乌龟药剂 / 第4-5页：反重力药剂 / 第6-7页：狂暴药剂 / 第8-9页：P药剂 / 第10-11页：X药剂");
-Database.addText("zh.cauldron.page2", "生命药剂 / 生命药剂是最容易炼制的药剂之一。它所需要的素材只有糖果。在探索中使用生命药剂可为你恢复100点生命值。 / 炼药指南： - 将100颗糖果放入炼药釜 ꆼ 搅拌数秒 ꆼ 将药剂装入瓶中 / 与其他药剂相同，你可以在一次炼制过程中产出多瓶药剂。举例来说，如果你放入炼药釜中的是300颗糖果而不是100颗，你就能够得到3瓶生命药剂。");
-Database.addText("zh.cauldron.page3", "乌龟药剂 / 与生命药剂相比，乌龟药剂的炼制难度要稍微高一些。你需要准备好糖果和棒棒糖。 / 在探索中喝下这种药剂可以把你变成一只乌龟。你的移动速度会更加缓慢，但对于敌人攻击的抵抗力会得到提升。 / 炼药指南： - 将50颗糖果放入炼药釜 ꆼ 将500根棒棒糖放入炼药釜 ꆼ 搅拌10秒左右 ꆼ 停止搅拌 ꆼ 向釜中加入50颗糖果 ꆼ 搅拌数秒 ꆼ将药剂装入瓶中 / 最后，千万别忘了最重要的事：当你变成一只乌龟之后，请不要转身。你会底朝天爬不起来的。");
-Database.addText("zh.cauldron.page4", "反重力药剂 / 这种药剂是由著名的巫师艾萨克所发明的，它能够让使用者在数秒内抗拒地心引力。 / 在跳跃后饮用的效果拔群（如果你还不能跳跃的话，你应该认真考虑去搞一根弹跳棒了）。 / 这种药剂的炼制方法并不简单，你需要加热炼药釜并细心把握温度。 / 炼药指南： - 将1000颗糖果放入炼药釜 ꆼ 加热，直到水微温 ꆼ 停止加热 ꆼ 向釜中加入1000颗糖果 ꆼ 加热，直到水沸腾 ꆼ将药剂装入瓶中");
-Database.addText("zh.cauldron.page5", "反重力药剂：使用实例 / “飞跃深渊” / *喝下药剂*");
-Database.addText("zh.cauldron.page6", "狂暴药剂 / 狂暴药剂可以将使用者变成一位狂战士。 / 其副作用是耗掉你的一半生命值。 / 而增益效果是在数秒内令你的伤害加倍！ / 炼制这一药剂的方法非常简单，但会消耗掉大量的棒棒糖。 / 这里是炼药指南： - 将20 000根棒棒糖放入炼药釜 ꆼ 搅拌，直到你的胳膊酸痛 ꆼ 将药剂装入瓶中");
-Database.addText("zh.cauldron.page7", "关于狂暴药剂的重要注释 / 不要在炼制该药剂的过程中向釜中加入任何糖果。 / 我是认真的，连一颗糖果都不要放 / 我建议发自真心 / 放了的话，会发生出人意料的事");
-Database.addText("zh.cauldron.page8", "P药剂 / P药剂是相当奇怪的药剂。没人能预测它能起到什么作用。它也许会治愈你，也许会对你造成伤害，它可能会让你变强，也可能会让你变弱，甚至还有几率将你变成其他人（或其他东西？） / 而且它的炼制方法也相当复杂！ / 炼药指南: - 将500颗糖果放入炼药釜 ꆼ 搅拌数秒 ꆼ 停止搅拌 ꆼ向釜中加入100倍于你搅拌秒数的糖果。举例来说，如果你搅拌了4秒钟，就需要加入400颗糖果。如果你要一次炼制多瓶药剂，不要再倍增这一数字。 - 加热，直到水微温 ꆼ 停止加热 ꆼ 加入一些棒棒糖 ꆼ 搅拌 ꆼ 将药剂装入瓶中！");
-Database.addText("zh.cauldron.page9", "妥善利用P药剂 / 如果你想让喝下的P药剂发挥更好的效果，应当遵守以下规则。尽管这些规则都是根据经验总结出来的，但它们似乎相当有效。 / -你喝过的P药剂越多，P药剂的奇怪功效就越多。 / -当你性命垂危时，喝下P药剂似乎是明智的选择。 / - 喝下P药剂的动物似乎会有非常不良的反应。");
-Database.addText("zh.cauldron.page10", "X药剂 / X药剂是一个传说。据说设法炼制并饮用过该药剂的人都会被送往一处人迹未至之地。 / 我不知道这种药剂是否仅仅是一个传说，但我会在这本书中写下我所了解到的关于它的一切。 / 诸多古老的传说和炼金书皆曾提及X药剂。我从中总结了一些可能有助于你炼制该药剂的信息。祝你好运！ / - 据说炼制X药剂共需5个步骤。 / - 据说除其中一个步骤之外，其他步骤并不需要用到棒棒糖。 / - 据说与其他药剂不同，你不能在一次炼制过程中产出多瓶X药剂。");
-Database.addText("zh.cauldron.page11", "- 当提到X药剂时，人们经常会引述下面这首诗：/ 在头一日，就有了第一颗糖果。但外面是冷的。 / 在第二日，糖果有了父亲。但外面是冷的。 / 在第三日，糖果有了兄弟，但外面是冷的。 / 在第四日，糖果有了朋友，但外面是冷的。 / 在第五日，糖果有了爱人，或许出于单纯，或许出于幼稚，但糖果非常开心，而外面终于热起来了。");
 ///<reference path="../../main/quest-entities/Spikes.ts"/>
 var HardcorePlatformer_Spikes = /** @class */ (function (_super) {
     __extends(HardcorePlatformer_Spikes, _super);
