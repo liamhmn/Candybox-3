@@ -36,8 +36,7 @@ class ChocolateBars extends StatusBarResource{
                 size = totalSize - base.length - suffix.length;
                 
                 // We set the prefix
-                var prefixTxt = Database.getTranslatedText("youhave");
-                prefixTxt = prefixTxt == "" ? Database.getText("youhave") : prefixTxt;
+                var prefixTxt = Database.getTranslatedOrEnText("youhave");
                 if(size - prefixTxt.length - 1 >= 0) {
                     prefix = prefixTxt + " ";
                 } else if(size >= 3) {

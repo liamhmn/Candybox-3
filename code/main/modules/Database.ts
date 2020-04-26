@@ -44,7 +44,20 @@ module Database{
     export function getPartOfAscii(key: string, y1: number, y2: number): string[]{
         return getAscii(key).slice(y1, y2);
     }
-    
+
+    export function getTranslatedOrEnText(key: string): string {
+        if(Saving.loadString("gameLanguage") != "en"){
+            var translatedText = Database.getTranslatedText(key);
+            if (translatedText == "") {
+                return getText(key);
+            } else {
+                return translatedText;
+            }
+        } else {
+            return getText(key);
+        }
+    }
+
     export function getText(key: string): string{
         if(textMap["en." + key] == null)
             console.log("Error : trying to access the unknown text \"" + key + "\"");
