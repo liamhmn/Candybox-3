@@ -22,3 +22,11 @@ en.candy.painChocolatPlural
 pains au chocolat
 en.candy.painChocolatMini
 pc
+en.candy.menuCandyBox
+CANDY
+en.candy.menuLollipopFarm1
+LOLL
+en.candy.menuLollipopFarm2
+IPOP
+en.candy.menuLollipopFarm3
+FARM

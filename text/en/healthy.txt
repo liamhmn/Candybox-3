@@ -22,3 +22,11 @@ en.healthy.painChocolatPlural
 celeries
 en.healthy.painChocolatMini
 cl
+en.healthy.menuCandyBox
+VEGGI
+en.healthy.menuLollipopFarm1
+HEAL
+en.healthy.menuLollipopFarm2
+THY
+en.healthy.menuLollipopFarm3
+FARM

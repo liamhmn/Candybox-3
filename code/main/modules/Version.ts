@@ -11,23 +11,14 @@ module Version {
         var dbKey: string = "";
         switch (typeResource) {
             case TypeResource.LOLLIPOP:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopSingular");
             case TypeResource.CHOCOLATE:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarSingular";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarSingular");
             case TypeResource.PAIN_AU_CHOCOLAT:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".painChocolatSingular";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatSingular");
             case TypeResource.CANDY:
             default:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".candySingular";
-        }
-        var translateTxt = Database.getTranslatedText(dbKey);
-        if (translateTxt == "") {
-            return " " + Database.getText(dbKey);
-        } else {
-            return " " + translateTxt;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candySingular");
         }
     }
 
@@ -35,26 +26,16 @@ module Version {
     // ----- GET PLURAL ----- //
     // ---------------------- //
     export function getPlural(typeResource: TypeResource = TypeResource.CANDY): string {
-        var dbKey: string = "";
         switch (typeResource) {
             case TypeResource.LOLLIPOP:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".lollipopPlural";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopPlural");
             case TypeResource.CHOCOLATE:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarPlural";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarPlural");
             case TypeResource.PAIN_AU_CHOCOLAT:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".painChocolatPlural";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatPlural");
             case TypeResource.CANDY:
             default:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".candyPlural";
-        }
-        var translateTxt = Database.getTranslatedText(dbKey);
-        if (translateTxt == "") {
-            return " " + Database.getText(dbKey);
-        } else {
-            return " " + translateTxt;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candyPlural");
         }
     }
 
@@ -62,27 +43,24 @@ module Version {
     // ----- GET MINI ----- //
     // -------------------- //
     export function getMini(typeResource: TypeResource = TypeResource.CANDY): string {
-        var dbKey: string = "";
         switch (typeResource) {
             case TypeResource.LOLLIPOP:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".lollipopMini";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".lollipopMini");
             case TypeResource.CHOCOLATE:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarMini";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".chocolateBarMini");
             case TypeResource.PAIN_AU_CHOCOLAT:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".painChocolatMini";
-                break;
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".painChocolatMini");
             case TypeResource.CANDY:
             default:
-                dbKey = Saving.loadString("gameVersion").toLowerCase() + ".candyMini";
+                return " " + Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + ".candyMini");
         }
-        var translateTxt = Database.getTranslatedText(dbKey);
-        if (translateTxt == "") {
-            return " " + Database.getText(dbKey);
-        } else {
-            return " " + translateTxt;
-        }
+    }
+
+    // ------------------------------ //
+    // ----- GET VERSION BY KEY ----- //
+    // ------------------------------ //
+    export function getVersionTxt(key: string): string {
+        return Database.getTranslatedOrEnText(Saving.loadString("gameVersion").toLowerCase() + "." + key);
     }
 
 }

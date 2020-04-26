@@ -22,3 +22,11 @@ en.beer.painChocolatPlural
 casks
 en.beer.painChocolatMini
 ck
+en.beer.menuCandyBox
+ BEER
+en.beer.menuLollipopFarm1
+THE
+en.beer.menuLollipopFarm2
+BEER
+en.beer.menuLollipopFarm3
+FARM
