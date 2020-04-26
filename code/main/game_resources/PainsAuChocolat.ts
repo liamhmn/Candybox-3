@@ -1,4 +1,4 @@
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 
 class PainsAuChocolat extends StatusBarResource{
     // Constructor
@@ -17,9 +17,9 @@ class PainsAuChocolat extends StatusBarResource{
         
         // We set the base or return right now in some special cases
         if(n < 0)
-            return "What, negative pains au chocolat?!";
-        else if(n == 1)
-            return "-> 1 pain au chocolat";
+            return "What, negative" + Version.getPlural(TypeResource.PAIN_AU_CHOCOLAT) + "?!";
+        else if(n == 1 || n == 0)
+            return "-> " + n + Version.getSingular(TypeResource.PAIN_AU_CHOCOLAT);
         else
             base = Algo.numberToStringButNicely(n);
         
@@ -28,17 +28,22 @@ class PainsAuChocolat extends StatusBarResource{
         
         // We set the suffix
         if(size >= 18){
-            suffix = " pains au chocolat";
+            suffix = Version.getPlural(TypeResource.PAIN_AU_CHOCOLAT);
             
             // We add a suffix
                 // How much space do we still have ?
                 size = totalSize - base.length - suffix.length;
                 
                 // We set the prefix
-                if(size >= 9) prefix = "You have ";
-                else if(size >= 3) prefix = "-> ";
+                var prefixTxt = Database.getTranslatedText("youhave");
+                prefixTxt = prefixTxt == "" ? Database.getText("youhave") : prefixTxt;
+                if(size - prefixTxt.length - 1 >= 0) {
+                    prefix = prefixTxt + " ";
+                } else if(size >= 3) {
+                    prefix = "-> ";
+                }
         }
-        else if(size >= 3) suffix = " pc";
+        else if(size >= 3) suffix = Version.getMini(TypeResource.PAIN_AU_CHOCOLAT);
         
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;

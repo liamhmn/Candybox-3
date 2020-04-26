@@ -1,4 +1,4 @@
-///<reference path="./Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmiley.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmileyFirstLine.ts"/>
 ///<reference path="../classes/candies_thrown/CandiesThrownSmileyCave.ts"/>
@@ -277,12 +277,12 @@ class CandiesThrown extends Resource{
         var base: string;
         
         // Set the base
-        if(n < 0)
-            base = "You threw negative candies ?!";
-        else if(n == 1)
-            base = "You threw 1 candy on the ground";
-        else{
-            base = "You threw " + Algo.numberToStringButNicely(n) + " candies on the ground";
+        if(n < 0) {
+            base = "You threw negative " + Version.getPlural(TypeResource.CANDY) + " ?!";
+        } else if(n == 1 || n == 0) {
+            base = "You threw " + n + Version.getSingular(TypeResource.CANDY) + " on the ground";
+        } else{
+            base = "You threw " + Algo.numberToStringButNicely(n) + Version.getPlural(TypeResource.CANDY) + " on the ground";
         }
         
         // Get the index of the smiley we should add
