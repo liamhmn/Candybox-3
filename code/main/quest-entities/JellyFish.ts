@@ -9,6 +9,7 @@
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class JellyFish extends QuestEntity{
     // Constructor
@@ -54,6 +55,6 @@ class JellyFish extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(120), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(120), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
 }

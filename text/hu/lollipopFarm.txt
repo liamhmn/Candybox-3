@@ -1,0 +1,12 @@
+hu.lollipopFarmConstructMill
+Építs egy malmot (10 000 nyalóka)
+hu.lollipopFarmFeedMill
+Töltsd fel a malmot
+hu.lollipopFarmCurrentCandiesProduction
+Jelenlegi cukorka gyártás
+hu.lollipopFarmDigPond
+Áss egy tavat (100 000 nyalóka)
+hu.lollipopFarmBuyLolligator
+Vegyél egy lolligátort (1200 cukorka)
+hu.lollipopFarmLolligatorsConversionText
+Átalakítás cukorkából -> nyalókába aktiválva

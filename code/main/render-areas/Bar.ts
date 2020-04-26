@@ -1,6 +1,6 @@
 ///<reference path="../enums/BarType.ts"/>
 ///<reference path="./RenderArea.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 
 class Bar extends RenderArea{

@@ -9,6 +9,7 @@
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class GiantNougatMonster extends QuestEntity{
     // The step
@@ -77,7 +78,7 @@ class GiantNougatMonster extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Random.upTo(123456)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(Random.upTo(123456)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
     
     // Private methods

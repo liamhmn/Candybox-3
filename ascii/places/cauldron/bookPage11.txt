@@ -4,23 +4,23 @@
 quoted when it comes to the X potion :
 
           On the first day,
-it gave birth to the very first Sweet.
+it gave birth to the very first %SWEET%.
        But it was cold outside.
 
           On the second day,
-      it gave the Sweet a father.
+      it gave the %SWEET% a father.
        But it was cold outside.
 
           On the third day,
-      it gave the Sweet a brother.
+      it gave the %SWEET% a brother.
        But it was cold outside.
 
           On the fourth day,
-      it gave the Sweet a friend.
+      it gave the %SWEET% a friend.
        But it was cold outside.
 
           On the fifth day,
-      it gave the Sweet a lover,
+      it gave the %SWEET% a lover,
    and it may sound simple or silly,
-     but now the Sweet was happy,
+     but now the %SWEET% was happy,
        and it was hot outside.

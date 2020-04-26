@@ -2,7 +2,7 @@
 ///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
 ///<reference path="../classes/Pos.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../quest-entities/Wall.ts"/>
 ///<reference path="../quest-entity-spells/QuestPlayerSpell.ts"/>
@@ -21,6 +21,8 @@
 ///<reference path="../quest-entity-spells/Fireball.ts"/>
 ///<reference path="../modules/Algo.ts"/>
 ///<reference path="../enums/QuestPlayerSpellCountdownType.ts"/>
+///<reference path="../modules/Version.ts"/>
+///<reference path="../modules/Saving.ts"/>
 
 class Quest extends Place{
     // Array of quests entities
@@ -620,7 +622,7 @@ class Quest extends Place{
     }
     
     public getCandiesDropMessage(): string{
-        return "You gain " + Algo.pluralFormat(this.candiesFound.getCurrent(), " candy", " candies") + ".";
+        return "You gain " + Algo.pluralFormat(this.candiesFound.getCurrent(), Version.getSingular(), Version.getPlural()) + ".";
     }
     
     public getCandiesFoundMessage(): string{

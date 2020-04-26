@@ -1,0 +1,12 @@
+en.lollipopFarmConstructMill
+Build a mill (10 000 %LOLLIPOPS%)
+en.lollipopFarmFeedMill
+Feed the mill
+en.lollipopFarmCurrentCandiesProduction
+Current %CANDIES% production
+en.lollipopFarmDigPond
+Dig a pond (100 000 %LOLLIPOPS%)
+en.lollipopFarmBuyLolligator
+Buy a %LOLLIGATOR% (1200 %CANDIES%)
+en.lollipopFarmLolligatorsConversionText
+Conversion %CANDIES% -> %LOLLIPOPS% activated

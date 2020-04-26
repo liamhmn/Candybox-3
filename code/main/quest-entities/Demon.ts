@@ -6,6 +6,7 @@
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Demon extends QuestEntity{
     // The demon type
@@ -92,6 +93,6 @@ class Demon extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(5 + Random.upTo(5)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
 }

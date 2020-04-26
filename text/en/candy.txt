@@ -1,0 +1,40 @@
+en.candy.candySingular
+candy
+en.candy.candyPlural
+candies
+en.candy.candyMini
+cd
+en.candy.lollipopSingular
+lollipop
+en.candy.lollipopPlural
+lollipops
+en.candy.lollipopMini
+lo
+en.candy.chocolateBarSingular
+chocolate bar
+en.candy.chocolateBarPlural
+chocolate bars
+en.candy.chocolateBarMini
+cb
+en.candy.painChocolatSingular
+pain au chocolat
+en.candy.painChocolatPlural
+pains au chocolat
+en.candy.painChocolatMini
+pc
+en.candy.menuCandyBox
+CANDY
+en.candy.menuLollipopFarm1
+LOLL
+en.candy.menuLollipopFarm2
+IPOP
+en.candy.menuLollipopFarm3
+FARM
+en.candy.lolligator
+lolligator
+en.candy.mapFarmComment
+The lollipop farm
+en.candy.candyBox
+The candy box
+en.candy.sweet
+Sweet

@@ -1,0 +1,12 @@
+uk.lollipopFarmConstructMill
+Збудувати млин (10 000 льодяників)
+uk.lollipopFarmFeedMill
+Подати воду на млин
+uk.lollipopFarmCurrentCandiesProduction
+Поточне виробництво цукерок
+uk.lollipopFarmDigPond
+Викопати ставок (100 000 льодяників)
+uk.lollipopFarmBuyLolligator
+Купити льодяникодила (1200 candies)
+uk.lollipopFarmLolligatorsConversionText
+Перетворення цукерки -> льодяники активовано

@@ -9,6 +9,7 @@
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Knight extends QuestEntity{
     // Movement
@@ -89,7 +90,7 @@ class Knight extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(800 + Random.upTo(15)*100), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(800 + Random.upTo(15)*100), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         if(Random.oneChanceOutOf(5)) this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemBodyArmoursKnightBodyArmour", "You found a body armour on a knight", "You gain a knight body armour"));
     }
     

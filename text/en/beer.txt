@@ -1,0 +1,40 @@
+en.beer.candySingular
+drop
+en.beer.candyPlural
+drops
+en.beer.candyMini
+dr
+en.beer.lollipopSingular
+can
+en.beer.lollipopPlural
+cans
+en.beer.lollipopMini
+ca
+en.beer.chocolateBarSingular
+pint
+en.beer.chocolateBarPlural
+pints
+en.beer.chocolateBarMini
+pi
+en.beer.painChocolatSingular
+cask
+en.beer.painChocolatPlural
+casks
+en.beer.painChocolatMini
+ck
+en.beer.menuCandyBox
+ BEER
+en.beer.menuLollipopFarm1
+THE
+en.beer.menuLollipopFarm2
+BEER
+en.beer.menuLollipopFarm3
+FARM
+en.beer.lolligator
+beergator
+en.beer.mapFarmComment
+The beer farm
+en.beer.candyBox
+The beer box
+en.beer.sweet
+Drunk

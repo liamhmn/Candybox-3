@@ -11,6 +11,7 @@
 ///<reference path="../quest-entity-spells/fireballs/MonkeyWizardMagicalPurpleBall.ts"/>
 ///<reference path="../enums/ColorType.ts"/>
 ///<reference path="../classes/Color.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class MonkeyWizard extends QuestEntity{
     // Timer used for spell casting
@@ -148,7 +149,7 @@ class MonkeyWizard extends QuestEntity{
     // willDie()
     public willDie(): void{
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The monkey wizard staff
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemWeaponMonkeyWizardStaff", "You found a staff.", "You gain the monkey wizard staff."));
     }

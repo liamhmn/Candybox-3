@@ -1,0 +1,30 @@
+fr.healthy.candySingular
+radis
+fr.healthy.candyPlural
+radis
+fr.healthy.candyMini
+rd
+fr.healthy.lollipopSingular
+carotte
+fr.healthy.lollipopPlural
+carottes
+fr.healthy.lollipopMini
+ct
+fr.healthy.chocolateBarSingular
+navet
+fr.healthy.chocolateBarPlural
+navets
+fr.healthy.chocolateBarMini
+nv
+fr.healthy.painChocolatSingular
+céleri
+fr.healthy.painChocolatPlural
+céleris
+fr.healthy.painChocolatMini
+cl
+fr.healthy.mapFarmComment
+La ferme
+fr.healthy.candyBox
+La boite végétarienne
+fr.healthy.sweet
+Saine

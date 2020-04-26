@@ -1,0 +1,12 @@
+br.lollipopFarmConstructMill
+Construir um moinho (10.000 pirulitos)
+br.lollipopFarmFeedMill
+Abastecer o moinho
+br.lollipopFarmCurrentCandiesProduction
+Produção atual de doces
+br.lollipopFarmDigPond
+Cavar um lago (100.000 pirulitos)
+br.lollipopFarmBuyLolligator
+Comprar um crocolito (1.200 doces)
+br.lollipopFarmLolligatorsConversionText
+Conversão doces -> pirulitos ativada

@@ -18,7 +18,7 @@ help you to brew it. Good luck!
  - It is said that 5 steps are necessary
 to brew the X potion.
 
- - It is said that no lollipops are
+ - It is said that no %LOLLIPOPS% are
 required, except for one of the steps.
 
  - It is said that, unlike for other

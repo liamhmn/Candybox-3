@@ -7,6 +7,7 @@
 ///<reference path="../classes/CollisionBox.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
 ///<reference path="../modules/Database.ts"/>
+///<reference path="../modules/Version.ts"/>
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../classes/QuestEntitySpellCaster.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
@@ -80,6 +81,7 @@ class Seahorse extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(150), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() +
+            " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(150), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
 }

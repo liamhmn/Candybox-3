@@ -1,0 +1,4 @@
+hu.cfgChooseLanguage
+Válassz nyelvet :
+hu.cfgInvertColors
+Megfordítod a színeket?

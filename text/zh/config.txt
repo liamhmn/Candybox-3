@@ -1,0 +1,4 @@
+zh.cfgChooseLanguage
+选择语言：
+zh.cfgInvertColors
+反色显示？

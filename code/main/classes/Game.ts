@@ -1,7 +1,7 @@
 ///<reference path="./Place.ts"/>
 ///<reference path="./RenderLocation.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="./Resource.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="StatusBar.ts"/>
 ///<reference path="../game_resources/Candies.ts"/>
@@ -68,6 +68,7 @@
 // Config
 Saving.registerBool("gameDebug", false);
 Saving.registerString("gameLanguage", "en");
+Saving.registerString("gameVersion", VersionType.CANDY);
 Saving.registerBool("gameInvertedColors", false);
 
 // EqItems
@@ -895,8 +896,13 @@ class Game{
     private setPlaceFromSavedMapPlace(): void{
         // If there's a saved place
         if(this.savedPlace != null){
-            this.setPlace(this.savedPlace); // We set the saved place as the current place
-            this.savedPlace = null; // There's no saved place anymore
+            if (this.savedPlace instanceof MainMap) {
+                this.setPlace(new MainMap(this)); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            } else {
+                this.setPlace(this.savedPlace); // We set the saved place as the current place
+                this.savedPlace = null; // There's no saved place anymore
+            }
         }
     }
 }

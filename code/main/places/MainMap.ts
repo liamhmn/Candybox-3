@@ -51,9 +51,9 @@ class MainMap extends Place{
     public getRenderArea(): RenderArea{
         return this.renderArea;
     }
-    
-    // Private methods
-    private load(): void{
+
+    public load(): void{
+        console.log("LOAD MAIN MAP")
         // We erase the map
         this.renderArea.resetAllButSize();
         
@@ -94,7 +94,9 @@ class MainMap extends Place{
             this.loadDragon(92, 11);
         }
     }
-    
+
+    // Private methods
+
     // Private "go to" methods
     private goToATree(): void{
         this.getGame().setPlace(new ATree(this.getGame()));
@@ -285,7 +287,7 @@ class MainMap extends Place{
             x+6, x+16, y+10
         );
         // Comments
-        this.renderArea.addFullComment(x + 16, y + 5, Database.getText("mapFarmComment"), Database.getTranslatedText("mapFarmComment"), "mapFarmComment");
+        this.renderArea.addFullComment(x + 16, y + 5, Version.getVersionTxt("mapFarmComment"), Version.getVersionTranslated("mapFarmComment"), "mapFarmComment");
         // Interactions
         this.renderArea.addLinkOver(".mapFarmButton, .mapFarmComment", ".mapFarmComment");
         this.renderArea.addLinkCall(".mapFarmButton, .mapFarmComment", new CallbackCollection(this.goToFarm.bind(this)));

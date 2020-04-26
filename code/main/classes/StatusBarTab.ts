@@ -83,7 +83,20 @@ class StatusBarTab{
     public getWidth(): number{
         return this.width;
     }
-    
+
+    public setText(text1: string, text2: string, text3: string): void{
+        // We empty the text array
+        this.text = [];
+
+        // We add the three strings given in parameters
+        this.text.push(text1);
+        this.text.push(text2);
+        this.text.push(text3);
+
+        // We re-calculate the tab's width
+        this.calculateWidth();
+    }
+
     // Private methods
     private calculateWidth(): void{
         this.width = 0;
@@ -96,17 +109,5 @@ class StatusBarTab{
         // We add two ! (because a tab has two spaces on left and right
         this.width += 2;
     }
-    
-    private setText(text1: string, text2: string, text3: string): void{
-        // We empty the text array
-        this.text = [];
-        
-        // We add the three strings given in parameters
-        this.text.push(text1);
-        this.text.push(text2);
-        this.text.push(text3);
-        
-        // We re-calculate the tab's width
-        this.calculateWidth();
-    }
+
 }

@@ -10,6 +10,7 @@
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class OctopusKing extends QuestEntity{
     // Constructor
@@ -58,7 +59,7 @@ class OctopusKing extends QuestEntity{
     // willDie()
     public willDie(): void{
         // Candies
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(4000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(4000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         // The monkey wizard staff
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemHatOctopusKingCrown", "You found the Octopus King crown.", "You gain the Octopus King crown."));
     }

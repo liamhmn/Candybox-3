@@ -9,6 +9,7 @@
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Wolf extends QuestEntity{
     // Wolf orientation
@@ -104,7 +105,7 @@ class Wolf extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50*Random.upTo(10)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(100 + 50*Random.upTo(10)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
     
     // Private methods

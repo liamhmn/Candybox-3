@@ -11,6 +11,7 @@
 ///<reference path="../classes/RenderTransparency.ts"/>
 ///<reference path="../quest-entity-weapons/QuestEntityWeapon.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class TripodCamel extends QuestEntity{
     // Constructor
@@ -47,6 +48,6 @@ class TripodCamel extends QuestEntity{
     
     // Public methods
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(20 + Random.upTo(12)), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(20 + Random.upTo(12)), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
     }
 }

@@ -7,6 +7,7 @@
 ///<reference path="../classes/EnchantmentItem.ts"/>
 ///<reference path="../enums/EqItemType.ts"/>
 ///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 // Candies stuff
 Saving.registerBool("wishingWellFirstCandyThrown", false);
@@ -127,7 +128,7 @@ class WishingWell extends Place{
         // Else, we already threw our first candy
         else{
             // The button
-            this.renderArea.addAsciiRealButton("Throw " + Algo.pluralFormatNicely(Saving.loadNumber("wishingWellCurrentCandyWishPrice"), " candy", " candies") + " in the well", x, y, "wishingWellThrowCandiesButton");
+            this.renderArea.addAsciiRealButton("Throw " + Algo.pluralFormatNicely(Saving.loadNumber("wishingWellCurrentCandyWishPrice"), Version.getSingular(), Version.getPlural()) + " in the well", x, y, "wishingWellThrowCandiesButton");
             this.renderArea.addLinkCall(".wishingWellThrowCandiesButton", new CallbackCollection(this.throwCandies.bind(this)));
         }
     }

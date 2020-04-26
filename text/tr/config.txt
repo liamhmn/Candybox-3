@@ -1,0 +1,4 @@
+tr.cfgChooseLanguage
+Dili seç :
+tr.cfgInvertColors
+Zıt renkler?

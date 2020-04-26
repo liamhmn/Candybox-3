@@ -1,0 +1,4 @@
+br.cfgChooseLanguage
+Escolha o idioma:
+br.cfgInvertColors
+Inverter cores?

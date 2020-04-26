@@ -7,6 +7,7 @@
 ///<reference path="../classes/CollisionBoxCollection.ts"/>
 ///<reference path="../classes/CollisionBox.ts"/>
 ///<reference path="../classes/QuestEntityMovement.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Devil extends QuestEntity{
     // Array containing the flames we can see when heating up the cauldron
@@ -83,7 +84,7 @@ class Devil extends QuestEntity{
     
     // willDie()
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(1000000), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "gridItemPossessedA", "You found a strange stone.", "You gain a strange stone."));
     }
     

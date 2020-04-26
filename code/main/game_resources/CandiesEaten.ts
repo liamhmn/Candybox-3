@@ -1,4 +1,4 @@
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 
 class CandiesEaten extends StatusBarResource{
     // Constructor
@@ -10,12 +10,12 @@ class CandiesEaten extends StatusBarResource{
     public getCurrentAsString(): string{
         var n: number = this.getCurrent();
         
-        if(n < 0)
-            return "You have eaten negative candies ?!";
-        else if(n == 1)
-            return "You have eaten 1 candy";
-        else{
-            return "You have eaten " + Algo.numberToStringButNicely(n) + " candies";
+        if(n < 0) {
+            return "You have eaten negative " + Version.getPlural(TypeResource.CANDY) + " ?!";
+        } else if(n == 1 || n == 0) {
+            return "You have eaten " + n + Version.getSingular(TypeResource.CANDY);
+        } else{
+            return "You have eaten " + Algo.numberToStringButNicely(n) + Version.getPlural(TypeResource.CANDY);
         }
     }
     

@@ -66,16 +66,40 @@ class StatusBar{
         }
         
         // Add tabs
-        if(Saving.loadBool("statusBarUnlocked")) this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", "CANDY", " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedInventory")) this.addTab(StatusBarTabType.INVENTORY, 8, "INV", " ENT", "ORY", new CallbackCollection(this.game.goToInventory.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedMap")) this.addTab(StatusBarTabType.MAP, 15, "", "MAP", "", new CallbackCollection(this.game.goToMap.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedLollipopFarm")) this.addTab(StatusBarTabType.FARM, 21, "LOLL", "IPOP", "FARM", new CallbackCollection(this.game.goToLollipopFarm.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedCauldron")) this.addTab(StatusBarTabType.CAULDRON, 28, "", "CLDR", "", new CallbackCollection(this.game.goToCauldron.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedInsideYourBox")) this.addTab(StatusBarTabType.INSIDE_YOUR_BOX, 35, "INSIDE", " YOUR", " BOX!", new CallbackCollection(this.game.goToInsideYourBox.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedTheComputer")) this.addTab(StatusBarTabType.THE_COMPUTER, 44, " THE", " COM", "PUTER", new CallbackCollection(this.game.goToTheComputer.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedTheArena")) this.addTab(StatusBarTabType.THE_ARENA, 52, " THE", "ARENA", " /!\\", new CallbackCollection(this.game.goToTheArena.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedSave")) this.addTab(StatusBarTabType.SAVE, 60, "", "SAVE", "", new CallbackCollection(this.game.goToSave.bind(this.game)));
-        if(Saving.loadBool("statusBarUnlockedCfg")) this.addTab(StatusBarTabType.CFG, 67, "C", "F", "G", new CallbackCollection(this.game.goToCfg.bind(this.game)));
+        if(Saving.loadBool("statusBarUnlocked")) {
+            this.addTab(StatusBarTabType.CANDY_BOX, 0, " THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX", new CallbackCollection(this.game.goToCandyBox.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedInventory")) {
+            this.addTab(StatusBarTabType.INVENTORY, 8, "INV", " ENT", "ORY", new CallbackCollection(this.game.goToInventory.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedMap")) {
+            this.addTab(StatusBarTabType.MAP, 15, "", "MAP", "", new CallbackCollection(this.game.goToMap.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedLollipopFarm")) {
+            this.addTab(StatusBarTabType.FARM, 21,
+                Version.getVersionTxtOrTranslated("menuLollipopFarm1"),
+                Version.getVersionTxtOrTranslated("menuLollipopFarm2"),
+                Version.getVersionTxtOrTranslated("menuLollipopFarm3"),
+                new CallbackCollection(this.game.goToLollipopFarm.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedCauldron")) {
+            this.addTab(StatusBarTabType.CAULDRON, 28, "", "CLDR", "", new CallbackCollection(this.game.goToCauldron.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedInsideYourBox")) {
+            this.addTab(StatusBarTabType.INSIDE_YOUR_BOX, 35, "INSIDE", " YOUR", " BOX!", new CallbackCollection(this.game.goToInsideYourBox.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedTheComputer")) {
+            this.addTab(StatusBarTabType.THE_COMPUTER, 44, " THE", " COM", "PUTER", new CallbackCollection(this.game.goToTheComputer.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedTheArena")) {
+            this.addTab(StatusBarTabType.THE_ARENA, 52, " THE", "ARENA", " /!\\", new CallbackCollection(this.game.goToTheArena.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedSave")) {
+            this.addTab(StatusBarTabType.SAVE, 60, "", "SAVE", "", new CallbackCollection(this.game.goToSave.bind(this.game)));
+        }
+        if(Saving.loadBool("statusBarUnlockedCfg")) {
+            this.addTab(StatusBarTabType.CFG, 67, "C", "F", "G", new CallbackCollection(this.game.goToCfg.bind(this.game)));
+        }
         
         // Add special hotkeys to go to the next or previous tab
         if(Saving.loadBool("statusBarUnlocked")){
@@ -216,6 +240,15 @@ class StatusBar{
             case 6:
                 this.drawAllCorners("@");
             break;
+            case 7:
+                this.drawAllCorners("o");
+            break;
+            case 8:
+                this.drawAllCorners("O");
+            break;
+            case 9:
+                this.drawAllCorners("0");
+            break;
         }
     }
     
@@ -224,6 +257,15 @@ class StatusBar{
             this.renderArea.drawVerticalLine("|", 28, 1, 4);
             
             for(var i = 0; i < this.tabs.length; i++){
+                if (this.tabs[i].getType() == StatusBarTabType.CANDY_BOX) {
+                    this.tabs[i].setText(" THE", Version.getVersionTxtOrTranslated("menuCandyBox"), " BOX");
+                } else if (this.tabs[i].getType() == StatusBarTabType.FARM) {
+                    this.tabs[i].setText(
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm1"),
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm2"),
+                        Version.getVersionTxtOrTranslated("menuLollipopFarm3")
+                    );
+                }
                 this.tabs[i].render(this.renderArea, 29, 1, (this.selectedTabIndex == i? true:false));
             }
         }
@@ -255,7 +297,7 @@ class StatusBar{
     private setNextCornerStep(): void{
         var nextCornerStep: number = Saving.loadNumber("statusBarCornerStep");
         nextCornerStep += 1;
-        if(nextCornerStep > 6) nextCornerStep = 0;
+        if(nextCornerStep > 9) nextCornerStep = 0;
         
         Saving.saveNumber("statusBarCornerStep", nextCornerStep);
     }

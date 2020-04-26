@@ -1,0 +1,4 @@
+ru.cfgChooseLanguage
+Выберите язык:
+ru.cfgInvertColors
+Инвертировать цвета?

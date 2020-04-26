@@ -1,0 +1,4 @@
+kr.cfgChooseLanguage
+언어 선택:
+kr.cfgInvertColors
+색 바꿀래?

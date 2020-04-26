@@ -12,6 +12,7 @@
 ///<reference path="../classes/RenderTagLt.ts"/>
 ///<reference path="../classes/QuestLogMessage.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
+///<reference path="../modules/Version.ts"/>
 
 class Troll extends QuestEntity{
     // Constructor
@@ -60,7 +61,7 @@ class Troll extends QuestEntity{
     }
     
     public willDie(): void{
-        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500), " candy", " candies") + ")", this.getQuest().getCandiesFoundMessage()));
+        this.getQuest().getGame().getQuestLog().addMessage(new QuestLogMessage(this.getDeathMessage() + " (and found " + Algo.pluralFormat(this.getQuest().foundCandies(500), Version.getSingular(), Version.getPlural()) + ")", this.getQuest().getCandiesFoundMessage()));
         this.getQuest().foundGridOrEqItem(new QuestItemFound(this.getQuest(), "eqItemWeaponTrollBludgeon", "You picked up the troll's bludgeon from the floor", "You gain the troll's bludgeon"));
     }
 }

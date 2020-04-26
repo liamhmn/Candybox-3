@@ -35,7 +35,7 @@ body{
 
 /* Pre tag */
 
-pre{
+pre, .footer{
     font-family: monospace; /* The pre tag will use the generic "monospace" font family, which should be the default anyway */
     font-size: 1em;
 }

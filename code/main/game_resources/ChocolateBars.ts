@@ -1,4 +1,4 @@
-///<reference path="./StatusBarResource.ts"/>
+///<reference path="../classes/StatusBarResource.ts"/>
 
 class ChocolateBars extends StatusBarResource{
     // Constructor
@@ -16,29 +16,34 @@ class ChocolateBars extends StatusBarResource{
         var suffix: string = "";
         
         // We set the base or return right now in some special cases
-        if(n < 0)
-            return "What, negative chocolate bars?!";
-        else if(n == 1)
-            return "You have 1 chocolate bar";
-        else
+        if(n < 0) {
+            return "What, negative " + Version.getPlural(TypeResource.CHOCOLATE) + "?!";
+        } else if(n == 1 || n == 0) {
+            return "You have " + n + Version.getSingular(TypeResource.CHOCOLATE);
+        } else {
             base = Algo.numberToStringButNicely(n);
-        
+        }
+
         // How much space do we still have ?
         size = totalSize - base.length;
         
         // We set the suffix
         if(size >= 15){
-            suffix = " chocolate bars";
+            suffix = Version.getPlural(TypeResource.CHOCOLATE);
             
             // We add a suffix
                 // How much space do we still have ?
                 size = totalSize - base.length - suffix.length;
                 
                 // We set the prefix
-                if(size >= 9) prefix = "You have ";
-                else if(size >= 3) prefix = "-> ";
+                var prefixTxt = Database.getTranslatedOrEnText("youhave");
+                if(size - prefixTxt.length - 1 >= 0) {
+                    prefix = prefixTxt + " ";
+                } else if(size >= 3) {
+                    prefix = "-> ";
+                }
         }
-        else if(size >= 3) suffix = " cb";
+        else if(size >= 3) suffix = Version.getMini(TypeResource.CHOCOLATE);
         
         // How much space do we still have ?
         size = totalSize - base.length - prefix.length - suffix.length;

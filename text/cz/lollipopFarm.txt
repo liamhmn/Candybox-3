@@ -1,0 +1,12 @@
+cz.lollipopFarmConstructMill
+Postavit mlýn (10 000 lízátek)
+cz.lollipopFarmFeedMill
+Nasypat lízátka do mlýnice
+cz.lollipopFarmCurrentCandiesProduction
+Momentální produkce bonbónů
+cz.lollipopFarmDigPond
+Vykopat rybník (100 000 lízátek)
+cz.lollipopFarmBuyLolligator
+Koupit lízogátora (1200 bonbónů)
+cz.lollipopFarmLolligatorsConversionText
+Konverze z bonbónů na lízátka aktivní

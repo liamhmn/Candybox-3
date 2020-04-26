@@ -1,0 +1,12 @@
+tr.lollipopFarmConstructMill
+Değirmen inşa et (10 000 lolipop)
+tr.lollipopFarmFeedMill
+Değirmeni besle
+tr.lollipopFarmCurrentCandiesProduction
+Anlık şeker üretimi
+tr.lollipopFarmDigPond
+Yapay göl kaz (100 000 lolipop)
+tr.lollipopFarmBuyLolligator
+Bir lolimsah al (1200 şeker)
+tr.lollipopFarmLolligatorsConversionText
+Şeker -> Lolipop dönüşümü aktif
