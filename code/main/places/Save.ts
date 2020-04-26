@@ -162,7 +162,7 @@ class Save extends Place{
             
             // The links
             for(var i = 1; i <= 5; i++){
-                link = "http://candybox2.github.io/?slot=" + i.toString();
+                link = "http://candybox3.github.io/?slot=" + i.toString();
                 this.renderArea.addHtmlLink(x+2, y+yAdd+3+i, link, link);
                 this.renderArea.drawString("(slot " + i.toString() + ")", x + link.length + 4, y+yAdd+3+i);
             }
