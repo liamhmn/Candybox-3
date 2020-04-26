@@ -240,6 +240,15 @@ class StatusBar{
             case 6:
                 this.drawAllCorners("@");
             break;
+            case 7:
+                this.drawAllCorners("o");
+            break;
+            case 8:
+                this.drawAllCorners("O");
+            break;
+            case 9:
+                this.drawAllCorners("0");
+            break;
         }
     }
     
@@ -288,7 +297,7 @@ class StatusBar{
     private setNextCornerStep(): void{
         var nextCornerStep: number = Saving.loadNumber("statusBarCornerStep");
         nextCornerStep += 1;
-        if(nextCornerStep > 6) nextCornerStep = 0;
+        if(nextCornerStep > 9) nextCornerStep = 0;
         
         Saving.saveNumber("statusBarCornerStep", nextCornerStep);
     }
