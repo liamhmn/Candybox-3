@@ -38,3 +38,9 @@ Python need to be declared in your environment variables to work correctly.
 ### 0.0.1
 * Code refactoring
 * Update icon and licence for CandyBox 3
+### 0.1.0
+* Possibility to change version [only text for the moment]:
+    * beer
+    * candy
+    * healthy
+* Texts sorting by language and regroup by theme.
