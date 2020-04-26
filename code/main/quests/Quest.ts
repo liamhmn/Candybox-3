@@ -2,7 +2,7 @@
 ///<reference path="../classes/QuestEntity.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
 ///<reference path="../classes/Pos.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="../classes/Resource.ts"/>
 ///<reference path="../classes/QuestItemFound.ts"/>
 ///<reference path="../quest-entities/Wall.ts"/>
 ///<reference path="../quest-entity-spells/QuestPlayerSpell.ts"/>

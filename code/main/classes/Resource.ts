@@ -1,4 +1,4 @@
-///<reference path="../classes/CallbackCollection.ts"/>
+///<reference path="./CallbackCollection.ts"/>
 
 class Resource{
     // Attributes

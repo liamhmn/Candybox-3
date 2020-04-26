@@ -1,4 +1,4 @@
-///<reference path="Resource.ts"/>
+///<reference path="./Resource.ts"/>
 
 class StatusBarResource extends Resource{
     private game: Game;
