@@ -1,7 +1,7 @@
 ///<reference path="./Place.ts"/>
 ///<reference path="./RenderLocation.ts"/>
 ///<reference path="../render-areas/RenderArea.ts"/>
-///<reference path="../game_resources/Resource.ts"/>
+///<reference path="./Resource.ts"/>
 ///<reference path="../modules/Saving.ts"/>
 ///<reference path="StatusBar.ts"/>
 ///<reference path="../game_resources/Candies.ts"/>
