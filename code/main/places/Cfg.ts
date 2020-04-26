@@ -134,6 +134,9 @@ class Cfg extends Place{
         this.renderArea.drawString(Database.getText("cfgChooseLanguage"), x, y);
         this.renderArea.drawString(Database.getTranslatedText("cfgChooseLanguage"), x, y + 1, true);
 
+        this.renderArea.drawString("Currently, only french and english translations are corrects.", x, y + 2, false);
+        this.renderArea.drawString("For all the others, some translations are missing.", x, y + 3, false);
+
         // List
         this.renderArea.addList(x + Algo.takeBiggest(Database.getText("cfgChooseLanguage").length,
             Database.getTranslatedText("cfgChooseLanguage").length) + 2,
@@ -263,7 +266,7 @@ class Cfg extends Place{
         this.drawCfgLanguage(0, 8);
         
         // Invert colors checkbox
-        this.drawCfgInvertColors(0, 12);
+        this.drawCfgInvertColors(0, 13);
 
         // Version selection
         this.drawCfgVersion(0, 16);
