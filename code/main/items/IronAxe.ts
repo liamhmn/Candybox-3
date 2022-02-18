@@ -20,7 +20,7 @@ class IronAxe extends EqItem{
                                        player,
                                        new Naming("An iron axe", "an iron axe"),
                                        player.getClassicCollisionBoxCollection(),
-                                       3
+                                       30000000000000
                                       );
         qew.getCloseCombatDelay().setFixedDelay(3, 0);
         return qew;
