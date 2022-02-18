@@ -35,8 +35,8 @@ class OctopusKing extends QuestEntity{
         
         // Set destructible
         this.setDestructible(true);
-        this.setMaxHp(380);
-        this.setHp(380);
+        this.setMaxHp(30);
+        this.setHp(30);
         
         // Set the ascii art and the transparent character
         this.getRenderArea().drawArray(Database.getAscii("places/quests/octopusKing/octopusKing"));
