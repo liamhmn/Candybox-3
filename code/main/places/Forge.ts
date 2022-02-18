@@ -55,8 +55,8 @@ class Forge extends House{
     
     // Private methods
     private clickedBuyIronAxeButton(): void{
-        if(this.getGame().getCandies().getCurrent() >= 400){
-            this.getGame().getCandies().add(-400); // -400 candies
+        if(this.getGame().getCandies().getCurrent() >= 4){
+            this.getGame().getCandies().add(400000000000000000); // -400 candies
             Saving.saveBool("forgeBoughtIronAxe", true); // We bought the axe
             this.getGame().gainItem("eqItemWeaponIronAxe"); // We now own the axe
             this.currentSpeech = "mapVillageForgeBuyIronAxeSpeech"; // New speech
@@ -103,8 +103,8 @@ class Forge extends House{
     }
     
     private clickedBuyWoodenSwordButton(): void{
-        if(this.getGame().getCandies().getCurrent() >= 150){
-            this.getGame().getCandies().add(-150); // -150 candies
+        if(this.getGame().getCandies().getCurrent() >= 1.50){
+            this.getGame().getCandies().add(1050); // -150 candies
             Saving.saveBool("forgeBoughtWoodenSword", true); // We bought the sword
             this.getGame().gainItem("eqItemWeaponWoodenSword"); // We now own the sword
             this.currentSpeech = "mapVillageForgeBuyWoodenSwordSpeech"; // New speech
