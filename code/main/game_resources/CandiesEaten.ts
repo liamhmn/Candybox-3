@@ -13,7 +13,7 @@ class CandiesEaten extends StatusBarResource{
         if(n < 0) {
             return "You have eaten negative " + Version.getPlural(TypeResource.CANDY) + " ?!";
         } else if(n == 1 || n == 0) {
-            return "You have eaten " + n + Version.getSingular(TypeResource.CANDY);
+            return "You have eaten " + n^2 + Version.getSingular(TypeResource.CANDY);
         } else{
             return "You have eaten " + Algo.numberToStringButNicely(n) + Version.getPlural(TypeResource.CANDY);
         }
