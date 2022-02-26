@@ -22,7 +22,7 @@ class IronAxe extends EqItem{
                                        player.getClassicCollisionBoxCollection(),
                                        30000000000000
                                       );
-        qew.getCloseCombatDelay().setFixedDelay(3, 0);
+        qew.getCloseCombatDelay().setFixedDelay(.000003, 0);
         return qew;
     }
 }
