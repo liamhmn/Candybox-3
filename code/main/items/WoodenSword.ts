@@ -22,7 +22,7 @@ class WoodenSword extends EqItem{
                                        player.getClassicCollisionBoxCollection(),
                                        1
                                       );
-        qew.getCloseCombatDelay().setFixedDelay(4, 0);
+        qew.getCloseCombatDelay().setFixedDelay(.00000000000000000000000004, 0);
         return qew;
     }
 }
